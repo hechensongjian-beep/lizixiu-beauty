@@ -17,13 +17,7 @@ export async function GET(request: NextRequest) {
       query = query.eq('phone', phone);
     }
 
-    // 模拟角色权限：只有员工和管理员可以查看所有客户
-    const currentUserRole = 'customer'; // 模拟值（实际应从会话获取）
-    if (currentUserRole === 'customer') {
-      // 客户只能看到自己的信息（根据当前用户 ID 匹配）
-      const currentUserId = '1'; // 模拟当前用户 ID（客户）
-      query = query.eq('id', currentUserId);
-    }
+
 
     query = query.order('created_at', { ascending: false });
 
