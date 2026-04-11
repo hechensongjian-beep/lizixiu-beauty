@@ -1,0 +1,20 @@
+﻿# dependencies
+node_modules/
+.next/
+out/
+build/
+
+# environment variables
+.env.local
+.env
+.env.*.local
+
+# sensitive configuration files
+scripts/setup-db.js
+vercel.json
+
+# logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
