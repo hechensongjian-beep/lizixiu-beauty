@@ -18,6 +18,8 @@ export default function CheckoutPage() {
   const [error, setError] = useState('');
   const [orderCreated, setOrderCreated] = useState(false);
   const [currentOrder, setCurrentOrder] = useState<any>(null);
+  const [paymentSubmitted, setPaymentSubmitted] = useState(false);
+  const [submittingPayment, setSubmittingPayment] = useState(false);
 
   useEffect(() => {
     Promise.all([
@@ -153,13 +155,53 @@ export default function CheckoutPage() {
           </div>
         </div>
 
-        <div className="text-center">
-          <p className="text-gray-500 mb-4 text-sm">* 支付完成后点击下方按钮确认</p>
-          <button onClick={() => router.push('/orders')} className="px-10 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold text-lg rounded-lg hover:opacity-90 transition">
-            ✅ 我已支付成功
-          </button>
-          <div className="mt-4"><Link href="/orders" className="text-gray-500 hover:text-gray-700 text-sm">查看我的订单 →</Link></div>
-        </div>
+        {paymentSubmitted ? (
+          <div className="text-center py-6">
+            <div className="text-5xl mb-4">✅</div>
+            <h2 className="text-2xl font-bold text-green-600 mb-3">支付已提交</h2>
+            <p className="text-gray-600 mb-4">商家将在 24 小时内核实到账信息并确认订单</p>
+            <Link href="/orders" className="px-8 py-3 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition">
+              查看我的订单
+            </Link>
+          </div>
+        ) : (
+          <div className="text-center">
+            <p className="text-gray-500 mb-4 text-sm">* 扫码支付完成后，点击下方按钮提交凭证</p>
+            <button
+              onClick={async () => {
+                if (!currentOrder) return;
+                setSubmittingPayment(true);
+                try {
+                  const channel = hasWechat ? 'wechat' : 'alipay';
+                  const res = await fetch('/api/payment-verifications', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                      order_id: currentOrder.id,
+                      customer_name: form.customerName,
+                      customer_phone: form.customerPhone,
+                      amount: total,
+                      payment_channel: channel,
+                    }),
+                  });
+                  if (res.ok) {
+                    setPaymentSubmitted(true);
+                  } else {
+                    const err = await res.json();
+                    alert(err.error || '提交失败，请重试');
+                  }
+                } catch { alert('网络错误，请重试'); }
+                finally { setSubmittingPayment(false); }
+              }}
+              disabled={submittingPayment || !hasQr}
+              className="px-10 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold text-lg rounded-lg hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {submittingPayment ? '提交中...' : '✅ 我已扫码支付，提交凭证'}
+            </button>
+            {!hasQr && <p className="text-sm text-gray-500 mt-2">商家暂未配置收款码，请联系商家获取支付方式</p>}
+            <div className="mt-4"><Link href="/orders" className="text-gray-500 hover:text-gray-700 text-sm">查看我的订单 →</Link></div>
+          </div>
+        )}
       </div>
     );
   }
