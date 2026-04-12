@@ -35,7 +35,7 @@ export default function ServicesPage() {
   const fetchServices = async () => {
     try {
       setLoading(true);
-      const response = await fetch('/api/services');
+      const response = await getServices();
       if (!response.ok) {
         throw new Error(`API 请求失败: ${response.status}`);
       }

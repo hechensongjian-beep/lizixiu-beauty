@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { RoleProvider, useRole } from '@/components/RoleProvider';
+import { getProducts, getServices, getAppointments, getOrders } from '@/lib/api';
 
 type UserRole = 'guest' | 'customer' | 'merchant' | 'admin';
 
@@ -49,10 +50,10 @@ function HomeContent() {
 
   useEffect(() => {
     Promise.all([
-      fetch('/api/products').then(r => r.json()).catch(() => ({})),
-      fetch('/api/services').then(r => r.json()).catch(() => ({})),
-      fetch('/api/appointments').then(r => r.json()).catch(() => ({})),
-      fetch('/api/orders').then(r => r.json()).catch(() => ({})),
+      getProducts().catch(() => ({})),
+      getServices().catch(() => ({})),
+      getAppointments().catch(() => ({})),
+      getOrders().catch(() => ({})),
     ]).then(([prod, svc, apt, ord]) => {
       setProducts((prod.products || []).slice(0, 4));
       setServices((svc.services || []).slice(0, 4));

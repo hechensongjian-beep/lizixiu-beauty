@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { getServices, getStaff, getAppointments, createAppointment } from '@/lib/api';
 
 interface Service { id: string; name: string; description?: string; price: number; duration?: number; }
 interface Staff { id: string; name: string; role?: string; }
@@ -28,9 +29,9 @@ export default function AppointmentsPage() {
 
   useEffect(() => {
     Promise.all([
-      fetch('/api/services').then(r => r.json()).catch(() => ({})),
-      fetch('/api/staff').then(r => r.json()).catch(() => ({})),
-      fetch('/api/appointments').then(r => r.json()).catch(() => ({})),
+      getServices().catch(() => ({})),
+      getStaff().catch(() => ({})),
+      getAppointments().catch(() => ({})),
     ]).then(([svc, st, apt]) => {
       setServices(svc.services || []);
       setStaff(st.staff || []);
@@ -68,11 +69,7 @@ export default function AppointmentsPage() {
     const endM = (parseInt(time.split(':')[1]) + (svc?.duration || 60)) % 60;
     const end = `${date}T${String(endH).padStart(2,'0')}:${String(endM).padStart(2,'0')}:00`;
     try {
-      const res = await fetch('/api/appointments', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ service_id: serviceId, staff_id: staffId, start_time: start, end_time: end, notes }),
-      });
+      const res = await createAppointment({ service_id: serviceId, staff_id: staffId, start_time: start, end_time: end, notes });
       const data = await res.json();
       if (res.ok) {
         setBooked(true);

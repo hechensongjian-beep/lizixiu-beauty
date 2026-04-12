@@ -23,8 +23,8 @@ export default function CheckoutPage() {
 
   useEffect(() => {
     Promise.all([
-      fetch('/api/products').then(r => r.json()).catch(() => ({})),
-      fetch('/api/payment-settings').then(r => r.json()).catch(() => ({})),
+      getProducts().catch(() => ({})),
+      Promise.resolve({ wechatQr: '', alipayQr: '', merchantName: '丽姿秀' }),
     ]).then(([prodData, payData]) => {
       if (prodData.products) {
         const m: Record<string, any> = {};
@@ -69,11 +69,7 @@ export default function CheckoutPage() {
     setSubmitting(true);
     setError('');
     try {
-      const response = await fetch('/api/orders', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, items: resolvedCart, subtotal, shippingFee: shipping, tax, total }),
-      });
+      const response = await createOrder({ ...form, items: resolvedCart, subtotal, shippingFee: shipping, tax, total });
       const result = await response.json();
       if (response.ok) {
         localStorage.removeItem('beauty-shop-cart');
@@ -173,17 +169,13 @@ export default function CheckoutPage() {
                 setSubmittingPayment(true);
                 try {
                   const channel = hasWechat ? 'wechat' : 'alipay';
-                  const res = await fetch('/api/payment-verifications', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
+                  const res = await createPaymentVerification({
                       order_id: currentOrder.id,
                       customer_name: form.customerName,
                       customer_phone: form.customerPhone,
                       amount: total,
                       payment_channel: channel,
-                    }),
-                  });
+                    });
                   if (res.ok) {
                     setPaymentSubmitted(true);
                   } else {
