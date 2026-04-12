@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import { getPaymentVerifications, updatePaymentVerification } from '@/lib/api';
 
 interface Verification {
   id: string;
@@ -44,11 +45,15 @@ export default function PaymentVerifyPage() {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch(`/api/payment-verifications?status=${filter === 'all' ? '' : filter}&limit=100`);
-      if (!res.ok) throw new Error('加载失败');
-      const data = await res.json();
-      setVerifications(data.verifications || []);
-      setSummary(data.summary || { pending: 0, approved: 0, rejected: 0, totalAmount: 0 });
+      const data = await getPaymentVerifications(filter === 'all' ? undefined : filter);
+      const verifs = data?.verifications || [];
+      setVerifications(verifs);
+      setSummary({
+        pending: verifs.filter((v: any) => v.status === 'pending').length,
+        approved: verifs.filter((v: any) => v.status === 'approved').length,
+        rejected: verifs.filter((v: any) => v.status === 'rejected').length,
+        totalAmount: verifs.reduce((s: number, v: any) => s + (v.amount || 0), 0),
+      });
     } catch (e: any) {
       setError(e.message);
     } finally {
@@ -69,17 +74,13 @@ export default function PaymentVerifyPage() {
     if (!noteModal) return;
     setProcessingId(noteModal.id);
     try {
-      const res = await fetch('/api/payment-verifications', {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          verification_id: noteModal.id,
-          action: noteModal.action,
-          merchant_note: note,
-        }),
+      const newStatus = noteModal.action === 'approve' ? 'approved' : 'rejected';
+      const result = await updatePaymentVerification(noteModal.id, {
+        status: newStatus,
+        merchant_note: note,
+        verified_at: new Date().toISOString(),
       });
-      const json = await res.json();
-      if (!res.ok) throw new Error(json.error || '操作失败');
+      if (result.error) throw new Error(result.error);
       setNoteModal(null);
       fetchData();
     } catch (e: any) {

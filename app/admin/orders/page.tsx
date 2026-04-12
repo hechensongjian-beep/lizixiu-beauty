@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { getOrders, updateOrderStatus } from '@/lib/api';
 
 interface OrderItem {
   productId: string;
@@ -41,9 +42,8 @@ export default function AdminOrdersPage() {
   const fetchOrders = async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/orders');
-      const data = await res.json();
-      setOrders(data.orders || []);
+      const data = await getOrders();
+      setOrders(data?.orders || []);
     } catch (error) {
       console.error('获取订单失败', error);
     } finally {
@@ -71,17 +71,11 @@ export default function AdminOrdersPage() {
     return true;
   });
 
-  const updateOrderStatus = async (orderId: string, newStatus: string) => {
+  const handleUpdateOrderStatus = async (orderId: string, newStatus: string) => {
     setUpdating(orderId);
     try {
-      const res = await fetch('/api/orders', {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id: orderId, status: newStatus }),
-      });
-      const data = await res.json();
+      const data = await updateOrderStatus(orderId, newStatus);
       if (data.success) {
-        // 更新本地状态
         setOrders(prev =>
           prev.map(order =>
             order.id === orderId
@@ -287,7 +281,7 @@ export default function AdminOrdersPage() {
                   <select
                     id={`status-${order.id}`}
                     value={order.status}
-                    onChange={(e) => updateOrderStatus(order.id, e.target.value)}
+                    onChange={(e) => handleUpdateOrderStatus(order.id, e.target.value)}
                     disabled={updating === order.id}
                     className="px-4 py-2 border border-gray-300 rounded-lg font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50"
                   >

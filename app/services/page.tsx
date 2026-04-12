@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import { getServices, createService, updateService, deleteService } from '@/lib/api';
 
 interface Service {
   id: string;
@@ -35,12 +36,11 @@ export default function ServicesPage() {
   const fetchServices = async () => {
     try {
       setLoading(true);
-      const response = await getServices();
-      if (!response.ok) {
-        throw new Error(`API 请求失败: ${response.status}`);
+      const result = await getServices();
+      if (result?.error) {
+        throw new Error(result.error);
       }
-      const result = await response.json();
-      setServices(result.services || []);
+      setServices(result?.services || []);
     } catch (err: any) {
       setError(err.message || '加载失败');
       console.error(err);
@@ -55,14 +55,8 @@ export default function ServicesPage() {
     }
     setDeletingId(id);
     try {
-      const response = await fetch(`/api/services?id=${id}`, {
-        method: 'DELETE',
-      });
-      if (!response.ok) {
-        const result = await response.json();
-        throw new Error(result.error || '删除失败');
-      }
-      // 从本地状态中移除
+      const result = await deleteService(id);
+      if (result.error) throw new Error(result.error);
       setServices(prev => prev.filter(s => s.id !== id));
     } catch (err: any) {
       alert(`删除失败: ${err.message}`);
@@ -87,19 +81,11 @@ export default function ServicesPage() {
     }
     setSubmitting(true);
     try {
-      const response = await fetch('/api/services', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newService),
-      });
-      if (!response.ok) {
-        const result = await response.json();
-        throw new Error(result.error || '添加失败');
+      const result = await createService(newService);
+      if (result.error) throw new Error(result.error);
+      if (result.service) {
+        setServices(prev => [result.service, ...prev]);
       }
-      const result = await response.json();
-      // 添加到本地列表
-      setServices(prev => [result.service, ...prev]);
-      // 重置表单
       setNewService({
         name: '',
         category: '面部护理',
@@ -135,16 +121,8 @@ export default function ServicesPage() {
     }
     setSubmitting(true);
     try {
-      const response = await fetch(`/api/services?id=${editingService.id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(editingService),
-      });
-      if (!response.ok) {
-        const result = await response.json();
-        throw new Error(result.error || '更新失败');
-      }
-      // 更新本地状态
+      const result = await updateService(editingService.id, editingService);
+      if (result.error) throw new Error(result.error);
       setServices(prev => prev.map(s => s.id === editingService.id ? editingService : s));
       setEditingService(null);
       alert('更新成功！');

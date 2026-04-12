@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { getProducts, createOrder, createPaymentVerification } from '@/lib/api';
 
 interface CartItem { productId: string; name: string; price: number; quantity: number; }
 interface PaymentInfo { wechatQr: string; alipayQr: string; merchantName: string; }
@@ -23,10 +24,10 @@ export default function CheckoutPage() {
 
   useEffect(() => {
     Promise.all([
-      getProducts().catch(() => ({})),
+      getProducts(),
       Promise.resolve({ wechatQr: '', alipayQr: '', merchantName: '丽姿秀' }),
     ]).then(([prodData, payData]) => {
-      if (prodData.products) {
+      if (prodData?.products) {
         const m: Record<string, any> = {};
         prodData.products.forEach((p: any) => { m[p.id] = p; });
         setProducts(m);

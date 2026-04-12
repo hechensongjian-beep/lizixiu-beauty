@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import { getCustomers } from '@/lib/api';
 
 interface Customer {
   id: string;
@@ -22,12 +23,9 @@ export default function CustomersPage() {
   const fetchCustomers = async () => {
     try {
       setLoading(true);
-      const response = await fetch('/api/customers');
-      if (!response.ok) {
-        throw new Error(`API 请求失败: ${response.status}`);
-      }
-      const result = await response.json();
-      setCustomers(result.customers || []);
+      const result = await getCustomers();
+      if (result?.error) throw new Error(result.error);
+      setCustomers(result?.customers || []);
     } catch (err: any) {
       setError(err.message || '加载失败');
       console.error(err);

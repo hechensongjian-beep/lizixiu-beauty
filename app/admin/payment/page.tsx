@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
+import { getPaymentSettings, savePaymentSettings } from '@/lib/api';
 
 interface PaymentSettings {
   wechatQr: string;
@@ -18,8 +19,7 @@ export default function PaymentSettingsPage() {
   const [uploading, setUploading] = useState<'wechat' | 'alipay' | null>(null);
 
   useEffect(() => {
-    fetch('/api/payment-settings')
-      .then(r => r.json())
+    getPaymentSettings()
       .then(data => {
         setSettings({ wechatQr: data.wechatQr || '', alipayQr: data.alipayQr || '', merchantName: data.merchantName || '丽姿秀' });
         setLoading(false);
@@ -44,16 +44,12 @@ export default function PaymentSettingsPage() {
   const handleSave = async () => {
     setSaving(true);
     try {
-      const res = await fetch('/api/payment-settings', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(settings),
-      });
-      if (res.ok) {
+      const result = await savePaymentSettings(settings);
+      if (result.success) {
         setSaved(true);
         setTimeout(() => setSaved(false), 3000);
       } else {
-        alert('保存失败');
+        alert('保存失败: ' + (result.error || ''));
       }
     } catch (e) { alert('保存失败'); }
     finally { setSaving(false); }

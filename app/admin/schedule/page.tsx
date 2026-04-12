@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import Link from 'next/link';
+import { getStaffSchedule, updateStaffSchedule, getStaff, getAppointments, updateAppointmentStatus } from '@/lib/api';
 
 interface Staff {
   id: string;
@@ -206,10 +207,34 @@ export default function AdminSchedulePage() {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch(`/api/staff/schedule?date=${date}&view=${v}`);
-      if (!res.ok) throw new Error('加载排班数据失败');
-      const json = await res.json();
-      setData(json);
+      const [schedRes, staffRes, aptRes] = await Promise.all([
+        getStaffSchedule(date, v),
+        getStaff(),
+        getAppointments(),
+      ]);
+      const staff = staffRes?.staff || [];
+      const appointments = aptRes?.appointments || [];
+      const summary = {
+        totalStaff: staff.length,
+        totalAppointments: appointments.length,
+        pending: appointments.filter((a: any) => a.status === 'pending').length,
+        confirmed: appointments.filter((a: any) => a.status === 'confirmed').length,
+        completed: appointments.filter((a: any) => a.status === 'completed').length,
+        cancelled: appointments.filter((a: any) => a.status === 'cancelled').length,
+      };
+      const weekStart = new Date(date + 'T00:00:00');
+      weekStart.setDate(weekStart.getDate() - weekStart.getDay() + 1);
+      const weekDates = Array.from({ length: 7 }, (_, i) => {
+        const d = new Date(weekStart); d.setDate(d.getDate() + i);
+        return d.toISOString().split('T')[0];
+      });
+      const schedule: Record<string, any[]> = {};
+      appointments.forEach((a: any) => {
+        const key = a.start_time?.substring(0, 10) || date;
+        if (!schedule[key]) schedule[key] = [];
+        schedule[key].push(a);
+      });
+      setData({ date, view: v, weekDates, staff, appointments, schedule, summary } as ScheduleData);
     } catch (e: any) {
       setError(e.message);
     } finally {
@@ -254,14 +279,12 @@ export default function AdminSchedulePage() {
     if (!selectedApt) return;
     setReassigning(true);
     try {
-      const res = await fetch('/api/staff/schedule', {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ appointment_id: selectedApt.id, new_staff_id: newStaffId }),
-      });
-      const json = await res.json();
-      if (!res.ok) throw new Error(json.error || '调换失败');
-      // 刷新数据
+      const result = await updateAppointmentStatus(selectedApt.id, 'confirmed');
+      if (result.error) throw new Error(result.error);
+      // Update staff_id if reassigned
+      if (newStaffId !== selectedApt.staff_id) {
+        await updateStaffSchedule(selectedApt.id, { staff_id: newStaffId });
+      }
       await fetchSchedule(currentDate, view);
       setSelectedApt(null);
     } catch (e: any) {

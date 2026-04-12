@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { getAppointments } from '@/lib/api';
 
 interface Appointment {
   id: string; start_time: string; end_time: string; status: string;
@@ -63,9 +64,8 @@ export default function CalendarPage() {
   const fetchAppointments = async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/appointments');
-      const data = await res.json();
-      const apts = data.appointments || [];
+      const data = await getAppointments();
+      const apts = data?.appointments || [];
       setAppointments(apts);
       const monthStart = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).toISOString().split('T')[0];
       const monthEnd = new Date(currentDate.getFullYear(), currentDate.getMonth()+1, 0).toISOString().split('T')[0];

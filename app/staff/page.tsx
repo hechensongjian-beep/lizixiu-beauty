@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import { getStaff, createStaff, updateStaff, deleteStaff } from '@/lib/api';
 
 interface Staff {
   id: string;
@@ -37,12 +38,9 @@ export default function StaffPage() {
   const fetchStaff = async () => {
     try {
       setLoading(true);
-      const response = await fetch('/api/staff');
-      if (!response.ok) {
-        throw new Error(`API 请求失败: ${response.status}`);
-      }
-      const result = await response.json();
-      setStaff(result.staff || []);
+      const result = await getStaff();
+      if (result?.error) throw new Error(result.error);
+      setStaff(result?.staff || []);
     } catch (err: any) {
       setError(err.message || '加载失败');
       console.error(err);
@@ -57,14 +55,8 @@ export default function StaffPage() {
     }
     setDeletingId(id);
     try {
-      const response = await fetch(`/api/staff?id=${id}`, {
-        method: 'DELETE',
-      });
-      if (!response.ok) {
-        const result = await response.json();
-        throw new Error(result.error || '删除失败');
-      }
-      // 从本地状态中移除
+      const result = await deleteStaff(id);
+      if (result.error) throw new Error(result.error);
       setStaff(prev => prev.filter(s => s.id !== id));
     } catch (err: any) {
       alert(`删除失败: ${err.message}`);
@@ -85,19 +77,9 @@ export default function StaffPage() {
     }
     setSubmitting(true);
     try {
-      const response = await fetch('/api/staff', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newStaff),
-      });
-      if (!response.ok) {
-        const result = await response.json();
-        throw new Error(result.error || '添加失败');
-      }
-      const result = await response.json();
-      // 添加到本地列表
-      setStaff(prev => [result.staff, ...prev]);
-      // 重置表单
+      const result = await createStaff(newStaff);
+      if (result.error) throw new Error(result.error);
+      if (result.staff) setStaff(prev => [result.staff, ...prev]);
       setNewStaff({
         name: '',
         role: '美容师',
@@ -129,24 +111,16 @@ export default function StaffPage() {
     }
     setSubmitting(true);
     try {
-      const response = await fetch(`/api/staff?id=${editingStaff.id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: editingStaff.name,
-          role: editingStaff.role,
-          phone: editingStaff.phone || '',
-          email: editingStaff.email || '',
-          specialties: editingStaff.specialties || [],
-          experience_years: editingStaff.experience_years || 0,
-          is_active: editingStaff.is_active ?? true,
-        }),
+      const result = await updateStaff(editingStaff.id, {
+        name: editingStaff.name,
+        role: editingStaff.role,
+        phone: editingStaff.phone || '',
+        email: editingStaff.email || '',
+        specialties: editingStaff.specialties || [],
+        experience_years: editingStaff.experience_years || 0,
+        is_active: editingStaff.is_active ?? true,
       });
-      if (!response.ok) {
-        const result = await response.json();
-        throw new Error(result.error || '更新失败');
-      }
-      // 更新本地状态
+      if (result.error) throw new Error(result.error);
       setStaff(prev => prev.map(s => s.id === editingStaff.id ? { ...s, ...editingStaff } : s));
       setEditingStaff(null);
       alert('更新成功！');

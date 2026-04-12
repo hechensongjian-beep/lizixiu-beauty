@@ -50,16 +50,16 @@ function HomeContent() {
 
   useEffect(() => {
     Promise.all([
-      getProducts().catch(() => ({})),
-      getServices().catch(() => ({})),
-      getAppointments().catch(() => ({})),
-      getOrders().catch(() => ({})),
+      getProducts(),
+      getServices(),
+      getAppointments(),
+      getOrders(),
     ]).then(([prod, svc, apt, ord]) => {
-      setProducts((prod.products || []).slice(0, 4));
-      setServices((svc.services || []).slice(0, 4));
-      setAppointments(apt.appointments || []);
-      setOrders(ord.orders || []);
-      setCustomers((prod.products || []).length);
+      setProducts((prod?.products || []).slice(0, 4));
+      setServices((svc?.services || []).slice(0, 4));
+      setAppointments(apt?.appointments || []);
+      setOrders(ord?.orders || []);
+      setCustomers((prod?.products || []).length);
       setLoading(false);
     }).catch(() => setLoading(false));
   }, []);

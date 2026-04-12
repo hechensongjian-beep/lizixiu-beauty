@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import { getAppointments } from '@/lib/api';
 
 interface Appointment {
   id: string;
@@ -34,11 +35,8 @@ export default function ProfilePage() {
 
   const fetchAppointments = async () => {
     try {
-      const response = await fetch('/api/appointments');
-      if (!response.ok) throw new Error('加载失败');
-      const result = await response.json();
-      // 只显示当前用户的预约（模拟）
-      setAppointments(result.appointments.slice(0, 5) || []);
+      const result = await getAppointments();
+      setAppointments(result?.appointments?.slice(0, 5) || []);
     } catch (err) {
       console.error(err);
     } finally {

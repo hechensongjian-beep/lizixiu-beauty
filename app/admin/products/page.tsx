@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
+import { getProducts, createProduct, updateProduct, deleteProduct } from '@/lib/api';
 
 interface Product {
   id: string; name: string; description: string; price: number;
@@ -31,9 +32,8 @@ export default function AdminProductsPage() {
   const fetchProducts = async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/products');
-      const data = await res.json();
-      setProducts(data.products || []);
+      const data = await getProducts();
+      setProducts(data?.products || []);
     } catch (e) { console.error(e); }
     finally { setLoading(false); }
   };
@@ -74,19 +74,18 @@ export default function AdminProductsPage() {
     e.preventDefault();
     if (!form.name || !form.price || !form.category) { alert('请填写名称、价格和分类'); return; }
     try {
-      const method = editing ? 'PUT' : 'POST';
-      const url = editing ? `/api/products?id=${editing.id}` : '/api/products';
-      const res = await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(form) });
-      if (res.ok) { alert(editing ? '更新成功' : '添加成功'); fetchProducts(); setTab('list'); }
-      else { const err = await res.json(); alert((err as any).error || '失败'); }
+      const result = editing ? await updateProduct(editing.id, form) : await createProduct(form);
+      if (result.error) { alert(result.error); }
+      else { alert(editing ? '更新成功' : '添加成功'); fetchProducts(); setTab('list'); }
     } catch { alert('网络错误'); }
   };
 
   const handleDelete = async (id: string) => {
     if (!confirm('确定删除？删除后无法恢复')) return;
     try {
-      const res = await fetch(`/api/products?id=${id}`, { method: 'DELETE' });
-      if (res.ok) { alert('删除成功'); fetchProducts(); }
+      const result = await deleteProduct(id);
+      if (result.success) { alert('删除成功'); fetchProducts(); }
+      else { alert(result.error || '删除失败'); }
     } catch { alert('网络错误'); }
   };
 

@@ -29,15 +29,15 @@ export default function AppointmentsPage() {
 
   useEffect(() => {
     Promise.all([
-      getServices().catch(() => ({})),
-      getStaff().catch(() => ({})),
-      getAppointments().catch(() => ({})),
+      getServices(),
+      getStaff(),
+      getAppointments(),
     ]).then(([svc, st, apt]) => {
-      setServices(svc.services || []);
-      setStaff(st.staff || []);
-      setAppointments(apt.appointments || []);
+      setServices(svc?.services || []);
+      setStaff(st?.staff || []);
+      setAppointments(apt?.appointments || []);
       setLoading(false);
-    });
+    }).catch(() => setLoading(false));
   }, []);
 
   // 自动选择第一个服务/员工

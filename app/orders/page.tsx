@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { getOrders } from '@/lib/api';
 
 interface OrderItem {
   productId: string;
@@ -31,10 +32,9 @@ export default function OrdersPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/api/orders')
-      .then(res => res.json())
+    getOrders()
       .then(data => {
-        setOrders(data.orders || []);
+        setOrders(data?.orders || []);
         setLoading(false);
       })
       .catch(err => {

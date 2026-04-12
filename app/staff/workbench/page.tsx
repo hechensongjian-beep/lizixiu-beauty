@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import { getStaff, getStaffDashboard, updateAppointmentStatus } from '@/lib/api';
 
 interface Staff {
   id: string;
@@ -66,10 +67,8 @@ export default function StaffWorkbenchPage() {
   // 加载员工列表
   const fetchStaff = useCallback(async () => {
     try {
-      const res = await fetch('/api/staff?active=true');
-      const data = await res.json();
-      // 兼容返回格式
-      const list = Array.isArray(data) ? data : (data.staff || data.data || []);
+      const data = await getStaff();
+      const list = data?.staff || [];
       setStaffList(list);
     } catch {
       setError('加载员工列表失败');
@@ -83,14 +82,25 @@ export default function StaffWorkbenchPage() {
     setDashboardLoading(true);
     setError(null);
     try {
-      const res = await fetch(`/api/staff/dashboard?staff_id=${staffId}`);
-      if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.error || '加载失败');
-      }
-      const data = await res.json();
-      setDashboard(data);
-      // 记住选择
+      const data = await getStaffDashboard(staffId);
+      if (data.error) throw new Error(data.error);
+      // Transform to match DashboardData interface
+      const today = new Date().toISOString().split('T')[0];
+      const todayAppts = data.todayAppointments || [];
+      const weekStart = new Date(today + 'T00:00:00');
+      weekStart.setDate(weekStart.getDate() - weekStart.getDay() + 1);
+      const daily: DayStat[] = Array.from({ length: 7 }, (_, i) => {
+        const d = new Date(weekStart); d.setDate(d.getDate() + i);
+        const ds = d.toISOString().split('T')[0];
+        return { date: ds, dayName: ['日','一','二','三','四','五','六'][d.getDay()], count: todayAppts.filter((a: any) => a.start_time?.startsWith(ds)).length };
+      });
+      const ws = data.weeklyStats || {};
+      setDashboard({
+        staff: { id: staffId, name: '', role: '' },
+        today: { date: today, appointments: todayAppts, count: todayAppts.length },
+        week: { start: weekStart.toISOString().split('T')[0], end: '', total: ws.completedCount || 0, completed: ws.completedCount || 0, pending: ws.pendingCount || 0, confirmed: 0, earnings: ws.revenue || 0, daily },
+        upcoming: todayAppts.filter((a: any) => a.status === 'confirmed' || a.status === 'pending'),
+      } as DashboardData);
       localStorage.setItem('staff_workbench_id', staffId);
     } catch (e: any) {
       setError(e.message || '加载工作台失败');
@@ -129,13 +139,8 @@ export default function StaffWorkbenchPage() {
   const handleStatusChange = async (appointmentId: string, newStatus: string) => {
     setUpdatingId(appointmentId);
     try {
-      const res = await fetch('/api/staff/dashboard', {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ appointment_id: appointmentId, status: newStatus }),
-      });
-      if (!res.ok) throw new Error('更新失败');
-      // 刷新数据
+      const result = await updateAppointmentStatus(appointmentId, newStatus);
+      if (result.error) throw new Error(result.error);
       if (selectedStaffId) fetchDashboard(selectedStaffId);
     } catch (e: any) {
       alert(e.message);

@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import { getProducts } from '@/lib/api';
 
 interface Product {
   id: string;
@@ -26,10 +27,9 @@ export default function ProductsPage() {
   const [addedId, setAddedId] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch('/api/products')
-      .then(res => res.json())
+    getProducts()
       .then(data => {
-        setProducts(data.products || []);
+        setProducts(data?.products || []);
         setLoading(false);
       })
       .catch(() => setLoading(false));

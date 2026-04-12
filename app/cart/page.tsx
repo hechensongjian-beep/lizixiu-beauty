@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import { getProducts } from '@/lib/api';
 
 interface Product {
   id: string; name: string; description: string; price: number;
@@ -15,10 +16,9 @@ export default function CartPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/api/products')
-      .then(res => res.json())
+    getProducts()
       .then(data => {
-        if (data.products) {
+        if (data?.products) {
           const m: Record<string, Product> = {};
           data.products.forEach((p: Product) => { m[p.id] = p; });
           setProducts(m);
