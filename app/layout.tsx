@@ -4,411 +4,238 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import Head from "next/head";
-import { supabase } from "@/lib/supabase";
+import { RoleProvider, useRole } from "@/components/RoleProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
 type UserRole = 'guest' | 'customer' | 'merchant' | 'admin';
+
+// 各角色专属导航
+const ROLE_NAV: Record<UserRole, { href: string; label: string }[]> = {
+  guest: [
+    { href: '/', label: '🏠 首页' },
+    { href: '/appointments', label: '📅 预约' },
+    { href: '/services', label: '💅 服务' },
+    { href: '/products', label: '🛍️ 产品商店' },
+    { href: '/cart', label: '🛒 购物车' },
+    { href: '/orders', label: '📦 我的订单' },
+    { href: '/chat', label: '💬 咨询' },
+  ],
+  customer: [
+    { href: '/', label: '🏠 首页' },
+    { href: '/appointments', label: '📅 预约' },
+    { href: '/services', label: '💅 服务' },
+    { href: '/products', label: '🛍️ 产品商店' },
+    { href: '/cart', label: '🛒 购物车' },
+    { href: '/orders', label: '📦 我的订单' },
+    { href: '/profile', label: '👤 个人中心' },
+    { href: '/chat', label: '💬 咨询' },
+  ],
+  merchant: [
+    { href: '/', label: '🏠 首页' },
+    { href: '/calendar', label: '📅 日历' },
+    { href: '/appointments', label: '📆 预约管理' },
+    { href: '/admin/orders', label: '📊 订单' },
+    { href: '/admin/products', label: '📦 产品' },
+    { href: '/admin/dashboard', label: '📈 数据' },
+    { href: '/customers', label: '👥 客户' },
+    { href: '/chat', label: '💬 客服' },
+  ],
+  admin: [
+    { href: '/', label: '🏠 首页' },
+    { href: '/calendar', label: '📅 日历' },
+    { href: '/appointments', label: '📆 预约' },
+    { href: '/admin/orders', label: '📊 订单' },
+    { href: '/admin/products', label: '📦 产品' },
+    { href: '/admin/dashboard', label: '📈 数据面板' },
+    { href: '/customers', label: '👥 客户' },
+    { href: '/staff', label: '👩‍💼 员工' },
+    { href: '/chat', label: '💬 客服' },
+    { href: '/notifications', label: '🔔 通知' },
+  ],
+};
+
+const ROLE_LABELS: Record<UserRole, string> = {
+  guest: '👤 访客',
+  customer: '👩‍🦰 客户',
+  merchant: '🏪 商家',
+  admin: '👑 管理员',
+};
+
+const ROLE_COLORS: Record<UserRole, string> = {
+  guest: 'from-gray-400 to-gray-500',
+  customer: 'from-pink-400 to-rose-500',
+  merchant: 'from-purple-500 to-indigo-600',
+  admin: 'from-amber-400 to-orange-500',
+};
+
+function NavContent() {
+  const { role, setRole, mounted } = useRole();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [roleMenuOpen, setRoleMenuOpen] = useState(false);
+
+  const navItems = ROLE_NAV[role] || ROLE_NAV.guest;
+  const colorClass = ROLE_COLORS[role];
+
+  return (
+    <>
+      {/* 顶部导航栏 */}
+      <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-200 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            {/* Logo */}
+            <div className="flex items-center flex-shrink-0">
+              <Link href="/" className="flex items-center gap-2">
+                <span className="text-2xl font-bold bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent">
+                  丽姿秀
+                </span>
+                <span className="text-gray-500 text-sm hidden md:inline">· {ROLE_LABELS[role]}专属</span>
+              </Link>
+
+              {/* 桌面端导航 — 按角色显示 */}
+              <div className="hidden lg:flex items-baseline ml-8 space-x-1">
+                {navItems.map(item => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="text-gray-700 hover:text-pink-600 font-medium px-3 py-2 rounded-lg hover:bg-pink-50 transition text-sm"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* 右侧 */}
+            <div className="flex items-center space-x-3">
+              {/* 通知铃铛 */}
+              <Link href="/notifications"
+                className="relative w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center text-lg hover:bg-gray-200 transition">
+                🔔
+              </Link>
+
+              {/* 角色切换 */}
+              {mounted && (
+                <div className="relative">
+                  <button
+                    onClick={() => setRoleMenuOpen(!roleMenuOpen)}
+                    className={`flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r ${colorClass} text-white rounded-lg text-sm font-semibold hover:opacity-90 transition shadow-sm`}
+                  >
+                    <span>{ROLE_LABELS[role]}</span>
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+
+                  {roleMenuOpen && (
+                    <div className="absolute right-0 mt-2 w-52 bg-white rounded-xl shadow-xl border border-gray-200 py-2 z-50">
+                      <div className="px-4 py-2 text-xs text-gray-500 font-medium border-b border-gray-100">
+                        切换角色视角
+                      </div>
+                      {(Object.entries(ROLE_LABELS) as [UserRole, string][]).map(([r, label]) => (
+                        <button
+                          key={r}
+                          onClick={() => { setRole(r); setRoleMenuOpen(false); }}
+                          className={`w-full text-left px-4 py-2.5 text-sm hover:bg-pink-50 transition flex items-center gap-2 ${
+                            r === role ? 'bg-pink-50 text-pink-600 font-semibold' : 'text-gray-700'
+                          }`}
+                        >
+                          <span className={`w-2 h-2 rounded-full bg-gradient-to-r ${ROLE_COLORS[r]}`}></span>
+                          {label}
+                          {r === role && <span className="ml-auto text-pink-500">✓</span>}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* 登录按钮（访客） */}
+              {mounted && role === 'guest' && (
+                <Link href="/auth/login"
+                  className="px-4 py-2 text-sm bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-lg font-semibold hover:opacity-90 transition">
+                  登录 / 注册
+                </Link>
+              )}
+
+              {/* 用户头像 */}
+              <div className="h-9 w-9 rounded-full bg-gradient-to-r from-pink-400 to-purple-500 flex items-center justify-center text-white text-sm font-bold">
+                {mounted ? role[0].toUpperCase() : '?'}
+              </div>
+
+              {/* 移动端菜单按钮 */}
+              <button
+                className="lg:hidden p-2 rounded-lg text-gray-700 hover:text-pink-600 hover:bg-pink-50 transition"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                    d={mobileMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* 移动端菜单 */}
+        {mobileMenuOpen && (
+          <div className="lg:hidden bg-white/95 border-t border-gray-100 shadow-lg">
+            <div className="px-4 py-2 space-y-1">
+              {navItems.map(item => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block py-3 px-4 text-gray-800 hover:text-pink-600 hover:bg-pink-50 rounded-lg font-medium transition"
+                >
+                  {item.label}
+                </Link>
+              ))}
+              {mounted && role === 'guest' && (
+                <Link href="/auth/login" onClick={() => setMobileMenuOpen(false)}
+                  className="block py-3 px-4 text-pink-600 font-semibold">
+                  登录 / 注册
+                </Link>
+              )}
+            </div>
+          </div>
+        )}
+      </nav>
+
+      {/* 点击空白关闭角色菜单 */}
+      {roleMenuOpen && (
+        <div className="fixed inset-0 z-40" onClick={() => setRoleMenuOpen(false)} />
+      )}
+    </>
+  );
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [role, setRole] = useState<UserRole>('guest');
-  const [mounted, setMounted] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    // 获取当前 Supabase 会话
-    const initAuth = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session?.user) {
-        // 从 user_metadata 中读取角色，默认为 'customer'
-        const userRole = session.user.user_metadata?.role as UserRole;
-        if (userRole && ['customer', 'merchant', 'admin'].includes(userRole)) {
-          setRole(userRole);
-          localStorage.setItem('app_role', userRole);
-        } else {
-          // 如果没有元数据角色，设为 'customer'
-          setRole('customer');
-          localStorage.setItem('app_role', 'customer');
-        }
-      } else {
-        // 没有会话，设为 'guest'
-        setRole('guest');
-        localStorage.setItem('app_role', 'guest');
-      }
-      setMounted(true);
-    };
-
-    initAuth();
-
-    // 监听身份验证状态变化
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
-      if (session?.user) {
-        const userRole = session.user.user_metadata?.role as UserRole;
-        if (userRole && ['customer', 'merchant', 'admin'].includes(userRole)) {
-          setRole(userRole);
-          localStorage.setItem('app_role', userRole);
-        } else {
-          setRole('customer');
-          localStorage.setItem('app_role', 'customer');
-        }
-      } else {
-        setRole('guest');
-        localStorage.setItem('app_role', 'guest');
-      }
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
-
-  const changeRole = (newRole: UserRole) => {
-    setRole(newRole);
-    localStorage.setItem('app_role', newRole);
-    // 刷新页面以应用角色变化（简单处理）
-    window.location.reload();
-  };
-
   return (
     <html lang="zh-CN" className="h-full">
-      <Head>
-        <title>丽姿秀 · 预约管理系统</title>
-        <meta name="description" content="专为美容工作室设计的智能预约管理平台" />
+      <head>
+        <title>丽姿秀 · 美容管理系统</title>
+        <meta name="description" content="丽姿秀专业美容服务与电商平台" />
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head>
+      </head>
       <body className={`${inter.className} min-h-full bg-gradient-to-br from-pink-50 to-purple-100`}>
-        {/* 顶部导航栏 */}
-        <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between h-16">
-              <div className="flex items-center">
-                <div className="flex-shrink-0 flex items-center">
-                  <span className="text-2xl font-bold bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent">
-                    丽姿秀
-                  </span>
-                  <span className="ml-2 text-gray-500 text-sm hidden md:inline">预约管理系统</span>
-                </div>
-                {/* 桌面端导航 */}
-                <div className="hidden md:block ml-12">
-                  <div className="flex items-baseline space-x-8">
-                    <Link
-                      href="/"
-                      className="text-gray-700 hover:text-pink-600 font-medium px-3 py-2 rounded-lg hover:bg-pink-50 transition"
-                    >
-                      🏠 首页
-                    </Link>
-                    <Link
-                      href="/appointments"
-                      className="text-gray-700 hover:text-pink-600 font-medium px-3 py-2 rounded-lg hover:bg-pink-50 transition"
-                    >
-                      📅 预约
-                    </Link>
-                    <Link
-                      href="/customers"
-                      className="text-gray-700 hover:text-pink-600 font-medium px-3 py-2 rounded-lg hover:bg-pink-50 transition"
-                    >
-                      👥 客户
-                    </Link>
-                    <Link
-                      href="/services"
-                      className="text-gray-700 hover:text-pink-600 font-medium px-3 py-2 rounded-lg hover:bg-pink-50 transition"
-                    >
-                      💅 服务
-                    </Link>
-                    <Link
-                      href="/staff"
-                      className="text-gray-700 hover:text-pink-600 font-medium px-3 py-2 rounded-lg hover:bg-pink-50 transition"
-                    >
-                      👩‍💼 员工
-                    </Link>
-                    <Link
-                      href="/products"
-                      className="text-gray-700 hover:text-pink-600 font-medium px-3 py-2 rounded-lg hover:bg-pink-50 transition"
-                    >
-                      🛍️ 产品商店
-                    </Link>
-                  </div>
-                </div>
-
-                {/* 移动端菜单按钮 */}
-                <div className="md:hidden ml-4">
-                  <button
-                    type="button"
-                    className="inline-flex items-center justify-center p-2 rounded-lg text-gray-700 hover:text-pink-600 hover:bg-pink-50 transition"
-                    onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                  >
-                    <span className="sr-only">打开菜单</span>
-                    {mobileMenuOpen ? (
-                      <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                      </svg>
-                    ) : (
-                      <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-                      </svg>
-                    )}
-                  </button>
-                </div>
-              </div>
-
-              {/* 移动端菜单面板 */}
-              {mobileMenuOpen && (
-                <div className="absolute top-16 left-0 right-0 z-40 md:hidden bg-white/95 backdrop-blur-lg border-b border-gray-200 shadow-lg">
-                  <div className="px-4 py-3 space-y-2">
-                    <Link
-                      href="/"
-                      className="block py-3 px-4 text-gray-800 hover:text-pink-600 hover:bg-pink-50 rounded-lg font-medium transition"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      🏠 首页
-                    </Link>
-                    <Link
-                      href="/appointments"
-                      className="block py-3 px-4 text-gray-800 hover:text-pink-600 hover:bg-pink-50 rounded-lg font-medium transition"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      📅 预约
-                    </Link>
-                    <Link
-                      href="/customers"
-                      className="block py-3 px-4 text-gray-800 hover:text-pink-600 hover:bg-pink-50 rounded-lg font-medium transition"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      👥 客户
-                    </Link>
-                    <Link
-                      href="/services"
-                      className="block py-3 px-4 text-gray-800 hover:text-pink-600 hover:bg-pink-50 rounded-lg font-medium transition"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      💅 服务
-                    </Link>
-                    <Link
-                      href="/staff"
-                      className="block py-3 px-4 text-gray-800 hover:text-pink-600 hover:bg-pink-50 rounded-lg font-medium transition"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      👩‍💼 员工
-                    </Link>
-                    <Link
-                      href="/products"
-                      className="block py-3 px-4 text-gray-800 hover:text-pink-600 hover:bg-pink-50 rounded-lg font-medium transition"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      🛍️ 产品商店
-                    </Link>
-                    {/* 根据角色显示额外链接 */}
-                    {mounted && role === 'customer' && (
-                      <>
-                        <Link
-                          href="/cart"
-                          className="block py-3 px-4 text-gray-800 hover:text-pink-600 hover:bg-pink-50 rounded-lg font-medium transition"
-                          onClick={() => setMobileMenuOpen(false)}
-                        >
-                          🛒 购物车
-                        </Link>
-                        <Link
-                          href="/orders"
-                          className="block py-3 px-4 text-gray-800 hover:text-pink-600 hover:bg-pink-50 rounded-lg font-medium transition"
-                          onClick={() => setMobileMenuOpen(false)}
-                        >
-                          📦 我的订单
-                        </Link>
-                        <Link
-                          href="/profile"
-                          className="block py-3 px-4 text-gray-800 hover:text-pink-600 hover:bg-pink-50 rounded-lg font-medium transition"
-                          onClick={() => setMobileMenuOpen(false)}
-                        >
-                          👤 个人中心
-                        </Link>
-                      </>
-                    )}
-                    {mounted && role === 'merchant' && (
-                      <>
-                        <Link
-                          href="/admin/orders"
-                          className="block py-3 px-4 text-gray-800 hover:text-pink-600 hover:bg-pink-50 rounded-lg font-medium transition"
-                          onClick={() => setMobileMenuOpen(false)}
-                        >
-                          📊 订单管理
-                        </Link>
-                        <Link
-                          href="/admin/products"
-                          className="block py-3 px-4 text-gray-800 hover:text-pink-600 hover:bg-pink-50 rounded-lg font-medium transition"
-                          onClick={() => setMobileMenuOpen(false)}
-                        >
-                          📦 产品管理
-                        </Link>
-                        <Link
-                          href="/admin/dashboard"
-                          className="block py-3 px-4 text-gray-800 hover:text-pink-600 hover:bg-pink-50 rounded-lg font-medium transition"
-                          onClick={() => setMobileMenuOpen(false)}
-                        >
-                          📈 数据面板
-                        </Link>
-                      </>
-                    )}
-                    {mounted && role === 'admin' && (
-                      <>
-                        <Link
-                          href="/admin/orders"
-                          className="block py-3 px-4 text-gray-800 hover:text-pink-600 hover:bg-pink-50 rounded-lg font-medium transition"
-                          onClick={() => setMobileMenuOpen(false)}
-                        >
-                          📊 订单管理
-                        </Link>
-                        <Link
-                          href="/admin/products"
-                          className="block py-3 px-4 text-gray-800 hover:text-pink-600 hover:bg-pink-50 rounded-lg font-medium transition"
-                          onClick={() => setMobileMenuOpen(false)}
-                        >
-                          📦 产品管理
-                        </Link>
-                        <Link
-                          href="/admin/dashboard"
-                          className="block py-3 px-4 text-gray-800 hover:text-pink-600 hover:bg-pink-50 rounded-lg font-medium transition"
-                          onClick={() => setMobileMenuOpen(false)}
-                        >
-                          📈 数据面板
-                        </Link>
-                        <Link
-                          href="/admin/users"
-                          className="block py-3 px-4 text-gray-800 hover:text-pink-600 hover:bg-pink-50 rounded-lg font-medium transition"
-                          onClick={() => setMobileMenuOpen(false)}
-                        >
-                          👥 用户管理
-                        </Link>
-                      </>
-                    )}
-                    {mounted && role === 'guest' && (
-                      <>
-                        <Link
-                          href="/cart"
-                          className="block py-3 px-4 text-gray-800 hover:text-pink-600 hover:bg-pink-50 rounded-lg font-medium transition"
-                          onClick={() => setMobileMenuOpen(false)}
-                        >
-                          🛒 购物车
-                        </Link>
-                        <Link
-                          href="/orders"
-                          className="block py-3 px-4 text-gray-800 hover:text-pink-600 hover:bg-pink-50 rounded-lg font-medium transition"
-                          onClick={() => setMobileMenuOpen(false)}
-                        >
-                          📦 我的订单
-                        </Link>
-                        <Link
-                          href="/auth/login"
-                          className="block py-3 px-4 text-pink-600 hover:text-pink-700 font-semibold"
-                          onClick={() => setMobileMenuOpen(false)}
-                        >
-                          登录/注册
-                        </Link>
-                      </>
-                    )}
-                  </div>
-                </div>
-              )}
-
-              <div className="flex items-center space-x-4">
-                {/* 根据角色显示不同的导航链接 */}
-                {mounted && role === 'customer' && (
-                  <>
-                    <Link href="/cart" className="text-gray-700 hover:text-pink-600 font-medium px-3 py-2 rounded-lg hover:bg-pink-50 transition">
-                      🛒 购物车
-                    </Link>
-                    <Link href="/orders" className="text-gray-700 hover:text-pink-600 font-medium px-3 py-2 rounded-lg hover:bg-pink-50 transition">
-                      📦 我的订单
-                    </Link>
-                    <Link href="/profile" className="text-gray-700 hover:text-pink-600 font-medium px-3 py-2 rounded-lg hover:bg-pink-50 transition">
-                      👤 个人中心
-                    </Link>
-                  </>
-                )}
-                {mounted && role === 'merchant' && (
-                  <>
-                    <Link href="/admin/orders" className="text-gray-700 hover:text-pink-600 font-medium px-3 py-2 rounded-lg hover:bg-pink-50 transition">
-                      📊 订单管理
-                    </Link>
-                    <Link href="/admin/products" className="text-gray-700 hover:text-pink-600 font-medium px-3 py-2 rounded-lg hover:bg-pink-50 transition">
-                      📦 产品管理
-                    </Link>
-                    <Link href="/admin/dashboard" className="text-gray-700 hover:text-pink-600 font-medium px-3 py-2 rounded-lg hover:bg-pink-50 transition">
-                      📈 数据面板
-                    </Link>
-                  </>
-                )}
-                {mounted && role === 'admin' && (
-                  <>
-                    <Link href="/admin/orders" className="text-gray-700 hover:text-pink-600 font-medium px-3 py-2 rounded-lg hover:bg-pink-50 transition">
-                      📊 订单管理
-                    </Link>
-                    <Link href="/admin/products" className="text-gray-700 hover:text-pink-600 font-medium px-3 py-2 rounded-lg hover:bg-pink-50 transition">
-                      📦 产品管理
-                    </Link>
-                    <Link href="/admin/dashboard" className="text-gray-700 hover:text-pink-600 font-medium px-3 py-2 rounded-lg hover:bg-pink-50 transition">
-                      📈 数据面板
-                    </Link>
-                    <Link href="/admin/users" className="text-gray-700 hover:text-pink-600 font-medium px-3 py-2 rounded-lg hover:bg-pink-50 transition">
-                      👥 用户管理
-                    </Link>
-                  </>
-                )}
-                {mounted && role === 'guest' && (
-                  <>
-                    <Link href="/cart" className="text-gray-700 hover:text-pink-600 font-medium px-3 py-2 rounded-lg hover:bg-pink-50 transition">
-                      🛒 购物车
-                    </Link>
-                    <Link href="/orders" className="text-gray-700 hover:text-pink-600 font-medium px-3 py-2 rounded-lg hover:bg-pink-50 transition">
-                      📦 我的订单
-                    </Link>
-                    <Link href="/auth/login" className="px-4 py-2 text-sm bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-lg font-semibold hover:opacity-90 transition">
-                      登录/注册
-                    </Link>
-                  </>
-                )}
-
-                {/* 角色选择下拉菜单（仅用于演示） */}
-                <div className="relative">
-                  <select
-                    value={role}
-                    onChange={(e) => changeRole(e.target.value as UserRole)}
-                    className="pl-3 pr-8 py-2 border border-gray-300 rounded-lg text-sm font-medium bg-white focus:outline-none focus:ring-2 focus:ring-pink-500"
-                  >
-                    <option value="guest">👤 访客</option>
-                    <option value="customer">👩‍🦰 客户</option>
-                    <option value="merchant">🏪 商家</option>
-                    <option value="admin">👑 管理员</option>
-                  </select>
-                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </div>
-                </div>
-
-                {/* 用户头像占位 */}
-                <div className="h-8 w-8 rounded-full bg-gradient-to-r from-pink-400 to-purple-500"></div>
-              </div>
+        <RoleProvider>
+          <NavContent />
+          <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            {children}
+          </main>
+          <footer className="border-t border-gray-200 bg-white/50 py-6 mt-12">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-500 text-sm">
+              <p>丽姿秀美容工作室 · {new Date().getFullYear()}</p>
+              <p className="mt-1">数据安全存储于 Supabase 云端</p>
             </div>
-          </div>
-        </nav>
-
-        {/* 主内容 */}
-        <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          {children}
-        </main>
-
-        {/* 页脚 */}
-        <footer className="border-t border-gray-200 bg-white/50 py-6">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-500 text-sm">
-            <p>丽姿秀美容工作室 · 使用 Next.js + Supabase + Tailwind CSS 构建 · {new Date().getFullYear()}</p>
-            <p className="mt-1">数据安全存储于 Supabase 云端，支持多端实时同步</p>
-          </div>
-        </footer>
+          </footer>
+        </RoleProvider>
       </body>
     </html>
   );

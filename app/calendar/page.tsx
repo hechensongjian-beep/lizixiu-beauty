@@ -1,153 +1,179 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
-export default function CalendarPage() {
+interface Appointment {
+  id: string; start_time: string; end_time: string; status: string;
+  service_type?: string; staff_name?: string; customer_name?: string; notes?: string;
+}
+
+const TIMES = ['09:00','09:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30'];
+const STATUS_COLORS: Record<string, string> = { pending: 'bg-yellow-100 border-yellow-400 text-yellow-800', confirmed: 'bg-blue-100 border-blue-400 text-blue-800', completed: 'bg-green-100 border-green-400 text-green-800', cancelled: 'bg-gray-100 border-gray-300 text-gray-500' };
+const STATUS_LABEL: Record<string, string> = { pending: '待确认', confirmed: '已确认', completed: '已完成', cancelled: '已取消' };
+
+function CalendarGrid({ date, appointments, onPrev, onNext, today }: { date: Date; appointments: Appointment[]; onPrev: () => void; onNext: () => void; today: Date }) {
+  const dayAppts = appointments.filter(apt => apt.start_time?.startsWith(date.toISOString().split('T')[0]));
+  const isToday = date.toDateString() === today.toDateString();
   return (
-    <div className="max-w-6xl mx-auto px-4 py-12">
-      <div className="text-center mb-12">
-        <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-amber-100 to-orange-100 rounded-2xl mb-6">
-          <div className="text-3xl">📅</div>
-        </div>
-        <h1 className="text-3xl font-bold text-gray-900 mb-3">日历视图</h1>
-        <p className="text-gray-600 max-w-2xl mx-auto">
-          可视化预约日历，直观查看每日预约安排、员工排班、房间占用情况。
-        </p>
+    <div className="bg-white rounded-2xl shadow overflow-hidden">
+      <div className="flex items-center justify-between bg-gradient-to-r from-pink-500 to-purple-600 text-white px-6 py-4">
+        <button onClick={onPrev} className="w-9 h-9 rounded-lg bg-white/20 hover:bg-white/30 flex items-center justify-center text-lg">‹</button>
+        <h2 className="text-lg font-bold">{date.getFullYear()}年{date.getMonth()+1}月{date.getDate()}日 {['日','一','二','三','四','五','六'][date.getDay()]} {isToday ? '· 今天' : ''}</h2>
+        <button onClick={onNext} className="w-9 h-9 rounded-lg bg-white/20 hover:bg-white/30 flex items-center justify-center text-lg">›</button>
       </div>
-
-      <div className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-2xl p-8 mb-12">
-        <div className="flex flex-col md:flex-row items-center justify-between">
-          <div className="mb-6 md:mb-0">
-            <h2 className="text-xl font-semibold text-gray-800 mb-2">功能即将推出</h2>
-            <p className="text-gray-700">
-              日历视图模块正在紧密开发中，预计下周上线。您将可以：
-            </p>
-            <ul className="mt-3 text-gray-700 list-disc pl-5 space-y-1">
-              <li>日/周/月视图切换，直观查看预约分布</li>
-              <li>拖拽调整预约时间、更换服务员工</li>
-              <li>颜色区分预约状态（待确认、已确认、已完成）</li>
-              <li>员工排班与房间占用可视化</li>
-              <li>一键导出日历到 Google Calendar / Outlook</li>
-            </ul>
-          </div>
-          <div className="bg-white rounded-xl p-6 border border-amber-300 shadow-sm">
-            <div className="text-sm font-medium text-amber-800 mb-2">当前进度</div>
-            <div className="w-64 bg-gray-200 rounded-full h-2.5 mb-3">
-              <div className="bg-amber-600 h-2.5 rounded-full" style={{ width: '30%' }}></div>
-            </div>
-            <div className="text-xs text-gray-500">数据库设计完成 • 前端UI就绪 • 后端API开发中</div>
-          </div>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-        <div className="bg-white border border-gray-200 rounded-xl p-6">
-          <h3 className="font-semibold text-gray-800 mb-4">日历预览（静态示例）</h3>
-          <div className="border border-gray-200 rounded-lg overflow-hidden">
-            <div className="bg-gray-50 border-b border-gray-200 px-4 py-3 text-sm font-medium text-gray-700">
-              2026年4月8日 星期三
-            </div>
-            <div className="divide-y divide-gray-100">
-              <div className="px-4 py-3 flex items-center">
-                <div className="w-2 h-2 bg-amber-500 rounded-full mr-3"></div>
-                <div className="flex-1">
-                  <div className="font-medium text-gray-900">张美琳 · 深层清洁面部护理</div>
-                  <div className="text-sm text-gray-600">客户：李女士 · 10:00‑11:00</div>
-                </div>
-                <span className="px-2 py-1 text-xs bg-amber-100 text-amber-800 rounded-full">待确认</span>
-              </div>
-              <div className="px-4 py-3 flex items-center">
-                <div className="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
-                <div className="flex-1">
-                  <div className="font-medium text-gray-900">李俊逸 · 日式美甲艺术</div>
-                  <div className="text-sm text-gray-600">客户：王小姐 · 14:30‑15:45</div>
-                </div>
-                <span className="px-2 py-1 text-xs bg-green-100 text-green-800 rounded-full">已确认</span>
-              </div>
-              <div className="px-4 py-3 flex items-center">
-                <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
-                <div className="flex-1">
-                  <div className="font-medium text-gray-900">王思雨 · 全身精油SPA</div>
-                  <div className="text-sm text-gray-600">客户：刘先生 · 16:00‑17:30</div>
-                </div>
-                <span className="px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded-full">已完成</span>
-              </div>
-              <div className="px-4 py-3 flex items-center">
-                <div className="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
-                <div className="flex-1">
-                  <div className="font-medium text-gray-900">陈浩 · 客户咨询</div>
-                  <div className="text-sm text-gray-600">客户：赵女士 · 18:00‑18:30</div>
-                </div>
-                <span className="px-2 py-1 text-xs bg-purple-100 text-purple-800 rounded-full">已确认</span>
+      <div className="divide-y divide-gray-100">
+        {TIMES.map(time => {
+          const appt = dayAppts.find(a => a.start_time?.substring(11,16) === time);
+          return (
+            <div key={time} className="flex items-stretch min-h-[52px]">
+              <div className="w-20 py-3 px-3 text-xs text-gray-400 font-medium border-r border-gray-100 flex-shrink-0">{time}</div>
+              <div className="flex-1 py-2 px-3">
+                {appt ? (
+                  <div className={`px-3 py-2 rounded-lg border-l-4 text-xs ${STATUS_COLORS[appt.status] || STATUS_COLORS.pending}`}>
+                    <div className="font-bold">{appt.service_type || '服务'}</div>
+                    <div className="opacity-75">{appt.customer_name || '客户'} · {appt.staff_name || '美容师'}</div>
+                    <div className="opacity-60">{appt.start_time?.substring(11,16)} – {appt.end_time?.substring(11,16)}</div>
+                    {appt.notes && <div className="opacity-60 mt-1">备注：{appt.notes}</div>}
+                  </div>
+                ) : (
+                  <div className="h-8 flex items-center text-xs text-gray-300">空闲</div>
+                )}
               </div>
             </div>
-          </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+export default function CalendarPage() {
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const [appointments, setAppointments] = useState<Appointment[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [stats, setStats] = useState({ pending: 0, confirmed: 0, completed: 0 });
+
+  const today = new Date();
+
+  useEffect(() => {
+    fetchAppointments();
+  }, []);
+
+  const fetchAppointments = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch('/api/appointments');
+      const data = await res.json();
+      const apts = data.appointments || [];
+      setAppointments(apts);
+      const monthStart = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).toISOString().split('T')[0];
+      const monthEnd = new Date(currentDate.getFullYear(), currentDate.getMonth()+1, 0).toISOString().split('T')[0];
+      const monthApts = apts.filter((a: Appointment) => a.start_time >= monthStart && a.start_time <= monthEnd+'T23:59:59');
+      setStats({
+        pending: monthApts.filter((a: Appointment) => a.status === 'pending').length,
+        confirmed: monthApts.filter((a: Appointment) => a.status === 'confirmed').length,
+        completed: monthApts.filter((a: Appointment) => a.status === 'completed').length,
+      });
+    } catch (e) { console.error(e); }
+    finally { setLoading(false); }
+  };
+
+  // 月视图：每天格子
+  const year = currentDate.getFullYear();
+  const month = currentDate.getMonth();
+  const firstDay = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month+1, 0).getDate();
+
+  const monthName = `${year}年${month+1}月`;
+
+  const dayApptCount = (day: number) => {
+    const d = `${year}-${String(month+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+    return appointments.filter(a => a.start_time?.startsWith(d)).length;
+  };
+
+  const navigateMonth = (delta: number) => {
+    const d = new Date(currentDate);
+    d.setMonth(d.getMonth() + delta);
+    setCurrentDate(d);
+  };
+
+  return (
+    <div className="max-w-7xl mx-auto px-4 py-10">
+      <div className="flex justify-between items-center mb-8">
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900">📅 预约日历</h1>
+          <p className="text-gray-500 mt-1">查看和管理所有预约</p>
         </div>
-        <div className="bg-white border border-gray-200 rounded-xl p-6">
-          <h3 className="font-semibold text-gray-800 mb-4">功能亮点</h3>
-          <ul className="space-y-4">
-            <li className="flex items-start">
-              <div className="text-amber-600 mr-3">📱</div>
-              <div>
-                <div className="font-medium text-gray-800">多视图适配</div>
-                <p className="text-gray-600 text-sm">桌面端完整日历，移动端紧凑列表，无缝切换。</p>
-              </div>
-            </li>
-            <li className="flex items-start">
-              <div className="text-amber-600 mr-3">🔔</div>
-              <div>
-                <div className="font-medium text-gray-800">智能提醒</div>
-                <p className="text-gray-600 text-sm">预约前自动提醒员工与客户，减少爽约率。</p>
-              </div>
-            </li>
-            <li className="flex items-start">
-              <div className="text-amber-600 mr-3">👥</div>
-              <div>
-                <div className="font-medium text-gray-800">团队协作</div>
-                <p className="text-gray-600 text-sm">员工端查看个人日程，店长端统览全局。</p>
-              </div>
-            </li>
-            <li className="flex items-start">
-              <div className="text-amber-600 mr-3">📊</div>
-              <div>
-                <div className="font-medium text-gray-800">数据洞察</div>
-                <p className="text-gray-600 text-sm">高峰时段分析、员工负荷统计、房间利用率。</p>
-              </div>
-            </li>
-          </ul>
+        <div className="flex gap-3">
+          <Link href="/appointments" className="px-4 py-2 bg-pink-500 text-white rounded-lg font-medium text-sm hover:bg-pink-600 transition">＋ 新建预约</Link>
+          <button onClick={fetchAppointments} disabled={loading} className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm hover:bg-gray-200">{loading?'刷新中...':'🔄'}</button>
         </div>
       </div>
 
-      <div className="bg-gray-50 border border-gray-200 rounded-xl p-6 mb-12">
-        <h3 className="font-semibold text-gray-800 mb-4">集成能力</h3>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="text-center p-4 bg-white border border-gray-200 rounded-lg">
-            <div className="text-2xl mb-2">📧</div>
-            <div className="text-sm font-medium text-gray-800">邮件提醒</div>
+      {/* 月概览 */}
+      <div className="grid grid-cols-3 gap-4 mb-8">
+        {[
+          { label: '待确认', value: stats.pending, color: 'from-yellow-400 to-amber-500', icon: '⏳' },
+          { label: '已确认', value: stats.confirmed, color: 'from-blue-400 to-indigo-500', icon: '✅' },
+          { label: '已完成', value: stats.completed, color: 'from-green-400 to-emerald-500', icon: '🎉' },
+        ].map(item => (
+          <div key={item.label} className={`bg-gradient-to-br ${item.color} text-white rounded-2xl p-5 shadow`}>
+            <div className="text-2xl mb-1">{item.icon}</div>
+            <div className="text-3xl font-bold">{item.value}</div>
+            <div className="text-sm opacity-80">{item.label}</div>
           </div>
-          <div className="text-center p-4 bg-white border border-gray-200 rounded-lg">
-            <div className="text-2xl mb-2">💬</div>
-            <div className="text-sm font-medium text-gray-800">微信通知</div>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* 月视图 */}
+        <div className="lg:col-span-2">
+          <div className="bg-white rounded-2xl shadow overflow-hidden">
+            <div className="flex items-center justify-between bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-4">
+              <button onClick={() => navigateMonth(-1)} className="w-9 h-9 rounded-lg bg-white/20 hover:bg-white/30 flex items-center justify-center text-lg">‹</button>
+              <h2 className="text-xl font-bold">{monthName}</h2>
+              <button onClick={() => navigateMonth(1)} className="w-9 h-9 rounded-lg bg-white/20 hover:bg-white/30 flex items-center justify-center text-lg">›</button>
+            </div>
+            <div className="grid grid-cols-7 bg-gray-50 border-b">
+              {['日','一','二','三','四','五','六'].map(d => (
+                <div key={d} className="py-2 text-center text-xs font-semibold text-gray-500">{d}</div>
+              ))}
+            </div>
+            <div className="grid grid-cols-7">
+              {[...Array(firstDay).fill(null), ...[...Array(daysInMonth)].map((_, i) => i+1)].map((day, idx) => {
+                if (!day) return <div key={`empty-${idx}`} className="min-h-[70px] bg-gray-50 border-r border-b border-gray-100"></div>;
+                const dStr = `${year}-${String(month+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+                const isToday = dStr === today.toISOString().split('T')[0];
+                const count = appointments.filter(a => a.start_time?.startsWith(dStr)).length;
+                return (
+                  <div key={day}
+                    onClick={() => setCurrentDate(new Date(year, month, day))}
+                    className={`min-h-[70px] border-r border-b border-gray-100 p-1.5 cursor-pointer transition ${isToday?'bg-pink-50':day===currentDate.getDate()&&month===currentDate.getMonth()&&year===currentDate.getFullYear()?'bg-purple-50':''} hover:bg-gray-50`}>
+                    <div className={`w-7 h-7 flex items-center justify-center rounded-full text-sm font-medium mb-1 ${isToday?'bg-pink-500 text-white':'text-gray-700'}`}>{day}</div>
+                    {count > 0 && <div className="flex flex-wrap gap-1">{[...Array(Math.min(count,3))].map((_,i)=><div key={i} className="w-2 h-2 bg-pink-400 rounded-full"></div>)}</div>}
+                    {count > 3 && <div className="text-xs text-gray-400 mt-0.5">+{count-3}</div>}
+                  </div>
+                );
+              })}
+            </div>
           </div>
-          <div className="text-center p-4 bg-white border border-gray-200 rounded-lg">
-            <div className="text-2xl mb-2">📱</div>
-            <div className="text-sm font-medium text-gray-800">短信提醒</div>
-          </div>
-          <div className="text-center p-4 bg-white border border-gray-200 rounded-lg">
-            <div className="text-2xl mb-2">🔄</div>
-            <div className="text-sm font-medium text-gray-800">日历同步</div>
-          </div>
+        </div>
+
+        {/* 日详情 */}
+        <div className="lg:col-span-1">
+          <CalendarGrid date={currentDate} appointments={appointments} onPrev={() => { const d=new Date(currentDate);d.setDate(d.getDate()-1);setCurrentDate(d);}} onNext={() => { const d=new Date(currentDate);d.setDate(d.getDate()+1);setCurrentDate(d);}} today={today} />
         </div>
       </div>
 
-      <div className="text-center">
-        <Link
-          href="/"
-          className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-gray-800 to-gray-900 text-white font-semibold rounded-lg hover:opacity-90 transition"
-        >
-          ← 返回仪表板
-        </Link>
-        <p className="mt-4 text-gray-500 text-sm">
-          急需日历功能？<a href="mailto:support@example.com" className="text-amber-600 hover:underline">联系我们</a>获取优先开发支持。
-        </p>
+      {/* 状态说明 */}
+      <div className="mt-6 bg-white rounded-2xl shadow p-5">
+        <h3 className="font-bold text-gray-800 mb-3">状态说明</h3>
+        <div className="flex flex-wrap gap-4">
+          {Object.entries(STATUS_COLORS).map(([status, cls]) => (
+            <div key={status} className={`px-3 py-1.5 rounded-full text-xs font-medium ${cls}`}>{STATUS_LABEL[status] || status}</div>
+          ))}
+        </div>
       </div>
     </div>
   );
