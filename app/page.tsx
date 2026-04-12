@@ -145,6 +145,9 @@ function HomeContent() {
               <Link href="/admin/products" className="flex flex-col items-center gap-2 p-4 bg-pink-50 hover:bg-pink-100 rounded-xl transition">
                 <span className="text-3xl">📦</span><span className="text-sm font-medium text-gray-800">管理产品</span>
               </Link>
+              <Link href="/admin/payment" className="flex flex-col items-center gap-2 p-4 bg-green-50 hover:bg-green-100 rounded-xl transition">
+                <span className="text-3xl">💳</span><span className="text-sm font-medium text-gray-800">收款码</span>
+              </Link>
             </div>
           </div>
 

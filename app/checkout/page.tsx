@@ -5,11 +5,13 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 interface CartItem { productId: string; name: string; price: number; quantity: number; }
+interface PaymentInfo { wechatQr: string; alipayQr: string; merchantName: string; }
 
 export default function CheckoutPage() {
   const router = useRouter();
   const [products, setProducts] = useState<Record<string, any>>({});
   const [cart, setCart] = useState<CartItem[]>([]);
+  const [paymentInfo, setPaymentInfo] = useState<PaymentInfo>({ wechatQr: '', alipayQr: '', merchantName: '丽姿秀' });
   const [form, setForm] = useState({ customerName: '', customerPhone: '', customerEmail: '', shippingAddress: '' });
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
@@ -18,17 +20,18 @@ export default function CheckoutPage() {
   const [currentOrder, setCurrentOrder] = useState<any>(null);
 
   useEffect(() => {
-    fetch('/api/products')
-      .then(res => res.json())
-      .then(data => {
-        if (data.products) {
-          const m: Record<string, any> = {};
-          data.products.forEach((p: any) => { m[p.id] = p; });
-          setProducts(m);
-        }
-        setLoading(false);
-      })
-      .catch(() => setLoading(false));
+    Promise.all([
+      fetch('/api/products').then(r => r.json()).catch(() => ({})),
+      fetch('/api/payment-settings').then(r => r.json()).catch(() => ({})),
+    ]).then(([prodData, payData]) => {
+      if (prodData.products) {
+        const m: Record<string, any> = {};
+        prodData.products.forEach((p: any) => { m[p.id] = p; });
+        setProducts(m);
+      }
+      if (payData) setPaymentInfo(payData);
+      setLoading(false);
+    }).catch(() => setLoading(false));
 
     const saved = localStorage.getItem('beauty-shop-cart');
     if (saved) {
@@ -96,6 +99,10 @@ export default function CheckoutPage() {
 
   // 收款码页面
   if (orderCreated && currentOrder) {
+    const hasWechat = !!paymentInfo.wechatQr;
+    const hasAlipay = !!paymentInfo.alipayQr;
+    const hasQr = hasWechat || hasAlipay;
+
     return (
       <div className="max-w-2xl mx-auto px-4 py-12">
         <div className="text-center mb-10">
@@ -108,34 +115,49 @@ export default function CheckoutPage() {
         </div>
 
         <div className="bg-white border border-gray-200 rounded-2xl p-8 mb-8">
-          <h2 className="text-xl font-bold text-gray-900 mb-6 text-center">请使用以下方式扫码支付</h2>
-          <div className="grid grid-cols-2 gap-8 mb-8">
-            <div className="text-center">
-              <div className="w-48 h-48 bg-gray-100 rounded-xl mx-auto mb-4 flex items-center justify-center border-2 border-gray-200">
-                <div className="text-center"><div className="text-5xl mb-2">💚</div><p className="text-sm text-gray-500">微信收款码</p></div>
-              </div>
-              <p className="font-bold text-gray-900">微信支付</p>
+          <h2 className="text-xl font-bold text-gray-900 mb-6 text-center">
+            {hasQr ? `请使用以下方式扫码支付` : `请使用微信/支付宝转账至商家账户`}
+          </h2>
+
+          {hasQr ? (
+            <div className="grid grid-cols-2 gap-8 mb-8">
+              {hasWechat && (
+                <div className="text-center">
+                  <img src={paymentInfo.wechatQr} alt="微信收款码" className="w-48 h-48 rounded-xl mx-auto mb-3 object-cover shadow-md border border-green-100" />
+                  <p className="font-bold text-green-600">💚 微信支付</p>
+                </div>
+              )}
+              {hasAlipay && (
+                <div className="text-center">
+                  <img src={paymentInfo.alipayQr} alt="支付宝收款码" className="w-48 h-48 rounded-xl mx-auto mb-3 object-cover shadow-md border border-blue-100" />
+                  <p className="font-bold text-blue-600">💙 支付宝</p>
+                </div>
+              )}
             </div>
-            <div className="text-center">
-              <div className="w-48 h-48 bg-gray-100 rounded-xl mx-auto mb-4 flex items-center justify-center border-2 border-gray-200">
-                <div className="text-center"><div className="text-5xl mb-2">💙</div><p className="text-sm text-gray-500">支付宝收款码</p></div>
-              </div>
-              <p className="font-bold text-gray-900">支付宝</p>
+          ) : (
+            <div className="text-center py-8 bg-gray-50 rounded-xl mb-6">
+              <div className="text-5xl mb-4">⏳</div>
+              <p className="text-gray-600">商家暂未设置收款码</p>
+              <p className="text-sm text-gray-500 mt-2">请联系商家获取支付方式</p>
             </div>
-          </div>
+          )}
+
           <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 text-center">
             <p className="text-amber-800 font-medium">⏰ 订单将在 <strong>30 分钟</strong> 后自动取消，请尽快完成支付</p>
           </div>
           <div className="mt-6 bg-gray-50 rounded-xl p-4 text-sm text-gray-700 space-y-2">
-            <p><strong>收货信息：</strong>{form.customerName}，{form.customerPhone}</p>
+            <p><strong>商家：</strong>{paymentInfo.merchantName}</p>
+            <p><strong>收货人：</strong>{form.customerName}，{form.customerPhone}</p>
             <p><strong>收货地址：</strong>{form.shippingAddress}</p>
             <p><strong>支付金额：</strong><span className="text-pink-600 font-bold">¥{total.toFixed(2)}</span></p>
           </div>
         </div>
 
         <div className="text-center">
-          <p className="text-gray-500 mb-4 text-sm">* 请在支付完成后点击下方按钮确认</p>
-          <button onClick={() => router.push('/orders')} className="px-10 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold text-lg rounded-lg hover:opacity-90 transition">✅ 我已支付成功</button>
+          <p className="text-gray-500 mb-4 text-sm">* 支付完成后点击下方按钮确认</p>
+          <button onClick={() => router.push('/orders')} className="px-10 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold text-lg rounded-lg hover:opacity-90 transition">
+            ✅ 我已支付成功
+          </button>
           <div className="mt-4"><Link href="/orders" className="text-gray-500 hover:text-gray-700 text-sm">查看我的订单 →</Link></div>
         </div>
       </div>
@@ -197,9 +219,12 @@ export default function CheckoutPage() {
               <div className="flex justify-between"><span className="text-gray-700">增值税 (6%)</span><span className="font-medium">¥{tax.toFixed(2)}</span></div>
               <div className="border-t border-gray-200 pt-4"><div className="flex justify-between text-xl font-bold text-gray-900"><span>总计</span><span>¥{total.toFixed(2)}</span></div></div>
             </div>
-            <div className="border-t border-gray-200 pt-6">
-              <div className="flex items-center text-sm text-gray-600 mb-2"><span className="mr-2">🔒</span><span>SSL 加密支付，保障资金安全</span></div>
-              <div className="flex items-center text-sm text-gray-600"><span className="mr-2">↩️</span><span>7 天无忧退换，正品保证</span></div>
+            <div className="border-t border-gray-200 pt-6 space-y-2">
+              <div className="flex items-center text-sm text-gray-600"><span className="mr-2">🔒</span><span>SSL 加密支付</span></div>
+              <div className="flex items-center text-sm text-gray-600"><span className="mr-2">↩️</span><span>7 天无忧退换</span></div>
+              {(paymentInfo.wechatQr || paymentInfo.alipayQr) && (
+                <div className="flex items-center text-sm text-green-600 mt-2"><span className="mr-2">✅</span><span>商家收款码已配置</span></div>
+              )}
             </div>
           </div>
         </div>
