@@ -53,6 +53,7 @@ const ROLE_NAV: Record<UserRole, { href: string; label: string }[]> = {
     { href: '/admin/dashboard', label: '📈 数据面板' },
     { href: '/customers', label: '👥 客户' },
     { href: '/staff', label: '👩‍💼 员工' },
+    { href: '/staff/workbench', label: '👩‍💼 工作台' },
     { href: '/chat', label: '💬 客服' },
     { href: '/notifications', label: '🔔 通知' },
   ],
