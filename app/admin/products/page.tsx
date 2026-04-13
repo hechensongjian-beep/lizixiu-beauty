@@ -1,8 +1,8 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { supabase } from '@/lib/supabase';
+import { supabaseAdmin } from '@/lib/supabase-admin';
 import { getProducts, createProduct, updateProduct, deleteProduct } from '@/lib/api';
 
 interface Product {
@@ -43,9 +43,9 @@ export default function AdminProductsPage() {
     try {
       const ext = file.name.split('.').pop();
       const name = `product_${Date.now()}.${ext}`;
-      const { data, error } = await supabase.storage.from('product-images').upload(name, file, { upsert: true });
+      const { data, error } = await supabaseAdmin.storage.from('product-images').upload(name, file, { upsert: true });
       if (error) { console.error('上传失败:', error); return null; }
-      const { data: urlData } = supabase.storage.from('product-images').getPublicUrl(name);
+      const { data: urlData } = supabaseAdmin.storage.from('product-images').getPublicUrl(name);
       return urlData.publicUrl;
     } catch (e) { console.error(e); return null; }
     finally { setUploading(false); }

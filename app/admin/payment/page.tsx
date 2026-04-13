@@ -1,8 +1,8 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { supabase } from '@/lib/supabase';
+import { supabaseAdmin } from '@/lib/supabase-admin';
 import { getPaymentSettings, savePaymentSettings } from '@/lib/api';
 
 interface PaymentSettings {
@@ -32,9 +32,9 @@ export default function PaymentSettingsPage() {
     try {
       const ext = file.name.split('.').pop() || 'png';
       const name = `${type}_qr_${Date.now()}.${ext}`;
-      const { data, error } = await supabase.storage.from('payment-qr').upload(name, file, { upsert: true });
+      const { data, error } = await supabaseAdmin.storage.from('payment-qr').upload(name, file, { upsert: true });
       if (error) { alert(`上传失败: ${error.message}`); return; }
-      const { data: urlData } = supabase.storage.from('payment-qr').getPublicUrl(name);
+      const { data: urlData } = supabaseAdmin.storage.from('payment-qr').getPublicUrl(name);
       const key = type === 'wechat' ? 'wechatQr' : 'alipayQr';
       setSettings(s => ({ ...s, [key]: urlData.publicUrl }));
     } catch (e: any) { alert(`上传失败: ${e.message}`); }

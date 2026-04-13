@@ -10,57 +10,64 @@ const inter = Inter({ subsets: ["latin"] });
 
 type UserRole = 'guest' | 'customer' | 'merchant' | 'admin';
 
-// 各角色专属导航
-const ROLE_NAV: Record<UserRole, { href: string; label: string }[]> = {
+// 精简后的主导航
+const MAIN_NAV: Record<UserRole, { href: string; label: string }[]> = {
   guest: [
     { href: '/', label: '🏠 首页' },
     { href: '/appointments', label: '📅 预约' },
-    { href: '/services', label: '💅 服务' },
-    { href: '/products', label: '🛍️ 产品商店' },
+    { href: '/products', label: '🛍️ 产品' },
     { href: '/cart', label: '🛒 购物车' },
-    { href: '/orders', label: '📦 我的订单' },
-    { href: '/chat', label: '💬 咨询' },
   ],
   customer: [
     { href: '/', label: '🏠 首页' },
     { href: '/appointments', label: '📅 预约' },
-    { href: '/services', label: '💅 服务' },
-    { href: '/products', label: '🛍️ 产品商店' },
+    { href: '/products', label: '🛍️ 产品' },
     { href: '/cart', label: '🛒 购物车' },
-    { href: '/orders', label: '📦 我的订单' },
-    { href: '/profile', label: '👤 个人中心' },
-    { href: '/chat', label: '💬 咨询' },
   ],
   merchant: [
     { href: '/', label: '🏠 首页' },
-    { href: '/calendar', label: '📅 日历' },
-    { href: '/appointments', label: '📆 预约管理' },
-    { href: '/admin/orders', label: '📊 订单' },
-    { href: '/admin/products', label: '📦 产品' },
-    { href: '/admin/payment', label: '💳 收款码' },
-    { href: '/admin/dashboard', label: '📈 数据' },
-    { href: '/customers', label: '👥 客户' },
-    { href: '/staff', label: '👩‍💼 员工' },
-    { href: '/admin/schedule', label: '🗓️ 排班' },
-    { href: '/admin/verify', label: '✅ 核验' },
-    { href: '/chat', label: '💬 客服' },
-    { href: '/notifications', label: '🔔 通知' },
+    { href: '/appointments', label: '📅 预约' },
+    { href: '/admin/orders', label: '📦 订单' },
+    { href: '/admin/products', label: '🛍️ 产品' },
   ],
   admin: [
     { href: '/', label: '🏠 首页' },
-    { href: '/calendar', label: '📅 日历' },
-    { href: '/appointments', label: '📆 预约' },
-    { href: '/admin/orders', label: '📊 订单' },
-    { href: '/admin/products', label: '📦 产品' },
-    { href: '/admin/payment', label: '💳 收款码' },
-    { href: '/admin/dashboard', label: '📈 数据面板' },
-    { href: '/customers', label: '👥 客户' },
-    { href: '/staff', label: '👩‍💼 员工' },
+    { href: '/appointments', label: '📅 预约' },
+    { href: '/admin/orders', label: '📦 订单' },
+    { href: '/admin/products', label: '🛍️ 产品' },
+  ],
+};
+
+// 管理下拉菜单
+const ADMIN_MENU: { href: string; label: string }[] = [
+  { href: '/admin/dashboard', label: '📈 数据面板' },
+  { href: '/staff', label: '👩‍💼 员工管理' },
+  { href: '/admin/schedule', label: '🗓️ 排班管理' },
+  { href: '/customers', label: '👥 客户管理' },
+  { href: '/admin/payment', label: '💳 收款码设置' },
+  { href: '/admin/verify', label: '✅ 支付核验' },
+];
+
+// 我的下拉菜单
+const MY_MENU: Record<UserRole, { href: string; label: string }[]> = {
+  guest: [
+    { href: '/orders', label: '📦 我的订单' },
+    { href: '/chat', label: '💬 在线咨询' },
+  ],
+  customer: [
+    { href: '/orders', label: '📦 我的订单' },
+    { href: '/profile', label: '👤 个人中心' },
+    { href: '/chat', label: '💬 在线咨询' },
+  ],
+  merchant: [
+    { href: '/calendar', label: '📆 日历视图' },
     { href: '/staff/workbench', label: '👩‍💼 工作台' },
-    { href: '/admin/schedule', label: '🗓️ 排班' },
-    { href: '/admin/verify', label: '✅ 核验' },
-    { href: '/chat', label: '💬 客服' },
-    { href: '/notifications', label: '🔔 通知' },
+    { href: '/notifications', label: '🔔 通知中心' },
+  ],
+  admin: [
+    { href: '/calendar', label: '📆 日历视图' },
+    { href: '/staff/workbench', label: '👩‍💼 工作台' },
+    { href: '/notifications', label: '🔔 通知中心' },
   ],
 };
 
@@ -82,9 +89,21 @@ function NavContent() {
   const { role, setRole, mounted } = useRole();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [roleMenuOpen, setRoleMenuOpen] = useState(false);
+  const [adminMenuOpen, setAdminMenuOpen] = useState(false);
+  const [myMenuOpen, setMyMenuOpen] = useState(false);
 
-  const navItems = ROLE_NAV[role] || ROLE_NAV.guest;
+  const mainNav = MAIN_NAV[role] || MAIN_NAV.guest;
+  const myMenu = MY_MENU[role] || MY_MENU.guest;
   const colorClass = ROLE_COLORS[role];
+  const showAdminMenu = role === 'admin' || role === 'merchant';
+
+  // 关闭所有下拉菜单
+  const closeAllMenus = () => {
+    setRoleMenuOpen(false);
+    setAdminMenuOpen(false);
+    setMyMenuOpen(false);
+    setMobileMenuOpen(false);
+  };
 
   return (
     <>
@@ -92,7 +111,7 @@ function NavContent() {
       <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            {/* Logo */}
+            {/* Logo + 主导航 */}
             <div className="flex items-center flex-shrink-0">
               <Link href="/" className="flex items-center gap-2">
                 <span className="text-2xl font-bold bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent">
@@ -101,9 +120,9 @@ function NavContent() {
                 <span className="text-gray-500 text-sm hidden md:inline">· {ROLE_LABELS[role]}专属</span>
               </Link>
 
-              {/* 桌面端导航 — 按角色显示 */}
-              <div className="hidden lg:flex items-baseline ml-8 space-x-1">
-                {navItems.map(item => (
+              {/* 桌面端导航 */}
+              <div className="hidden lg:flex items-baseline ml-6 space-x-1">
+                {mainNav.map(item => (
                   <Link
                     key={item.href}
                     href={item.href}
@@ -112,17 +131,67 @@ function NavContent() {
                     {item.label}
                   </Link>
                 ))}
+                
+                {/* 管理下拉菜单 */}
+                {showAdminMenu && (
+                  <div className="relative">
+                    <button
+                      onClick={() => { setAdminMenuOpen(!adminMenuOpen); setMyMenuOpen(false); setRoleMenuOpen(false); }}
+                      className="flex items-center gap-1 text-gray-700 hover:text-pink-600 font-medium px-3 py-2 rounded-lg hover:bg-pink-50 transition text-sm"
+                    >
+                      管理
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </button>
+                    {adminMenuOpen && (
+                      <div className="absolute left-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-gray-200 py-2 z-50">
+                        {ADMIN_MENU.map(item => (
+                          <Link
+                            key={item.href}
+                            href={item.href}
+                            onClick={closeAllMenus}
+                            className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-pink-50 hover:text-pink-600 transition"
+                          >
+                            {item.label}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
+                
+                {/* 我的下拉菜单 */}
+                <div className="relative">
+                  <button
+                    onClick={() => { setMyMenuOpen(!myMenuOpen); setAdminMenuOpen(false); setRoleMenuOpen(false); }}
+                    className="flex items-center gap-1 text-gray-700 hover:text-pink-600 font-medium px-3 py-2 rounded-lg hover:bg-pink-50 transition text-sm"
+                  >
+                    我的
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                  {myMenuOpen && (
+                    <div className="absolute left-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-gray-200 py-2 z-50">
+                      {myMenu.map(item => (
+                        <Link
+                          key={item.href}
+                          href={item.href}
+                          onClick={closeAllMenus}
+                          className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-pink-50 hover:text-pink-600 transition"
+                        >
+                          {item.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
 
             {/* 右侧 */}
             <div className="flex items-center space-x-3">
-              {/* 通知铃铛 */}
-              <Link href="/notifications"
-                className="relative w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center text-lg hover:bg-gray-200 transition">
-                🔔
-              </Link>
-
               {/* 角色切换 */}
               {mounted && (
                 <div className="relative">
@@ -137,21 +206,17 @@ function NavContent() {
                   </button>
 
                   {roleMenuOpen && (
-                    <div className="absolute right-0 mt-2 w-52 bg-white rounded-xl shadow-xl border border-gray-200 py-2 z-50">
-                      <div className="px-4 py-2 text-xs text-gray-500 font-medium border-b border-gray-100">
-                        切换角色视角
-                      </div>
+                    <div className="absolute right-0 mt-2 w-40 bg-white rounded-xl shadow-xl border border-gray-200 py-2 z-50">
                       {(Object.entries(ROLE_LABELS) as [UserRole, string][]).map(([r, label]) => (
                         <button
                           key={r}
-                          onClick={() => { setRole(r); setRoleMenuOpen(false); }}
+                          onClick={() => { setRole(r); closeAllMenus(); }}
                           className={`w-full text-left px-4 py-2.5 text-sm hover:bg-pink-50 transition flex items-center gap-2 ${
                             r === role ? 'bg-pink-50 text-pink-600 font-semibold' : 'text-gray-700'
                           }`}
                         >
                           <span className={`w-2 h-2 rounded-full bg-gradient-to-r ${ROLE_COLORS[r]}`}></span>
                           {label}
-                          {r === role && <span className="ml-auto text-pink-500">✓</span>}
                         </button>
                       ))}
                     </div>
@@ -163,14 +228,9 @@ function NavContent() {
               {mounted && role === 'guest' && (
                 <Link href="/auth/login"
                   className="px-4 py-2 text-sm bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-lg font-semibold hover:opacity-90 transition">
-                  登录 / 注册
+                  登录
                 </Link>
               )}
-
-              {/* 用户头像 */}
-              <div className="h-9 w-9 rounded-full bg-gradient-to-r from-pink-400 to-purple-500 flex items-center justify-center text-white text-sm font-bold">
-                {mounted ? role[0].toUpperCase() : '?'}
-              </div>
 
               {/* 移动端菜单按钮 */}
               <button
@@ -188,20 +248,49 @@ function NavContent() {
 
         {/* 移动端菜单 */}
         {mobileMenuOpen && (
-          <div className="lg:hidden bg-white/95 border-t border-gray-100 shadow-lg">
+          <div className="lg:hidden bg-white/95 border-t border-gray-100 shadow-lg max-h-[70vh] overflow-y-auto">
             <div className="px-4 py-2 space-y-1">
-              {navItems.map(item => (
+              {mainNav.map(item => (
                 <Link
                   key={item.href}
                   href={item.href}
-                  onClick={() => setMobileMenuOpen(false)}
+                  onClick={closeAllMenus}
                   className="block py-3 px-4 text-gray-800 hover:text-pink-600 hover:bg-pink-50 rounded-lg font-medium transition"
                 >
                   {item.label}
                 </Link>
               ))}
+              
+              {showAdminMenu && (
+                <>
+                  <div className="py-2 px-4 text-xs text-gray-400 font-semibold">— 管理 —</div>
+                  {ADMIN_MENU.map(item => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      onClick={closeAllMenus}
+                      className="block py-3 px-4 pl-6 text-gray-700 hover:text-pink-600 hover:bg-pink-50 rounded-lg transition"
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </>
+              )}
+              
+              <div className="py-2 px-4 text-xs text-gray-400 font-semibold">— 我的 —</div>
+              {myMenu.map(item => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={closeAllMenus}
+                  className="block py-3 px-4 pl-6 text-gray-700 hover:text-pink-600 hover:bg-pink-50 rounded-lg transition"
+                >
+                  {item.label}
+                </Link>
+              ))}
+              
               {mounted && role === 'guest' && (
-                <Link href="/auth/login" onClick={() => setMobileMenuOpen(false)}
+                <Link href="/auth/login" onClick={closeAllMenus}
                   className="block py-3 px-4 text-pink-600 font-semibold">
                   登录 / 注册
                 </Link>
@@ -211,9 +300,9 @@ function NavContent() {
         )}
       </nav>
 
-      {/* 点击空白关闭角色菜单 */}
-      {roleMenuOpen && (
-        <div className="fixed inset-0 z-40" onClick={() => setRoleMenuOpen(false)} />
+      {/* 点击空白关闭所有下拉菜单 */}
+      {(roleMenuOpen || adminMenuOpen || myMenuOpen) && (
+        <div className="fixed inset-0 z-40" onClick={closeAllMenus} />
       )}
     </>
   );
