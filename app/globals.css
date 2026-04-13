@@ -1,48 +1,175 @@
 @import "tailwindcss";
 
+/* 丽姿秀美容院专属配色 - 优雅精致风格 */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* 背景 - 温暖奶油色 */
+  --background: #faf8f5;
+  --background-secondary: #f5f2ed;
+  
+  /* 主色 - 香槟金 */
+  --primary: #c9a87c;
+  --primary-dark: #a88a5c;
+  --primary-light: #e8d5b8;
+  
+  /* 强调色 - 深森林绿 */
+  --accent: #2d4a3e;
+  --accent-light: #3d6252;
+  
+  /* 文字 - 暖炭灰 */
+  --foreground: #2a2a28;
+  --foreground-muted: #6b6b68;
+  
+  /* 辅助色 */
+  --rose: #d4a5a5;
+  --sage: #9caf88;
+  --ivory: #fffff0;
+  
+  /* 渐变 */
+  --gradient-gold: linear-gradient(135deg, #c9a87c 0%, #e8d5b8 100%);
+  --gradient-rose: linear-gradient(135deg, #d4a5a5 0%, #f0d9d9 100%);
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-background-secondary: var(--background-secondary);
+  --color-primary: var(--primary);
+  --color-primary-dark: var(--primary-dark);
+  --color-primary-light: var(--primary-light);
+  --color-accent: var(--accent);
+  --color-accent-light: var(--accent-light);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-foreground-muted: var(--foreground-muted);
+  --color-rose: var(--rose);
+  --color-sage: var(--sage);
+  --color-ivory: var(--ivory);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  line-height: 1.7;
+  letter-spacing: 0.02em;
 }
 
-/* 自定义辅助样式 */
-.shadow-soft {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+/* 标题字体 - 优雅衬线 */
+h1, h2, h3 {
+  font-family: 'Noto Serif SC', 'Songti SC', serif;
+  font-weight: 600;
+  letter-spacing: 0.05em;
 }
-.shadow-hover:hover {
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+
+/* 链接悬停效果 */
+a {
+  transition: color 0.3s ease, transform 0.2s ease;
 }
-.transition-all {
+
+a:hover {
+  color: var(--primary);
+}
+
+/* 按钮样式 */
+.btn-primary {
+  background: var(--gradient-gold);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(201, 168, 124, 0.35);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--accent);
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: 1.5px solid var(--accent);
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  background: var(--accent);
+  color: white;
+}
+
+/* 卡片样式 */
+.card {
+  background: white;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(201, 168, 124, 0.15);
   transition: all 0.3s ease;
 }
-.rounded-xl {
-  border-radius: 1rem;
+
+.card:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+  transform: translateY(-4px);
 }
-.rounded-2xl {
-  border-radius: 1.5rem;
+
+/* 柔和阴影 */
+.shadow-soft {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
 }
+
+.shadow-hover:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+}
+
+/* 渐变文字 */
 .text-gradient {
-  background: linear-gradient(90deg, #6366f1, #8b5cf6);
+  background: var(--gradient-gold);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* 分隔线 */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--primary-light), transparent);
+}
+
+/* 动画 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+/* 滚动条美化 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-light);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
 }
