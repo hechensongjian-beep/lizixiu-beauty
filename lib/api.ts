@@ -42,8 +42,10 @@ function fmtAppointment(a) {
   return {
     id: a.id, service_id: a.service_id, staff_id: a.staff_id,
     start_time: a.start_time, end_time: a.end_time,
-    status: a.status || 'pending', customer_name: a.customer_name || '',
-    customer_phone: a.customer_phone || '', notes: a.notes || '',
+    status: a.status || 'pending',
+    customer_name: a.customer_name || a.notes?.match(/客户:([^|]+)/)?.[1]?.trim() || '',
+    customer_phone: a.customer_phone || a.notes?.match(/电话:([^|\n]+)/)?.[1]?.trim() || '',
+    notes: a.notes || '',
     service_type: a.service_type || '', staff_name: a.staff_name || '',
     created_at: a.created_at,
   };
@@ -189,17 +191,13 @@ export async function createAppointment(payload): Promise<any> {
       staff_id: payload.staff_id,
       start_time: payload.start_time,
       end_time: payload.end_time,
-      notes: payload.notes || '',
+      notes: `客户:${payload.customer_name || ''}|电话:${payload.customer_phone || ''}${payload.notes ? '|' + payload.notes : ''}`,
       status: 'confirmed',
-      customer_name: payload.customer_name || '',
-      customer_phone: payload.customer_phone || '',
-      service_type: svcData?.name || '',
-      staff_name: staffData?.name || '',
     };
 
     const { data, error } = await supabase.from('appointments').insert(insertPayload).select().single();
     if (error) return { error: error.message };
-    return { success: true, ...fmtAppointment(data) };
+    return { success: true, appointment: fmtAppointment(data) };
   } catch (e) { return { error: String(e) }; }
 }
 
@@ -349,7 +347,7 @@ export async function updateAppointmentStatus(id: string, status: string): Promi
   try {
     const { data, error } = await supabase.from('appointments').update({ status }).eq('id', id).select().single();
     if (error) return { error: error.message };
-    return { success: true, ...fmtAppointment(data) };
+    return { success: true, appointment: fmtAppointment(data) };
   } catch (e) { return { error: String(e) }; }
 }
 

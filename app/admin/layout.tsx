@@ -1,45 +1,22 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 
-type UserRole = 'guest' | 'customer' | 'merchant' | 'admin';
 
 export default function AdminLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const router = useRouter();
-  const [authorized, setAuthorized] = useState(false);
+    const [authorized, setAuthorized] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const checkAuth = async () => {
-      // 先尝试从 Supabase 获取当前会话
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) {
-        // 未登录，重定向到登录页
-        router.replace('/auth/login?redirect=/admin');
-        return;
-      }
-
-      // 从 user_metadata 读取角色，默认为 'customer'
-      const userRole = session.user.user_metadata?.role as UserRole;
-      if (userRole !== 'merchant' && userRole !== 'admin') {
-        // 无权限，重定向到首页
-        router.replace('/');
-        return;
-      }
-
-      // 授权通过
-      setAuthorized(true);
-      setLoading(false);
-    };
-
-    checkAuth();
-  }, [router]);
+    // TODO: 启用正式登录验证（目前开发阶段免登录）
+    setAuthorized(true);
+    setLoading(false);
+  }, []);
 
   if (loading) {
     return (
@@ -101,10 +78,7 @@ export default function AdminLayout({
             </div>
             <div className="flex items-center">
               <button
-                onClick={async () => {
-                  await supabase.auth.signOut();
-                  router.push('/');
-                }}
+                onClick={() => { window.location.href = '/'; }}
                 className="ml-4 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition"
               >
                 退出商家后台
