@@ -69,13 +69,12 @@ export default function AppointmentsPage() {
     const endM = (parseInt(time.split(':')[1]) + (svc?.duration || 60)) % 60;
     const end = `${date}T${String(endH).padStart(2,'0')}:${String(endM).padStart(2,'0')}:00`;
     try {
-      const res = await createAppointment({ service_id: serviceId, staff_id: staffId, start_time: start, end_time: end, notes });
-      const data = await res.json();
-      if (res.ok) {
+      const result = await createAppointment({ service_id: serviceId, staff_id: staffId, start_time: start, end_time: end, customer_name: name, customer_phone: phone, notes, status: 'pending' });
+      if (result.success) {
         setBooked(true);
-        setCreatedApt(data);
+        setCreatedApt(result.appointment);
       } else {
-        setError(data.error || '预约失败');
+        setError(result.error || '预约失败');
       }
     } catch { setError('网络错误'); }
     finally { setSubmitting(false); }

@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, useCallback } from 'react';
-import { supabase } from '@/lib/supabase';
+import { getAppointments, createAppointment, getCustomers, getServices, getStaff, updateAppointmentStatus, deleteAppointment } from '@/lib/api';
 
 type Appointment = {
   id: string;
@@ -36,8 +36,8 @@ export default function AppointmentManager() {
   // 测试 API 连接
   const testConnection = useCallback(async () => {
     try {
-      const response = await fetch('/api/appointments');
-      return response.ok;
+      const result = await getAppointments();
+      return !result.error;
     } catch {
       return false;
     }
@@ -47,23 +47,14 @@ export default function AppointmentManager() {
   useEffect(() => {
     const fetchOptions = async () => {
       try {
-        const [custRes, servRes, staffRes] = await Promise.all([
-          fetch('/api/customers'),
-          fetch('/api/services'),
-          fetch('/api/staff')
+        const [custData, servData, staffData] = await Promise.all([
+          getCustomers(),
+          getServices(),
+          getStaff()
         ]);
-        if (custRes.ok) {
-          const data = await custRes.json();
-          setCustomers(data.customers || []);
-        }
-        if (servRes.ok) {
-          const data = await servRes.json();
-          setServices(data.services || []);
-        }
-        if (staffRes.ok) {
-          const data = await staffRes.json();
-          setStaff(data.staff || []);
-        }
+        if (custData?.customers) setCustomers(custData.customers);
+        if (servData?.services) setServices(servData.services);
+        if (staffData?.staff) setStaff(staffData.staff);
       } catch (err) {
         console.error('加载选项失败:', err);
       }
@@ -71,19 +62,14 @@ export default function AppointmentManager() {
     fetchOptions();
   }, []);
 
-  // 加载预约数据（通过 API）
+  // 加载预约数据
   const fetchAppointments = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
       setConnectionError(false);
 
-      // 直接调用 API
-      const response = await fetch('/api/appointments');
-      if (!response.ok) {
-        throw new Error(`API 请求失败: ${response.status}`);
-      }
-      const result = await response.json();
+      const result = await getAppointments();
       const data = result.appointments || [];
 
       setAppointments(data);
@@ -147,31 +133,25 @@ export default function AppointmentManager() {
       alert('预约时间不能是过去的时间');
       return;
     }
-    // 假设服务时长为 1 小时
     const endTime = new Date(startTime.getTime() + 60 * 60 * 1000);
 
     try {
       setIsAdding(true);
-      const response = await fetch('/api/appointments', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          customer_id,
-          service_id,
-          staff_id,
-          start_time: startTime.toISOString(),
-          end_time: endTime.toISOString(),
-          status: 'pending',
-        }),
+      const result = await createAppointment({
+        customer_id,
+        service_id,
+        staff_id,
+        start_time: startTime.toISOString(),
+        end_time: endTime.toISOString(),
+        status: 'pending',
       });
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error || '添加失败');
+      if (result.success) {
+        setAppointments([...appointments, result.appointment]);
+        setNewAppointment({ customer_id: '', service_id: '', staff_id: '', appointment_date: '', appointment_time: '' });
+        alert('预约添加成功！');
+      } else {
+        throw new Error(result.error || '添加失败');
       }
-      const data = await response.json();
-      setAppointments([...appointments, data]);
-      setNewAppointment({ customer_id: '', service_id: '', staff_id: '', appointment_date: '', appointment_time: '' });
-      alert('预约添加成功！');
     } catch (err: any) {
       alert('添加失败: ' + err.message);
       console.error(err);
@@ -182,17 +162,12 @@ export default function AppointmentManager() {
 
   const handleStatusChange = async (id: string, newStatus: Appointment['status']) => {
     try {
-      const response = await fetch(`/api/appointments?id=${id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status: newStatus }),
-      });
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error || '更新状态失败');
+      const result = await updateAppointmentStatus(id, newStatus);
+      if (result.success) {
+        setAppointments(appointments.map(apt => apt.id === id ? { ...apt, status: newStatus } : apt));
+      } else {
+        throw new Error(result.error || '更新状态失败');
       }
-      const data = await response.json();
-      setAppointments(appointments.map(apt => apt.id === id ? { ...apt, status: newStatus } : apt));
     } catch (err: any) {
       alert('更新状态失败: ' + err.message);
       console.error(err);
@@ -202,14 +177,12 @@ export default function AppointmentManager() {
   const handleDelete = async (id: string) => {
     if (!confirm('确定删除该预约吗？')) return;
     try {
-      const response = await fetch(`/api/appointments?id=${id}`, {
-        method: 'DELETE',
-      });
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error || '删除失败');
+      const result = await deleteAppointment(id);
+      if (result.success) {
+        setAppointments(appointments.filter(apt => apt.id !== id));
+      } else {
+        throw new Error(result.error || '删除失败');
       }
-      setAppointments(appointments.filter(apt => apt.id !== id));
     } catch (err: any) {
       alert('删除失败: ' + err.message);
       console.error(err);

@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { getProducts, createOrder, createPaymentVerification } from '@/lib/api';
+import { getProducts, createOrder, createPaymentVerification, getPaymentSettings } from '@/lib/api';
 
 interface CartItem { productId: string; name: string; price: number; quantity: number; }
 interface PaymentInfo { wechatQr: string; alipayQr: string; merchantName: string; }
@@ -25,14 +25,18 @@ export default function CheckoutPage() {
   useEffect(() => {
     Promise.all([
       getProducts(),
-      Promise.resolve({ wechatQr: '', alipayQr: '', merchantName: '丽姿秀' }),
+      getPaymentSettings(),
     ]).then(([prodData, payData]) => {
       if (prodData?.products) {
         const m: Record<string, any> = {};
         prodData.products.forEach((p: any) => { m[p.id] = p; });
         setProducts(m);
       }
-      if (payData) setPaymentInfo(payData);
+      if (payData) setPaymentInfo({
+        wechatQr: payData.wechatQr || payData.wechat_qr_url || '',
+        alipayQr: payData.alipayQr || payData.alipay_qr_url || '',
+        merchantName: payData.merchantName || payData.merchant_name || '丽姿秀',
+      });
       setLoading(false);
     }).catch(() => setLoading(false));
 
@@ -70,9 +74,8 @@ export default function CheckoutPage() {
     setSubmitting(true);
     setError('');
     try {
-      const response = await createOrder({ ...form, items: resolvedCart, subtotal, shippingFee: shipping, tax, total });
-      const result = await response.json();
-      if (response.ok) {
+      const result = await createOrder({ ...form, items: resolvedCart, subtotal, shippingFee: shipping, tax, total });
+      if (result.success) {
         localStorage.removeItem('beauty-shop-cart');
         setCurrentOrder(result.order);
         setOrderCreated(true);
@@ -177,11 +180,10 @@ export default function CheckoutPage() {
                       amount: total,
                       payment_channel: channel,
                     });
-                  if (res.ok) {
+                  if (res.success) {
                     setPaymentSubmitted(true);
                   } else {
-                    const err = await res.json();
-                    alert(err.error || '提交失败，请重试');
+                    alert(res.error || '提交失败，请重试');
                   }
                 } catch { alert('网络错误，请重试'); }
                 finally { setSubmittingPayment(false); }

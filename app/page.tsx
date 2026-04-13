@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
-import { RoleProvider, useRole } from '@/components/RoleProvider';
+import { useRole } from '@/components/RoleProvider';
 import { getProducts, getServices, getAppointments, getOrders } from '@/lib/api';
 
 type UserRole = 'guest' | 'customer' | 'merchant' | 'admin';
@@ -315,9 +315,5 @@ function HomeContent() {
 }
 
 export default function Home() {
-  return (
-    <RoleProvider>
-      <HomeContent />
-    </RoleProvider>
-  );
+  return <HomeContent />;
 }

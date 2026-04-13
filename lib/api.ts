@@ -352,3 +352,11 @@ export async function updateAppointmentStatus(id: string, status: string): Promi
     return { success: true, ...fmtAppointment(data) };
   } catch (e) { return { error: String(e) }; }
 }
+
+export async function deleteAppointment(id: string): Promise<any> {
+  try {
+    const { error } = await supabase.from('appointments').delete().eq('id', id);
+    if (error) return { error: error.message };
+    return { success: true };
+  } catch (e) { return { error: String(e) }; }
+}
