@@ -85,8 +85,8 @@ export default function OrdersPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 py-12">
       <div className="text-center mb-12">
-        <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-amber-100 to-orange-100 rounded-2xl mb-6">
-          <div className="text-3xl">📦</div>
+        <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-[#c9a87c]/10 to-[#e8d5b8]/10 rounded-2xl mb-6">
+          <div className="text-3xl"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#a88a5c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
         </div>
         <h1 className="text-4xl font-bold text-gray-900 mb-4">我的订单</h1>
         <p className="text-gray-600 max-w-2xl mx-auto">
@@ -96,21 +96,21 @@ export default function OrdersPage() {
 
       {loading ? (
         <div className="text-center py-16">
-          <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-pink-500 mb-4"></div>
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#c9a87c] mb-4"></div>
           <p className="text-gray-600">加载订单中...</p>
         </div>
       ) : orders.length === 0 ? (
-        <div className="bg-gradient-to-r from-gray-50 to-gray-100 border border-gray-200 rounded-2xl p-16 text-center">
-          <div className="text-6xl mb-6">📭</div>
+        <div className="bg-[#faf8f5] border border-gray-200 rounded-2xl p-16 text-center">
+          <div className="text-6xl mb-6"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#c0bdb8" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
           <h3 className="text-2xl font-bold text-gray-800 mb-4">暂无订单</h3>
           <p className="text-gray-600 max-w-md mx-auto mb-8">
             您还没有创建任何订单。快去产品商店逛逛吧！
           </p>
           <Link
             href="/products"
-            className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold text-lg rounded-lg hover:opacity-90 transition"
+            className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#c9a87c] to-[#e8d5b8] text-white font-bold text-lg rounded-lg hover:opacity-90 transition"
           >
-            🛍️ 去产品商店
+             去产品商店
           </Link>
         </div>
       ) : (
@@ -213,7 +213,7 @@ export default function OrdersPage() {
                   <>
                     <button
                       onClick={() => alert('模拟支付成功！')}
-                      className="px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold rounded-lg hover:opacity-90 transition"
+                      className="px-6 py-3 bg-gradient-to-r from-[#2d4a3e] to-[#3d6252] text-white font-bold rounded-lg hover:opacity-90 transition"
                     >
                       立即支付
                     </button>
@@ -241,7 +241,7 @@ export default function OrdersPage() {
       <div className="text-center mt-12">
         <Link
           href="/"
-          className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-gray-800 to-gray-900 text-white font-semibold rounded-lg hover:opacity-90 transition"
+          className="inline-flex items-center px-6 py-3 bg-[#2d4a3e] text-white font-semibold rounded-lg hover:opacity-90 transition"
         >
           ← 返回主页
         </Link>
