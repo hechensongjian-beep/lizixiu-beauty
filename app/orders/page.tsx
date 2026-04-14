@@ -95,9 +95,32 @@ export default function OrdersPage() {
       </div>
 
       {loading ? (
-        <div className="text-center py-16">
-          <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#c9a87c] mb-4"></div>
-          <p className="text-gray-600">加载订单中...</p>
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="h-10 w-48 rounded-lg animate-pulse bg-gray-200 mb-8"></div>
+          <div className="space-y-4">
+            <div className="bg-white rounded-2xl p-6 animate-pulse">
+              <div className="flex justify-between mb-4">
+                <div className="space-y-2">
+                  <div className="h-5 bg-gray-200 rounded w-32"></div>
+                  <div className="h-4 bg-gray-200 rounded w-24"></div>
+                </div>
+                <div className="h-6 w-20 bg-gray-200 rounded-full"></div>
+              </div>
+              <div className="h-4 bg-gray-200 rounded w-full mb-2"></div>
+              <div className="h-4 bg-gray-200 rounded w-48"></div>
+            </div>
+            <div className="bg-white rounded-2xl p-6 animate-pulse">
+              <div className="flex justify-between mb-4">
+                <div className="space-y-2">
+                  <div className="h-5 bg-gray-200 rounded w-32"></div>
+                  <div className="h-4 bg-gray-200 rounded w-24"></div>
+                </div>
+                <div className="h-6 w-20 bg-gray-200 rounded-full"></div>
+              </div>
+              <div className="h-4 bg-gray-200 rounded w-full mb-2"></div>
+              <div className="h-4 bg-gray-200 rounded w-48"></div>
+            </div>
+          </div>
         </div>
       ) : orders.length === 0 ? (
         <div className="bg-[#faf8f5] border border-gray-200 rounded-2xl p-16 text-center">

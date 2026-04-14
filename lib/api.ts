@@ -21,7 +21,8 @@ function fmtOrder(o) {
     items: (o.order_items || []).map(i => ({ id: i.id, productId: i.product_id, name: i.name, price: parseFloat(i.price), quantity: i.quantity })),
     subtotal: parseFloat(o.subtotal || 0), shippingFee: parseFloat(o.shipping_fee || 0),
     tax: parseFloat(o.tax || 0), total: parseFloat(o.total || 0),
-    status: o.status, createdAt: o.created_at, updatedAt: o.updated_at,
+    status: o.status, deliveryMethod: o.delivery_method || o.deliveryMethod || 'express',
+    createdAt: o.created_at, updatedAt: o.updated_at,
   };
 }
 
@@ -96,14 +97,14 @@ export async function getOrders(): Promise<any> {
 export async function createOrder(body): Promise<any> {
   try {
     const subtotal = body.subtotal || body.items.reduce((s, i) => s + i.price * i.quantity, 0);
-    const shippingFee = body.shippingFee || (subtotal > 500 ? 0 : 15);
-    const tax = body.tax || subtotal * 0.06;
-    const total = body.total || subtotal + shippingFee + tax;
+    const shippingFee = body.shippingFee || 0;
+    const total = body.total || subtotal + shippingFee;
 
     const { data: orderData, error: orderError } = await supabase.from('orders').insert({
       customer_name: body.customerName, customer_phone: body.customerPhone || '',
       customer_email: body.customerEmail || '', shipping_address: body.shippingAddress || '',
-      subtotal, shipping_fee: shippingFee, tax, total, status: 'pending',
+      subtotal, shipping_fee: shippingFee, tax: 0, total, status: 'pending',
+      delivery_method: body.deliveryMethod || 'express',
     }).select().single();
 
     if (orderError) return { error: orderError.message };
@@ -247,13 +248,13 @@ export async function savePaymentSettings(settings: { wechatQr: string; alipayQr
     const { data: existing } = await supabase.from('payment_settings').select('id').limit(1).single();
     if (existing) {
       const { error } = await supabase.from('payment_settings').update({
-        wechat_qr: settings.wechatQr, alipay_qr: settings.alipayQr, merchant_name: settings.merchantName,
+        wechat_qr_url: settings.wechatQr, alipay_qr_url: settings.alipayQr, merchant_name: settings.merchantName,
       }).eq('id', existing.id);
       if (error) return { error: error.message };
       return { success: true };
     } else {
       const { error } = await supabase.from('payment_settings').insert({
-        wechat_qr: settings.wechatQr, alipay_qr: settings.alipayQr, merchant_name: settings.merchantName,
+        wechat_qr_url: settings.wechatQr, alipay_qr_url: settings.alipayQr, merchant_name: settings.merchantName,
       });
       if (error) return { error: error.message };
       return { success: true };

@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
-export type UserRole = 'guest' | 'customer' | 'merchant' | 'admin';
+export type UserRole = 'guest' | 'customer' | 'merchant' | 'admin' | 'staff';
 
 interface RoleContextType {
   role: UserRole;
@@ -11,7 +11,7 @@ interface RoleContextType {
 }
 
 const RoleContext = createContext<RoleContextType>({
-  role: 'guest',
+  role: 'customer',
   setRole: () => {},
   mounted: false,
 });
@@ -21,12 +21,12 @@ export function useRole() {
 }
 
 export function RoleProvider({ children }: { children: ReactNode }) {
-  const [role, setRoleState] = useState<UserRole>('guest');
+  const [role, setRoleState] = useState<UserRole>('customer');
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     const saved = localStorage.getItem('app_role') as UserRole;
-    if (saved && ['guest', 'customer', 'merchant', 'admin'].includes(saved)) {
+    if (saved && ['guest', 'customer', 'merchant', 'admin', 'staff'].includes(saved)) {
       setRoleState(saved);
     } else {
       setRoleState('customer');

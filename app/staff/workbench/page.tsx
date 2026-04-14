@@ -2,6 +2,8 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useRole } from '@/components/RoleProvider';
 import { getStaff, getStaffDashboard, updateAppointmentStatus } from '@/lib/api';
 
 interface Staff {
@@ -56,6 +58,28 @@ const STATUS_COLORS: Record<string, { bg: string; text: string; label: string }>
 };
 
 export default function StaffWorkbenchPage() {
+
+  const router = useRouter();
+  const { role, mounted } = useRole();
+
+  useEffect(() => {
+    if (mounted && role !== 'staff') {
+      router.push('/auth/staff-login');
+    }
+  }, [mounted, role, router]);
+
+  if (!mounted || role !== 'staff') {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="inline-block animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-[#c9a87c] mb-3"></div>
+          <p className="text-gray-500 text-sm">验证员工身份...</p>
+        </div>
+      </div>
+    );
+  }
+
+  
   const [staffList, setStaffList] = useState<Staff[]>([]);
   const [selectedStaffId, setSelectedStaffId] = useState<string | null>(null);
   const [dashboard, setDashboard] = useState<DashboardData | null>(null);

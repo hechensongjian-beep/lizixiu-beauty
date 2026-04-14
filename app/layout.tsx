@@ -20,7 +20,7 @@ const sans = Noto_Sans_SC({
   display: 'swap',
 });
 
-type UserRole = 'guest' | 'customer' | 'merchant' | 'admin';
+type UserRole = 'guest' | 'customer' | 'merchant' | 'admin' | 'staff';
 
 // 精简后的主导航
 const MAIN_NAV: Record<UserRole, { href: string; label: string }[]> = {
@@ -38,9 +38,9 @@ const MAIN_NAV: Record<UserRole, { href: string; label: string }[]> = {
   ],
   merchant: [
     { href: '/', label: '首页' },
-    { href: '/appointments', label: '预约' },
     { href: '/admin/orders', label: '订单' },
-    { href: '/admin/products', label: '产品' },
+    { href: '/admin/products', label: '商品' },
+    { href: '/admin/services', label: '服务' },
   ],
   admin: [
     { href: '/', label: '首页' },
@@ -48,12 +48,16 @@ const MAIN_NAV: Record<UserRole, { href: string; label: string }[]> = {
     { href: '/admin/orders', label: '订单' },
     { href: '/admin/products', label: '产品' },
   ],
+  staff: [
+    { href: '/', label: '首页' },
+    { href: '/staff/workbench', label: '工作台' },
+  ],
 };
 
-// 管理下拉菜单
+// 管理下拉菜单（商家后台）
 const ADMIN_MENU: { href: string; label: string }[] = [
-  { href: '/admin/dashboard', label: '数据面板' },
-  { href: '/staff', label: '员工管理' },
+  { href: '/admin/dashboard', label: '商家数据中心' },
+  { href: '/admin/staff', label: '员工管理' },
   { href: '/admin/schedule', label: '排班管理' },
   { href: '/customers', label: '客户管理' },
   { href: '/admin/payment', label: '收款码设置' },
@@ -63,23 +67,28 @@ const ADMIN_MENU: { href: string; label: string }[] = [
 // 我的下拉菜单
 const MY_MENU: Record<UserRole, { href: string; label: string }[]> = {
   guest: [
-    { href: '/orders', label: '我的订单' },
+    { href: '/products', label: '产品' },
     { href: '/chat', label: '在线咨询' },
+    { href: '/auth/login', label: '登录/注册' },
   ],
   customer: [
     { href: '/orders', label: '我的订单' },
+    { href: '/appointments', label: '我的预约' },
     { href: '/profile', label: '个人中心' },
     { href: '/chat', label: '在线咨询' },
   ],
   merchant: [
     { href: '/calendar', label: '日历视图' },
-    { href: '/staff/workbench', label: '工作台' },
     { href: '/notifications', label: '通知中心' },
+    { href: '/admin/payment', label: '收款码设置' },
   ],
   admin: [
     { href: '/calendar', label: '日历视图' },
-    { href: '/staff/workbench', label: '工作台' },
     { href: '/notifications', label: '通知中心' },
+  ],
+  staff: [
+    { href: '/staff/workbench', label: '我的工作台' },
+    { href: '/calendar', label: '我的排班' },
   ],
 };
 
@@ -88,6 +97,7 @@ const ROLE_LABELS: Record<UserRole, string> = {
   customer: '客户',
   merchant: '商家',
   admin: '管理员',
+  staff: '员工',
 };
 
 function NavContent() {
@@ -149,7 +159,7 @@ function NavContent() {
                     </svg>
                   </button>
                   {adminMenuOpen && (
-                    <div className="absolute left-0 mt-1 w-44 bg-white rounded-lg shadow-lg border border-[var(--primary-light)]/30 py-1 z-50">
+                    <div className="absolute left-0 mt-1 w-44 bg-white rounded-lg shadow-lg border border-[var(--primary-light)]/30 py-1 z-[60]">
                       {ADMIN_MENU.map(item => (
                         <Link
                           key={item.href}

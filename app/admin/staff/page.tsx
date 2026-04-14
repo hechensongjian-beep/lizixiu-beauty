@@ -1,0 +1,232 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { supabase } from '@/lib/supabase';
+
+interface Staff {
+  id: string;
+  name: string;
+  role: string;
+  email?: string;
+  phone?: string;
+  is_active: boolean;
+  created_at: string;
+}
+
+interface NewStaff {
+  name: string;
+  role: string;
+  email: string;
+  password: string;
+}
+
+export default function AdminStaffPage() {
+  const router = useRouter();
+  const [staffList, setStaffList] = useState<Staff[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [showAdd, setShowAdd] = useState(false);
+  const [newStaff, setNewStaff] = useState<NewStaff>({ name: '', role: '', email: '', password: '' });
+  const [msg, setMsg] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const [settingPwd, setSettingPwd] = useState<{ id: string; email: string; pwd: string } | null>(null);
+
+  const loadStaff = async () => {
+    setLoading(true);
+    try {
+      const { data, error } = await supabase
+        .from('staff')
+        .select('id, name, role, email, phone, is_active, created_at')
+        .order('created_at', { ascending: false });
+      if (!error && data) setStaffList(data);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => { loadStaff(); }, []);
+
+  const handleAdd = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newStaff.name || !newStaff.email || !newStaff.password) {
+      setMsg({ type: 'error', text: '请填写完整信息' });
+      return;
+    }
+    const { error } = await supabase.from('staff').insert({
+      name: newStaff.name,
+      role: newStaff.role || '美容师',
+      email: newStaff.email,
+      is_active: true,
+    });
+    if (error) {
+      setMsg({ type: 'error', text: '添加失败：' + error.message });
+    } else {
+      // 保存密码到 localStorage（员工首次登录时验证）
+      localStorage.setItem(`staff_pwd_${newStaff.email}`, newStaff.password);
+      setMsg({ type: 'success', text: `员工 ${newStaff.name} 添加成功` });
+      setNewStaff({ name: '', role: '', email: '', password: '' });
+      setShowAdd(false);
+      loadStaff();
+    }
+  };
+
+  const handleSetPwd = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!settingPwd || !settingPwd.pwd) return;
+    localStorage.setItem(`staff_pwd_${settingPwd.email}`, settingPwd.pwd);
+    setMsg({ type: 'success', text: '密码已设置，请告知员工' });
+    setSettingPwd(null);
+  };
+
+  const handleToggleActive = async (staff: Staff) => {
+    await supabase.from('staff').update({ is_active: !staff.is_active }).eq('id', staff.id);
+    loadStaff();
+    setMsg({ type: 'success', text: `${staff.is_active ? '已停用' : '已启用'} ${staff.name}` });
+  };
+
+  return (
+    <div className="max-w-3xl mx-auto px-4 py-8 space-y-6">
+      {/* 头部 */}
+      <div className="flex items-center justify-between">
+        <div>
+          <Link href="/admin/dashboard" className="text-sm text-[var(--foreground-muted)] hover:text-[var(--primary)] mb-1 inline-block">← 返回后台</Link>
+          <h1 className="text-2xl text-[var(--foreground)]" style={{ fontFamily: 'var(--font-serif)' }}>员工管理</h1>
+          <p className="text-sm text-[var(--foreground-muted)] mt-1">添加员工账号，设置登录密码</p>
+        </div>
+        <button
+          onClick={() => setShowAdd(true)}
+          className="px-5 py-2.5 rounded-xl text-white text-sm font-medium hover:shadow-md transition-all"
+          style={{ background: 'var(--primary)' }}
+        >
+          + 添加员工
+        </button>
+      </div>
+
+      {msg && (
+        <div className={`rounded-xl px-4 py-3 text-sm ${msg.type === 'success' ? 'bg-green-50 border border-green-200 text-green-700' : 'bg-red-50 border border-red-200 text-red-700'}`}>
+          {msg.text}
+          <button onClick={() => setMsg(null)} className="float-right font-bold">×</button>
+        </div>
+      )}
+
+      {/* 员工列表 */}
+      {loading ? (
+        <div className="space-y-3">
+          {[1, 2, 3].map(i => (
+            <div key={i} className="h-20 bg-white rounded-2xl animate-pulse border border-[var(--primary-light)]" />
+          ))}
+        </div>
+      ) : staffList.length === 0 ? (
+        <div className="text-center py-16 text-[var(--foreground-muted)]">
+          <div className="text-4xl mb-3">-</div>
+          <p>暂无员工，点击上方按钮添加</p>
+        </div>
+      ) : (
+        <div className="space-y-3">
+          {staffList.map(staff => (
+            <div key={staff.id} className="bg-white rounded-2xl border border-[var(--primary-light)] p-5 flex items-center gap-4">
+              <div className="w-12 h-12 rounded-full flex items-center justify-center text-white text-lg font-medium" style={{ background: 'var(--primary)' }}>
+                {staff.name.charAt(0)}
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2">
+                  <span className="font-medium text-[var(--foreground)]">{staff.name}</span>
+                  <span className={`text-xs px-2 py-0.5 rounded-full ${staff.is_active ? 'bg-green-50 text-green-700' : 'bg-gray-100 text-gray-400'}`}>
+                    {staff.is_active ? '已激活' : '已停用'}
+                  </span>
+                </div>
+                <div className="text-sm text-[var(--foreground-muted)] mt-0.5">
+                  {staff.role} · {staff.email || staff.phone || '未设置联系方式'}
+                </div>
+              </div>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => setSettingPwd({ id: staff.id, email: staff.email || '', pwd: '' })}
+                  className="px-3 py-1.5 rounded-lg border border-[var(--primary-light)] text-xs text-[var(--primary)] hover:bg-[var(--primary-light)] transition-all"
+                >
+                  设置密码
+                </button>
+                <button
+                  onClick={() => handleToggleActive(staff)}
+                  className={`px-3 py-1.5 rounded-lg text-xs transition-all ${staff.is_active ? 'text-red-500 border border-red-200 hover:bg-red-50' : 'text-green-600 border border-green-200 hover:bg-green-50'}`}
+                >
+                  {staff.is_active ? '停用' : '启用'}
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* 密码说明 */}
+      <div className="bg-[var(--background-secondary)] rounded-2xl p-5 border border-[var(--primary-light)]">
+        <h3 className="font-medium text-[var(--foreground)] mb-2 text-sm">密码说明</h3>
+        <ul className="text-xs text-[var(--foreground-muted)] space-y-1">
+          <li>· 员工账号由商家添加，密码由商家设置后告知员工</li>
+          <li>· 员工首次登录需使用商家设置的密码</li>
+          <li>· 可随时在此页面修改员工密码</li>
+          <li>· 密码存储在本地，重置设备后需重新设置</li>
+        </ul>
+      </div>
+
+      {/* 添加员工弹窗 */}
+      {showAdd && (
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 px-4" onClick={e => { if (e.target === e.currentTarget) setShowAdd(false); }}>
+          <div className="bg-white rounded-2xl p-6 w-full max-w-md">
+            <h2 className="text-xl text-[var(--foreground)] mb-5" style={{ fontFamily: 'var(--font-serif)' }}>添加员工</h2>
+            <form onSubmit={handleAdd} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-[var(--foreground)] mb-1">姓名</label>
+                <input value={newStaff.name} onChange={e => setNewStaff(s => ({ ...s, name: e.target.value }))}
+                  className="w-full px-4 py-2.5 rounded-xl border border-[var(--primary-light)] text-sm focus:outline-none focus:ring-2 focus:ring-[var(--primary)]" placeholder="员工姓名" />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-[var(--foreground)] mb-1">职位</label>
+                <input value={newStaff.role} onChange={e => setNewStaff(s => ({ ...s, role: e.target.value }))}
+                  className="w-full px-4 py-2.5 rounded-xl border border-[var(--primary-light)] text-sm focus:outline-none focus:ring-2 focus:ring-[var(--primary)]" placeholder="美容师 / 按摩师" />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-[var(--foreground)] mb-1">邮箱（登录账号）</label>
+                <input type="email" value={newStaff.email} onChange={e => setNewStaff(s => ({ ...s, email: e.target.value }))}
+                  className="w-full px-4 py-2.5 rounded-xl border border-[var(--primary-light)] text-sm focus:outline-none focus:ring-2 focus:ring-[var(--primary)]" placeholder="staff@example.com" />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-[var(--foreground)] mb-1">初始密码</label>
+                <input type="password" value={newStaff.password} onChange={e => setNewStaff(s => ({ ...s, password: e.target.value }))}
+                  className="w-full px-4 py-2.5 rounded-xl border border-[var(--primary-light)] text-sm focus:outline-none focus:ring-2 focus:ring-[var(--primary)]" placeholder="设置员工登录密码" />
+              </div>
+              {msg?.type === 'error' && msg.text.includes('添加失败') && (
+                <div className="text-red-600 text-sm">{msg.text}</div>
+              )}
+              <div className="flex gap-3 pt-2">
+                <button type="button" onClick={() => setShowAdd(false)} className="flex-1 py-2.5 rounded-xl border border-[var(--primary-light)] text-sm text-[var(--foreground-muted)]">取消</button>
+                <button type="submit" className="flex-1 py-2.5 rounded-xl text-white text-sm font-medium" style={{ background: 'var(--primary)' }}>确认添加</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* 修改密码弹窗 */}
+      {settingPwd && (
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 px-4" onClick={e => { if (e.target === e.currentTarget) setSettingPwd(null); }}>
+          <div className="bg-white rounded-2xl p-6 w-full max-w-sm">
+            <h2 className="text-xl text-[var(--foreground)] mb-2" style={{ fontFamily: 'var(--font-serif)' }}>设置密码</h2>
+            <p className="text-sm text-[var(--foreground-muted)] mb-5">账号：{settingPwd.email}</p>
+            <form onSubmit={handleSetPwd} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-[var(--foreground)] mb-1">新密码</label>
+                <input type="password" value={settingPwd.pwd} onChange={e => setSettingPwd(s => s ? ({ ...s, pwd: e.target.value }) : null)}
+                  className="w-full px-4 py-2.5 rounded-xl border border-[var(--primary-light)] text-sm focus:outline-none focus:ring-2 focus:ring-[var(--primary)]" placeholder="输入新密码" autoFocus />
+              </div>
+              <div className="flex gap-3">
+                <button type="button" onClick={() => setSettingPwd(null)} className="flex-1 py-2.5 rounded-xl border border-[var(--primary-light)] text-sm text-[var(--foreground-muted)]">取消</button>
+                <button type="submit" className="flex-1 py-2.5 rounded-xl text-white text-sm font-medium" style={{ background: 'var(--primary)' }}>确认</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}

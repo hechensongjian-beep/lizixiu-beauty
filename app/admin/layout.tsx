@@ -67,11 +67,36 @@ export default function AdminLayout({
                   >
                     ️ 产品管理
                   </a>
+
+                  <a
+                    href="/admin/services"
+                    className="text-gray-700 hover:text-[#a88a5c] font-medium px-3 py-2 rounded-lg hover:bg-pink-50 transition"
+                  >
+                    服务项目管理
+                  </a>
+                  <a
+                    href="/admin/staff"
+                    className="text-gray-700 hover:text-[#a88a5c] font-medium px-3 py-2 rounded-lg hover:bg-pink-50 transition"
+                  >
+                    员工管理
+                  </a>
+                  <a
+                    href="/admin/schedule"
+                    className="text-gray-700 hover:text-[#a88a5c] font-medium px-3 py-2 rounded-lg hover:bg-pink-50 transition"
+                  >
+                    排班日历
+                  </a>
+                  <a
+                    href="/admin/payment"
+                    className="text-gray-700 hover:text-[#a88a5c] font-medium px-3 py-2 rounded-lg hover:bg-pink-50 transition"
+                  >
+                    收款设置
+                  </a>
                   <a
                     href="/"
                     className="text-gray-600 hover:text-gray-800 text-sm font-medium px-3 py-2 rounded-lg hover:bg-gray-100 transition"
                   >
-                    ← 返回主站
+                    返回主站
                   </a>
                 </div>
               </div>

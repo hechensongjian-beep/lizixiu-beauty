@@ -120,7 +120,7 @@ export default function ProfilePage() {
             <h2 className="text-2xl font-bold text-gray-900 mb-6">最近预约</h2>
             {loading ? (
               <div className="text-center py-8">
-                <div className="inline-block animate-spin rounded-full h-8 w-8 border-4 border-cyan-600 border-t-transparent"></div>
+                <div className="max-w-4xl mx-auto px-4 py-12"><div className="bg-white rounded-2xl p-8 animate-pulse"><div className="flex items-center gap-4 mb-8"><div className="w-20 h-20 rounded-full bg-gray-200"></div><div className="space-y-2"><div className="h-6 bg-gray-200 rounded w-32"></div><div className="h-4 bg-gray-200 rounded w-48"></div></div></div><div className="space-y-4"><div className="h-12 bg-gray-100 rounded-xl"></div><div className="h-12 bg-gray-100 rounded-xl"></div><div className="h-12 bg-gray-100 rounded-xl"></div></div></div></div>
                 <p className="mt-4 text-gray-600">加载预约记录中...</p>
               </div>
             ) : appointments.length === 0 ? (
