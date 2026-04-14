@@ -30,6 +30,9 @@ export default function CheckoutPage() {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [paymentInfo, setPaymentInfo] = useState<PaymentInfo>({ wechatQr: '', alipayQr: '', merchantName: '丽姿秀' });
   const [form, setForm] = useState({ customerName: '', customerPhone: '', customerEmail: '', shippingAddress: '' });
+  const [deliveryMethod, setDeliveryMethod] = useState<'express' | 'pickup' | 'delivery'>('express');
+  const [savedAddresses, setSavedAddresses] = useState<string[]>([]);
+  const [showSavedAddresses, setShowSavedAddresses] = useState(false);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
@@ -62,6 +65,30 @@ export default function CheckoutPage() {
         setCart(items);
       } catch {}
     }
+
+    // Load delivery method from cart page
+    const dm = localStorage.getItem('beauty-delivery-method');
+    if (dm === 'express' || dm === 'pickup' || dm === 'delivery') setDeliveryMethod(dm);
+
+    // Load saved addresses
+    try {
+      const addr = localStorage.getItem('beauty-saved-addresses');
+      if (addr) setSavedAddresses(JSON.parse(addr));
+    } catch {}
+
+    // Load saved customer info for auto-fill
+    try {
+      const info = localStorage.getItem('beauty-customer-info');
+      if (info) {
+        const parsed = JSON.parse(info);
+        setForm(f => ({
+          customerName: f.customerName || parsed.name || '',
+          customerPhone: f.customerPhone || parsed.phone || '',
+          customerEmail: f.customerEmail || parsed.email || '',
+          shippingAddress: f.shippingAddress || parsed.address || '',
+        }));
+      }
+    } catch {}
   }, []);
 
   const resolvedCart = cart.map(item => ({
@@ -71,9 +98,9 @@ export default function CheckoutPage() {
   }));
 
   const subtotal = resolvedCart.reduce((s, i) => s + i.price * i.quantity, 0);
-  const shipping = subtotal > 500 ? 0 : 15;
-  const tax = Math.round(subtotal * 0.06 * 100) / 100;
-  const total = subtotal + shipping + tax;
+  const freeDeliveryThreshold = 500;
+  const shipping = deliveryMethod === 'pickup' ? 0 : (subtotal >= freeDeliveryThreshold ? 0 : 15);
+  const total = subtotal + shipping;
   const fmt = (n: number) => new Intl.NumberFormat('zh-CN', { style: 'currency', currency: 'CNY' }).format(n);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -81,14 +108,35 @@ export default function CheckoutPage() {
   };
 
   const handleSubmitOrder = async () => {
-    if (!form.customerName || !form.customerPhone || !form.shippingAddress) {
-      setError('请填写完整的收货信息（姓名、手机号、收货地址）');
+    if (!form.customerName || !form.customerPhone) {
+      setError('请填写姓名和手机号');
+      return;
+    }
+    if (deliveryMethod !== 'pickup' && !form.shippingAddress) {
+      setError('请填写收货地址（到店自取无需地址）');
       return;
     }
     setSubmitting(true);
     setError('');
+
+    // Save customer info for auto-fill next time
     try {
-      const result = await createOrder({ ...form, items: resolvedCart, subtotal, shippingFee: shipping, tax, total });
+      localStorage.setItem('beauty-customer-info', JSON.stringify({
+        name: form.customerName, phone: form.customerPhone,
+        email: form.customerEmail, address: form.shippingAddress,
+      }));
+      // Save address to address book
+      if (form.shippingAddress) {
+        const existing = JSON.parse(localStorage.getItem('beauty-saved-addresses') || '[]');
+        if (!existing.includes(form.shippingAddress)) {
+          existing.push(form.shippingAddress);
+          localStorage.setItem('beauty-saved-addresses', JSON.stringify(existing));
+        }
+      }
+    } catch {}
+
+    try {
+      const result = await createOrder({ ...form, items: resolvedCart, subtotal, shippingFee: shipping, tax: 0, total, deliveryMethod });
       if (result.success) {
         localStorage.removeItem('beauty-shop-cart');
         setCurrentOrder(result.order);
@@ -184,7 +232,8 @@ export default function CheckoutPage() {
           <div className="mt-6 bg-gray-50 rounded-xl p-4 text-sm text-gray-700 space-y-2">
             <p><strong>商家：</strong>{paymentInfo.merchantName}</p>
             <p><strong>收货人：</strong>{form.customerName}，{form.customerPhone}</p>
-            <p><strong>收货地址：</strong>{form.shippingAddress}</p>
+            {deliveryMethod !== 'pickup' && <p><strong>收货地址：</strong>{form.shippingAddress}</p>}
+            <p><strong>配送方式：</strong>{deliveryMethod === 'express' ? '快递配送' : deliveryMethod === 'pickup' ? '到店自取' : '送货上门'}</p>
             <p><strong>支付金额：</strong><span className="font-bold" style={{color:'#a88a5c'}}>{fmt(total)}</span></p>
           </div>
         </div>
@@ -252,7 +301,28 @@ export default function CheckoutPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
         <div className="lg:col-span-2">
           <div className="bg-white border border-gray-200 rounded-2xl p-8 mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">收货信息</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">配送与收货</h2>
+
+            {/* 配送方式 */}
+            <div className="mb-8">
+              <label className="block text-gray-800 font-medium mb-3">配送方式</label>
+              <div className="grid grid-cols-3 gap-3">
+                {[
+                  { key: 'express' as const, label: '快递配送', desc: subtotal >= freeDeliveryThreshold ? '满500免运费' : '运费15元' },
+                  { key: 'pickup' as const, label: '到店自取', desc: '免费' },
+                  { key: 'delivery' as const, label: '送货上门', desc: '镇内免费' },
+                ].map(opt => (
+                  <button key={opt.key} onClick={() => setDeliveryMethod(opt.key)}
+                    className={`p-4 rounded-xl text-center transition border-2 ${deliveryMethod === opt.key ? 'border-[#c9a87c] bg-[#faf8f5]' : 'border-gray-200 hover:border-[#c9a87c44]'}`}>
+                    <div className="font-bold text-gray-900">{opt.label}</div>
+                    <div className="text-xs text-gray-500 mt-1">{opt.desc}</div>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* 收货信息 */}
+            <h3 className="text-lg font-bold text-gray-900 mb-4">收货信息</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-gray-800 font-medium mb-2">姓名 *</label>
@@ -269,12 +339,36 @@ export default function CheckoutPage() {
                 <input type="email" name="customerEmail" value={form.customerEmail} onChange={handleChange} placeholder="选填"
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c9a87c]" />
               </div>
-              <div className="md:col-span-2">
-                <label className="block text-gray-800 font-medium mb-2">收货地址 *</label>
-                <textarea name="shippingAddress" value={form.shippingAddress} onChange={handleChange} required rows={3} placeholder="详细收货地址"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c9a87c]" />
-              </div>
+              {deliveryMethod !== 'pickup' && (
+                <div className="md:col-span-2 relative">
+                  <label className="block text-gray-800 font-medium mb-2">收货地址 *</label>
+                  <input type="text" name="shippingAddress" value={form.shippingAddress} onChange={handleChange} required
+                    placeholder="详细收货地址" onFocus={() => savedAddresses.length > 0 && setShowSavedAddresses(true)}
+                    onBlur={() => setTimeout(() => setShowSavedAddresses(false), 200)}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c9a87c]" />
+                  {showSavedAddresses && savedAddresses.length > 0 && (
+                    <div className="absolute z-10 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-40 overflow-auto">
+                      {savedAddresses.map((addr, i) => (
+                        <button key={i} type="button" onMouseDown={() => { setForm(f => ({ ...f, shippingAddress: addr })); setShowSavedAddresses(false); }}
+                          className="w-full text-left px-4 py-2 hover:bg-gray-50 text-sm text-gray-700 border-b border-gray-100 last:border-0">
+                          {addr}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
+            {deliveryMethod === 'pickup' && (
+              <div className="mt-4 p-3 rounded-lg text-sm" style={{"background":'#faf8f5',"border":'1px solid rgba(201,168,124,0.2)'}}>
+                <span className="text-gray-700">到店自取：请到门店出示订单号取货，门店地址由商家确认后通知。</span>
+              </div>
+            )}
+            {deliveryMethod === 'delivery' && (
+              <div className="mt-4 p-3 rounded-lg text-sm" style={{"background":'#faf8f5',"border":'1px solid rgba(201,168,124,0.2)'}}>
+                <span className="text-gray-700">送货上门：三乡镇范围内免费配送，超出范围请联系商家确认运费。</span>
+              </div>
+            )}
             {error && <div className="mt-6 p-4 bg-red-50 border border-red-200 text-red-700 rounded-lg">{error}</div>}
             <div className="mt-8 flex justify-between items-center">
               <Link href="/cart" className="flex items-center px-6 py-3 border-2 border-gray-300 text-gray-800 font-bold rounded-lg hover:bg-gray-50 transition">
@@ -303,7 +397,7 @@ export default function CheckoutPage() {
               ))}
               <div className="flex justify-between pt-4"><span className="text-gray-700">商品小计</span><span className="font-medium">{fmt(subtotal)}</span></div>
               <div className="flex justify-between"><span className="text-gray-700">运费</span><span className={`font-medium ${shipping === 0 ? 'text-green-600' : ''}`}>{shipping === 0 ? '免费' : fmt(shipping)}</span></div>
-              <div className="flex justify-between"><span className="text-gray-700">增值税 (6%)</span><span className="font-medium">{fmt(tax)}</span></div>
+              <div className="flex justify-between"><span className="text-gray-700">配送方式</span><span className="font-medium">{deliveryMethod === 'express' ? '快递' : deliveryMethod === 'pickup' ? '到店自取' : '送货上门'}</span></div>
               <div className="border-t border-gray-200 pt-4">
                 <div className="flex justify-between text-xl font-bold text-gray-900"><span>总计</span><span>{fmt(total)}</span></div>
               </div>

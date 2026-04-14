@@ -21,7 +21,8 @@ function fmtOrder(o) {
     items: (o.order_items || []).map(i => ({ id: i.id, productId: i.product_id, name: i.name, price: parseFloat(i.price), quantity: i.quantity })),
     subtotal: parseFloat(o.subtotal || 0), shippingFee: parseFloat(o.shipping_fee || 0),
     tax: parseFloat(o.tax || 0), total: parseFloat(o.total || 0),
-    status: o.status, createdAt: o.created_at, updatedAt: o.updated_at,
+    status: o.status, deliveryMethod: o.delivery_method || 'express',
+    createdAt: o.created_at, updatedAt: o.updated_at,
   };
 }
 
@@ -96,14 +97,14 @@ export async function getOrders(): Promise<any> {
 export async function createOrder(body): Promise<any> {
   try {
     const subtotal = body.subtotal || body.items.reduce((s, i) => s + i.price * i.quantity, 0);
-    const shippingFee = body.shippingFee || (subtotal > 500 ? 0 : 15);
-    const tax = body.tax || subtotal * 0.06;
-    const total = body.total || subtotal + shippingFee + tax;
+    const shippingFee = body.shippingFee || 0;
+    const total = body.total || subtotal + shippingFee;
 
     const { data: orderData, error: orderError } = await supabase.from('orders').insert({
       customer_name: body.customerName, customer_phone: body.customerPhone || '',
       customer_email: body.customerEmail || '', shipping_address: body.shippingAddress || '',
-      subtotal, shipping_fee: shippingFee, tax, total, status: 'pending',
+      subtotal, shipping_fee: shippingFee, tax: 0, total, status: 'pending',
+      delivery_method: body.deliveryMethod || 'express',
     }).select().single();
 
     if (orderError) return { error: orderError.message };

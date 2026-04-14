@@ -13,7 +13,7 @@ const TIMES = ['09:00','09:30','10:00','10:30','11:00','11:30','12:00','12:30','
 export default function AppointmentsPage() {
   const [services, setServices] = useState<Service[]>([]);
   const [staff, setStaff] = useState<Staff[]>([]);
-  const [serviceId, setServiceId] = useState('');
+  const [selectedServices, setSelectedServices] = useState<string[]>([]);
   const [staffId, setStaffId] = useState('');
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
@@ -41,11 +41,17 @@ export default function AppointmentsPage() {
   }, []);
 
   useEffect(() => {
-    if (services.length > 0 && !serviceId) setServiceId(services[0].id);
+    if (services.length > 0 && selectedServices.length === 0) setSelectedServices([services[0].id]);
     if (staff.length > 0 && !staffId) setStaffId(staff[0].id);
   }, [services, staff]);
 
-  const getService = () => services.find(s => s.id === serviceId);
+  const toggleService = (id: string) => {
+    setSelectedServices(prev => prev.includes(id) ? prev.filter(s => s !== id) : [...prev, id]);
+  };
+
+  const getTotalDuration = () => selectedServices.reduce((sum, id) => sum + (services.find(s => s.id === id)?.duration || 60), 0);
+  const getTotalPrice = () => selectedServices.reduce((sum, id) => sum + (services.find(s => s.id === id)?.price || 0), 0);
+  const getSelectedServiceNames = () => selectedServices.map(id => services.find(s => s.id === id)?.name).filter(Boolean).join('、');
 
   const getUnavailableTimes = () => {
     const today = date || new Date().toISOString().split('T')[0];
@@ -57,18 +63,27 @@ export default function AppointmentsPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!serviceId || !staffId || !date || !time || !name || !phone) {
+    if (selectedServices.length === 0 || !staffId || !date || !time || !name || !phone) {
       setError('请填写所有必填项'); return;
     }
     setSubmitting(true);
     setError('');
-    const svc = getService();
+    const totalDuration = getTotalDuration();
     const start = `${date}T${time}:00`;
-    const endH = parseInt(time.split(':')[0]) + Math.floor((parseInt(time.split(':')[1]) + (svc?.duration || 60)) / 60);
-    const endM = (parseInt(time.split(':')[1]) + (svc?.duration || 60)) % 60;
+    const endH = parseInt(time.split(':')[0]) + Math.floor((parseInt(time.split(':')[1]) + totalDuration) / 60);
+    const endM = (parseInt(time.split(':')[1]) + totalDuration) % 60;
     const end = `${date}T${String(endH).padStart(2,'0')}:${String(endM).padStart(2,'0')}:00`;
     try {
-      const result = await createAppointment({ service_id: serviceId, staff_id: staffId, start_time: start, end_time: end, customer_name: name, customer_phone: phone, notes, status: 'pending' });
+      // Create one appointment for all selected services
+      const result = await createAppointment({
+        service_id: selectedServices[0],
+        service_ids: selectedServices,
+        staff_id: staffId,
+        start_time: start, end_time: end,
+        customer_name: name, customer_phone: phone,
+        notes: notes + (selectedServices.length > 1 ? ` | 项目: ${getSelectedServiceNames()}` : ''),
+        status: 'pending'
+      });
       if (result.success) {
         setBooked(true);
         setCreatedApt(result.appointment);
@@ -94,8 +109,12 @@ export default function AppointmentsPage() {
           <p className="mb-8" style={{color:'#6b6b68'}}>我们将尽快确认您的预约，请保持手机畅通</p>
           <div className="rounded-2xl p-6 mb-8 text-left" style={{background:'#faf8f5',border:'1px solid rgba(201,168,124,0.15)'}}>
             <div className="flex justify-between py-3" style={{borderBottom:'1px solid rgba(201,168,124,0.1)'}}>
-              <span style={{color:'#6b6b68'}}>服务</span>
-              <span className="font-bold" style={{color:'#2a2a28'}}>{createdApt.service_type || getService()?.name}</span>
+              <span style={{color:'#6b6b68'}}>服务项目</span>
+              <span className="font-bold text-right" style={{color:'#2a2a28'}}>{getSelectedServiceNames()}</span>
+            </div>
+            <div className="flex justify-between py-3" style={{borderBottom:'1px solid rgba(201,168,124,0.1)'}}>
+              <span style={{color:'#6b6b68'}}>预计时长</span>
+              <span className="font-bold" style={{color:'#2a2a28'}}>约{getTotalDuration()}分钟</span>
             </div>
             <div className="flex justify-between py-3" style={{borderBottom:'1px solid rgba(201,168,124,0.1)'}}>
               <span style={{color:'#6b6b68'}}>日期</span>
@@ -114,7 +133,7 @@ export default function AppointmentsPage() {
             <Link href="/" className="flex-1 py-3 rounded-xl font-bold text-center" style={{border:'1.5px solid #c9a87c',color:'#a88a5c'}}>
               返回首页
             </Link>
-            <button onClick={()=>{setBooked(false);setDate('');setTime('');setNotes('');}} 
+            <button onClick={()=>{setBooked(false);setDate('');setTime('');setNotes('');setSelectedServices(services.length > 0 ? [services[0].id] : []);}} 
               className="flex-1 py-3 rounded-xl font-bold text-white" style={{background:'linear-gradient(135deg, #c9a87c 0%, #e8d5b8 100%)'}}>
               再约一个
             </button>
@@ -132,7 +151,6 @@ export default function AppointmentsPage() {
 
   const unavailable = getUnavailableTimes();
   const today = new Date().toISOString().split('T')[0];
-  const selectedService = getService();
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-12">
@@ -153,12 +171,12 @@ export default function AppointmentsPage() {
           <h2 className="text-lg font-bold mb-4" style={{fontFamily:"'Noto Serif SC',serif",color:'#2a2a28'}}>选择服务项目</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {services.map(svc => (
-              <button key={svc.id} type="button" onClick={() => setServiceId(svc.id)}
+              <button key={svc.id} type="button" onClick={() => toggleService(svc.id)}
                 className="p-4 rounded-xl text-left transition"
                 style={{
                   border:'2px solid',
-                  borderColor: serviceId === svc.id ? '#c9a87c' : '#e8e4df',
-                  background: serviceId === svc.id ? '#faf8f5' : 'white',
+                  borderColor: selectedServices.includes(svc.id) ? '#c9a87c' : '#e8e4df',
+                  background: selectedServices.includes(svc.id) ? '#faf8f5' : 'white',
                 }}>
                 <div className="font-bold" style={{color:'#2a2a28'}}>{svc.name}</div>
                 <div className="text-xs mt-1" style={{color:'#6b6b68'}}>{svc.description?.substring(0,40) || ''}</div>
@@ -169,10 +187,16 @@ export default function AppointmentsPage() {
               </button>
             ))}
           </div>
-          {selectedService && (
+          {selectedServices.length > 0 && (
             <div className="mt-4 p-4 rounded-xl flex justify-between items-center" style={{background:'#faf8f5',border:'1px solid rgba(201,168,124,0.15)'}}>
-              <div><div className="font-bold" style={{color:'#2a2a28'}}>{selectedService.name}</div><div className="text-sm" style={{color:'#6b6b68'}}>{selectedService.description}</div></div>
-              <div className="text-right"><div className="font-bold text-lg" style={{color:'#a88a5c'}}>{fmt(selectedService.price)}</div><div className="text-xs" style={{color:'#9b9b98'}}>约{services.find(s=>s.id===serviceId)?.duration||60}分钟</div></div>
+              <div>
+                <div className="font-bold" style={{color:'#2a2a28'}}>{getSelectedServiceNames()}</div>
+                <div className="text-sm" style={{color:'#6b6b68'}}>约{getTotalDuration()}分钟</div>
+              </div>
+              <div className="text-right">
+                <div className="font-bold text-lg" style={{color:'#a88a5c'}}>{fmt(getTotalPrice())}</div>
+                <div className="text-xs" style={{color:'#9b9b98'}}>{selectedServices.length}个项目</div>
+              </div>
             </div>
           )}
         </div>
@@ -267,13 +291,13 @@ export default function AppointmentsPage() {
           <div className="p-4 rounded-xl" style={{background:'#fef2f2',border:'1px solid #fecaca',color:'#991b1b'}}>{error}</div>
         )}
 
-        <button type="submit" disabled={submitting || !date || !time || !serviceId}
+        <button type="submit" disabled={submitting || !date || !time || selectedServices.length === 0}
           className="w-full py-4 rounded-2xl font-bold text-lg text-white transition shadow-lg"
           style={{
-            background: (submitting || !date || !time || !serviceId) ? '#c0bdb8' : 'linear-gradient(135deg, #c9a87c 0%, #e8d5b8 100%)',
-            boxShadow: (submitting || !date || !time || !serviceId) ? 'none' : '0 8px 25px rgba(201,168,124,0.35)',
+            background: (submitting || !date || !time || selectedServices.length === 0) ? '#c0bdb8' : 'linear-gradient(135deg, #c9a87c 0%, #e8d5b8 100%)',
+            boxShadow: (submitting || !date || !time || selectedServices.length === 0) ? 'none' : '0 8px 25px rgba(201,168,124,0.35)',
           }}>
-          {submitting ? '提交中...' : `确认预约${selectedService ? ' · ' + fmt(selectedService.price) : ''}`}
+          {submitting ? '提交中...' : `确认预约${selectedServices.length > 0 ? ' · ' + fmt(getTotalPrice()) : ''}`}
         </button>
       </form>
 

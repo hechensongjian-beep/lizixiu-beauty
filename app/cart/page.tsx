@@ -57,9 +57,10 @@ export default function CartPage() {
     .filter(Boolean) as { product: Product; qty: number }[];
 
   const subtotal = cartItems.reduce((s, i) => s + i.product.price * i.qty, 0);
-  const shipping = subtotal > 500 ? 0 : 15;
-  const tax = subtotal * 0.06;
-  const total = subtotal + shipping + tax;
+  const [deliveryMethod, setDeliveryMethod] = useState<'express' | 'pickup' | 'delivery'>('express');
+  const freeDeliveryThreshold = 500;
+  const shipping = deliveryMethod === 'pickup' ? 0 : (subtotal >= freeDeliveryThreshold ? 0 : 15);
+  const total = subtotal + shipping;
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-12">
@@ -147,23 +148,38 @@ export default function CartPage() {
               <div className="space-y-4">
                 <div className="flex justify-between"><span className="text-gray-700">商品小计</span><span className="font-medium">{fmt(subtotal)}</span></div>
                 <div className="flex justify-between">
+                  <span className="text-gray-700">配送方式</span>
+                </div>
+                <div className="grid grid-cols-3 gap-2">
+                  {[
+                    { key: 'express', label: '快递配送', desc: subtotal >= freeDeliveryThreshold ? '免费' : fmt(15) },
+                    { key: 'pickup', label: '到店自取', desc: '免费' },
+                    { key: 'delivery', label: '送货上门', desc: subtotal >= freeDeliveryThreshold ? '免费' : fmt(15) },
+                  ].map(opt => (
+                    <button key={opt.key} onClick={() => setDeliveryMethod(opt.key as any)}
+                      className={`p-3 rounded-xl text-center transition border-2 ${deliveryMethod === opt.key ? 'border-[#c9a87c] bg-[#faf8f5]' : 'border-gray-200 hover:border-[#c9a87c44]'}`}>
+                      <div className="font-bold text-sm text-gray-900">{opt.label}</div>
+                      <div className="text-xs text-gray-500 mt-1">{opt.desc}</div>
+                    </button>
+                  ))}
+                </div>
+                <div className="flex justify-between">
                   <span className="text-gray-700">运费</span>
                   <span className={`font-medium ${shipping === 0 ? 'text-green-600' : ''}`}>{shipping === 0 ? '免费' : fmt(shipping)}</span>
                 </div>
-                <div className="flex justify-between"><span className="text-gray-700">增值税 (6%)</span><span className="font-medium">{fmt(tax)}</span></div>
                 <div className="border-t border-gray-200 pt-4">
                   <div className="flex justify-between text-xl font-bold text-gray-900"><span>总计</span><span>{fmt(total)}</span></div>
                 </div>
               </div>
-              {subtotal < 500 && (
+              {deliveryMethod !== 'pickup' && subtotal < freeDeliveryThreshold && (
                 <div className="mt-6 p-4 rounded-lg" style={{"background":'#faf8f5',"border":'1px solid rgba(201,168,124,0.2)'}}>
                   <div className="flex items-center gap-2 text-amber-800 font-medium mb-1">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                    还差 {fmt(500 - subtotal)} 即可免运费
+                    还差 {fmt(freeDeliveryThreshold - subtotal)} 即可免运费
                   </div>
                 </div>
               )}
-              <Link href="/checkout" className="block w-full mt-8 py-4 text-center font-bold text-lg rounded-lg text-white transition" style={{"background":'linear-gradient(135deg,#c9a87c 0%,#e8d5b8 100%)',"boxShadow":'0 4px 15px rgba(201,168,124,0.3)'}}>去结算</Link>
+              <Link href="/checkout" onClick={() => localStorage.setItem('beauty-delivery-method', deliveryMethod)} className="block w-full mt-8 py-4 text-center font-bold text-lg rounded-lg text-white transition" style={{"background":'linear-gradient(135deg,#c9a87c 0%,#e8d5b8 100%)',"boxShadow":'0 4px 15px rgba(201,168,124,0.3)'}}>去结算</Link>
               <div className="mt-8 pt-8 border-t border-gray-200 space-y-3">
                 <div className="flex items-center gap-2 text-sm text-gray-600">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
