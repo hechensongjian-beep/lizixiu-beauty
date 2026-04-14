@@ -97,7 +97,7 @@ export default function AdminDashboardPage() {
   };
 
   const statCards = [
-    { label: '总收入', value: fmt(stats.totalRevenue), icon: '', color: 'from-pink-500 to-rose-500', sub: '历史累计' },
+    { label: '总收入', value: fmt(stats.totalRevenue), icon: '', color: 'from-[#c9a87c] to-[#e8d5b8]', sub: '历史累计' },
     { label: '本月收入', value: fmt(stats.monthRevenue), icon: '', color: 'from-purple-500 to-indigo-500', sub: `本月 ${stats.monthOrders} 笔` },
     { label: '总订单', value: `${stats.totalOrders} 笔`, icon: '', color: 'from-blue-500 to-cyan-500', sub: `待处理 ${stats.pendingOrders}` },
     { label: '客户总数', value: `${stats.totalCustomers} 人`, icon: '', color: 'from-[#c9a87c] to-[#e8d5b8]', sub: '注册用户' },
@@ -277,7 +277,7 @@ export default function AdminDashboardPage() {
       {/* 快速入口 */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { href: '/admin/orders', emoji: '', label: '订单管理', color: 'from-pink-500 to-rose-500' },
+          { href: '/admin/orders', emoji: '', label: '订单管理', color: 'from-[#c9a87c] to-[#e8d5b8]' },
           { href: '/admin/products', emoji: '', label: '产品管理', color: 'from-[#c9a87c] to-[#e8d5b8]' },
           { href: '/customers', emoji: '', label: '客户管理', color: 'from-[#c9a87c] to-[#e8d5b8]' },
           { href: '/calendar', emoji: '', label: '预约日历', color: 'from-[#c9a87c] to-[#e8d5b8]' },

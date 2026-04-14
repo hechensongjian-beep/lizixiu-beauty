@@ -12,9 +12,9 @@ interface Product {
 }
 
 const IMAGE_COLORS = [
-  'from-pink-200 to-rose-300','from-blue-200 to-cyan-300',
+  'from-[#e8d5b8] to-[#c9a87c]','from-blue-200 to-cyan-300',
   'from-amber-200 to-orange-300','from-purple-200 to-violet-300',
-  'from-green-200 to-emerald-300','from-red-200 to-pink-300',
+  'from-green-200 to-emerald-300','from-red-200 to-[#e8d5b8]',
 ];
 
 export default function AdminProductsPage() {
@@ -114,7 +114,7 @@ export default function AdminProductsPage() {
       {/* 添加/编辑表单 */}
       {tab === 'add' && (
         <div className="bg-white rounded-2xl shadow-lg p-8 mb-8">
-          <h2 className="text-xl font-bold text-gray-900 mb-6">{editing ? '✏️ 编辑商品' : '🆕 添加新商品'}</h2>
+          <h2 className="text-xl font-bold text-gray-900 mb-6">{editing ? '✏️ 编辑商品' : '添加新商品'}</h2>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>

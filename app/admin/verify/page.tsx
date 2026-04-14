@@ -145,7 +145,7 @@ export default function PaymentVerifyPage() {
           {[
             { label: '待核验', value: summary.pending, color: 'from-amber-400 to-orange-500', icon: '⏳' },
             { label: '已通过', value: summary.approved, color: 'from-green-400 to-emerald-500', icon: '✅' },
-            { label: '已拒绝', value: summary.rejected, color: 'from-red-400 to-pink-500', icon: '❌' },
+            { label: '已拒绝', value: summary.rejected, color: 'from-red-400 to-[#c9a87c]', icon: '❌' },
             { label: '已确认金额', value: fmt(summary.totalAmount), color: 'from-purple-400 to-indigo-500', icon: '' },
           ].map(item => (
             <div key={item.label} className={`bg-gradient-to-br ${item.color} text-white rounded-xl p-4 shadow-sm`}>

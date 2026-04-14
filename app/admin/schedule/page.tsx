@@ -89,7 +89,7 @@ function ReassignModal({
       className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 px-4"
     >
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden">
-        <div className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-4">
+        <div className="bg-gradient-to-r from-[#2d4a3e] to-[#c9a87c] text-white px-6 py-4">
           <h3 className="font-bold text-lg">调换负责员工</h3>
           <p className="text-white/80 text-sm mt-0.5">
             {appointment.services?.name} · {appointment.start_time?.substring(11, 16)}
@@ -439,7 +439,7 @@ export default function AdminSchedulePage() {
               <div></div>
               {data.staff.map(s => (
                 <div key={s.id} className="bg-white border border-gray-200 rounded-xl p-3 text-center shadow-sm">
-                  <div className="w-10 h-10 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full flex items-center justify-center text-white font-bold text-sm mx-auto mb-1">
+                  <div className="w-10 h-10 bg-gradient-to-br from-[#2d4a3e] to-[#e8d5b8] rounded-full flex items-center justify-center text-white font-bold text-sm mx-auto mb-1">
                     {s.name.slice(0, 2)}
                   </div>
                   <div className="font-bold text-gray-900 text-sm">{s.name}</div>
@@ -545,7 +545,7 @@ export default function AdminSchedulePage() {
                 const dateObj = new Date(d + 'T00:00:00');
                 const isCurrentDay = d === currentDate;
                 const isWeekend = idx >= 5;
-                const bgClass = isCurrentDay ? 'bg-pink-50' : isWeekend ? 'bg-gray-50/50' : '';
+                const bgClass = isCurrentDay ? 'bg-[#c9a87c]/10' : isWeekend ? 'bg-gray-50/50' : '';
                 return (
                   <div
                     key={d}
