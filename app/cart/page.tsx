@@ -65,7 +65,10 @@ export default function CartPage() {
     <div className="max-w-7xl mx-auto px-4 py-12">
       <div className="text-center mb-12">
         <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl mb-6" style={{"background":'linear-gradient(135deg,#c9a87c22 0%,#e8d5b822 100%)'}}>
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#a88a5c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#a88a5c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+          </svg>
         </div>
         <h1 className="text-4xl font-bold text-gray-900 mb-4">购物车</h1>
         <p className="text-gray-600">请核对您的商品，确认无误后进行结算。</p>
@@ -75,7 +78,12 @@ export default function CartPage() {
         <div className="flex justify-center py-20"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#c9a87c]"></div></div>
       ) : cartItems.length === 0 ? (
         <div className="bg-gradient-to-r from-gray-50 to-gray-100 border border-gray-200 rounded-2xl p-16 text-center">
-          <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#c0bdb8" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" className="mx-auto mb-6"><circle cx="12" cy="12" r="10"/><path d="M16 16s-1.5-2-4-2-4 2-4 2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+          <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#c0bdb8" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="mx-auto mb-6">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M16 16s-1.5-2-4-2-4 2-4 2"/>
+            <line x1="9" y1="9" x2="9.01" y2="9"/>
+            <line x1="15" y1="9" x2="15.01" y2="9"/>
+          </svg>
           <h3 className="text-2xl font-bold text-gray-800 mb-4">购物车是空的</h3>
           <p className="text-gray-600 max-w-md mx-auto mb-8">您还没有添加任何商品。去产品商店逛逛吧！</p>
           <Link href="/products" className="inline-flex items-center px-8 py-4 font-bold text-lg rounded-lg text-white transition" style={{"background":'linear-gradient(135deg,#c9a87c 0%,#e8d5b8 100%)',"boxShadow":'0 4px 15px rgba(201,168,124,0.3)'}}>去产品商店</Link>
@@ -92,7 +100,13 @@ export default function CartPage() {
                 {cartItems.map(({ product, qty }) => (
                   <div key={product.id} className="flex flex-col md:flex-row items-start md:items-center border-b border-gray-100 pb-6 last:border-0">
                     <div className={`w-24 h-24 bg-gradient-to-r ${product.imageColor} rounded-xl mb-4 md:mb-0 md:mr-6 flex items-center justify-center flex-shrink-0`}>
-                      {product.imageUrl ? <img src={product.imageUrl} alt={product.name} className="w-full h-full object-cover rounded-xl" /> : <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" opacity="0.6"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg>}
+                      {product.imageUrl ? <img src={product.imageUrl} alt={product.name} className="w-full h-full object-cover rounded-xl" /> : (
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5" opacity="0.6">
+                          <rect x="3" y="3" width="18" height="18" rx="2"/>
+                          <circle cx="8.5" cy="8.5" r="1.5"/>
+                          <polyline points="21,15 16,10 5,21"/>
+                        </svg>
+                      )}
                     </div>
                     <div className="flex-1">
                       <div className="flex justify-between items-start">
@@ -108,7 +122,7 @@ export default function CartPage() {
                       </div>
                       <div className="flex items-center justify-between mt-6">
                         <div className="flex items-center">
-                          <button onClick={() => updateQuantity(product.id, -1)} className="w-10 h-10 bg-gray-100 text-gray-800 font-bold rounded-lg hover:bg-gray-200 transition">–</button>
+                          <button onClick={() => updateQuantity(product.id, -1)} className="w-10 h-10 bg-gray-100 text-gray-800 font-bold rounded-lg hover:bg-gray-200 transition">-</button>
                           <div className="mx-4 text-xl font-bold text-gray-900">{qty} 件</div>
                           <button onClick={() => updateQuantity(product.id, 1)} className="w-10 h-10 font-bold rounded-lg text-white transition" style={{"background":'linear-gradient(135deg,#c9a87c 0%,#e8d5b8 100%)'}}>+</button>
                           <button onClick={() => removeItem(product.id)} className="ml-6 px-4 py-2 bg-red-50 text-red-700 font-medium rounded-lg hover:bg-red-100 transition">删除</button>
@@ -120,7 +134,10 @@ export default function CartPage() {
                 ))}
               </div>
               <div className="mt-8 text-center">
-                <Link href="/products" className="inline-flex items-center px-6 py-3 border-2 border-gray-300 text-gray-800 font-bold rounded-lg hover:bg-gray-50 transition">← 继续购物</Link>
+                <Link href="/products" className="inline-flex items-center px-6 py-3 border-2 border-gray-300 text-gray-800 font-bold rounded-lg hover:bg-gray-50 transition">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2"><polyline points="15 18 9 12 15 6"/></svg>
+                  继续购物
+                </Link>
               </div>
             </div>
           </div>
@@ -140,20 +157,32 @@ export default function CartPage() {
               </div>
               {subtotal < 500 && (
                 <div className="mt-6 p-4 rounded-lg" style={{"background":'#faf8f5',"border":'1px solid rgba(201,168,124,0.2)'}}>
-                  <div className="text-amber-800 font-medium mb-1">🎉 还差 {fmt(500 - subtotal)} 即可免运费！</div>
+                  <div className="flex items-center gap-2 text-amber-800 font-medium mb-1">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    还差 {fmt(500 - subtotal)} 即可免运费
+                  </div>
                 </div>
               )}
               <Link href="/checkout" className="block w-full mt-8 py-4 text-center font-bold text-lg rounded-lg text-white transition" style={{"background":'linear-gradient(135deg,#c9a87c 0%,#e8d5b8 100%)',"boxShadow":'0 4px 15px rgba(201,168,124,0.3)'}}>去结算</Link>
-              <div className="mt-8 pt-8 border-t border-gray-200">
-                <div className="flex items-center text-sm text-gray-600 mb-2"><span className="mr-2">🔒</span><span>SSL 加密支付</span></div>
-                <div className="flex items-center text-sm text-gray-600"><span className="mr-2">↩️</span><span>7 天无忧退换</span></div>
+              <div className="mt-8 pt-8 border-t border-gray-200 space-y-3">
+                <div className="flex items-center gap-2 text-sm text-gray-600">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                  <span>SSL 加密支付</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm text-gray-600">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.36"/></svg>
+                  <span>7 天无忧退换</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
       )}
       <div className="text-center mt-12">
-        <Link href="/" className="inline-flex items-center px-6 py-3 font-semibold rounded-lg transition" style={{"background":'#2d4a3e',"color":'white'}}>← 返回主页</Link>
+        <Link href="/" className="inline-flex items-center px-6 py-3 font-semibold rounded-lg transition" style={{"background":'#2d4a3e',"color":'white'}}>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2"><polyline points="15 18 9 12 15 6"/></svg>
+          返回主页
+        </Link>
       </div>
     </div>
   );

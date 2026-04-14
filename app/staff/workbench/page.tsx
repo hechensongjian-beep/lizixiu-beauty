@@ -165,7 +165,7 @@ export default function StaffWorkbenchPage() {
     return (
       <div className="max-w-2xl mx-auto py-12 px-4">
         <div className="text-center mb-10">
-          <div className="text-5xl mb-4">👩‍💼</div>
+          <div className="text-5xl mb-4">‍</div>
           <h1 className="text-3xl font-bold text-gray-900 mb-2">员工工作台</h1>
           <p className="text-gray-600">请选择您的账号，进入个人工作台</p>
         </div>
@@ -188,16 +188,16 @@ export default function StaffWorkbenchPage() {
               <button
                 key={s.id}
                 onClick={() => handleSelectStaff(s.id)}
-                className="w-full flex items-center gap-4 p-4 bg-white border border-gray-200 rounded-xl hover:border-purple-300 hover:shadow-md transition text-left"
+                className="w-full flex items-center gap-4 p-4 bg-white border border-gray-200 rounded-xl hover:border-[#c9a87c] hover:shadow-md transition text-left"
               >
-                <div className="w-12 h-12 bg-gradient-to-r from-purple-100 to-indigo-100 rounded-full flex items-center justify-center text-lg font-bold text-purple-700">
+                <div className="w-12 h-12 bg-gradient-to-r from-[#e8d5b8] to-[#f5ede0] rounded-full flex items-center justify-center text-lg font-bold text-[#a88a5c]">
                   {s.name.slice(0, 2).toUpperCase()}
                 </div>
                 <div className="flex-1">
                   <div className="font-semibold text-gray-900">{s.name}</div>
                   <div className="text-sm text-gray-500">{s.role}</div>
                 </div>
-                <div className="text-purple-500">→</div>
+                <div className="text-[#c9a87c]">→</div>
               </button>
             ))}
           </div>
@@ -236,7 +236,7 @@ export default function StaffWorkbenchPage() {
         <p className="text-gray-600 mb-6">{error}</p>
         <div className="flex gap-3 justify-center">
           <button onClick={() => selectedStaffId && fetchDashboard(selectedStaffId)}
-            className="px-6 py-2 bg-purple-600 text-white rounded-lg font-medium hover:opacity-90">
+            className="px-6 py-2 bg-[#a88a5c] text-white rounded-lg font-medium hover:opacity-90">
             重试
           </button>
           <button onClick={handleBack}
@@ -255,11 +255,11 @@ export default function StaffWorkbenchPage() {
       <div className="flex items-center justify-between mb-8">
         <div>
           <div className="flex items-center gap-3 mb-1">
-            <span className="text-2xl">👩‍💼</span>
+            <span className="text-2xl">‍</span>
             <h1 className="text-2xl font-bold text-gray-900">
               {dashboard?.staff?.name}的工作台
             </h1>
-            <span className="px-2 py-0.5 bg-purple-100 text-purple-700 text-xs font-medium rounded-full">
+            <span className="px-2 py-0.5 bg-[#faf8f5] text-[#a88a5c] text-xs font-medium rounded-full">
               {dashboard?.staff?.role}
             </span>
           </div>
@@ -270,13 +270,13 @@ export default function StaffWorkbenchPage() {
             onClick={() => selectedStaffId && fetchDashboard(selectedStaffId)}
             className="px-3 py-1.5 text-sm bg-gray-100 text-gray-600 rounded-lg hover:bg-gray-200 transition"
           >
-            🔄 刷新
+             刷新
           </button>
           <button
             onClick={handleBack}
             className="px-3 py-1.5 text-sm bg-gray-100 text-gray-600 rounded-lg hover:bg-gray-200 transition"
           >
-            🔁 切换账号
+             切换账号
           </button>
         </div>
       </div>
@@ -284,7 +284,7 @@ export default function StaffWorkbenchPage() {
       {/* 统计卡片 */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
         <div className="bg-white border border-gray-200 rounded-xl p-5">
-          <div className="text-gray-400 text-xl mb-2">📅</div>
+          <div className="text-gray-400 text-xl mb-2"></div>
           <div className="text-3xl font-bold text-gray-900 mb-1">{dashboard?.today.count}</div>
           <div className="text-sm text-gray-500">今日预约</div>
           {dashboard?.today.appointments.filter(a => a.status === 'completed').length !== undefined && (
@@ -301,7 +301,7 @@ export default function StaffWorkbenchPage() {
         </div>
 
         <div className="bg-white border border-gray-200 rounded-xl p-5">
-          <div className="text-gray-400 text-xl mb-2">💰</div>
+          <div className="text-gray-400 text-xl mb-2"></div>
           <div className="text-3xl font-bold text-green-600 mb-1">
             ¥{dashboard?.week.earnings?.toLocaleString('zh-CN', { minimumFractionDigits: 0 }) || 0}
           </div>
@@ -322,7 +322,7 @@ export default function StaffWorkbenchPage() {
         <div className="lg:col-span-3">
           <div className="bg-white border border-gray-200 rounded-2xl p-6 mb-6">
             <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-              🌟 今日服务日程
+               今日服务日程
               <span className="ml-auto text-sm font-normal text-gray-500">
                 {dashboard?.today.appointments.length || 0} 个预约
               </span>
@@ -330,7 +330,7 @@ export default function StaffWorkbenchPage() {
 
             {dashboard?.today.appointments.length === 0 ? (
               <div className="text-center py-10">
-                <div className="text-4xl mb-3">📭</div>
+                <div className="text-4xl mb-3"></div>
                 <p className="text-gray-500">今日暂无预约安排</p>
                 <p className="text-sm text-gray-400 mt-1">好好休息或联系商家</p>
               </div>
@@ -340,7 +340,7 @@ export default function StaffWorkbenchPage() {
                   const sc = STATUS_COLORS[apt.status] || STATUS_COLORS.pending;
                   const duration = apt.services?.duration_minutes || 60;
                   return (
-                    <div key={apt.id} className="border border-gray-200 rounded-xl p-4 hover:border-purple-200 transition">
+                    <div key={apt.id} className="border border-gray-200 rounded-xl p-4 hover:border-[#e8d5b8] transition">
                       <div className="flex items-start justify-between gap-3">
                         <div className="flex-1">
                           <div className="flex items-center gap-2 mb-1">
@@ -355,15 +355,15 @@ export default function StaffWorkbenchPage() {
                             {apt.services?.name || '服务项目'}
                           </div>
                           <div className="flex items-center gap-3 text-sm text-gray-600">
-                            <span>👤 {apt.customers?.name || '客户'}</span>
+                            <span> {apt.customers?.name || '客户'}</span>
                             {apt.customers?.phone && (
-                              <span>📞 {apt.customers.phone}</span>
+                              <span> {apt.customers.phone}</span>
                             )}
                             <span>⏱ {duration}分钟</span>
                           </div>
                           {apt.notes && (
                             <div className="mt-2 text-xs text-gray-500 bg-gray-50 rounded-lg p-2">
-                              📝 {apt.notes}
+                               {apt.notes}
                             </div>
                           )}
                         </div>
@@ -414,7 +414,7 @@ export default function StaffWorkbenchPage() {
           {/* 近期待办 */}
           <div className="bg-white border border-gray-200 rounded-2xl p-6">
             <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-              📋 近期待办
+               近期待办
               <span className="ml-auto text-sm font-normal text-gray-500">
                 未来7天
               </span>
@@ -422,7 +422,7 @@ export default function StaffWorkbenchPage() {
 
             {dashboard?.upcoming.length === 0 ? (
               <div className="text-center py-8">
-                <div className="text-3xl mb-2">🎉</div>
+                <div className="text-3xl mb-2"></div>
                 <p className="text-gray-500">近期暂无预约安排</p>
               </div>
             ) : (
@@ -467,14 +467,14 @@ export default function StaffWorkbenchPage() {
                   <div key={d.date} className="flex-1 flex flex-col items-center gap-1">
                     <div className="w-full flex items-end justify-center" style={{ height: `${h}%`, minHeight: d.count > 0 ? '4px' : '0' }}>
                       {d.count > 0 && (
-                        <div className={`w-full rounded-t-md transition-all ${isToday ? 'bg-purple-500' : 'bg-blue-300'}`}
+                        <div className={`w-full rounded-t-md transition-all ${isToday ? 'bg-[#faf8f5]0' : 'bg-blue-300'}`}
                           style={{ height: '100%' }}></div>
                       )}
                     </div>
-                    <span className={`text-xs font-medium ${isToday ? 'text-purple-600' : 'text-gray-500'}`}>
+                    <span className={`text-xs font-medium ${isToday ? 'text-[#a88a5c]' : 'text-gray-500'}`}>
                       {d.dayName}
                     </span>
-                    <span className={`text-xs font-bold ${isToday ? 'text-purple-700' : 'text-gray-400'}`}>
+                    <span className={`text-xs font-bold ${isToday ? 'text-[#a88a5c]' : 'text-gray-400'}`}>
                       {d.count}
                     </span>
                   </div>
@@ -512,10 +512,10 @@ export default function StaffWorkbenchPage() {
           {/* 专长技能 */}
           {dashboard?.staff?.specialties && dashboard.staff.specialties.length > 0 && (
             <div className="bg-white border border-gray-200 rounded-2xl p-6">
-              <h2 className="text-lg font-bold text-gray-900 mb-4">💡 我的专长</h2>
+              <h2 className="text-lg font-bold text-gray-900 mb-4"> 我的专长</h2>
               <div className="flex flex-wrap gap-2">
                 {dashboard.staff.specialties.map((spec, i) => (
-                  <span key={i} className="px-3 py-1.5 bg-purple-50 text-purple-700 text-sm font-medium rounded-full">
+                  <span key={i} className="px-3 py-1.5 bg-[#faf8f5] text-[#a88a5c] text-sm font-medium rounded-full">
                     {spec}
                   </span>
                 ))}

@@ -22,7 +22,7 @@ export default function AdminLayout({
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-pink-500 mb-4"></div>
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#c9a87c] mb-4"></div>
           <p className="text-gray-600">检查权限中...</p>
         </div>
       </div>
@@ -42,7 +42,7 @@ export default function AdminLayout({
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
               <div className="flex-shrink-0 flex items-center">
-                <span className="text-2xl font-bold bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent">
+                <span className="text-2xl font-bold bg-gradient-to-r from-[#c9a87c] to-[#e8d5b8] bg-clip-text text-transparent">
                   商家后台
                 </span>
                 <span className="ml-2 text-gray-500 text-sm hidden md:inline">· 丽姿秀管理面板</span>
@@ -51,21 +51,21 @@ export default function AdminLayout({
                 <div className="flex items-baseline space-x-8">
                   <a
                     href="/admin/dashboard"
-                    className="text-gray-700 hover:text-pink-600 font-medium px-3 py-2 rounded-lg hover:bg-pink-50 transition"
+                    className="text-gray-700 hover:text-[#a88a5c] font-medium px-3 py-2 rounded-lg hover:bg-pink-50 transition"
                   >
-                    📊 数据面板
+                     数据面板
                   </a>
                   <a
                     href="/admin/orders"
-                    className="text-gray-700 hover:text-pink-600 font-medium px-3 py-2 rounded-lg hover:bg-pink-50 transition"
+                    className="text-gray-700 hover:text-[#a88a5c] font-medium px-3 py-2 rounded-lg hover:bg-pink-50 transition"
                   >
-                    📦 订单管理
+                     订单管理
                   </a>
                   <a
                     href="/admin/products"
-                    className="text-gray-700 hover:text-pink-600 font-medium px-3 py-2 rounded-lg hover:bg-pink-50 transition"
+                    className="text-gray-700 hover:text-[#a88a5c] font-medium px-3 py-2 rounded-lg hover:bg-pink-50 transition"
                   >
-                    🛍️ 产品管理
+                    ️ 产品管理
                   </a>
                   <a
                     href="/"

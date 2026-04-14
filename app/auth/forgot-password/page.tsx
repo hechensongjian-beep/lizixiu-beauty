@@ -40,7 +40,7 @@ export default function ForgotPasswordPage() {
     return (
       <div className="max-w-md mx-auto px-4 py-12 text-center">
         <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-green-100 to-emerald-100 rounded-2xl mb-6">
-          <div className="text-3xl">📬</div>
+          <div className="text-3xl"></div>
         </div>
         <h1 className="text-2xl font-bold text-gray-900 mb-4">邮件已发送！</h1>
         <p className="text-gray-700 mb-6">
@@ -71,7 +71,7 @@ export default function ForgotPasswordPage() {
     <div className="max-w-md mx-auto px-4 py-12">
       <div className="text-center mb-10">
         <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-blue-100 to-cyan-100 rounded-2xl mb-6">
-          <div className="text-3xl">🔑</div>
+          <div className="text-3xl"></div>
         </div>
         <h1 className="text-2xl font-bold text-gray-900 mb-3">重置密码</h1>
         <p className="text-gray-600">
@@ -87,7 +87,7 @@ export default function ForgotPasswordPage() {
           <input
             type="email"
             required
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9a87c] focus:border-transparent"
             placeholder="your@email.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -108,7 +108,7 @@ export default function ForgotPasswordPage() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-semibold rounded-lg hover:opacity-90 transition disabled:opacity-50"
+          className="w-full px-6 py-3 bg-gradient-to-r from-[#c9a87c] to-[#e8d5b8] text-white font-semibold rounded-lg hover:opacity-90 transition disabled:opacity-50"
         >
           {loading ? (
             <span className="flex items-center justify-center">
@@ -123,7 +123,7 @@ export default function ForgotPasswordPage() {
       </form>
 
       <div className="mt-8 text-center text-gray-600">
-        <Link href="/auth/login" className="text-pink-600 font-semibold hover:underline">
+        <Link href="/auth/login" className="text-[#a88a5c] font-semibold hover:underline">
           ← 返回登录
         </Link>
       </div>

@@ -18,7 +18,7 @@ function CalendarGrid({ date, appointments, onPrev, onNext, today }: { date: Dat
   const isToday = date.toDateString() === today.toDateString();
   return (
     <div className="bg-white rounded-2xl shadow overflow-hidden">
-      <div className="flex items-center justify-between bg-gradient-to-r from-pink-500 to-purple-600 text-white px-6 py-4">
+      <div className="flex items-center justify-between bg-gradient-to-r from-[#c9a87c] to-[#e8d5b8] text-white px-6 py-4">
         <button onClick={onPrev} className="w-9 h-9 rounded-lg bg-white/20 hover:bg-white/30 flex items-center justify-center text-lg">‹</button>
         <h2 className="text-lg font-bold">{date.getFullYear()}年{date.getMonth()+1}月{date.getDate()}日 {['日','一','二','三','四','五','六'][date.getDay()]} {isToday ? '· 今天' : ''}</h2>
         <button onClick={onNext} className="w-9 h-9 rounded-lg bg-white/20 hover:bg-white/30 flex items-center justify-center text-lg">›</button>
@@ -102,12 +102,12 @@ export default function CalendarPage() {
     <div className="max-w-7xl mx-auto px-4 py-10">
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">📅 预约日历</h1>
+          <h1 className="text-3xl font-bold text-gray-900"> 预约日历</h1>
           <p className="text-gray-500 mt-1">查看和管理所有预约</p>
         </div>
         <div className="flex gap-3">
-          <Link href="/appointments" className="px-4 py-2 bg-pink-500 text-white rounded-lg font-medium text-sm hover:bg-pink-600 transition">＋ 新建预约</Link>
-          <button onClick={fetchAppointments} disabled={loading} className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm hover:bg-gray-200">{loading?'刷新中...':'🔄'}</button>
+          <Link href="/appointments" className="px-4 py-2 bg-[#c9a87c] text-white rounded-lg font-medium text-sm hover:bg-pink-600 transition">＋ 新建预约</Link>
+          <button onClick={fetchAppointments} disabled={loading} className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm hover:bg-gray-200">{loading?'刷新中...':''}</button>
         </div>
       </div>
 
@@ -116,7 +116,7 @@ export default function CalendarPage() {
         {[
           { label: '待确认', value: stats.pending, color: 'from-yellow-400 to-amber-500', icon: '⏳' },
           { label: '已确认', value: stats.confirmed, color: 'from-blue-400 to-indigo-500', icon: '✅' },
-          { label: '已完成', value: stats.completed, color: 'from-green-400 to-emerald-500', icon: '🎉' },
+          { label: '已完成', value: stats.completed, color: 'from-green-400 to-emerald-500', icon: '' },
         ].map(item => (
           <div key={item.label} className={`bg-gradient-to-br ${item.color} text-white rounded-2xl p-5 shadow`}>
             <div className="text-2xl mb-1">{item.icon}</div>
@@ -149,8 +149,8 @@ export default function CalendarPage() {
                 return (
                   <div key={day}
                     onClick={() => setCurrentDate(new Date(year, month, day))}
-                    className={`min-h-[70px] border-r border-b border-gray-100 p-1.5 cursor-pointer transition ${isToday?'bg-pink-50':day===currentDate.getDate()&&month===currentDate.getMonth()&&year===currentDate.getFullYear()?'bg-purple-50':''} hover:bg-gray-50`}>
-                    <div className={`w-7 h-7 flex items-center justify-center rounded-full text-sm font-medium mb-1 ${isToday?'bg-pink-500 text-white':'text-gray-700'}`}>{day}</div>
+                    className={`min-h-[70px] border-r border-b border-gray-100 p-1.5 cursor-pointer transition ${isToday?'bg-pink-50':day===currentDate.getDate()&&month===currentDate.getMonth()&&year===currentDate.getFullYear()?'bg-[#faf8f5]':''} hover:bg-gray-50`}>
+                    <div className={`w-7 h-7 flex items-center justify-center rounded-full text-sm font-medium mb-1 ${isToday?'bg-[#c9a87c] text-white':'text-gray-700'}`}>{day}</div>
                     {count > 0 && <div className="flex flex-wrap gap-1">{[...Array(Math.min(count,3))].map((_,i)=><div key={i} className="w-2 h-2 bg-pink-400 rounded-full"></div>)}</div>}
                     {count > 3 && <div className="text-xs text-gray-400 mt-0.5">+{count-3}</div>}
                   </div>

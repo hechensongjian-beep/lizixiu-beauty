@@ -75,7 +75,7 @@ export default function RegisterPage() {
     return (
       <div className="max-w-md mx-auto px-4 py-12 text-center">
         <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-green-100 to-emerald-100 rounded-2xl mb-6">
-          <div className="text-3xl">📬</div>
+          <div className="text-3xl"></div>
         </div>
         <h1 className="text-2xl font-bold text-gray-900 mb-4">注册成功！</h1>
         <p className="text-gray-700 mb-6">
@@ -106,7 +106,7 @@ export default function RegisterPage() {
     <div className="max-w-md mx-auto px-4 py-12">
       <div className="text-center mb-10">
         <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-pink-100 to-purple-100 rounded-2xl mb-6">
-          <div className="text-3xl">👤</div>
+          <div className="text-3xl"></div>
         </div>
         <h1 className="text-2xl font-bold text-gray-900 mb-3">创建账号</h1>
         <p className="text-gray-600">
@@ -122,7 +122,7 @@ export default function RegisterPage() {
           <input
             type="email"
             required
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9a87c] focus:border-transparent"
             placeholder="your@email.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -137,7 +137,7 @@ export default function RegisterPage() {
           <input
             type="password"
             required
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9a87c] focus:border-transparent"
             placeholder="至少6位字符"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -151,7 +151,7 @@ export default function RegisterPage() {
           <input
             type="tel"
             required
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9a87c] focus:border-transparent"
             placeholder="11位数字，仅用于联系"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
@@ -166,19 +166,19 @@ export default function RegisterPage() {
           <div className="grid grid-cols-2 gap-4">
             <button
               type="button"
-              className={`px-4 py-3 border rounded-lg text-center transition ${role === 'customer' ? 'border-pink-500 bg-pink-50 text-pink-700' : 'border-gray-300 hover:bg-gray-50'}`}
+              className={`px-4 py-3 border rounded-lg text-center transition ${role === 'customer' ? 'border-[#c9a87c] bg-pink-50 text-pink-700' : 'border-gray-300 hover:bg-gray-50'}`}
               onClick={() => setRole('customer')}
             >
-              <div className="text-lg mb-1">👩‍🦰</div>
+              <div className="text-lg mb-1">‍</div>
               <div className="font-medium">客户</div>
               <div className="text-xs text-gray-500">预约美容服务</div>
             </button>
             <button
               type="button"
-              className={`px-4 py-3 border rounded-lg text-center transition ${role === 'merchant' ? 'border-purple-500 bg-purple-50 text-purple-700' : 'border-gray-300 hover:bg-gray-50'}`}
+              className={`px-4 py-3 border rounded-lg text-center transition ${role === 'merchant' ? 'border-purple-500 bg-[#faf8f5] text-[#a88a5c]' : 'border-gray-300 hover:bg-gray-50'}`}
               onClick={() => setRole('merchant')}
             >
-              <div className="text-lg mb-1">🏪</div>
+              <div className="text-lg mb-1"></div>
               <div className="font-medium">商家</div>
               <div className="text-xs text-gray-500">管理店铺与预约</div>
             </button>
@@ -201,7 +201,7 @@ export default function RegisterPage() {
               className="mt-1 mr-3"
             />
             <span className="text-sm text-gray-700">
-              我已阅读并同意 <a href="#" className="text-pink-600 hover:underline">服务条款</a> 与 <a href="#" className="text-pink-600 hover:underline">隐私政策</a>
+              我已阅读并同意 <a href="#" className="text-[#a88a5c] hover:underline">服务条款</a> 与 <a href="#" className="text-[#a88a5c] hover:underline">隐私政策</a>
             </span>
           </label>
         </div>
@@ -209,7 +209,7 @@ export default function RegisterPage() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-semibold rounded-lg hover:opacity-90 transition disabled:opacity-50"
+          className="w-full px-6 py-3 bg-gradient-to-r from-[#c9a87c] to-[#e8d5b8] text-white font-semibold rounded-lg hover:opacity-90 transition disabled:opacity-50"
         >
           {loading ? (
             <span className="flex items-center justify-center">
@@ -225,7 +225,7 @@ export default function RegisterPage() {
 
       <div className="mt-8 text-center text-gray-600">
         已有账号？{' '}
-        <Link href="/auth/login" className="text-pink-600 font-semibold hover:underline">
+        <Link href="/auth/login" className="text-[#a88a5c] font-semibold hover:underline">
           直接登录
         </Link>
       </div>

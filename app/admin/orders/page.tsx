@@ -115,7 +115,7 @@ export default function AdminOrdersPage() {
     switch (status) {
       case 'pending': return 'bg-yellow-100 text-yellow-800';
       case 'paid': return 'bg-blue-100 text-blue-800';
-      case 'shipped': return 'bg-purple-100 text-purple-800';
+      case 'shipped': return 'bg-[#faf8f5] text-purple-800';
       case 'delivered': return 'bg-green-100 text-green-800';
       case 'cancelled': return 'bg-red-100 text-red-800';
       default: return 'bg-gray-100 text-gray-800';
@@ -145,7 +145,7 @@ export default function AdminOrdersPage() {
     <div className="max-w-7xl mx-auto px-4 py-12">
       <div className="text-center mb-12">
         <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-indigo-100 to-blue-100 rounded-2xl mb-6">
-          <div className="text-3xl">📊</div>
+          <div className="text-3xl"></div>
         </div>
         <h1 className="text-4xl font-bold text-gray-900 mb-4">商家订单管理</h1>
         <p className="text-gray-600 max-w-2xl mx-auto">
@@ -201,7 +201,7 @@ export default function AdminOrdersPage() {
         </div>
       ) : filteredOrders.length === 0 ? (
         <div className="bg-gradient-to-r from-gray-50 to-gray-100 border border-gray-200 rounded-2xl p-16 text-center">
-          <div className="text-6xl mb-6">📭</div>
+          <div className="text-6xl mb-6"></div>
           <h3 className="text-2xl font-bold text-gray-800 mb-4">
             {orders.length === 0 ? '暂无订单' : '没有匹配的订单'}
           </h3>
@@ -304,7 +304,7 @@ export default function AdminOrdersPage() {
           onClick={fetchOrders}
           className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-gray-800 to-gray-900 text-white font-semibold rounded-lg hover:opacity-90 transition"
         >
-          🔄 刷新订单列表
+           刷新订单列表
         </button>
       </div>
 

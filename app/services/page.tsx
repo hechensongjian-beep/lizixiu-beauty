@@ -163,7 +163,7 @@ export default function ServicesPage() {
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8">
         <div className="mb-6 md:mb-0">
           <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-pink-100 to-rose-100 rounded-2xl mb-4">
-            <div className="text-3xl">💅</div>
+            <div className="text-3xl"></div>
           </div>
           <h1 className="text-3xl font-bold text-gray-900 mb-2">服务项目管理</h1>
           <p className="text-gray-600">
@@ -196,7 +196,7 @@ export default function ServicesPage() {
               <label className="block text-sm font-medium text-gray-700 mb-2">服务名称 *</label>
               <input
                 type="text"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500 outline-none transition"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9a87c] focus:border-[#c9a87c] outline-none transition"
                 placeholder="例如：深层清洁面部护理"
                 value={newService.name}
                 onChange={(e) => setNewService({ ...newService, name: e.target.value })}
@@ -205,7 +205,7 @@ export default function ServicesPage() {
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">分类 *</label>
               <select
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500 outline-none transition"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9a87c] focus:border-[#c9a87c] outline-none transition"
                 value={newService.category}
                 onChange={(e) => setNewService({ ...newService, category: e.target.value })}
               >
@@ -223,7 +223,7 @@ export default function ServicesPage() {
                 type="number"
                 min="1"
                 step="1"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500 outline-none transition"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9a87c] focus:border-[#c9a87c] outline-none transition"
                 value={newService.duration}
                 onChange={(e) => setNewService({ ...newService, duration: parseInt(e.target.value) || 0 })}
               />
@@ -234,7 +234,7 @@ export default function ServicesPage() {
                 type="number"
                 min="0"
                 step="0.01"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500 outline-none transition"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9a87c] focus:border-[#c9a87c] outline-none transition"
                 value={newService.price}
                 onChange={(e) => setNewService({ ...newService, price: parseFloat(e.target.value) || 0 })}
               />
@@ -242,7 +242,7 @@ export default function ServicesPage() {
             <div className="md:col-span-2">
               <label className="block text-sm font-medium text-gray-700 mb-2">描述</label>
               <textarea
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500 outline-none transition"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9a87c] focus:border-[#c9a87c] outline-none transition"
                 rows={3}
                 placeholder="简要描述服务内容、功效、适用人群等"
                 value={newService.description}
@@ -270,7 +270,7 @@ export default function ServicesPage() {
                 <label className="inline-flex items-center">
                   <input
                     type="radio"
-                    className="h-5 w-5 text-pink-600 focus:ring-pink-500"
+                    className="h-5 w-5 text-[#a88a5c] focus:ring-[#c9a87c]"
                     checked={newService.is_active}
                     onChange={() => setNewService({ ...newService, is_active: true })}
                   />
@@ -279,7 +279,7 @@ export default function ServicesPage() {
                 <label className="inline-flex items-center">
                   <input
                     type="radio"
-                    className="h-5 w-5 text-pink-600 focus:ring-pink-500"
+                    className="h-5 w-5 text-[#a88a5c] focus:ring-[#c9a87c]"
                     checked={!newService.is_active}
                     onChange={() => setNewService({ ...newService, is_active: false })}
                   />
@@ -317,7 +317,7 @@ export default function ServicesPage() {
                 <label className="block text-sm font-medium text-gray-700 mb-2">服务名称 *</label>
                 <input
                   type="text"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500 outline-none transition"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9a87c] focus:border-[#c9a87c] outline-none transition"
                   placeholder="例如：深层清洁面部护理"
                   value={editingService.name}
                   onChange={(e) => setEditingService({ ...editingService, name: e.target.value })}
@@ -326,7 +326,7 @@ export default function ServicesPage() {
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">分类 *</label>
                 <select
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500 outline-none transition"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9a87c] focus:border-[#c9a87c] outline-none transition"
                   value={editingService.category}
                   onChange={(e) => setEditingService({ ...editingService, category: e.target.value })}
                 >
@@ -344,7 +344,7 @@ export default function ServicesPage() {
                   type="number"
                   min="1"
                   step="1"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500 outline-none transition"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9a87c] focus:border-[#c9a87c] outline-none transition"
                   value={editingService.duration}
                   onChange={(e) => setEditingService({ ...editingService, duration: parseInt(e.target.value) || 0 })}
                 />
@@ -355,7 +355,7 @@ export default function ServicesPage() {
                   type="number"
                   min="0"
                   step="0.01"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500 outline-none transition"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9a87c] focus:border-[#c9a87c] outline-none transition"
                   value={editingService.price}
                   onChange={(e) => setEditingService({ ...editingService, price: parseFloat(e.target.value) || 0 })}
                 />
@@ -363,7 +363,7 @@ export default function ServicesPage() {
               <div className="md:col-span-2">
                 <label className="block text-sm font-medium text-gray-700 mb-2">描述</label>
                 <textarea
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500 outline-none transition"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9a87c] focus:border-[#c9a87c] outline-none transition"
                   rows={3}
                   placeholder="简要描述服务内容、功效、适用人群等"
                   value={editingService.description}
@@ -391,7 +391,7 @@ export default function ServicesPage() {
                   <label className="inline-flex items-center">
                     <input
                       type="radio"
-                      className="h-5 w-5 text-pink-600 focus:ring-pink-500"
+                      className="h-5 w-5 text-[#a88a5c] focus:ring-[#c9a87c]"
                       checked={editingService.is_active}
                       onChange={() => setEditingService({ ...editingService, is_active: true })}
                     />
@@ -400,7 +400,7 @@ export default function ServicesPage() {
                   <label className="inline-flex items-center">
                     <input
                       type="radio"
-                      className="h-5 w-5 text-pink-600 focus:ring-pink-500"
+                      className="h-5 w-5 text-[#a88a5c] focus:ring-[#c9a87c]"
                       checked={!editingService.is_active}
                       onChange={() => setEditingService({ ...editingService, is_active: false })}
                     />
@@ -491,7 +491,7 @@ export default function ServicesPage() {
         </div>
       ) : services.length === 0 ? (
         <div className="bg-gradient-to-r from-pink-50 to-rose-50 border border-pink-200 rounded-2xl p-12 text-center">
-          <div className="text-5xl mb-6">🧴</div>
+          <div className="text-5xl mb-6"></div>
           <h3 className="text-2xl font-semibold text-gray-800 mb-3">暂无服务项目</h3>
           <p className="text-gray-700 max-w-md mx-auto mb-6">
             您尚未添加任何服务项目。点击“添加服务”按钮开始创建您的服务目录。
@@ -527,7 +527,7 @@ export default function ServicesPage() {
                         <div className="text-sm text-gray-500 mt-1">{service.description}</div>
                       </td>
                       <td className="py-4 px-6">
-                        <span className={`px-3 py-1 text-xs font-semibold rounded-full ${service.category === '面部护理' ? 'bg-cyan-100 text-cyan-800' : service.category === '身体护理' ? 'bg-green-100 text-green-800' : 'bg-purple-100 text-purple-800'}`}>
+                        <span className={`px-3 py-1 text-xs font-semibold rounded-full ${service.category === '面部护理' ? 'bg-cyan-100 text-cyan-800' : service.category === '身体护理' ? 'bg-green-100 text-green-800' : 'bg-[#faf8f5] text-purple-800'}`}>
                           {service.category}
                         </span>
                       </td>
@@ -574,12 +574,12 @@ export default function ServicesPage() {
             <h2 className="text-xl font-semibold text-gray-800 mb-4">服务总览</h2>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
               <div className="bg-white rounded-xl p-6 border border-pink-300 shadow-sm">
-                <div className="text-2xl mb-2">🧴</div>
+                <div className="text-2xl mb-2"></div>
                 <div className="text-3xl font-bold text-gray-900">{services.length}</div>
                 <div className="text-sm text-gray-600">服务总数</div>
               </div>
               <div className="bg-white rounded-xl p-6 border border-pink-300 shadow-sm">
-                <div className="text-2xl mb-2">💰</div>
+                <div className="text-2xl mb-2"></div>
                 <div className="text-3xl font-bold text-gray-900">
                   {formatCurrency(services.reduce((sum, s) => sum + s.price, 0))}
                 </div>

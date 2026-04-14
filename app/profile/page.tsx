@@ -63,7 +63,7 @@ export default function ProfilePage() {
     <div className="max-w-6xl mx-auto px-4 py-12">
       <div className="text-center mb-12">
         <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-amber-100 to-orange-100 rounded-2xl mb-6">
-          <div className="text-3xl">👤</div>
+          <div className="text-3xl"></div>
         </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-3">个人中心</h1>
         <p className="text-gray-600 max-w-2xl mx-auto">
@@ -91,7 +91,7 @@ export default function ProfilePage() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">会员等级</label>
-                <span className="px-4 py-2 bg-gradient-to-r from-amber-500 to-orange-500 text-white font-semibold rounded-full">
+                <span className="px-4 py-2 bg-gradient-to-r from-[#c9a87c] to-[#e8d5b8] text-white font-semibold rounded-full">
                   {profile.membership_level}
                 </span>
               </div>
@@ -166,14 +166,14 @@ export default function ProfilePage() {
 
         {/* 侧边栏 */}
         <div className="space-y-8">
-          <div className="bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-200 rounded-2xl p-8">
+          <div className="bg-gradient-to-r from-purple-50 to-pink-50 border border-[#e8d5b8] rounded-2xl p-8">
             <h3 className="text-xl font-bold text-gray-900 mb-4">快速操作</h3>
             <div className="space-y-4">
               <button
                 className="w-full px-4 py-3 bg-white border border-gray-300 text-gray-800 font-medium rounded-lg hover:bg-gray-50 transition text-left flex items-center"
                 onClick={() => alert('预约新服务')}
               >
-                <span className="text-xl mr-3">📅</span>
+                <span className="text-xl mr-3"></span>
                 <span>预约新服务</span>
               </button>
               <button
@@ -187,14 +187,14 @@ export default function ProfilePage() {
                 className="w-full px-4 py-3 bg-white border border-gray-300 text-gray-800 font-medium rounded-lg hover:bg-gray-50 transition text-left flex items-center"
                 onClick={() => alert('更改密码')}
               >
-                <span className="text-xl mr-3">🔒</span>
+                <span className="text-xl mr-3"></span>
                 <span>更改密码</span>
               </button>
               <button
                 className="w-full px-4 py-3 bg-white border border-gray-300 text-gray-800 font-medium rounded-lg hover:bg-gray-50 transition text-left flex items-center"
                 onClick={() => alert('联系客服')}
               >
-                <span className="text-xl mr-3">💬</span>
+                <span className="text-xl mr-3"></span>
                 <span>联系客服</span>
               </button>
             </div>
@@ -238,11 +238,11 @@ export default function ProfilePage() {
             <h3 className="text-xl font-bold text-gray-900 mb-4">系统通知</h3>
             <div className="space-y-4">
               <div className="p-4 bg-white rounded-lg border border-amber-300">
-                <div className="text-sm text-amber-700 font-medium mb-1">📢 系统维护</div>
+                <div className="text-sm text-amber-700 font-medium mb-1"> 系统维护</div>
                 <p className="text-sm text-gray-700">4月10日凌晨2:00‑5:00系统维护，期间暂停预约功能。</p>
               </div>
               <div className="p-4 bg-white rounded-lg border border-amber-300">
-                <div className="text-sm text-amber-700 font-medium mb-1">🎉 节日活动</div>
+                <div className="text-sm text-amber-700 font-medium mb-1"> 节日活动</div>
                 <p className="text-sm text-gray-700">五一劳动节期间，所有服务项目享9折优惠！</p>
               </div>
             </div>

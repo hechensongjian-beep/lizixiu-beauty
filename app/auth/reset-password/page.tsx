@@ -67,7 +67,7 @@ export default function ResetPasswordPage() {
   if (!session && !error) {
     return (
       <div className="max-w-md mx-auto px-4 py-12 text-center">
-        <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-pink-500 mb-4"></div>
+        <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#c9a87c] mb-4"></div>
         <p className="text-gray-500">验证重置链接中...</p>
       </div>
     );
@@ -84,7 +84,7 @@ export default function ResetPasswordPage() {
         <div className="space-y-4">
           <Link
             href="/auth/forgot-password"
-            className="block px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-semibold rounded-lg hover:opacity-90 transition"
+            className="block px-6 py-3 bg-gradient-to-r from-[#c9a87c] to-[#e8d5b8] text-white font-semibold rounded-lg hover:opacity-90 transition"
           >
             重新申请重置
           </Link>
@@ -125,7 +125,7 @@ export default function ResetPasswordPage() {
     <div className="max-w-md mx-auto px-4 py-12">
       <div className="text-center mb-10">
         <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-blue-100 to-cyan-100 rounded-2xl mb-6">
-          <div className="text-3xl">🔒</div>
+          <div className="text-3xl"></div>
         </div>
         <h1 className="text-2xl font-bold text-gray-900 mb-3">设置新密码</h1>
         <p className="text-gray-600">
@@ -141,7 +141,7 @@ export default function ResetPasswordPage() {
           <input
             type="password"
             required
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9a87c] focus:border-transparent"
             placeholder="至少6位字符"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -156,7 +156,7 @@ export default function ResetPasswordPage() {
           <input
             type="password"
             required
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9a87c] focus:border-transparent"
             placeholder="再次输入新密码"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
@@ -174,7 +174,7 @@ export default function ResetPasswordPage() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-semibold rounded-lg hover:opacity-90 transition disabled:opacity-50"
+          className="w-full px-6 py-3 bg-gradient-to-r from-[#c9a87c] to-[#e8d5b8] text-white font-semibold rounded-lg hover:opacity-90 transition disabled:opacity-50"
         >
           {loading ? (
             <span className="flex items-center justify-center">
@@ -189,7 +189,7 @@ export default function ResetPasswordPage() {
       </form>
 
       <div className="mt-8 text-center text-gray-600">
-        <Link href="/auth/login" className="text-pink-600 font-semibold hover:underline">
+        <Link href="/auth/login" className="text-[#a88a5c] font-semibold hover:underline">
           ← 返回登录
         </Link>
       </div>

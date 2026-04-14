@@ -55,7 +55,7 @@ export default function CustomersPage() {
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8">
         <div className="mb-6 md:mb-0">
           <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-cyan-100 to-blue-100 rounded-2xl mb-4">
-            <div className="text-3xl">👥</div>
+            <div className="text-3xl"></div>
           </div>
           <h1 className="text-3xl font-bold text-gray-900 mb-2">客户管理</h1>
           <p className="text-gray-600">
@@ -139,7 +139,7 @@ export default function CustomersPage() {
         </div>
       ) : customers.length === 0 ? (
         <div className="bg-gradient-to-r from-cyan-50 to-blue-50 border border-cyan-200 rounded-2xl p-12 text-center">
-          <div className="text-5xl mb-6">👤</div>
+          <div className="text-5xl mb-6"></div>
           <h3 className="text-2xl font-semibold text-gray-800 mb-3">暂无客户数据</h3>
           <p className="text-gray-700 max-w-md mx-auto mb-6">
             您尚未添加任何客户。点击“添加客户”按钮开始建立您的客户档案。
@@ -180,7 +180,7 @@ export default function CustomersPage() {
                         <div className="text-sm text-gray-500">{customer.email}</div>
                       </td>
                       <td className="py-4 px-6">
-                        <span className={`px-3 py-1 text-xs font-semibold rounded-full ${customer.membership_level === '钻石会员' ? 'bg-purple-100 text-purple-800' : customer.membership_level === '黄金会员' ? 'bg-yellow-100 text-yellow-800' : 'bg-gray-100 text-gray-800'}`}>
+                        <span className={`px-3 py-1 text-xs font-semibold rounded-full ${customer.membership_level === '钻石会员' ? 'bg-[#faf8f5] text-purple-800' : customer.membership_level === '黄金会员' ? 'bg-yellow-100 text-yellow-800' : 'bg-gray-100 text-gray-800'}`}>
                           {customer.membership_level}
                         </span>
                       </td>
@@ -221,26 +221,26 @@ export default function CustomersPage() {
             <h2 className="text-xl font-semibold text-gray-800 mb-4">客户总览</h2>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
               <div className="bg-white rounded-xl p-6 border border-cyan-300 shadow-sm">
-                <div className="text-2xl mb-2">👥</div>
+                <div className="text-2xl mb-2"></div>
                 <div className="text-3xl font-bold text-gray-900">{customers.length}</div>
                 <div className="text-sm text-gray-600">客户总数</div>
               </div>
               <div className="bg-white rounded-xl p-6 border border-cyan-300 shadow-sm">
-                <div className="text-2xl mb-2">💰</div>
+                <div className="text-2xl mb-2"></div>
                 <div className="text-3xl font-bold text-gray-900">
                   {formatCurrency(customers.reduce((sum, c) => sum + c.total_spent, 0))}
                 </div>
                 <div className="text-sm text-gray-600">累计消费</div>
               </div>
               <div className="bg-white rounded-xl p-6 border border-cyan-300 shadow-sm">
-                <div className="text-2xl mb-2">👑</div>
+                <div className="text-2xl mb-2"></div>
                 <div className="text-3xl font-bold text-gray-900">
                   {customers.filter(c => c.membership_level === '钻石会员').length}
                 </div>
                 <div className="text-sm text-gray-600">钻石会员</div>
               </div>
               <div className="bg-white rounded-xl p-6 border border-cyan-300 shadow-sm">
-                <div className="text-2xl mb-2">📅</div>
+                <div className="text-2xl mb-2"></div>
                 <div className="text-3xl font-bold text-gray-900">
                   {customers.filter(c => {
                     const lastVisit = new Date(c.last_visit);

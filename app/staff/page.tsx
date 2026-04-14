@@ -146,7 +146,7 @@ export default function StaffPage() {
       'from-pink-100 to-rose-100',
       'from-green-100 to-emerald-100',
       'from-amber-100 to-orange-100',
-      'from-purple-100 to-indigo-100',
+      'from-[#e8d5b8] to-[#f5ede0]',
       'from-red-100 to-orange-100',
     ];
     return colors[index % colors.length];
@@ -156,8 +156,8 @@ export default function StaffPage() {
     <div className="max-w-6xl mx-auto px-4 py-12">
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8">
         <div className="mb-6 md:mb-0">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-purple-100 to-indigo-100 rounded-2xl mb-4">
-            <div className="text-3xl">👩‍💼</div>
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-[#e8d5b8] to-[#f5ede0] rounded-2xl mb-4">
+            <div className="text-3xl">‍</div>
           </div>
           <h1 className="text-3xl font-bold text-gray-900 mb-2">员工管理</h1>
           <p className="text-gray-600">
@@ -236,7 +236,7 @@ export default function StaffPage() {
               <label className="block text-sm font-medium text-gray-700 mb-2">专长领域</label>
               <div className="flex flex-wrap gap-2 mb-2">
                 {newStaff.specialties.map((spec, idx) => (
-                  <span key={idx} className="px-3 py-1 bg-purple-100 text-purple-800 text-sm font-medium rounded-full flex items-center gap-1">
+                  <span key={idx} className="px-3 py-1 bg-[#faf8f5] text-purple-800 text-sm font-medium rounded-full flex items-center gap-1">
                     {spec}
                     <button
                       type="button"
@@ -267,7 +267,7 @@ export default function StaffPage() {
                 />
                 <button
                   type="button"
-                  className="px-4 py-3 bg-purple-100 text-purple-700 font-medium rounded-lg hover:bg-purple-200 transition"
+                  className="px-4 py-3 bg-[#faf8f5] text-[#a88a5c] font-medium rounded-lg hover:bg-purple-200 transition"
                   onClick={() => {
                     if (specialtyInput.trim() && !newStaff.specialties.includes(specialtyInput.trim())) {
                       setNewStaff({ ...newStaff, specialties: [...newStaff.specialties, specialtyInput.trim()] });
@@ -297,7 +297,7 @@ export default function StaffPage() {
                 <label className="inline-flex items-center">
                   <input
                     type="radio"
-                    className="h-5 w-5 text-purple-600 focus:ring-purple-500"
+                    className="h-5 w-5 text-[#a88a5c] focus:ring-purple-500"
                     checked={newStaff.is_active}
                     onChange={() => setNewStaff({ ...newStaff, is_active: true })}
                   />
@@ -306,7 +306,7 @@ export default function StaffPage() {
                 <label className="inline-flex items-center">
                   <input
                     type="radio"
-                    className="h-5 w-5 text-purple-600 focus:ring-purple-500"
+                    className="h-5 w-5 text-[#a88a5c] focus:ring-purple-500"
                     checked={!newStaff.is_active}
                     onChange={() => setNewStaff({ ...newStaff, is_active: false })}
                   />
@@ -390,7 +390,7 @@ export default function StaffPage() {
                 <label className="block text-sm font-medium text-gray-700 mb-2">专长领域</label>
                 <div className="flex flex-wrap gap-2 mb-2">
                   {(editingStaff.specialties || []).map((spec, idx) => (
-                    <span key={idx} className="px-3 py-1 bg-purple-100 text-purple-800 text-sm font-medium rounded-full flex items-center gap-1">
+                    <span key={idx} className="px-3 py-1 bg-[#faf8f5] text-purple-800 text-sm font-medium rounded-full flex items-center gap-1">
                       {spec}
                       <button
                         type="button"
@@ -427,7 +427,7 @@ export default function StaffPage() {
                   />
                   <button
                     type="button"
-                    className="px-4 py-3 bg-purple-100 text-purple-700 font-medium rounded-lg hover:bg-purple-200 transition"
+                    className="px-4 py-3 bg-[#faf8f5] text-[#a88a5c] font-medium rounded-lg hover:bg-purple-200 transition"
                     onClick={() => {
                       if (specialtyInput.trim() && !editingStaff.specialties?.includes(specialtyInput.trim())) {
                         setEditingStaff({
@@ -460,7 +460,7 @@ export default function StaffPage() {
                   <label className="inline-flex items-center">
                     <input
                       type="radio"
-                      className="h-5 w-5 text-purple-600 focus:ring-purple-500"
+                      className="h-5 w-5 text-[#a88a5c] focus:ring-purple-500"
                       checked={editingStaff.is_active ?? true}
                       onChange={() => setEditingStaff({ ...editingStaff, is_active: true })}
                     />
@@ -469,7 +469,7 @@ export default function StaffPage() {
                   <label className="inline-flex items-center">
                     <input
                       type="radio"
-                      className="h-5 w-5 text-purple-600 focus:ring-purple-500"
+                      className="h-5 w-5 text-[#a88a5c] focus:ring-purple-500"
                       checked={!(editingStaff.is_active ?? true)}
                       onChange={() => setEditingStaff({ ...editingStaff, is_active: false })}
                     />
@@ -523,7 +523,7 @@ export default function StaffPage() {
           {/* 统计卡片骨架 */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="bg-white rounded-xl p-6 border border-purple-300 shadow-sm">
+              <div key={i} className="bg-white rounded-xl p-6 border border-[#c9a87c] shadow-sm">
                 <div className="h-8 w-8 bg-gray-300 rounded mb-4"></div>
                 <div className="h-6 w-16 bg-gray-300 rounded"></div>
                 <div className="h-4 w-24 bg-gray-300 rounded mt-2"></div>
@@ -548,8 +548,8 @@ export default function StaffPage() {
           </button>
         </div>
       ) : staff.length === 0 ? (
-        <div className="bg-gradient-to-r from-purple-50 to-indigo-50 border border-purple-200 rounded-2xl p-12 text-center">
-          <div className="text-5xl mb-6">👥</div>
+        <div className="bg-gradient-to-r from-purple-50 to-indigo-50 border border-[#e8d5b8] rounded-2xl p-12 text-center">
+          <div className="text-5xl mb-6"></div>
           <h3 className="text-2xl font-semibold text-gray-800 mb-3">暂无员工数据</h3>
           <p className="text-gray-700 max-w-md mx-auto mb-6">
             您尚未添加任何员工。点击“添加员工”按钮开始建立您的团队。
@@ -604,7 +604,7 @@ export default function StaffPage() {
                 </div>
                 <div className="flex gap-2 justify-center">
                   <button
-                    className="px-4 py-2 bg-purple-50 text-purple-700 font-medium rounded-lg hover:bg-purple-100 transition text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="px-4 py-2 bg-[#faf8f5] text-[#a88a5c] font-medium rounded-lg hover:bg-[#faf8f5] transition text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                     onClick={() => setEditingStaff(person)}
                     disabled={submitting}
                   >
@@ -622,30 +622,30 @@ export default function StaffPage() {
             ))}
           </div>
 
-          <div className="bg-gradient-to-r from-purple-50 to-indigo-50 border border-purple-200 rounded-2xl p-8 mb-12">
+          <div className="bg-gradient-to-r from-purple-50 to-indigo-50 border border-[#e8d5b8] rounded-2xl p-8 mb-12">
             <h2 className="text-xl font-semibold text-gray-800 mb-4">团队总览</h2>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              <div className="bg-white rounded-xl p-6 border border-purple-300 shadow-sm">
-                <div className="text-2xl mb-2">👥</div>
+              <div className="bg-white rounded-xl p-6 border border-[#c9a87c] shadow-sm">
+                <div className="text-2xl mb-2"></div>
                 <div className="text-3xl font-bold text-gray-900">{staff.length}</div>
                 <div className="text-sm text-gray-600">员工总数</div>
               </div>
-              <div className="bg-white rounded-xl p-6 border border-purple-300 shadow-sm">
-                <div className="text-2xl mb-2">📈</div>
+              <div className="bg-white rounded-xl p-6 border border-[#c9a87c] shadow-sm">
+                <div className="text-2xl mb-2"></div>
                 <div className="text-3xl font-bold text-gray-900">
                   {(staff.reduce((sum, s) => sum + (s.experience_years || 0), 0) / staff.length).toFixed(1)}
                 </div>
                 <div className="text-sm text-gray-600">平均经验（年）</div>
               </div>
-              <div className="bg-white rounded-xl p-6 border border-purple-300 shadow-sm">
+              <div className="bg-white rounded-xl p-6 border border-[#c9a87c] shadow-sm">
                 <div className="text-2xl mb-2">✅</div>
                 <div className="text-3xl font-bold text-gray-900">
                   {staff.filter(s => s.is_active ?? true).length}
                 </div>
                 <div className="text-sm text-gray-600">在职员工</div>
               </div>
-              <div className="bg-white rounded-xl p-6 border border-purple-300 shadow-sm">
-                <div className="text-2xl mb-2">🎯</div>
+              <div className="bg-white rounded-xl p-6 border border-[#c9a87c] shadow-sm">
+                <div className="text-2xl mb-2"></div>
                 <div className="text-3xl font-bold text-gray-900">
                   {Array.from(new Set(staff.flatMap(s => s.specialties))).length}
                 </div>

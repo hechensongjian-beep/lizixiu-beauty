@@ -107,12 +107,12 @@ function ReassignModal({
                 onClick={() => setTargetId(s.id)}
                 className={`w-full flex items-center gap-3 p-3 rounded-xl border-2 transition text-left ${
                   targetId === s.id
-                    ? 'border-purple-500 bg-purple-50'
-                    : 'border-gray-200 hover:border-purple-200 hover:bg-purple-50/50'
+                    ? 'border-purple-500 bg-[#faf8f5]'
+                    : 'border-gray-200 hover:border-[#e8d5b8] hover:bg-[#faf8f5]/50'
                 }`}
               >
                 <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm ${
-                  targetId === s.id ? 'bg-purple-500 text-white' : 'bg-gray-100 text-gray-600'
+                  targetId === s.id ? 'bg-[#faf8f5]0 text-white' : 'bg-gray-100 text-gray-600'
                 }`}>
                   {s.name.slice(0, 2)}
                 </div>
@@ -121,7 +121,7 @@ function ReassignModal({
                   <div className="text-xs text-gray-500">{s.role}</div>
                 </div>
                 {targetId === s.id && (
-                  <span className="ml-auto text-purple-500 text-lg">✓</span>
+                  <span className="ml-auto text-[#c9a87c] text-lg">✓</span>
                 )}
               </button>
             ))}
@@ -146,7 +146,7 @@ function ReassignModal({
           <button
             onClick={() => onConfirm(targetId)}
             disabled={targetId === appointment.staff_id}
-            className="flex-1 py-2.5 bg-purple-600 text-white rounded-xl font-medium hover:bg-purple-700 disabled:opacity-40 disabled:cursor-not-allowed transition"
+            className="flex-1 py-2.5 bg-[#a88a5c] text-white rounded-xl font-medium hover:bg-purple-700 disabled:opacity-40 disabled:cursor-not-allowed transition"
           >
             确认调换
           </button>
@@ -174,7 +174,7 @@ function WeekCell({
   return (
     <div
       onClick={() => onStaffClick(staffId, date)}
-      className="min-h-[48px] p-1 border-r border-gray-100 cursor-pointer hover:bg-purple-50 transition"
+      className="min-h-[48px] p-1 border-r border-gray-100 cursor-pointer hover:bg-[#faf8f5] transition"
     >
       {staffApts.slice(0, 2).map(apt => (
         <div
@@ -311,7 +311,7 @@ export default function AdminSchedulePage() {
           <div className="flex items-center gap-3">
             <Link href="/" className="text-gray-400 hover:text-gray-600">首页</Link>
             <span className="text-gray-300">/</span>
-            <h1 className="text-2xl font-bold text-gray-900">👥 员工排班日历</h1>
+            <h1 className="text-2xl font-bold text-gray-900"> 员工排班日历</h1>
           </div>
           <p className="text-gray-500 text-sm mt-1">商家视角 · 所有员工预约一览 · 支持调换分配</p>
         </div>
@@ -320,14 +320,14 @@ export default function AdminSchedulePage() {
             href="/admin/dashboard"
             className="px-4 py-2 bg-gray-100 text-gray-700 rounded-xl text-sm hover:bg-gray-200 transition"
           >
-            📊 数据面板
+             数据面板
           </Link>
           <button
             onClick={() => fetchSchedule(currentDate, view)}
             disabled={loading}
             className="px-4 py-2 bg-gray-100 text-gray-700 rounded-xl text-sm hover:bg-gray-200 disabled:opacity-50 transition"
           >
-            {loading ? '刷新中..' : '🔄'}
+            {loading ? '刷新中..' : ''}
           </button>
         </div>
       </div>
@@ -338,7 +338,7 @@ export default function AdminSchedulePage() {
           <button
             onClick={() => setView('day')}
             className={`px-4 py-1.5 rounded-lg text-sm font-medium transition ${
-              view === 'day' ? 'bg-white shadow text-purple-700' : 'text-gray-600 hover:text-gray-900'
+              view === 'day' ? 'bg-white shadow text-[#a88a5c]' : 'text-gray-600 hover:text-gray-900'
             }`}
           >
             日视图
@@ -346,7 +346,7 @@ export default function AdminSchedulePage() {
           <button
             onClick={() => setView('week')}
             className={`px-4 py-1.5 rounded-lg text-sm font-medium transition ${
-              view === 'week' ? 'bg-white shadow text-purple-700' : 'text-gray-600 hover:text-gray-900'
+              view === 'week' ? 'bg-white shadow text-[#a88a5c]' : 'text-gray-600 hover:text-gray-900'
             }`}
           >
             周视图
@@ -372,7 +372,7 @@ export default function AdminSchedulePage() {
       <div className="flex items-center justify-between mb-6">
         <button
           onClick={() => view === 'day' ? navigateDay(-1) : navigateWeek(-1)}
-          className="w-10 h-10 rounded-xl bg-white border border-gray-200 flex items-center justify-center text-lg hover:bg-purple-50 hover:border-purple-300 transition"
+          className="w-10 h-10 rounded-xl bg-white border border-gray-200 flex items-center justify-center text-lg hover:bg-[#faf8f5] hover:border-[#c9a87c] transition"
         >
           ←
         </button>
@@ -383,11 +383,11 @@ export default function AdminSchedulePage() {
               : `第${Math.ceil((new Date(currentDate + 'T00:00:00').getDate()) / 7)}周 · ${new Date(currentDate + 'T00:00:00').toLocaleDateString('zh-CN', { month: 'long', year: 'numeric' })}`
             }
           </div>
-          {isToday && <div className="text-sm text-pink-500 font-medium">今天</div>}
+          {isToday && <div className="text-sm text-[#c9a87c] font-medium">今天</div>}
         </div>
         <button
           onClick={() => view === 'day' ? navigateDay(1) : navigateWeek(1)}
-          className="w-10 h-10 rounded-xl bg-white border border-gray-200 flex items-center justify-center text-lg hover:bg-purple-50 hover:border-purple-300 transition"
+          className="w-10 h-10 rounded-xl bg-white border border-gray-200 flex items-center justify-center text-lg hover:bg-[#faf8f5] hover:border-[#c9a87c] transition"
         >
           →
         </button>
@@ -397,11 +397,11 @@ export default function AdminSchedulePage() {
       {data && (
         <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6">
           {[
-            { label: '员工数', value: data.summary.totalStaff, color: 'from-purple-400 to-purple-600', icon: '👥' },
-            { label: '总预约', value: data.summary.totalAppointments, color: 'from-blue-400 to-blue-600', icon: '📋' },
+            { label: '员工数', value: data.summary.totalStaff, color: 'from-purple-400 to-purple-600', icon: '' },
+            { label: '总预约', value: data.summary.totalAppointments, color: 'from-blue-400 to-blue-600', icon: '' },
             { label: '待确认', value: data.summary.pending, color: 'from-amber-400 to-amber-600', icon: '⏳' },
             { label: '已确认', value: data.summary.confirmed, color: 'from-indigo-400 to-indigo-600', icon: '✅' },
-            { label: '已完成', value: data.summary.completed, color: 'from-green-400 to-green-600', icon: '🎉' },
+            { label: '已完成', value: data.summary.completed, color: 'from-green-400 to-green-600', icon: '' },
           ].map(item => (
             <div key={item.label} className={`bg-gradient-to-br ${item.color} text-white rounded-xl p-4 shadow-sm`}>
               <div className="text-2xl mb-1">{item.icon}</div>
@@ -447,7 +447,7 @@ export default function AdminSchedulePage() {
                   {s.specialties && s.specialties.length > 0 && (
                     <div className="flex flex-wrap gap-1 justify-center mt-1">
                       {s.specialties.slice(0, 2).map((spec, i) => (
-                        <span key={i} className="text-xs bg-purple-50 text-purple-600 px-1.5 py-0.5 rounded-full">
+                        <span key={i} className="text-xs bg-[#faf8f5] text-[#a88a5c] px-1.5 py-0.5 rounded-full">
                           {spec}
                         </span>
                       ))}
@@ -552,10 +552,10 @@ export default function AdminSchedulePage() {
                     className={`grid divide-x divide-gray-100 border-t border-gray-100 ${bgClass}`}
                     style={{ gridTemplateColumns: '100px repeat(' + (data.staff.length || 1) + ', 1fr)' }}
                   >
-                    <div className={`p-3 flex flex-col justify-center ${isCurrentDay ? 'text-pink-600' : 'text-gray-700'}`}>
+                    <div className={`p-3 flex flex-col justify-center ${isCurrentDay ? 'text-[#a88a5c]' : 'text-gray-700'}`}>
                       <div className="font-bold text-sm">{dateObj.getDate()}日</div>
                       <div className="text-xs text-gray-500">周{dayNames[idx]}</div>
-                      {isCurrentDay && <div className="text-xs text-pink-500 font-medium">今天</div>}
+                      {isCurrentDay && <div className="text-xs text-[#c9a87c] font-medium">今天</div>}
                     </div>
                     {data.staff.map(s => {
                       const count = (data.appointments || []).filter(
@@ -571,7 +571,7 @@ export default function AdminSchedulePage() {
                             setCurrentDate(d);
                             setView('day');
                           }}
-                          className="p-3 border-l border-gray-100 cursor-pointer hover:bg-purple-50 transition min-h-[64px] flex flex-col justify-center"
+                          className="p-3 border-l border-gray-100 cursor-pointer hover:bg-[#faf8f5] transition min-h-[64px] flex flex-col justify-center"
                         >
                           {count === 0 ? (
                             <div className="text-xs text-gray-300 text-center">—</div>

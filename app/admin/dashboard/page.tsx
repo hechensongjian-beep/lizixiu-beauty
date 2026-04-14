@@ -88,7 +88,7 @@ export default function AdminDashboardPage() {
 
   const statusColor: Record<string, string> = {
     pending: 'bg-yellow-100 text-yellow-800', paid: 'bg-blue-100 text-blue-800',
-    shipped: 'bg-purple-100 text-purple-800', delivered: 'bg-green-100 text-green-800',
+    shipped: 'bg-[#faf8f5] text-purple-800', delivered: 'bg-green-100 text-green-800',
     cancelled: 'bg-red-100 text-red-800',
   };
   const statusLabel: Record<string, string> = {
@@ -97,24 +97,24 @@ export default function AdminDashboardPage() {
   };
 
   const statCards = [
-    { label: '总收入', value: fmt(stats.totalRevenue), icon: '💰', color: 'from-pink-500 to-rose-500', sub: '历史累计' },
-    { label: '本月收入', value: fmt(stats.monthRevenue), icon: '📈', color: 'from-purple-500 to-indigo-500', sub: `本月 ${stats.monthOrders} 笔` },
-    { label: '总订单', value: `${stats.totalOrders} 笔`, icon: '📦', color: 'from-blue-500 to-cyan-500', sub: `待处理 ${stats.pendingOrders}` },
-    { label: '客户总数', value: `${stats.totalCustomers} 人`, icon: '👥', color: 'from-green-500 to-emerald-500', sub: '注册用户' },
-    { label: '商品总数', value: `${stats.totalProducts} 个`, icon: '🏷️', color: 'from-amber-500 to-orange-500', sub: `库存紧张 ${stats.lowStockProducts}` },
-    { label: '平均客单价', value: stats.totalOrders > 0 ? fmt(stats.totalRevenue / stats.totalOrders) : fmt(0), icon: '🎯', color: 'from-teal-500 to-cyan-500', sub: '每笔订单' },
+    { label: '总收入', value: fmt(stats.totalRevenue), icon: '', color: 'from-pink-500 to-rose-500', sub: '历史累计' },
+    { label: '本月收入', value: fmt(stats.monthRevenue), icon: '', color: 'from-purple-500 to-indigo-500', sub: `本月 ${stats.monthOrders} 笔` },
+    { label: '总订单', value: `${stats.totalOrders} 笔`, icon: '', color: 'from-blue-500 to-cyan-500', sub: `待处理 ${stats.pendingOrders}` },
+    { label: '客户总数', value: `${stats.totalCustomers} 人`, icon: '', color: 'from-[#c9a87c] to-[#e8d5b8]', sub: '注册用户' },
+    { label: '商品总数', value: `${stats.totalProducts} 个`, icon: '️', color: 'from-[#c9a87c] to-[#e8d5b8]', sub: `库存紧张 ${stats.lowStockProducts}` },
+    { label: '平均客单价', value: stats.totalOrders > 0 ? fmt(stats.totalRevenue / stats.totalOrders) : fmt(0), icon: '', color: 'from-teal-500 to-cyan-500', sub: '每笔订单' },
   ];
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-10">
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">📊 数据面板</h1>
+          <h1 className="text-3xl font-bold text-gray-900"> 数据面板</h1>
           <p className="text-gray-500 mt-1">实时掌握店铺运营数据</p>
         </div>
         <button onClick={fetchDashboardData} disabled={loading}
           className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition text-sm">
-          {loading ? '刷新中...' : '🔄 刷新数据'}
+          {loading ? '刷新中...' : ' 刷新数据'}
         </button>
       </div>
 
@@ -140,7 +140,7 @@ export default function AdminDashboardPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
             {/* 收入趋势 */}
             <div className="bg-white rounded-2xl shadow p-6">
-              <h2 className="text-lg font-bold text-gray-900 mb-4">💹 近7天收入趋势</h2>
+              <h2 className="text-lg font-bold text-gray-900 mb-4"> 近7天收入趋势</h2>
               {revenueData.length > 0 && revenueData.some(d => d.amount > 0) ? (
                 <ResponsiveContainer width="100%" height={220}>
                   <BarChart data={revenueData}>
@@ -158,7 +158,7 @@ export default function AdminDashboardPage() {
 
             {/* 订单状态分布 */}
             <div className="bg-white rounded-2xl shadow p-6">
-              <h2 className="text-lg font-bold text-gray-900 mb-4">📦 订单状态分布</h2>
+              <h2 className="text-lg font-bold text-gray-900 mb-4"> 订单状态分布</h2>
               <div className="flex items-center gap-6">
                 <ResponsiveContainer width={180} height={180}>
                   <PieChart>
@@ -176,7 +176,7 @@ export default function AdminDashboardPage() {
                 <div className="space-y-3">
                   {[
                     { label: '待付款', value: stats.pendingOrders, color: 'bg-yellow-400' },
-                    { label: '已处理', value: stats.totalOrders - stats.pendingOrders, color: 'bg-pink-500' },
+                    { label: '已处理', value: stats.totalOrders - stats.pendingOrders, color: 'bg-[#c9a87c]' },
                   ].map(item => (
                     <div key={item.label} className="flex items-center gap-2">
                       <div className={`w-3 h-3 rounded-full ${item.color}`}></div>
@@ -192,7 +192,7 @@ export default function AdminDashboardPage() {
           {/* 商品分类 */}
           {categoryData.length > 0 && (
             <div className="bg-white rounded-2xl shadow p-6 mb-6">
-              <h2 className="text-lg font-bold text-gray-900 mb-4">🏷️ 商品分类分布</h2>
+              <h2 className="text-lg font-bold text-gray-900 mb-4">️ 商品分类分布</h2>
               <ResponsiveContainer width="100%" height={200}>
                 <BarChart data={categoryData} layout="vertical">
                   <CartesianGrid strokeDasharray="3 3" />
@@ -208,8 +208,8 @@ export default function AdminDashboardPage() {
           {/* 最近订单 */}
           <div className="bg-white rounded-2xl shadow p-6 mb-6">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-lg font-bold text-gray-900">🕐 最近订单</h2>
-              <Link href="/admin/orders" className="text-pink-600 text-sm font-medium hover:underline">全部订单 →</Link>
+              <h2 className="text-lg font-bold text-gray-900"> 最近订单</h2>
+              <Link href="/admin/orders" className="text-[#a88a5c] text-sm font-medium hover:underline">全部订单 →</Link>
             </div>
             {recentOrders.length === 0 ? (
               <div className="text-center py-10 text-gray-400">暂无订单数据</div>
@@ -255,7 +255,7 @@ export default function AdminDashboardPage() {
             <h2 className="text-lg font-bold text-gray-900 mb-4">⚠️ 运营提醒</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="bg-white rounded-xl p-4 border border-amber-200">
-                <div className="text-pink-500 font-bold text-2xl mb-1">{stats.lowStockProducts}</div>
+                <div className="text-[#c9a87c] font-bold text-2xl mb-1">{stats.lowStockProducts}</div>
                 <div className="text-gray-700 font-medium">库存紧张商品</div>
                 <div className="text-gray-500 text-xs mt-1">库存 ≤ 10 件</div>
               </div>
@@ -277,10 +277,10 @@ export default function AdminDashboardPage() {
       {/* 快速入口 */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { href: '/admin/orders', emoji: '📊', label: '订单管理', color: 'from-pink-500 to-rose-500' },
-          { href: '/admin/products', emoji: '📦', label: '产品管理', color: 'from-blue-500 to-indigo-500' },
-          { href: '/customers', emoji: '👥', label: '客户管理', color: 'from-green-500 to-emerald-500' },
-          { href: '/calendar', emoji: '📅', label: '预约日历', color: 'from-purple-500 to-violet-500' },
+          { href: '/admin/orders', emoji: '', label: '订单管理', color: 'from-pink-500 to-rose-500' },
+          { href: '/admin/products', emoji: '', label: '产品管理', color: 'from-[#c9a87c] to-[#e8d5b8]' },
+          { href: '/customers', emoji: '', label: '客户管理', color: 'from-[#c9a87c] to-[#e8d5b8]' },
+          { href: '/calendar', emoji: '', label: '预约日历', color: 'from-[#c9a87c] to-[#e8d5b8]' },
         ].map(item => (
           <Link key={item.href} href={item.href}
             className={`bg-gradient-to-br ${item.color} text-white rounded-2xl p-6 text-center hover:shadow-lg transition`}>

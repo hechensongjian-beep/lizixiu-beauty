@@ -97,18 +97,18 @@ export default function AdminProductsPage() {
       {/* 头部 */}
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">📦 产品管理</h1>
+          <h1 className="text-3xl font-bold text-gray-900"> 产品管理</h1>
           <p className="text-gray-500 mt-1">管理商品 · 上传图片 · 更新库存</p>
         </div>
-        <button onClick={openAdd} className="px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold rounded-xl hover:opacity-90 transition shadow-lg">
+        <button onClick={openAdd} className="px-6 py-3 bg-gradient-to-r from-[#c9a87c] to-[#e8d5b8] text-white font-bold rounded-xl hover:opacity-90 transition shadow-lg">
           ＋ 添加商品
         </button>
       </div>
 
       {/* 标签切换 */}
       <div className="flex gap-3 mb-8">
-        <button onClick={() => setTab('list')} className={`px-5 py-2 rounded-full font-medium transition ${tab==='list'?'bg-pink-500 text-white shadow':'bg-white border text-gray-700 hover:bg-gray-50'}`}>商品列表</button>
-        <button onClick={() => { openAdd(); setTab('add'); }} className={`px-5 py-2 rounded-full font-medium transition ${tab==='add'?'bg-pink-500 text-white shadow':'bg-white border text-gray-700 hover:bg-gray-50'}`}>添加/编辑</button>
+        <button onClick={() => setTab('list')} className={`px-5 py-2 rounded-full font-medium transition ${tab==='list'?'bg-[#c9a87c] text-white shadow':'bg-white border text-gray-700 hover:bg-gray-50'}`}>商品列表</button>
+        <button onClick={() => { openAdd(); setTab('add'); }} className={`px-5 py-2 rounded-full font-medium transition ${tab==='add'?'bg-[#c9a87c] text-white shadow':'bg-white border text-gray-700 hover:bg-gray-50'}`}>添加/编辑</button>
       </div>
 
       {/* 添加/编辑表单 */}
@@ -120,48 +120,48 @@ export default function AdminProductsPage() {
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">商品名称 *</label>
                 <input type="text" value={form.name} onChange={e=>setForm(f=>({...f,name:e.target.value}))}
-                  placeholder="如：玫瑰精油焕肤套装" className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-pink-500" required />
+                  placeholder="如：玫瑰精油焕肤套装" className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#c9a87c]" required />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">分类 *</label>
                 <input type="text" value={form.category} onChange={e=>setForm(f=>({...f,category:e.target.value}))}
-                  placeholder="如：面部护理" list="categories" className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-pink-500" required />
+                  placeholder="如：面部护理" list="categories" className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#c9a87c]" required />
                 <datalist id="categories">{categories.map(c=><option key={c} value={c}/>)}</datalist>
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">价格（元） *</label>
                 <input type="number" step="0.01" min="0" value={form.price||''} onChange={e=>setForm(f=>({...f,price:parseFloat(e.target.value)||0}))}
-                  className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-pink-500" required />
+                  className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#c9a87c]" required />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">库存数量 *</label>
                 <input type="number" min="0" value={form.stock||''} onChange={e=>setForm(f=>({...f,stock:parseInt(e.target.value)||0}))}
-                  className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-pink-500" required />
+                  className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#c9a87c]" required />
               </div>
               <div className="md:col-span-2">
                 <label className="block text-sm font-medium text-gray-700 mb-2">商品描述</label>
                 <textarea rows={3} value={form.description} onChange={e=>setForm(f=>({...f,description:e.target.value}))}
-                  placeholder="详细描述商品特点..." className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-pink-500" />
+                  placeholder="详细描述商品特点..." className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#c9a87c]" />
               </div>
               {/* 图片上传 */}
               <div className="md:col-span-2">
                 <label className="block text-sm font-medium text-gray-700 mb-2">商品图片（上传到云存储）</label>
                 <div className="flex items-start gap-6">
                   <div className={`w-40 h-40 rounded-xl bg-gradient-to-br ${form.imageColor} flex items-center justify-center overflow-hidden flex-shrink-0`}>
-                    {form.imageUrl ? <img src={form.imageUrl} alt="预览" className="w-full h-full object-cover" /> : <span className="text-4xl">🖼️</span>}
+                    {form.imageUrl ? <img src={form.imageUrl} alt="预览" className="w-full h-full object-cover" /> : <span className="text-4xl">️</span>}
                   </div>
                   <div className="flex-1">
                     <input ref={fileRef} type="file" accept="image/*" onChange={handleFileChange} className="hidden" />
                     <button type="button" onClick={() => fileRef.current?.click()} disabled={uploading}
                       className="px-5 py-2.5 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition border">
-                      {uploading ? '上传中...' : form.imageUrl ? '🔄 更换图片' : '📤 上传图片'}
+                      {uploading ? '上传中...' : form.imageUrl ? ' 更换图片' : ' 上传图片'}
                     </button>
                     {form.imageUrl && (
                       <button type="button" onClick={() => setForm(f=>({...f,imageUrl:''}))}
                         className="ml-3 px-3 py-2 bg-red-50 text-red-600 rounded-lg text-sm hover:bg-red-100">移除</button>
                     )}
                     <p className="text-xs text-gray-500 mt-2">支持 JPG、PNG、WebP，自动上传到云存储</p>
-                    {uploading && <div className="mt-3 w-full bg-gray-200 rounded-full h-2"><div className="bg-pink-500 h-2 rounded-full animate-pulse" style={{width:'60%'}}></div></div>}
+                    {uploading && <div className="mt-3 w-full bg-gray-200 rounded-full h-2"><div className="bg-[#c9a87c] h-2 rounded-full animate-pulse" style={{width:'60%'}}></div></div>}
                   </div>
                 </div>
                 {/* 颜色选择（无图片时作为占位背景） */}
@@ -170,7 +170,7 @@ export default function AdminProductsPage() {
                   <div className="flex gap-2 flex-wrap">
                     {IMAGE_COLORS.map((c, i) => (
                       <button key={i} type="button" onClick={() => setForm(f=>({...f,imageColor:c}))}
-                        className={`w-8 h-8 rounded-lg bg-gradient-to-br ${c} border-2 ${form.imageColor===c?'border-pink-500':'border-transparent'}`}></button>
+                        className={`w-8 h-8 rounded-lg bg-gradient-to-br ${c} border-2 ${form.imageColor===c?'border-[#c9a87c]':'border-transparent'}`}></button>
                     ))}
                   </div>
                 </div>
@@ -178,8 +178,8 @@ export default function AdminProductsPage() {
             </div>
             <div className="flex gap-4 pt-4 border-t">
               <button type="button" onClick={() => setTab('list')} className="px-6 py-3 border rounded-xl font-bold text-gray-700 hover:bg-gray-50">取消</button>
-              <button type="submit" className="px-8 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-xl font-bold hover:opacity-90 shadow">
-                {editing ? '💾 保存更改' : '✅ 创建商品'}
+              <button type="submit" className="px-8 py-3 bg-gradient-to-r from-[#c9a87c] to-[#e8d5b8] text-white rounded-xl font-bold hover:opacity-90 shadow">
+                {editing ? ' 保存更改' : '✅ 创建商品'}
               </button>
             </div>
           </form>
@@ -191,10 +191,10 @@ export default function AdminProductsPage() {
         <>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
             {[
-              { label: '商品总数', value: products.length, icon: '📦', color: 'from-blue-500 to-indigo-500' },
-              { label: '总库存', value: products.reduce((s,p)=>s+p.stock,0), icon: '🏭', color: 'from-green-500 to-emerald-500' },
-              { label: '分类数', value: categories.length, icon: '🏷️', color: 'from-purple-500 to-violet-500' },
-              { label: '缺货商品', value: products.filter(p=>p.stock===0).length, icon: '⚠️', color: 'from-red-500 to-pink-500' },
+              { label: '商品总数', value: products.length, icon: '', color: 'from-[#c9a87c] to-[#e8d5b8]' },
+              { label: '总库存', value: products.reduce((s,p)=>s+p.stock,0), icon: '', color: 'from-[#c9a87c] to-[#e8d5b8]' },
+              { label: '分类数', value: categories.length, icon: '️', color: 'from-[#c9a87c] to-[#e8d5b8]' },
+              { label: '缺货商品', value: products.filter(p=>p.stock===0).length, icon: '⚠️', color: 'from-[#c9a87c] to-[#e8d5b8]' },
             ].map(s => (
               <div key={s.label} className={`bg-gradient-to-br ${s.color} text-white rounded-2xl p-5 shadow`}>
                 <div className="text-2xl mb-1">{s.icon}</div>
@@ -207,9 +207,9 @@ export default function AdminProductsPage() {
           {/* 商品表格 */}
           <div className="bg-white rounded-2xl shadow overflow-hidden">
             {loading ? (
-              <div className="p-20 text-center"><div className="animate-spin rounded-full h-10 w-10 border-b-2 border-pink-500 mx-auto"></div></div>
+              <div className="p-20 text-center"><div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[#c9a87c] mx-auto"></div></div>
             ) : products.length === 0 ? (
-              <div className="p-20 text-center text-gray-400"><div className="text-5xl mb-4">📦</div><p className="text-xl">暂无商品，点击右上角添加</p></div>
+              <div className="p-20 text-center text-gray-400"><div className="text-5xl mb-4"></div><p className="text-xl">暂无商品，点击右上角添加</p></div>
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full">
@@ -237,7 +237,7 @@ export default function AdminProductsPage() {
                           </div>
                         </td>
                         <td className="py-4 px-6"><span className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">{p.category}</span></td>
-                        <td className="py-4 px-6 font-bold text-pink-600">{fmt(p.price)}</td>
+                        <td className="py-4 px-6 font-bold text-[#a88a5c]">{fmt(p.price)}</td>
                         <td className="py-4 px-6">
                           <span className={`font-bold ${p.stock===0?'text-red-500':p.stock<=10?'text-yellow-600':'text-green-600'}`}>{p.stock} 件</span>
                           {p.stock===0 && <span className="ml-2 text-xs bg-red-100 text-red-600 px-2 py-0.5 rounded-full">缺货</span>}
@@ -246,7 +246,7 @@ export default function AdminProductsPage() {
                         <td className="py-4 px-6">
                           <div className="flex gap-2">
                             <button onClick={() => openEdit(p)} className="px-3 py-1.5 bg-blue-50 text-blue-600 rounded-lg text-sm font-medium hover:bg-blue-100">✏️ 编辑</button>
-                            <button onClick={() => handleDelete(p.id)} className="px-3 py-1.5 bg-red-50 text-red-600 rounded-lg text-sm font-medium hover:bg-red-100">🗑️ 删除</button>
+                            <button onClick={() => handleDelete(p.id)} className="px-3 py-1.5 bg-red-50 text-red-600 rounded-lg text-sm font-medium hover:bg-red-100">️ 删除</button>
                           </div>
                         </td>
                       </tr>

@@ -12,7 +12,7 @@ export default function AuthLayout({
         <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <Link href="/" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-r from-pink-500 to-purple-600 rounded-lg"></div>
+              <div className="w-8 h-8 bg-gradient-to-r from-[#c9a87c] to-[#e8d5b8] rounded-lg"></div>
               <span className="text-xl font-bold text-gray-900">丽姿秀</span>
             </Link>
             <span className="text-gray-400">|</span>
@@ -20,7 +20,7 @@ export default function AuthLayout({
           </div>
           <div className="text-sm text-gray-600">
             需要帮助？{' '}
-            <a href="mailto:support@example.com" className="text-pink-600 hover:underline">
+            <a href="mailto:support@example.com" className="text-[#a88a5c] hover:underline">
               联系客服
             </a>
           </div>
