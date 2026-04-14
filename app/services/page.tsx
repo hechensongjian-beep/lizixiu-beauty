@@ -162,7 +162,7 @@ export default function ServicesPage() {
     <div className="max-w-6xl mx-auto px-4 py-12">
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8">
         <div className="mb-6 md:mb-0">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-pink-100 to-rose-100 rounded-2xl mb-4">
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-[#e8d5b8] to-[#c9a87c] rounded-2xl mb-4">
             <div className="text-3xl"></div>
           </div>
           <h1 className="text-3xl font-bold text-gray-900 mb-2">服务项目管理</h1>
@@ -178,7 +178,7 @@ export default function ServicesPage() {
             刷新
           </button>
           <button
-            className="px-6 py-3 bg-gradient-to-r from-pink-600 to-rose-600 text-white font-semibold rounded-lg hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-6 py-3 bg-gradient-to-r from-[#c9a87c] to-[#8a6a3a] text-white font-semibold rounded-lg hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
             onClick={() => setShowAddForm(true)}
             disabled={submitting}
           >
@@ -297,7 +297,7 @@ export default function ServicesPage() {
               取消
             </button>
             <button
-              className="px-8 py-3 bg-gradient-to-r from-pink-600 to-rose-600 text-white font-semibold rounded-lg hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-8 py-3 bg-gradient-to-r from-[#c9a87c] to-[#8a6a3a] text-white font-semibold rounded-lg hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
               onClick={handleAddService}
               disabled={submitting}
             >
@@ -418,7 +418,7 @@ export default function ServicesPage() {
                 取消
               </button>
               <button
-                className="px-8 py-3 bg-gradient-to-r from-pink-600 to-rose-600 text-white font-semibold rounded-lg hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-8 py-3 bg-gradient-to-r from-[#c9a87c] to-[#8a6a3a] text-white font-semibold rounded-lg hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
                 onClick={handleEditService}
                 disabled={submitting}
               >
@@ -465,7 +465,7 @@ export default function ServicesPage() {
           {/* 统计卡片骨架 */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="bg-white rounded-xl p-6 border border-pink-300 shadow-sm">
+              <div key={i} className="bg-white rounded-xl p-6 border border-[#c9a87c] shadow-sm">
                 <div className="h-8 w-8 bg-gray-300 rounded mb-4"></div>
                 <div className="h-6 w-16 bg-gray-300 rounded"></div>
                 <div className="h-4 w-24 bg-gray-300 rounded mt-2"></div>
@@ -490,14 +490,14 @@ export default function ServicesPage() {
           </button>
         </div>
       ) : services.length === 0 ? (
-        <div className="bg-gradient-to-r from-pink-50 to-rose-50 border border-pink-200 rounded-2xl p-12 text-center">
+        <div className="bg-gradient-to-r from-[#e8d5b8]/30 to-[#c9a87c]/30 border border-[#e8d5b8] rounded-2xl p-12 text-center">
           <div className="text-5xl mb-6"></div>
           <h3 className="text-2xl font-semibold text-gray-800 mb-3">暂无服务项目</h3>
           <p className="text-gray-700 max-w-md mx-auto mb-6">
             您尚未添加任何服务项目。点击“添加服务”按钮开始创建您的服务目录。
           </p>
           <button
-            className="px-8 py-3 bg-gradient-to-r from-pink-600 to-rose-600 text-white font-semibold rounded-lg hover:opacity-90 transition"
+            className="px-8 py-3 bg-gradient-to-r from-[#c9a87c] to-[#8a6a3a] text-white font-semibold rounded-lg hover:opacity-90 transition"
             onClick={() => alert('添加服务功能即将上线')}
           >
             + 添加第一个服务
@@ -548,7 +548,7 @@ export default function ServicesPage() {
                       <td className="py-4 px-6">
                         <div className="flex gap-2">
                           <button
-                            className="px-3 py-1 bg-pink-50 text-pink-700 text-sm font-medium rounded-lg hover:bg-pink-100 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="px-3 py-1 bg-[#e8d5b8]/30 text-[#8a6a3a] text-sm font-medium rounded-lg hover:bg-[#e8d5b8]/30 transition disabled:opacity-50 disabled:cursor-not-allowed"
                             onClick={() => setEditingService(service)}
                             disabled={submitting}
                           >
@@ -570,29 +570,29 @@ export default function ServicesPage() {
             </div>
           </div>
 
-          <div className="bg-gradient-to-r from-pink-50 to-rose-50 border border-pink-200 rounded-2xl p-8 mb-12">
+          <div className="bg-gradient-to-r from-[#e8d5b8]/30 to-[#c9a87c]/30 border border-[#e8d5b8] rounded-2xl p-8 mb-12">
             <h2 className="text-xl font-semibold text-gray-800 mb-4">服务总览</h2>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              <div className="bg-white rounded-xl p-6 border border-pink-300 shadow-sm">
+              <div className="bg-white rounded-xl p-6 border border-[#c9a87c] shadow-sm">
                 <div className="text-2xl mb-2"></div>
                 <div className="text-3xl font-bold text-gray-900">{services.length}</div>
                 <div className="text-sm text-gray-600">服务总数</div>
               </div>
-              <div className="bg-white rounded-xl p-6 border border-pink-300 shadow-sm">
+              <div className="bg-white rounded-xl p-6 border border-[#c9a87c] shadow-sm">
                 <div className="text-2xl mb-2"></div>
                 <div className="text-3xl font-bold text-gray-900">
                   {formatCurrency(services.reduce((sum, s) => sum + s.price, 0))}
                 </div>
                 <div className="text-sm text-gray-600">总定价</div>
               </div>
-              <div className="bg-white rounded-xl p-6 border border-pink-300 shadow-sm">
+              <div className="bg-white rounded-xl p-6 border border-[#c9a87c] shadow-sm">
                 <div className="text-2xl mb-2">⏱️</div>
                 <div className="text-3xl font-bold text-gray-900">
                   {formatDuration(services.reduce((sum, s) => sum + s.duration, 0))}
                 </div>
                 <div className="text-sm text-gray-600">总时长</div>
               </div>
-              <div className="bg-white rounded-xl p-6 border border-pink-300 shadow-sm">
+              <div className="bg-white rounded-xl p-6 border border-[#c9a87c] shadow-sm">
                 <div className="text-2xl mb-2">⭐</div>
                 <div className="text-3xl font-bold text-gray-900">
                   {(services.reduce((sum, s) => sum + s.popularity, 0) / services.length).toFixed(1)}

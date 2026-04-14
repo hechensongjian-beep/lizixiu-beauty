@@ -143,7 +143,7 @@ export default function StaffPage() {
   const getAvatarColor = (index: number) => {
     const colors = [
       'from-cyan-100 to-blue-100',
-      'from-pink-100 to-rose-100',
+      'from-[#e8d5b8] to-[#c9a87c]',
       'from-green-100 to-emerald-100',
       'from-amber-100 to-orange-100',
       'from-[#e8d5b8] to-[#f5ede0]',

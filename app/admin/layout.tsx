@@ -51,44 +51,44 @@ export default function AdminLayout({
                 <div className="flex items-baseline space-x-8">
                   <a
                     href="/admin/dashboard"
-                    className="text-gray-700 hover:text-[#a88a5c] font-medium px-3 py-2 rounded-lg hover:bg-pink-50 transition"
+                    className="text-gray-700 hover:text-[#a88a5c] font-medium px-3 py-2 rounded-lg hover:bg-[#c9a87c]/10 transition"
                   >
                      数据面板
                   </a>
                   <a
                     href="/admin/orders"
-                    className="text-gray-700 hover:text-[#a88a5c] font-medium px-3 py-2 rounded-lg hover:bg-pink-50 transition"
+                    className="text-gray-700 hover:text-[#a88a5c] font-medium px-3 py-2 rounded-lg hover:bg-[#c9a87c]/10 transition"
                   >
                      订单管理
                   </a>
                   <a
                     href="/admin/products"
-                    className="text-gray-700 hover:text-[#a88a5c] font-medium px-3 py-2 rounded-lg hover:bg-pink-50 transition"
+                    className="text-gray-700 hover:text-[#a88a5c] font-medium px-3 py-2 rounded-lg hover:bg-[#c9a87c]/10 transition"
                   >
                     ️ 产品管理
                   </a>
 
                   <a
                     href="/admin/services"
-                    className="text-gray-700 hover:text-[#a88a5c] font-medium px-3 py-2 rounded-lg hover:bg-pink-50 transition"
+                    className="text-gray-700 hover:text-[#a88a5c] font-medium px-3 py-2 rounded-lg hover:bg-[#c9a87c]/10 transition"
                   >
                     服务项目管理
                   </a>
                   <a
                     href="/admin/staff"
-                    className="text-gray-700 hover:text-[#a88a5c] font-medium px-3 py-2 rounded-lg hover:bg-pink-50 transition"
+                    className="text-gray-700 hover:text-[#a88a5c] font-medium px-3 py-2 rounded-lg hover:bg-[#c9a87c]/10 transition"
                   >
                     员工管理
                   </a>
                   <a
                     href="/admin/schedule"
-                    className="text-gray-700 hover:text-[#a88a5c] font-medium px-3 py-2 rounded-lg hover:bg-pink-50 transition"
+                    className="text-gray-700 hover:text-[#a88a5c] font-medium px-3 py-2 rounded-lg hover:bg-[#c9a87c]/10 transition"
                   >
                     排班日历
                   </a>
                   <a
                     href="/admin/payment"
-                    className="text-gray-700 hover:text-[#a88a5c] font-medium px-3 py-2 rounded-lg hover:bg-pink-50 transition"
+                    className="text-gray-700 hover:text-[#a88a5c] font-medium px-3 py-2 rounded-lg hover:bg-[#c9a87c]/10 transition"
                   >
                     收款设置
                   </a>

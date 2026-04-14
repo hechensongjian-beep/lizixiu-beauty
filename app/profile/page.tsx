@@ -166,7 +166,7 @@ export default function ProfilePage() {
 
         {/* 侧边栏 */}
         <div className="space-y-8">
-          <div className="bg-gradient-to-r from-purple-50 to-pink-50 border border-[#e8d5b8] rounded-2xl p-8">
+          <div className="bg-gradient-to-r from-[#e8d5b8]/30 to-[#c9a87c]/30 border border-[#e8d5b8] rounded-2xl p-8">
             <h3 className="text-xl font-bold text-gray-900 mb-4">快速操作</h3>
             <div className="space-y-4">
               <button

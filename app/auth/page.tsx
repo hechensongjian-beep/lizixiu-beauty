@@ -4,7 +4,7 @@ export default function AuthIndexPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-16">
       <div className="text-center mb-12">
-        <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-r from-pink-100 to-purple-100 rounded-3xl mb-8">
+        <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-r from-[#e8d5b8] to-[#c9a87c] rounded-3xl mb-8">
           <div className="text-5xl"></div>
         </div>
         <h1 className="text-4xl font-bold text-gray-900 mb-4">欢迎来到丽姿秀</h1>
@@ -91,7 +91,7 @@ export default function AuthIndexPage() {
         <h3 className="text-xl font-semibold text-gray-800 mb-4"> 不知道如何选择？</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="text-center">
-            <div className="text-2xl mb-2">🆓</div>
+            <div className="text-2xl mb-2 font-bold text-[#c9a87c]">免费</div>
             <div className="font-medium text-gray-800">完全免费</div>
             <p className="text-sm text-gray-600">注册、使用、基础功能全部免费</p>
           </div>

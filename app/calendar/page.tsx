@@ -106,7 +106,7 @@ export default function CalendarPage() {
           <p className="text-gray-500 mt-1">查看和管理所有预约</p>
         </div>
         <div className="flex gap-3">
-          <Link href="/appointments" className="px-4 py-2 bg-[#c9a87c] text-white rounded-lg font-medium text-sm hover:bg-pink-600 transition">＋ 新建预约</Link>
+          <Link href="/appointments" className="px-4 py-2 bg-[#c9a87c] text-white rounded-lg font-medium text-sm hover:bg-[#c9a87c] transition">＋ 新建预约</Link>
           <button onClick={fetchAppointments} disabled={loading} className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm hover:bg-gray-200">{loading?'刷新中...':''}</button>
         </div>
       </div>
@@ -130,7 +130,7 @@ export default function CalendarPage() {
         {/* 月视图 */}
         <div className="lg:col-span-2">
           <div className="bg-white rounded-2xl shadow overflow-hidden">
-            <div className="flex items-center justify-between bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-4">
+            <div className="flex items-center justify-between bg-gradient-to-r from-[#2d4a3e] to-[#c9a87c] text-white px-6 py-4">
               <button onClick={() => navigateMonth(-1)} className="w-9 h-9 rounded-lg bg-white/20 hover:bg-white/30 flex items-center justify-center text-lg">‹</button>
               <h2 className="text-xl font-bold">{monthName}</h2>
               <button onClick={() => navigateMonth(1)} className="w-9 h-9 rounded-lg bg-white/20 hover:bg-white/30 flex items-center justify-center text-lg">›</button>
@@ -149,9 +149,9 @@ export default function CalendarPage() {
                 return (
                   <div key={day}
                     onClick={() => setCurrentDate(new Date(year, month, day))}
-                    className={`min-h-[70px] border-r border-b border-gray-100 p-1.5 cursor-pointer transition ${isToday?'bg-pink-50':day===currentDate.getDate()&&month===currentDate.getMonth()&&year===currentDate.getFullYear()?'bg-[#faf8f5]':''} hover:bg-gray-50`}>
+                    className={`min-h-[70px] border-r border-b border-gray-100 p-1.5 cursor-pointer transition ${isToday?'bg-[#c9a87c]/10':day===currentDate.getDate()&&month===currentDate.getMonth()&&year===currentDate.getFullYear()?'bg-[#faf8f5]':''} hover:bg-gray-50`}>
                     <div className={`w-7 h-7 flex items-center justify-center rounded-full text-sm font-medium mb-1 ${isToday?'bg-[#c9a87c] text-white':'text-gray-700'}`}>{day}</div>
-                    {count > 0 && <div className="flex flex-wrap gap-1">{[...Array(Math.min(count,3))].map((_,i)=><div key={i} className="w-2 h-2 bg-pink-400 rounded-full"></div>)}</div>}
+                    {count > 0 && <div className="flex flex-wrap gap-1">{[...Array(Math.min(count,3))].map((_,i)=><div key={i} className="w-2 h-2 bg-[#c9a87c] rounded-full"></div>)}</div>}
                     {count > 3 && <div className="text-xs text-gray-400 mt-0.5">+{count-3}</div>}
                   </div>
                 );

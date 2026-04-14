@@ -105,7 +105,7 @@ export default function RegisterPage() {
   return (
     <div className="max-w-md mx-auto px-4 py-12">
       <div className="text-center mb-10">
-        <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-pink-100 to-purple-100 rounded-2xl mb-6">
+        <div className="inline-flex items-center justify-center w-20 h-20 bg-[#e8d5b8] rounded-2xl mb-6">
           <div className="text-3xl"></div>
         </div>
         <h1 className="text-2xl font-bold text-gray-900 mb-3">创建账号</h1>
@@ -166,7 +166,7 @@ export default function RegisterPage() {
           <div className="grid grid-cols-2 gap-4">
             <button
               type="button"
-              className={`px-4 py-3 border rounded-lg text-center transition ${role === 'customer' ? 'border-[#c9a87c] bg-pink-50 text-pink-700' : 'border-gray-300 hover:bg-gray-50'}`}
+              className={`px-4 py-3 border rounded-lg text-center transition ${role === 'customer' ? 'border-[#c9a87c] bg-[#e8d5b8]/30 text-[#8a6a3a]' : 'border-gray-300 hover:bg-gray-50'}`}
               onClick={() => setRole('customer')}
             >
               <div className="text-lg mb-1">‍</div>
