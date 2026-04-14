@@ -99,22 +99,32 @@ export default function ProductsPage() {
     <div className="max-w-7xl mx-auto px-4 py-12">
       {/* 页面头部 */}
       <div className="text-center mb-12">
-        <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-pink-100 to-purple-100 rounded-2xl mb-6">
-          <span className="text-3xl">🛍️</span>
+        <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl mb-6" style={{background:'linear-gradient(135deg, #c9a87c22 0%, #e8d5b822 100%)'}}>
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#a88a5c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <path d="M16 10a4 4 0 0 1-8 0"/>
+          </svg>
         </div>
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">产品商店</h1>
-        <p className="text-gray-600">精选美容护肤产品，专业级护理体验</p>
+        <h1 className="text-4xl font-bold mb-4" style={{fontFamily:"'Noto Serif SC',serif",color:'#2a2a28'}}>产品商店</h1>
+        <p style={{color:'#6b6b68'}}>精选美容护肤产品，专业级护理体验</p>
       </div>
 
       {/* 分类筛选 */}
       <div className="flex flex-wrap justify-center gap-3 mb-12">
         <button onClick={() => setFilter('all')}
-          className={`px-5 py-2.5 rounded-full font-medium transition ${filter === 'all' ? 'bg-gradient-to-r from-pink-500 to-purple-600 text-white shadow-md' : 'bg-white border border-gray-300 text-gray-700 hover:bg-pink-50'}`}>
+          className="px-5 py-2.5 rounded-full font-medium transition"
+          style={filter === 'all'
+            ? {background:'linear-gradient(135deg, #c9a87c 0%, #e8d5b8 100%)',color:'white',boxShadow:'0 4px 15px rgba(201,168,124,0.3)'}
+            : {background:'white',border:'1.5px solid #e8e4df',color:'#2a2a28'}}>
           全部商品
         </button>
         {categories.map(cat => (
           <button key={cat} onClick={() => setFilter(cat)}
-            className={`px-5 py-2.5 rounded-full font-medium transition ${filter === cat ? 'bg-gradient-to-r from-pink-500 to-purple-600 text-white shadow-md' : 'bg-white border border-gray-300 text-gray-700 hover:bg-pink-50'}`}>
+            className="px-5 py-2.5 rounded-full font-medium transition"
+            style={filter === cat
+              ? {background:'linear-gradient(135deg, #c9a87c 0%, #e8d5b8 100%)',color:'white',boxShadow:'0 4px 15px rgba(201,168,124,0.3)'}
+              : {background:'white',border:'1.5px solid #e8e4df',color:'#2a2a28'}}>
             {cat}
           </button>
         ))}
@@ -122,8 +132,12 @@ export default function ProductsPage() {
 
       {/* 产品网格 */}
       {filtered.length === 0 ? (
-        <div className="text-center py-20 text-gray-400">
-          <div className="text-6xl mb-4">🛍️</div>
+        <div className="text-center py-20" style={{color:'#9b9b98'}}>
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="mx-auto mb-4 opacity-40">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <path d="M16 10a4 4 0 0 1-8 0"/>
+          </svg>
           <p className="text-xl">暂无商品</p>
         </div>
       ) : (
@@ -132,13 +146,21 @@ export default function ProductsPage() {
             const qty = cart[product.id] || 0;
             const justAdded = addedId === product.id;
             return (
-              <div key={product.id} className="bg-white border border-gray-200 rounded-2xl p-6 hover:shadow-xl transition-all hover:-translate-y-1">
+              <div key={product.id}
+                className="bg-white rounded-2xl p-6 transition-all hover:-translate-y-1"
+                style={{border:'1px solid rgba(201,168,124,0.15)',boxShadow:'0 4px 20px rgba(0,0,0,0.04)'}}
+                onMouseEnter={e => (e.currentTarget.style.boxShadow = '0 12px 40px rgba(0,0,0,0.1)')}
+                onMouseLeave={e => (e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.04)')}>
                 {/* 产品图 */}
                 <div className={`w-full h-44 rounded-xl mb-5 bg-gradient-to-br ${product.imageColor} flex items-center justify-center relative overflow-hidden`}>
                   {product.imageUrl ? (
                     <img src={product.imageUrl} alt={product.name} className="w-full h-full object-cover rounded-xl" />
                   ) : (
-                    <span className="text-4xl">✨</span>
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.6">
+                      <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                      <circle cx="8.5" cy="8.5" r="1.5"/>
+                      <polyline points="21,15 16,10 5,21"/>
+                    </svg>
                   )}
                   {product.stock === 0 && (
                     <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
@@ -151,41 +173,44 @@ export default function ProductsPage() {
                 {product.tags?.length > 0 && (
                   <div className="flex flex-wrap gap-1.5 mb-3">
                     {product.tags.map(tag => (
-                      <span key={tag} className="px-2.5 py-0.5 bg-pink-50 text-pink-600 text-xs font-medium rounded-full">{tag}</span>
+                      <span key={tag} className="px-2.5 py-0.5 rounded-full text-xs font-medium" style={{background:'#faf8f5',color:'#a88a5c'}}>{tag}</span>
                     ))}
                   </div>
                 )}
 
-                <h3 className="text-lg font-bold text-gray-900 mb-1">{product.name}</h3>
-                <p className="text-gray-500 text-sm mb-4 line-clamp-2">{product.description}</p>
+                <h3 className="text-lg font-bold mb-1" style={{color:'#2a2a28'}}>{product.name}</h3>
+                <p className="text-sm mb-4 line-clamp-2" style={{color:'#6b6b68'}}>{product.description}</p>
 
                 <div className="flex items-center justify-between mb-4">
                   <div>
-                    <span className="text-2xl font-bold text-pink-600">{fmt(product.price)}</span>
+                    <span className="text-2xl font-bold" style={{color:'#a88a5c'}}>{fmt(product.price)}</span>
                     {product.originalPrice && product.originalPrice > product.price && (
-                      <span className="text-sm text-gray-400 line-through ml-2">{fmt(product.originalPrice)}</span>
+                      <span className="text-sm line-through ml-2" style={{color:'#9b9b98'}}>{fmt(product.originalPrice)}</span>
                     )}
                   </div>
-                  <span className={`text-sm ${product.stock > 0 ? 'text-green-600' : 'text-red-500'}`}>
+                  <span className="text-sm" style={{color: product.stock > 0 ? '#9caf88' : '#e05c5c'}}>
                     {product.stock > 0 ? `库存 ${product.stock}` : '售罄'}
                   </span>
                 </div>
 
                 {product.stock === 0 ? (
-                  <div className="w-full py-3 bg-gray-200 text-gray-500 rounded-xl font-bold text-center cursor-not-allowed">已售罄</div>
+                  <div className="w-full py-3 text-center rounded-xl font-bold cursor-not-allowed" style={{background:'#f5f2ed',color:'#9b9b98'}}>已售罄</div>
                 ) : qty === 0 ? (
                   <button onClick={() => addToCart(product.id)}
-                    className="w-full py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-xl font-bold hover:opacity-90 transition shadow-md">
-                    {justAdded ? '✓ 已加入' : '+ 加入购物车'}
+                    className="w-full py-3 rounded-xl font-bold text-white transition"
+                    style={{background: justAdded ? '#2d4a3e' : 'linear-gradient(135deg, #c9a87c 0%, #e8d5b8 100%)', boxShadow: '0 4px 15px rgba(201,168,124,0.3)'}}>
+                    {justAdded ? '已加入' : '+ 加入购物车'}
                   </button>
                 ) : (
                   <div className="flex items-center gap-3">
                     <button onClick={() => removeFromCart(product.id)}
-                      className="flex-1 py-3 bg-gray-100 text-gray-700 rounded-xl font-bold hover:bg-gray-200 transition text-lg">−</button>
-                    <div className="flex-1 py-3 bg-pink-500 text-white rounded-xl font-bold text-center text-lg">{qty}</div>
+                      className="flex-1 py-3 rounded-xl font-bold text-lg transition" style={{background:'#f5f2ed',color:'#2a2a28'}}
+                      onMouseEnter={e=>e.currentTarget.style.background='#e8e4df'}
+                      onMouseLeave={e=>e.currentTarget.style.background='#f5f2ed'}>−</button>
+                    <div className="flex-1 py-3 text-center rounded-xl font-bold text-lg text-white" style={{background:'#2d4a3e'}}>{qty}</div>
                     <button onClick={() => addToCart(product.id)}
-                      className="flex-1 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-xl font-bold hover:opacity-90 transition text-lg"
-                      disabled={qty >= product.stock}>+</button>
+                      className="flex-1 py-3 rounded-xl font-bold text-lg text-white transition"
+                      style={{background:'linear-gradient(135deg, #c9a87c 0%, #e8d5b8 100%)',boxShadow:'0 4px 15px rgba(201,168,124,0.3)'}}>+</button>
                   </div>
                 )}
               </div>
@@ -195,32 +220,34 @@ export default function ProductsPage() {
       )}
 
       {/* 促销横幅 */}
-      <div className="bg-gradient-to-r from-pink-500 to-purple-600 rounded-2xl p-8 text-white text-center mb-12">
-        <h3 className="text-2xl font-bold mb-3">🎉 限时优惠</h3>
+      <div className="rounded-2xl p-8 text-center mb-12" style={{background:'linear-gradient(135deg, #c9a87c 0%, #e8d5b8 100%)',color:'white'}}>
+        <h3 className="text-2xl font-bold mb-3" style={{fontFamily:"'Noto Serif SC',serif"}}>限时优惠</h3>
         <p className="text-lg mb-5 opacity-90">全场满 500 元免运费，新用户首单立减 30 元</p>
-        <Link href="/cart" className="inline-block px-8 py-3 bg-white text-pink-600 font-bold rounded-lg hover:bg-gray-100 transition">
+        <Link href="/cart" className="inline-block px-8 py-3 rounded-lg font-bold transition hover:opacity-90" style={{background:'white',color:'#a88a5c'}}>
           立即去购物车结算 →
         </Link>
       </div>
 
       {/* 返回 */}
       <div className="text-center">
-        <Link href="/" className="inline-flex items-center px-6 py-3 border-2 border-gray-300 text-gray-700 font-bold rounded-lg hover:bg-gray-50 transition">
+        <Link href="/" className="inline-flex items-center px-6 py-3 rounded-lg font-bold transition" style={{border:'1.5px solid #c9a87c',color:'#a88a5c'}}>
           ← 返回主页
         </Link>
       </div>
 
       {/* 悬浮购物车 */}
       {getCartCount() > 0 && (
-        <div className="fixed bottom-6 right-6 bg-white border border-gray-200 rounded-2xl p-5 shadow-2xl max-w-xs z-40">
+        <div className="fixed bottom-6 right-6 bg-white rounded-2xl p-5 max-w-xs z-40" style={{boxShadow:'0 20px 60px rgba(0,0,0,0.12)',border:'1px solid rgba(201,168,124,0.15)'}}>
           <div className="flex justify-between items-center mb-3">
-            <span className="font-bold text-gray-900">🛒 购物车 ({getCartCount()}件)</span>
-            <Link href="/cart" className="text-pink-600 text-sm font-medium hover:underline">去结算 →</Link>
+            <span className="font-bold" style={{color:'#2a2a28'}}>购物车 ({getCartCount()}件)</span>
+            <Link href="/cart" className="text-sm font-medium" style={{color:'#a88a5c'}}>去结算 →</Link>
           </div>
-          <div className="text-2xl font-bold text-gray-900 mb-3">¥{getCartTotal().toFixed(2)}</div>
+          <div className="text-2xl font-bold mb-3" style={{color:'#2a2a28'}}>¥{getCartTotal().toFixed(2)}</div>
           <div className="flex gap-3">
-            <button onClick={() => setCart({})} className="flex-1 py-2.5 border border-gray-300 text-gray-600 rounded-xl font-medium text-sm hover:bg-gray-50">清空</button>
-            <Link href="/cart" className="flex-1 py-2.5 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-xl font-bold text-sm text-center hover:opacity-90 transition">去结算</Link>
+            <button onClick={() => setCart({})} className="flex-1 py-2.5 rounded-xl font-medium text-sm transition" style={{border:'1.5px solid #e8e4df',color:'#6b6b68'}}
+              onMouseEnter={e=>e.currentTarget.style.background='#f5f2ed'}
+              onMouseLeave={e=>e.currentTarget.style.background='transparent'}>清空</button>
+            <Link href="/cart" className="flex-1 py-2.5 text-center rounded-xl font-bold text-sm text-white transition" style={{background:'linear-gradient(135deg, #c9a87c 0%, #e8d5b8 100%)'}}>去结算</Link>
           </div>
         </div>
       )}

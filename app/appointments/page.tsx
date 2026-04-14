@@ -40,7 +40,6 @@ export default function AppointmentsPage() {
     }).catch(() => setLoading(false));
   }, []);
 
-  // 自动选择第一个服务/员工
   useEffect(() => {
     if (services.length > 0 && !serviceId) setServiceId(services[0].id);
     if (staff.length > 0 && !staffId) setStaffId(staff[0].id);
@@ -85,21 +84,40 @@ export default function AppointmentsPage() {
   if (booked && createdApt) {
     return (
       <div className="max-w-xl mx-auto px-4 py-16 text-center">
-        <div className="bg-white rounded-3xl shadow-xl p-10">
-          <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-            <span className="text-4xl">✅</span>
+        <div className="bg-white rounded-3xl shadow-lg p-10" style={{border:'1px solid rgba(201,168,124,0.2)'}}>
+          <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6" style={{background:'linear-gradient(135deg, #c9a87c22 0%, #e8d5b822 100%)'}}>
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#2d4a3e" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M20 6L9 17l-5-5"/>
+            </svg>
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-3">预约成功！</h1>
-          <p className="text-gray-600 mb-8">我们将尽快确认您的预约，请保持手机畅通</p>
-          <div className="bg-pink-50 rounded-2xl p-6 text-left space-y-3 mb-8 text-left">
-            <div className="flex justify-between"><span className="text-gray-600">服务</span><span className="font-bold">{createdApt.service_type || getService()?.name}</span></div>
-            <div className="flex justify-between"><span className="text-gray-600">日期</span><span className="font-bold">{date}</span></div>
-            <div className="flex justify-between"><span className="text-gray-600">时间</span><span className="font-bold">{time}</span></div>
-            <div className="flex justify-between"><span className="text-gray-600">美容师</span><span className="font-bold">{createdApt.staff_name || staff.find(s=>s.id===staffId)?.name}</span></div>
+          <h1 className="text-3xl font-bold mb-3" style={{fontFamily:"'Noto Serif SC',serif",color:'#2a2a28'}}>预约成功</h1>
+          <p className="mb-8" style={{color:'#6b6b68'}}>我们将尽快确认您的预约，请保持手机畅通</p>
+          <div className="rounded-2xl p-6 mb-8 text-left" style={{background:'#faf8f5',border:'1px solid rgba(201,168,124,0.15)'}}>
+            <div className="flex justify-between py-3" style={{borderBottom:'1px solid rgba(201,168,124,0.1)'}}>
+              <span style={{color:'#6b6b68'}}>服务</span>
+              <span className="font-bold" style={{color:'#2a2a28'}}>{createdApt.service_type || getService()?.name}</span>
+            </div>
+            <div className="flex justify-between py-3" style={{borderBottom:'1px solid rgba(201,168,124,0.1)'}}>
+              <span style={{color:'#6b6b68'}}>日期</span>
+              <span className="font-bold" style={{color:'#2a2a28'}}>{date}</span>
+            </div>
+            <div className="flex justify-between py-3" style={{borderBottom:'1px solid rgba(201,168,124,0.1)'}}>
+              <span style={{color:'#6b6b68'}}>时间</span>
+              <span className="font-bold" style={{color:'#2a2a28'}}>{time}</span>
+            </div>
+            <div className="flex justify-between py-3">
+              <span style={{color:'#6b6b68'}}>美容师</span>
+              <span className="font-bold" style={{color:'#2a2a28'}}>{createdApt.staff_name || staff.find(s=>s.id===staffId)?.name}</span>
+            </div>
           </div>
           <div className="flex gap-4">
-            <Link href="/" className="flex-1 py-3 border border-gray-300 rounded-xl font-bold text-gray-700 hover:bg-gray-50">返回首页</Link>
-            <button onClick={()=>{setBooked(false);setDate('');setTime('');setNotes('');}} className="flex-1 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-xl font-bold hover:opacity-90">再约一个</button>
+            <Link href="/" className="flex-1 py-3 rounded-xl font-bold text-center" style={{border:'1.5px solid #c9a87c',color:'#a88a5c'}}>
+              返回首页
+            </Link>
+            <button onClick={()=>{setBooked(false);setDate('');setTime('');setNotes('');}} 
+              className="flex-1 py-3 rounded-xl font-bold text-white" style={{background:'linear-gradient(135deg, #c9a87c 0%, #e8d5b8 100%)'}}>
+              再约一个
+            </button>
           </div>
         </div>
       </div>
@@ -107,7 +125,9 @@ export default function AppointmentsPage() {
   }
 
   if (loading) return (
-    <div className="flex justify-center py-32"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500"></div></div>
+    <div className="flex justify-center py-32">
+      <div className="animate-spin rounded-full h-12 w-12" style={{borderBottom:'2px solid #c9a87c'}}></div>
+    </div>
   );
 
   const unavailable = getUnavailableTimes();
@@ -117,68 +137,76 @@ export default function AppointmentsPage() {
   return (
     <div className="max-w-3xl mx-auto px-4 py-12">
       <div className="text-center mb-10">
-        <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-pink-100 to-rose-100 rounded-2xl mb-6"><span className="text-3xl">📅</span></div>
-        <h1 className="text-4xl font-bold text-gray-900 mb-3">在线预约</h1>
-        <p className="text-gray-600">选择服务、时间和美容师，快速完成预约</p>
+        <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl mb-6" style={{background:'linear-gradient(135deg, #c9a87c22 0%, #e8d5b822 100%)'}}>
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#a88a5c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+        </div>
+        <h1 className="text-4xl font-bold mb-3" style={{fontFamily:"'Noto Serif SC',serif",color:'#2a2a28'}}>在线预约</h1>
+        <p style={{color:'#6b6b68'}}>选择服务、时间和美容师，快速完成预约</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
-        {/* 步骤指示器 */}
-        <div className="flex items-center justify-center gap-2 mb-8">
-          {['选择服务','选择时间','填写信息'].map((step,i) => (
-            <div key={i} className="flex items-center gap-2">
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${i===0?'bg-pink-500 text-white':'bg-gray-200 text-gray-500'}`}>{i+1}</div>
-              <span className={`text-sm ${i===0?'text-pink-600 font-medium':'text-gray-500'}`}>{step}</span>
-              {i<2 && <div className="w-8 h-px bg-gray-300 mx-2"></div>}
-            </div>
-          ))}
-        </div>
-
         {/* 服务选择 */}
-        <div className="bg-white rounded-2xl shadow p-6">
-          <h2 className="text-lg font-bold text-gray-900 mb-4">🧖 选择服务项目</h2>
+        <div className="bg-white rounded-2xl p-6" style={{boxShadow:'0 4px 20px rgba(0,0,0,0.04)',border:'1px solid rgba(201,168,124,0.15)'}}>
+          <h2 className="text-lg font-bold mb-4" style={{fontFamily:"'Noto Serif SC',serif",color:'#2a2a28'}}>选择服务项目</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {services.map(svc => (
               <button key={svc.id} type="button" onClick={() => setServiceId(svc.id)}
-                className={`p-4 rounded-xl border-2 text-left transition ${serviceId === svc.id ? 'border-pink-500 bg-pink-50' : 'border-gray-200 hover:border-pink-200'}`}>
-                <div className="font-bold text-gray-900">{svc.name}</div>
-                <div className="text-xs text-gray-500 mt-1">{svc.description?.substring(0,40) || ''}</div>
+                className="p-4 rounded-xl text-left transition"
+                style={{
+                  border:'2px solid',
+                  borderColor: serviceId === svc.id ? '#c9a87c' : '#e8e4df',
+                  background: serviceId === svc.id ? '#faf8f5' : 'white',
+                }}>
+                <div className="font-bold" style={{color:'#2a2a28'}}>{svc.name}</div>
+                <div className="text-xs mt-1" style={{color:'#6b6b68'}}>{svc.description?.substring(0,40) || ''}</div>
                 <div className="flex justify-between items-center mt-2">
-                  <span className="text-pink-600 font-bold">{fmt(svc.price)}</span>
-                  <span className="text-xs text-gray-400">{svc.duration || 60}分钟</span>
+                  <span style={{color:'#a88a5c',fontWeight:700}}>{fmt(svc.price)}</span>
+                  <span className="text-xs" style={{color:'#9b9b98'}}>{svc.duration || 60}分钟</span>
                 </div>
               </button>
             ))}
           </div>
           {selectedService && (
-            <div className="mt-4 p-4 bg-pink-50 rounded-xl flex justify-between items-center">
-              <div><div className="font-bold text-gray-900">{selectedService.name}</div><div className="text-sm text-gray-600">{selectedService.description}</div></div>
-              <div className="text-right"><div className="text-pink-600 font-bold text-lg">{fmt(selectedService.price)}</div><div className="text-xs text-gray-500">约{serviceId ? (services.find(s=>s.id===serviceId)?.duration||60) : 60}分钟</div></div>
+            <div className="mt-4 p-4 rounded-xl flex justify-between items-center" style={{background:'#faf8f5',border:'1px solid rgba(201,168,124,0.15)'}}>
+              <div><div className="font-bold" style={{color:'#2a2a28'}}>{selectedService.name}</div><div className="text-sm" style={{color:'#6b6b68'}}>{selectedService.description}</div></div>
+              <div className="text-right"><div className="font-bold text-lg" style={{color:'#a88a5c'}}>{fmt(selectedService.price)}</div><div className="text-xs" style={{color:'#9b9b98'}}>约{services.find(s=>s.id===serviceId)?.duration||60}分钟</div></div>
             </div>
           )}
         </div>
 
         {/* 日期+时间+员工 */}
-        <div className="bg-white rounded-2xl shadow p-6">
-          <h2 className="text-lg font-bold text-gray-900 mb-4">🗓️ 选择时间与美容师</h2>
+        <div className="bg-white rounded-2xl p-6" style={{boxShadow:'0 4px 20px rgba(0,0,0,0.04)',border:'1px solid rgba(201,168,124,0.15)'}}>
+          <h2 className="text-lg font-bold mb-4" style={{fontFamily:"'Noto Serif SC',serif",color:'#2a2a28'}}>选择时间与美容师</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">预约日期 *</label>
+              <label className="block text-sm font-medium mb-2" style={{color:'#2a2a28'}}>预约日期</label>
               <input type="date" value={date} min={today} onChange={e => {setDate(e.target.value);setTime('');}}
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pink-500" required />
+                className="w-full px-4 py-3 rounded-xl outline-none transition"
+                style={{border:'1.5px solid #e8e4df',background:'white'}}
+                onFocus={e=>e.target.style.borderColor='#c9a87c'}
+                onBlur={e=>e.target.style.borderColor='#e8e4df'}
+                required />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">服务美容师 *</label>
+              <label className="block text-sm font-medium mb-2" style={{color:'#2a2a28'}}>服务美容师</label>
               <select value={staffId} onChange={e => {setStaffId(e.target.value);setTime('');}}
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pink-500" required>
-                {staff.map(s => <option key={s.id} value={s.id}>{s.name} {s.role ? `· ${s.role}` : ''}</option>)}
+                className="w-full px-4 py-3 rounded-xl outline-none transition"
+                style={{border:'1.5px solid #e8e4df',background:'white',color:'#2a2a28'}}
+                onFocus={e=>e.target.style.borderColor='#c9a87c'}
+                onBlur={e=>e.target.style.borderColor='#e8e4df'}
+                required>
+                {staff.map(s => <option key={s.id} value={s.id}>{s.name} {s.role ? ` · ${s.role}` : ''}</option>)}
               </select>
             </div>
           </div>
           {date && (
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">选择时间 *
-                {unavailable.length > 0 && <span className="text-xs text-gray-400 ml-2">（灰色为已预约）</span>}
+              <label className="block text-sm font-medium mb-2" style={{color:'#2a2a28'}}>
+                选择时间
+                {unavailable.length > 0 && <span className="text-xs ml-2" style={{color:'#9b9b98'}}>（灰色为已预约）</span>}
               </label>
               <div className="grid grid-cols-5 sm:grid-cols-7 gap-2">
                 {TIMES.map(t => {
@@ -186,7 +214,13 @@ export default function AppointmentsPage() {
                   return (
                     <button key={t} type="button" onClick={() => !taken && setTime(t)}
                       disabled={taken}
-                      className={`py-2 rounded-lg text-sm font-medium transition ${time===t?'bg-pink-500 text-white':(taken ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-gray-50 text-gray-700 hover:bg-pink-100')}`}>
+                      className="py-2 rounded-lg text-sm font-medium transition"
+                      style={{
+                        background: time===t ? '#2d4a3e' : (taken ? '#f5f2ed' : 'white'),
+                        color: time===t ? 'white' : (taken ? '#c0bdb8' : '#2a2a28'),
+                        border: time===t ? 'none' : '1.5px solid #e8e4df',
+                        cursor: taken ? 'not-allowed' : 'pointer',
+                      }}>
                       {t}
                     </button>
                   );
@@ -197,37 +231,56 @@ export default function AppointmentsPage() {
         </div>
 
         {/* 联系信息 */}
-        <div className="bg-white rounded-2xl shadow p-6">
-          <h2 className="text-lg font-bold text-gray-900 mb-4">👤 联系信息</h2>
+        <div className="bg-white rounded-2xl p-6" style={{boxShadow:'0 4px 20px rgba(0,0,0,0.04)',border:'1px solid rgba(201,168,124,0.15)'}}>
+          <h2 className="text-lg font-bold mb-4" style={{fontFamily:"'Noto Serif SC',serif",color:'#2a2a28'}}>联系信息</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">姓名 *</label>
+              <label className="block text-sm font-medium mb-2" style={{color:'#2a2a28'}}>姓名</label>
               <input type="text" value={name} onChange={e=>setName(e.target.value)} placeholder="您的姓名"
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pink-500" required />
+                className="w-full px-4 py-3 rounded-xl outline-none transition"
+                style={{border:'1.5px solid #e8e4df',background:'white'}}
+                onFocus={e=>e.target.style.borderColor='#c9a87c'}
+                onBlur={e=>e.target.style.borderColor='#e8e4df'}
+                required />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">手机号 *</label>
+              <label className="block text-sm font-medium mb-2" style={{color:'#2a2a28'}}>手机号</label>
               <input type="tel" value={phone} onChange={e=>setPhone(e.target.value)} placeholder="11位手机号"
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pink-500" required />
+                className="w-full px-4 py-3 rounded-xl outline-none transition"
+                style={{border:'1.5px solid #e8e4df',background:'white'}}
+                onFocus={e=>e.target.style.borderColor='#c9a87c'}
+                onBlur={e=>e.target.style.borderColor='#e8e4df'}
+                required />
             </div>
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-2">备注</label>
+              <label className="block text-sm font-medium mb-2" style={{color:'#2a2a28'}}>备注</label>
               <textarea value={notes} onChange={e=>setNotes(e.target.value)} rows={2} placeholder="如有特殊需求请注明"
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pink-500" />
+                className="w-full px-4 py-3 rounded-xl outline-none transition resize-none"
+                style={{border:'1.5px solid #e8e4df',background:'white'}}
+                onFocus={e=>e.target.style.borderColor='#c9a87c'}
+                onBlur={e=>e.target.style.borderColor='#e8e4df'} />
             </div>
           </div>
         </div>
 
-        {error && <div className="p-4 bg-red-50 border border-red-200 text-red-700 rounded-xl">{error}</div>}
+        {error && (
+          <div className="p-4 rounded-xl" style={{background:'#fef2f2',border:'1px solid #fecaca',color:'#991b1b'}}>{error}</div>
+        )}
 
         <button type="submit" disabled={submitting || !date || !time || !serviceId}
-          className="w-full py-4 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold text-lg rounded-2xl hover:opacity-90 transition shadow-lg disabled:opacity-50">
-          {submitting ? '提交中...' : `确认预约 ${selectedService ? '· ' + fmt(selectedService.price) : ''}`}
+          className="w-full py-4 rounded-2xl font-bold text-lg text-white transition shadow-lg"
+          style={{
+            background: (submitting || !date || !time || !serviceId) ? '#c0bdb8' : 'linear-gradient(135deg, #c9a87c 0%, #e8d5b8 100%)',
+            boxShadow: (submitting || !date || !time || !serviceId) ? 'none' : '0 8px 25px rgba(201,168,124,0.35)',
+          }}>
+          {submitting ? '提交中...' : `确认预约${selectedService ? ' · ' + fmt(selectedService.price) : ''}`}
         </button>
       </form>
 
       <div className="text-center mt-6">
-        <Link href="/" className="text-gray-500 hover:text-gray-700 text-sm">← 返回首页</Link>
+        <Link href="/" className="text-sm transition" style={{color:'#6b6b68'}}>
+          <span className="mr-1">←</span>返回首页
+        </Link>
       </div>
     </div>
   );

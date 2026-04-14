@@ -86,7 +86,7 @@ export default function CheckoutPage() {
     finally { setSubmitting(false); }
   };
 
-  if (loading) return <div className="flex justify-center items-center py-32"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500"></div></div>;
+  if (loading) return <div className="flex justify-center items-center py-32"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#c9a87c]"></div></div>;
 
   if (cart.length === 0 && !orderCreated) {
     return (
@@ -94,7 +94,7 @@ export default function CheckoutPage() {
         <div className="text-6xl mb-6">🛒</div>
         <h1 className="text-3xl font-bold text-gray-900 mb-4">购物车是空的</h1>
         <p className="text-gray-600 mb-8">您还没有添加任何商品，无法结算。</p>
-        <Link href="/products" className="inline-block px-8 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold rounded-lg hover:opacity-90 transition">返回产品商店</Link>
+        <Link href="/products" className="inline-block px-8 py-3 font-bold rounded-lg text-white transition" style={{"background":'linear-gradient(135deg,#c9a87c 0%,#e8d5b8 100%)',"boxShadow":'0 4px 15px rgba(201,168,124,0.3)'}}>返回产品商店</Link>
       </div>
     );
   }
@@ -108,7 +108,7 @@ export default function CheckoutPage() {
     return (
       <div className="max-w-2xl mx-auto px-4 py-12">
         <div className="text-center mb-10">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-yellow-100 to-orange-100 rounded-2xl mb-6">
+          <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl mb-6" style={{"background":'linear-gradient(135deg,#c9a87c22 0%,#e8d5b822 100%)'}}>
             <div className="text-3xl">💳</div>
           </div>
           <h1 className="text-4xl font-bold text-gray-900 mb-4">订单已创建</h1>
@@ -189,7 +189,7 @@ export default function CheckoutPage() {
                 finally { setSubmittingPayment(false); }
               }}
               disabled={submittingPayment || !hasQr}
-              className="px-10 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold text-lg rounded-lg hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-10 py-3 font-bold text-lg rounded-lg text-white transition disabled:opacity-50 disabled:cursor-not-allowed" style={{"background":'linear-gradient(135deg,#2d4a3e 0%,#3d6252 100%)'}}
             >
               {submittingPayment ? '提交中...' : '✅ 我已扫码支付，提交凭证'}
             </button>
@@ -205,7 +205,7 @@ export default function CheckoutPage() {
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
       <div className="text-center mb-12">
-        <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-emerald-100 to-teal-100 rounded-2xl mb-6"><div className="text-3xl">💰</div></div>
+        <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl mb-6" style={{"background":'linear-gradient(135deg,#c9a87c22 0%,#e8d5b822 100%)'}}><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#a88a5c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
         <h1 className="text-4xl font-bold text-gray-900 mb-4">结算</h1>
         <p className="text-gray-600">请填写收货信息，确认订单无误后提交。</p>
       </div>
@@ -235,7 +235,7 @@ export default function CheckoutPage() {
             {error && <div className="mt-6 p-4 bg-red-50 border border-red-200 text-red-700 rounded-lg">{error}</div>}
             <div className="mt-8 flex justify-between items-center">
               <Link href="/cart" className="px-6 py-3 border-2 border-gray-300 text-gray-800 font-bold rounded-lg hover:bg-gray-50 transition">← 返回购物车</Link>
-              <button onClick={handleSubmitOrder} disabled={submitting} className="px-10 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold text-lg rounded-lg hover:opacity-90 transition disabled:opacity-50">
+              <button onClick={handleSubmitOrder} disabled={submitting} className="px-10 py-3 font-bold text-lg rounded-lg text-white transition disabled:opacity-50" style={{"background":'linear-gradient(135deg,#c9a87c 0%,#e8d5b8 100%)',"boxShadow":'0 4px 15px rgba(201,168,124,0.3)'}}>
                 {submitting ? '提交中...' : '提交订单'}
               </button>
             </div>
