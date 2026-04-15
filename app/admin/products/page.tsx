@@ -179,7 +179,7 @@ export default function AdminProductsPage() {
             <div className="flex gap-4 pt-4 border-t">
               <button type="button" onClick={() => setTab('list')} className="px-6 py-3 border rounded-xl font-bold text-gray-700 hover:bg-gray-50">取消</button>
               <button type="submit" className="px-8 py-3 bg-gradient-to-r from-[#c9a87c] to-[#e8d5b8] text-white rounded-xl font-bold hover:opacity-90 shadow">
-                {editing ? ' 保存更改' : '✅ 创建商品'}
+                {editing ? ' 保存更改' : '+ 创建商品'}
               </button>
             </div>
           </form>
@@ -228,7 +228,7 @@ export default function AdminProductsPage() {
                         <td className="py-4 px-6">
                           <div className="flex items-center gap-4">
                             <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${p.imageColor} flex items-center justify-center overflow-hidden flex-shrink-0`}>
-                              {p.imageUrl ? <img src={p.imageUrl} alt={p.name} className="w-full h-full object-cover" /> : <span className="text-xl">✨</span>}
+                              {p.imageUrl ? <img src={p.imageUrl} alt={p.name} className="w-full h-full object-cover" /> : <span className="text-xl text-gray-300">*</span>}
                             </div>
                             <div>
                               <div className="font-bold text-gray-900">{p.name}</div>

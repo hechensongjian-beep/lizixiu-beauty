@@ -103,7 +103,7 @@ export default function ResetPasswordPage() {
     return (
       <div className="max-w-md mx-auto px-4 py-12 text-center">
         <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-green-100 to-emerald-100 rounded-2xl mb-6">
-          <div className="text-3xl">✅</div>
+          <div className="text-3xl font-bold text-green-600">✓</div>
         </div>
         <h1 className="text-2xl font-bold text-gray-900 mb-4">密码重置成功！</h1>
         <p className="text-gray-700 mb-6">

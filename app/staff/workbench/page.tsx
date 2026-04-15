@@ -319,7 +319,7 @@ export default function StaffWorkbenchPage() {
         </div>
 
         <div className="bg-white border border-gray-200 rounded-xl p-5">
-          <div className="text-gray-400 text-xl mb-2">✅</div>
+          <div className="text-gray-400 text-xl mb-2 font-bold text-green-500">ok</div>
           <div className="text-3xl font-bold text-blue-600 mb-1">{dashboard?.week.completed}</div>
           <div className="text-sm text-gray-500">本周完成</div>
         </div>
@@ -333,7 +333,7 @@ export default function StaffWorkbenchPage() {
         </div>
 
         <div className="bg-white border border-gray-200 rounded-xl p-5">
-          <div className="text-gray-400 text-xl mb-2">⏳</div>
+          <div className="text-gray-400 text-xl mb-2">...</div>
           <div className="text-3xl font-bold text-amber-600 mb-1">
             {(dashboard?.week.pending || 0) + (dashboard?.week.confirmed || 0)}
           </div>

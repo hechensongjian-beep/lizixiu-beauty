@@ -155,7 +155,7 @@ export default function ServicesPage() {
   };
 
   const getPopularityStars = (popularity: number) => {
-    return '⭐'.repeat(popularity) + '☆'.repeat(5 - popularity);
+    return '\u2605'.repeat(popularity) + '\u2606'.repeat(5 - popularity);
   };
 
   return (
@@ -593,7 +593,7 @@ export default function ServicesPage() {
                 <div className="text-sm text-gray-600">总时长</div>
               </div>
               <div className="bg-white rounded-xl p-6 border border-[#c9a87c] shadow-sm">
-                <div className="text-2xl mb-2">⭐</div>
+                <div className="text-2xl mb-2 font-bold text-[#c9a87c]">*</div>
                 <div className="text-3xl font-bold text-gray-900">
                   {(services.reduce((sum, s) => sum + s.popularity, 0) / services.length).toFixed(1)}
                 </div>

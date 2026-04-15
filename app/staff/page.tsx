@@ -534,7 +534,7 @@ export default function StaffPage() {
       ) : error ? (
         <div className="bg-red-50 border border-red-200 rounded-xl p-6 mb-8">
           <div className="flex items-center">
-            <div className="text-red-600 text-xl mr-3">⚠️</div>
+            <div className="text-red-600 text-xl mr-3 font-bold">!</div>
             <div>
               <h3 className="font-semibold text-red-800">加载失败</h3>
               <p className="text-red-700 mt-1">{error}</p>
@@ -638,7 +638,7 @@ export default function StaffPage() {
                 <div className="text-sm text-gray-600">平均经验（年）</div>
               </div>
               <div className="bg-white rounded-xl p-6 border border-[#c9a87c] shadow-sm">
-                <div className="text-2xl mb-2">✅</div>
+                <div className="text-2xl mb-2 font-bold text-[#c9a87c]">ok</div>
                 <div className="text-3xl font-bold text-gray-900">
                   {staff.filter(s => s.is_active ?? true).length}
                 </div>

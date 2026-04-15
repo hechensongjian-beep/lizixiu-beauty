@@ -399,8 +399,8 @@ export default function AdminSchedulePage() {
           {[
             { label: '员工数', value: data.summary.totalStaff, color: 'from-purple-400 to-purple-600', icon: '' },
             { label: '总预约', value: data.summary.totalAppointments, color: 'from-blue-400 to-blue-600', icon: '' },
-            { label: '待确认', value: data.summary.pending, color: 'from-amber-400 to-amber-600', icon: '⏳' },
-            { label: '已确认', value: data.summary.confirmed, color: 'from-indigo-400 to-indigo-600', icon: '✅' },
+            { label: '待确认', value: data.summary.pending, color: 'from-amber-400 to-amber-600', icon: '...' },
+            { label: '已确认', value: data.summary.confirmed, color: 'from-indigo-400 to-indigo-600', icon: '✓' },
             { label: '已完成', value: data.summary.completed, color: 'from-green-400 to-green-600', icon: '' },
           ].map(item => (
             <div key={item.label} className={`bg-gradient-to-br ${item.color} text-white rounded-xl p-4 shadow-sm`}>
@@ -424,7 +424,7 @@ export default function AdminSchedulePage() {
       {loading && (
         <div className="flex items-center justify-center py-20">
           <div className="text-center">
-            <div className="text-4xl animate-pulse mb-3">⏳</div>
+            <div className="text-4xl animate-pulse mb-3">...</div>
             <p className="text-gray-500">加载排班数据中...</p>
           </div>
         </div>
@@ -580,7 +580,7 @@ export default function AdminSchedulePage() {
                               <div className="text-2xl font-bold text-gray-900">{count}</div>
                               <div className="text-xs text-gray-500">预约</div>
                               {pendingCount > 0 && (
-                                <div className="text-xs text-amber-600 mt-0.5">⏳ {pendingCount}待确认</div>
+                                <div className="text-xs text-amber-600 mt-0.5">({pendingCount}) 待确认</div>
                               )}
                             </div>
                           )}

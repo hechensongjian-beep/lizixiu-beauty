@@ -143,8 +143,8 @@ export default function PaymentVerifyPage() {
       {!loading && (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
           {[
-            { label: '待核验', value: summary.pending, color: 'from-amber-400 to-orange-500', icon: '⏳' },
-            { label: '已通过', value: summary.approved, color: 'from-green-400 to-emerald-500', icon: '✅' },
+            { label: '待核验', value: summary.pending, color: 'from-amber-400 to-orange-500', icon: '...' },
+            { label: '已通过', value: summary.approved, color: 'from-green-400 to-emerald-500', icon: '✓' },
             { label: '已拒绝', value: summary.rejected, color: 'from-red-400 to-[#c9a87c]', icon: '❌' },
             { label: '已确认金额', value: fmt(summary.totalAmount), color: 'from-purple-400 to-indigo-500', icon: '' },
           ].map(item => (
@@ -194,7 +194,7 @@ export default function PaymentVerifyPage() {
       {/* 加载 */}
       {loading && (
         <div className="flex items-center justify-center py-16">
-          <div className="text-4xl animate-pulse">⏳</div>
+          <div className="text-4xl animate-pulse">...</div>
         </div>
       )}
 
@@ -272,7 +272,7 @@ export default function PaymentVerifyPage() {
                       disabled={processingId === v.id}
                       className="flex-1 py-2.5 bg-green-500 text-white rounded-xl font-medium hover:bg-green-600 disabled:opacity-50 transition flex items-center justify-center gap-2"
                     >
-                      {processingId === v.id ? '处理中..' : '✅ 确认收款'}
+                      {processingId === v.id ? '处理中..' : '确认收款'}
                     </button>
                     <button
                       onClick={() => handleAction(v.id, 'reject')}
@@ -295,7 +295,7 @@ export default function PaymentVerifyPage() {
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md">
             <div className={`px-6 py-4 border-b border-gray-100 ${noteModal.action === 'approve' ? 'bg-green-50' : 'bg-red-50'} rounded-t-2xl`}>
               <h3 className="font-bold text-lg">
-                {noteModal.action === 'approve' ? '✅ 确认收款' : '❌ 拒绝该支付记录'}
+                {noteModal.action === 'approve' ? '确认收款' : '拒绝该支付记录'}
               </h3>
             </div>
             <div className="p-6">

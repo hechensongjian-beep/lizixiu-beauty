@@ -114,8 +114,8 @@ export default function CalendarPage() {
       {/* 月概览 */}
       <div className="grid grid-cols-3 gap-4 mb-8">
         {[
-          { label: '待确认', value: stats.pending, color: 'from-yellow-400 to-amber-500', icon: '⏳' },
-          { label: '已确认', value: stats.confirmed, color: 'from-blue-400 to-indigo-500', icon: '✅' },
+          { label: '待确认', value: stats.pending, color: 'from-yellow-400 to-amber-500', icon: '...' },
+          { label: '已确认', value: stats.confirmed, color: 'from-blue-400 to-indigo-500', icon: '✓' },
           { label: '已完成', value: stats.completed, color: 'from-green-400 to-emerald-500', icon: '' },
         ].map(item => (
           <div key={item.label} className={`bg-gradient-to-br ${item.color} text-white rounded-2xl p-5 shadow`}>
