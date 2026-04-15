@@ -84,7 +84,7 @@ export default function StaffLoginPage() {
               type="email"
               value={email}
               onChange={e => setEmail(e.target.value)}
-              placeholder="your@email.com"
+              placeholder="请输入邮箱"
               className="w-full px-4 py-3 rounded-xl border border-[var(--primary-light)] bg-white text-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] transition-all text-sm"
             />
           </div>
