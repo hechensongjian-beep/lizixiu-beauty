@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
@@ -78,7 +78,7 @@ export default function CartPage() {
       {loading ? (
         <div className="flex justify-center py-20"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#c9a87c]"></div></div>
       ) : cartItems.length === 0 ? (
-        <div className="bg-gradient-to-r from-gray-50 to-gray-100 border border-gray-200 rounded-2xl p-16 text-center">
+        <div className="bg-gradient-to-r from-[#faf8f5] to-[#f5f2ed] border border-gray-200 rounded-2xl p-16 text-center">
           <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#c0bdb8" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="mx-auto mb-6">
             <circle cx="12" cy="12" r="10"/>
             <path d="M16 16s-1.5-2-4-2-4 2-4 2"/>

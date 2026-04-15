@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
@@ -143,8 +143,8 @@ export default function PaymentVerifyPage() {
       {!loading && (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
           {[
-            { label: '待核验', value: summary.pending, color: 'from-amber-400 to-orange-500', icon: '...' },
-            { label: '已通过', value: summary.approved, color: 'from-green-400 to-emerald-500', icon: '✓' },
+            { label: '待核验', value: summary.pending, color: 'from-[#c9a87c] to-[#b8956a]', icon: '...' },
+            { label: '已通过', value: summary.approved, color: 'from-[#a88a5c] to-[#b8956a]', icon: '✓' },
             { label: '已拒绝', value: summary.rejected, color: 'from-red-400 to-[#c9a87c]', icon: '❌' },
             { label: '已确认金额', value: fmt(summary.totalAmount), color: 'from-purple-400 to-indigo-500', icon: '' },
           ].map(item => (

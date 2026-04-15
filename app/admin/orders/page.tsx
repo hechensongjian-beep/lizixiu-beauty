@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
@@ -144,7 +144,7 @@ export default function AdminOrdersPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 py-12">
       <div className="text-center mb-12">
-        <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-indigo-100 to-blue-100 rounded-2xl mb-6">
+        <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-[#c9a87c]/10 to-[#e8d5b8]/10 rounded-2xl mb-6">
           <div className="text-3xl"></div>
         </div>
         <h1 className="text-4xl font-bold text-gray-900 mb-4">商家订单管理</h1>
@@ -302,13 +302,13 @@ export default function AdminOrdersPage() {
       <div className="text-center mt-12">
         <button
           onClick={fetchOrders}
-          className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-gray-800 to-gray-900 text-white font-semibold rounded-lg hover:opacity-90 transition"
+          className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-[#c9a87c] to-[#b8956a] text-white font-semibold rounded-lg hover:opacity-90 transition"
         >
            刷新订单列表
         </button>
       </div>
 
-      <div className="mt-12 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-2xl">
+      <div className="mt-12 p-6 bg-gradient-to-r from-[#c9a87c]/5 to-[#e8d5b8]/5 border border-blue-200 rounded-2xl">
         <h3 className="text-xl font-bold text-gray-900 mb-4">商家操作说明</h3>
         <ul className="space-y-2 text-gray-700">
           <li>• 订单状态分为：待付款、已付款、已发货、已送达、已取消</li>

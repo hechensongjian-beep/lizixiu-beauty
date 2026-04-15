@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
@@ -659,7 +659,7 @@ export default function StaffPage() {
       <div className="text-center">
         <Link
           href="/"
-          className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-gray-800 to-gray-900 text-white font-semibold rounded-lg hover:opacity-90 transition"
+          className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-[#c9a87c] to-[#b8956a] text-white font-semibold rounded-lg hover:opacity-90 transition"
         >
           ← 返回仪表板
         </Link>
