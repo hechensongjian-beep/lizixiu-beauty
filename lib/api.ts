@@ -235,8 +235,8 @@ export async function getPaymentSettings(): Promise<any> {
     const { data, error } = await supabase.from('payment_settings').select('*').limit(1).single();
     if (error) return { wechatQr: '', alipayQr: '', merchantName: '丽姿秀' };
     return {
-      wechatQr: data.wechat_qr || '',
-      alipayQr: data.alipay_qr || '',
+      wechatQr: data.wechat_qr_url || data.wechat_qr || '',
+      alipayQr: data.alipay_qr_url || data.alipay_qr || '',
       merchantName: data.merchant_name || '丽姿秀',
     };
   } catch { return { wechatQr: '', alipayQr: '', merchantName: '丽姿秀' }; }
