@@ -97,7 +97,7 @@ export default function AdminProductsPage() {
       {/* 头部 */}
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900"> 产品管理</h1>
+          <h1 className="text-3xl font-bold text-gray-900">产品管理</h1>
           <p className="text-gray-500 mt-1">管理商品 · 上传图片 · 更新库存</p>
         </div>
         <button onClick={openAdd} className="px-6 py-3 bg-gradient-to-r from-[#c9a87c] to-[#e8d5b8] text-white font-bold rounded-xl hover:opacity-90 transition shadow-lg">
