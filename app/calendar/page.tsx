@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
@@ -13,6 +13,10 @@ const TIMES = ['09:00','09:30','10:00','10:30','11:00','11:30','12:00','12:30','
 const STATUS_COLORS: Record<string, string> = { pending: 'bg-yellow-100 border-yellow-400 text-yellow-800', confirmed: 'bg-blue-100 border-blue-400 text-blue-800', completed: 'bg-green-100 border-green-400 text-green-800', cancelled: 'bg-gray-100 border-gray-300 text-gray-500' };
 const STATUS_LABEL: Record<string, string> = { pending: '待确认', confirmed: '已确认', completed: '已完成', cancelled: '已取消' };
 
+function IconWarning() { return <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>; }
+function IconCheck() { return <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>; }
+function IconDone() { return <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>; }
+
 function CalendarGrid({ date, appointments, onPrev, onNext, today }: { date: Date; appointments: Appointment[]; onPrev: () => void; onNext: () => void; today: Date }) {
   const dayAppts = appointments.filter(apt => apt.start_time?.startsWith(date.toISOString().split('T')[0]));
   const isToday = date.toDateString() === today.toDateString();
@@ -20,7 +24,7 @@ function CalendarGrid({ date, appointments, onPrev, onNext, today }: { date: Dat
     <div className="bg-white rounded-2xl shadow overflow-hidden">
       <div className="flex items-center justify-between bg-gradient-to-r from-[#c9a87c] to-[#e8d5b8] text-white px-6 py-4">
         <button onClick={onPrev} className="w-9 h-9 rounded-lg bg-white/20 hover:bg-white/30 flex items-center justify-center text-lg">‹</button>
-        <h2 className="text-lg font-bold">{date.getFullYear()}年{date.getMonth()+1}月{date.getDate()}日 {['日','一','二','三','四','五','六'][date.getDay()]} {isToday ? '· 今天' : ''}</h2>
+        <h2 className="text-lg font-bold">{date.getFullYear()}年{date.getMonth()+1}月{date.getDate()}日 {['日','一','二','三','四','五','六'][date.getDay()]}{isToday ? ' · 今天' : ''}</h2>
         <button onClick={onNext} className="w-9 h-9 rounded-lg bg-white/20 hover:bg-white/30 flex items-center justify-center text-lg">›</button>
       </div>
       <div className="divide-y divide-gray-100">
@@ -54,43 +58,35 @@ export default function CalendarPage() {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState({ pending: 0, confirmed: 0, completed: 0 });
-
   const today = new Date();
-
-  useEffect(() => {
-    fetchAppointments();
-  }, []);
 
   const fetchAppointments = async () => {
     setLoading(true);
     try {
       const data = await getAppointments();
-      const apts = data?.appointments || [];
-      setAppointments(apts);
-      const monthStart = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).toISOString().split('T')[0];
-      const monthEnd = new Date(currentDate.getFullYear(), currentDate.getMonth()+1, 0).toISOString().split('T')[0];
-      const monthApts = apts.filter((a: Appointment) => a.start_time >= monthStart && a.start_time <= monthEnd+'T23:59:59');
-      setStats({
-        pending: monthApts.filter((a: Appointment) => a.status === 'pending').length,
-        confirmed: monthApts.filter((a: Appointment) => a.status === 'confirmed').length,
-        completed: monthApts.filter((a: Appointment) => a.status === 'completed').length,
-      });
+      setAppointments(data?.appointments || []);
     } catch (e) { console.error(e); }
     finally { setLoading(false); }
   };
 
-  // 月视图：每天格子
+  useEffect(() => { fetchAppointments(); }, []);
+
+  useEffect(() => {
+    const monthStart = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).toISOString().split('T')[0];
+    const monthEnd = new Date(currentDate.getFullYear(), currentDate.getMonth()+1, 0).toISOString().split('T')[0];
+    const monthApts = appointments.filter((a: Appointment) => a.start_time >= monthStart && a.start_time <= monthEnd+'T23:59:59');
+    setStats({
+      pending: monthApts.filter((a: Appointment) => a.status === 'pending').length,
+      confirmed: monthApts.filter((a: Appointment) => a.status === 'confirmed').length,
+      completed: monthApts.filter((a: Appointment) => a.status === 'completed').length,
+    });
+  }, [appointments, currentDate]);
+
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
   const firstDay = new Date(year, month, 1).getDay();
   const daysInMonth = new Date(year, month+1, 0).getDate();
-
-  const monthName = `${year}年${month+1}月`;
-
-  const dayApptCount = (day: number) => {
-    const d = `${year}-${String(month+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
-    return appointments.filter(a => a.start_time?.startsWith(d)).length;
-  };
+  const monthName = year+'年'+(month+1)+'月';
 
   const navigateMonth = (delta: number) => {
     const d = new Date(currentDate);
@@ -102,32 +98,34 @@ export default function CalendarPage() {
     <div className="max-w-7xl mx-auto px-4 py-10">
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900"> 预约日历</h1>
+          <h1 className="text-3xl font-bold text-gray-900">预约日历</h1>
           <p className="text-gray-500 mt-1">查看和管理所有预约</p>
         </div>
         <div className="flex gap-3">
-          <Link href="/appointments" className="px-4 py-2 bg-[#c9a87c] text-white rounded-lg font-medium text-sm hover:bg-[#c9a87c] transition">＋ 新建预约</Link>
-          <button onClick={fetchAppointments} disabled={loading} className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm hover:bg-gray-200">{loading?'刷新中...':''}</button>
+          <Link href="/appointments" className="px-4 py-2 bg-[#c9a87c] text-white rounded-lg font-medium text-sm">＋ 新建预约</Link>
+          <button onClick={fetchAppointments} disabled={loading} className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm">{loading ? '刷新中...' : '刷新'}</button>
         </div>
       </div>
 
-      {/* 月概览 */}
       <div className="grid grid-cols-3 gap-4 mb-8">
-        {[
-          { label: '待确认', value: stats.pending, color: 'from-yellow-400 to-amber-500', icon: '...' },
-          { label: '已确认', value: stats.confirmed, color: 'from-blue-400 to-indigo-500', icon: '' },
-          { label: '已完成', value: stats.completed, color: 'from-green-400 to-emerald-500', icon: '' },
-        ].map(item => (
-          <div key={item.label} className={`bg-gradient-to-br ${item.color} text-white rounded-2xl p-5 shadow`}>
-            <div className="text-2xl mb-1">{item.icon}</div>
-            <div className="text-3xl font-bold">{item.value}</div>
-            <div className="text-sm opacity-80">{item.label}</div>
-          </div>
-        ))}
+        <div className="bg-gradient-to-br from-yellow-400 to-amber-500 text-white rounded-2xl p-5 shadow">
+          <IconWarning />
+          <div className="text-3xl font-bold">{stats.pending}</div>
+          <div className="text-sm opacity-80">待确认</div>
+        </div>
+        <div className="bg-gradient-to-br from-blue-400 to-indigo-500 text-white rounded-2xl p-5 shadow">
+          <IconCheck />
+          <div className="text-3xl font-bold">{stats.confirmed}</div>
+          <div className="text-sm opacity-80">已确认</div>
+        </div>
+        <div className="bg-gradient-to-br from-green-400 to-emerald-500 text-white rounded-2xl p-5 shadow">
+          <IconDone />
+          <div className="text-3xl font-bold">{stats.completed}</div>
+          <div className="text-sm opacity-80">已完成</div>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* 月视图 */}
         <div className="lg:col-span-2">
           <div className="bg-white rounded-2xl shadow overflow-hidden">
             <div className="flex items-center justify-between bg-gradient-to-r from-[#2d4a3e] to-[#c9a87c] text-white px-6 py-4">
@@ -142,16 +140,16 @@ export default function CalendarPage() {
             </div>
             <div className="grid grid-cols-7">
               {[...Array(firstDay).fill(null), ...[...Array(daysInMonth)].map((_, i) => i+1)].map((day, idx) => {
-                if (!day) return <div key={`empty-${idx}`} className="min-h-[70px] bg-gray-50 border-r border-b border-gray-100"></div>;
-                const dStr = `${year}-${String(month+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+                if (!day) return <div key={'empty-'+idx} className="min-h-[70px] bg-gray-50 border-r border-b border-gray-100"></div>;
+                const dStr = year+'-'+String(month+1).padStart(2,'0')+'-'+String(day).padStart(2,'0');
                 const isToday = dStr === today.toISOString().split('T')[0];
                 const count = appointments.filter(a => a.start_time?.startsWith(dStr)).length;
                 return (
                   <div key={day}
                     onClick={() => setCurrentDate(new Date(year, month, day))}
-                    className={`min-h-[70px] border-r border-b border-gray-100 p-1.5 cursor-pointer transition ${isToday?'bg-[#c9a87c]/10':day===currentDate.getDate()&&month===currentDate.getMonth()&&year===currentDate.getFullYear()?'bg-[#faf8f5]':''} hover:bg-gray-50`}>
-                    <div className={`w-7 h-7 flex items-center justify-center rounded-full text-sm font-medium mb-1 ${isToday?'bg-[#c9a87c] text-white':'text-gray-700'}`}>{day}</div>
-                    {count > 0 && <div className="flex flex-wrap gap-1">{[...Array(Math.min(count,3))].map((_,i)=><div key={i} className="w-2 h-2 bg-[#c9a87c] rounded-full"></div>)}</div>}
+                    className={`min-h-[70px] border-r border-b border-gray-100 p-1.5 cursor-pointer ${isToday ? 'bg-[#c9a87c]/10' : ''} hover:bg-gray-50`}>
+                    <div className={`w-7 h-7 flex items-center justify-center rounded-full text-sm font-medium mb-1 ${isToday ? 'bg-[#c9a87c] text-white' : 'text-gray-700'}`}>{day}</div>
+                    {count > 0 && <div className="flex flex-wrap gap-1">{[...Array(Math.min(count,3))].map((_,i) => <div key={i} className="w-2 h-2 bg-[#c9a87c] rounded-full"></div>)}</div>}
                     {count > 3 && <div className="text-xs text-gray-400 mt-0.5">+{count-3}</div>}
                   </div>
                 );
@@ -160,13 +158,11 @@ export default function CalendarPage() {
           </div>
         </div>
 
-        {/* 日详情 */}
         <div className="lg:col-span-1">
           <CalendarGrid date={currentDate} appointments={appointments} onPrev={() => { const d=new Date(currentDate);d.setDate(d.getDate()-1);setCurrentDate(d);}} onNext={() => { const d=new Date(currentDate);d.setDate(d.getDate()+1);setCurrentDate(d);}} today={today} />
         </div>
       </div>
 
-      {/* 状态说明 */}
       <div className="mt-6 bg-white rounded-2xl shadow p-5">
         <h3 className="font-bold text-gray-800 mb-3">状态说明</h3>
         <div className="flex flex-wrap gap-4">
