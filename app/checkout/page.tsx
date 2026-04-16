@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect } from 'react';
 import { useRole } from '@/components/RoleProvider';
@@ -41,6 +41,7 @@ export default function CheckoutPage() {
   const [orderCreated, setOrderCreated] = useState(false);
   const [currentOrder, setCurrentOrder] = useState<any>(null);
   const [paymentSubmitted, setPaymentSubmitted] = useState(false);
+  const [countdown, setCountdown] = useState(30 * 60); // 30 minutes in seconds
   const [submittingPayment, setSubmittingPayment] = useState(false);
 
   useEffect(() => {
@@ -92,6 +93,19 @@ export default function CheckoutPage() {
       }
     } catch {}
   }, []);
+
+  // 30-minute countdown timer
+  useEffect(() => {
+    if (orderCreated && !paymentSubmitted && countdown > 0) {
+      const timer = setInterval(() => {
+        setCountdown(prev => {
+          if (prev <= 1) { clearInterval(timer); return 0; }
+          return prev - 1;
+        });
+      }, 1000);
+      return () => clearInterval(timer);
+    }
+  }, [orderCreated, paymentSubmitted, countdown]);
 
   const resolvedCart = cart.map(item => ({
     ...item,
@@ -227,7 +241,8 @@ export default function CheckoutPage() {
           <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 text-center">
             <div className="flex items-center justify-center gap-2 text-amber-800 font-medium">
               <IconClock className="text-amber-800" />
-              订单将在 <strong>30 分钟</strong> 后自动取消，请尽快完成支付
+              订单将在 <strong>{Math.floor(countdown / 60)} 分{countdown % 60} 秒</strong> 后自动取消，请尽快完成支付
+              {countdown === 0 && <span className="ml-2 text-red-600 font-bold">（已超时）</span>}
             </div>
           </div>
           <div className="mt-6 bg-gray-50 rounded-xl p-4 text-sm text-gray-700 space-y-2">
