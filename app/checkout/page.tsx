@@ -290,10 +290,10 @@ export default function CheckoutPage() {
     <div className="max-w-6xl mx-auto px-4 py-12">
       {role === 'guest' && (
         <div className="mb-8 rounded-2xl p-6 text-center" style={{"background":'linear-gradient(135deg,#c9a87c22 0%,#e8d5b822 100%)',"border":'1px solid rgba(201,168,124,0.3)'}}>
-          <p className="text-gray-700 font-medium mb-3">您当前以访客身份操作</p>
-          <div className="flex items-center justify-center gap-3">
+          <p className="text-gray-700 font-medium mb-3">您当前以访客身份操作，填写下方信息可直接下单</p>
+          <div className="flex items-center justify-center gap-3 flex-wrap">
             <Link href="/auth/login" className="px-6 py-2 text-white font-bold rounded-xl transition" style={{"background":'linear-gradient(135deg,#c9a87c 0%,#e8d5b8 100%)'}}>登录/注册</Link>
-            <span className="text-gray-500 text-sm">登录后可保存订单记录、享受更多服务</span>
+            <span className="text-gray-400 text-sm">登录后可保存订单记录、享受更多服务</span>
           </div>
         </div>
       )}
