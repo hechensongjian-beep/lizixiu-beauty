@@ -193,10 +193,10 @@ export default function AdminProductsPage() {
         <>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
             {[
-              { label: '商品总数', value: products.length, icon: '', color: 'from-[#c9a87c] to-[#e8d5b8]' },
-              { label: '总库存', value: products.reduce((s,p)=>s+p.stock,0), icon: '', color: 'from-[#c9a87c] to-[#e8d5b8]' },
-              { label: '分类数', value: categories.length, icon: '', color: 'from-[#c9a87c] to-[#e8d5b8]' },
-              { label: '缺货商品', value: products.filter(p=>p.stock===0).length, icon: '', color: 'from-[#c9a87c] to-[#e8d5b8]' },
+              { label: '商品总数', value: products.length, icon: '⏱', color: 'from-[#c9a87c] to-[#e8d5b8]' },
+              { label: '总库存', value: products.reduce((s,p)=>s+p.stock,0), icon: '⏱', color: 'from-[#c9a87c] to-[#e8d5b8]' },
+              { label: '分类数', value: categories.length, icon: '⏱', color: 'from-[#c9a87c] to-[#e8d5b8]' },
+              { label: '缺货商品', value: products.filter(p=>p.stock===0).length, icon: '⏱', color: 'from-[#c9a87c] to-[#e8d5b8]' },
             ].map(s => (
               <div key={s.label} className={`bg-gradient-to-br ${s.color} text-white rounded-2xl p-5 shadow`}>
                 <div className="text-2xl mb-1">{s.icon}</div>

@@ -1,24 +1,10 @@
-'use client';
+﻿'use client';
 
-import { Noto_Serif_SC, Noto_Sans_SC } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { RoleProvider, useRole } from "@/components/RoleProvider";
 
-const serif = Noto_Serif_SC({
-  weight: ['400', '500', '600', '700'],
-  subsets: ['latin'],
-  variable: '--font-serif',
-  display: 'swap',
-});
-
-const sans = Noto_Sans_SC({
-  weight: ['300', '400', '500', '600'],
-  subsets: ['latin'],
-  variable: '--font-sans',
-  display: 'swap',
-});
 
 type UserRole = 'guest' | 'customer' | 'merchant' | 'admin' | 'staff';
 
@@ -327,14 +313,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh-CN" className={`h-full ${serif.variable} ${sans.variable}`}>
+    <html lang="zh-CN" className="h-full">
       <head>
         <title>丽姿秀 · 美容管理系统</title>
         <meta name="description" content="丽姿秀专业美容服务与电商平台" />
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
-      <body className={`${sans.className} min-h-full`} style={{ background: 'var(--background)' }}>
+      <body className={`min-h-full`} style={{ background: 'var(--background)' }}>
         <RoleProvider>
           <NavContent />
           <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
