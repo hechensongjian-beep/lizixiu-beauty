@@ -43,6 +43,7 @@ export default function CheckoutPage() {
   const [paymentSubmitted, setPaymentSubmitted] = useState(false);
   const [countdown, setCountdown] = useState(30 * 60); // 30 minutes in seconds
   const [submittingPayment, setSubmittingPayment] = useState(false);
+  const [selectedChannel, setSelectedChannel] = useState<'wechat' | 'alipay'>('wechat');
 
   useEffect(() => {
     Promise.all([getProducts(), getPaymentSettings()]).then(([prodData, payData]) => {
@@ -51,11 +52,13 @@ export default function CheckoutPage() {
         prodData.products.forEach((p: any) => { m[p.id] = p; });
         setProducts(m);
       }
-      if (payData) setPaymentInfo({
-        wechatQr: payData.wechatQr || payData.wechat_qr_url || '',
-        alipayQr: payData.alipayQr || payData.alipay_qr_url || '',
-        merchantName: payData.merchantName || payData.merchant_name || '丽姿秀',
-      });
+      if (payData) {
+        const wq = payData.wechatQr || payData.wechat_qr_url || '';
+        const aq = payData.alipayQr || payData.alipay_qr_url || '';
+        setPaymentInfo({ wechatQr: wq, alipayQr: aq, merchantName: payData.merchantName || payData.merchant_name || '丽姿秀' });
+        if (wq && !aq) setSelectedChannel('wechat');
+        else if (aq && !wq) setSelectedChannel('alipay');
+      }
       setLoading(false);
     }).catch(() => setLoading(false));
 
@@ -208,8 +211,9 @@ export default function CheckoutPage() {
           </h2>
 
           {hasQr ? (
-            <div className="grid grid-cols-2 gap-8 mb-8">
-              {hasWechat && (
+            <div className="mb-8">
+              <p className="text-center text-gray-600 mb-4">请使用下方收款码扫码支付</p>
+              {selectedChannel === 'wechat' && hasWechat && (
                 <div className="text-center">
                   <img src={paymentInfo.wechatQr} alt="微信收款码" className="w-48 h-48 rounded-xl mx-auto mb-3 object-cover shadow-md border border-green-100" />
                   <div className="flex items-center justify-center gap-2 font-bold" style={{color:'#2d8a5e'}}>
@@ -218,7 +222,7 @@ export default function CheckoutPage() {
                   </div>
                 </div>
               )}
-              {hasAlipay && (
+              {selectedChannel === 'alipay' && hasAlipay && (
                 <div className="text-center">
                   <img src={paymentInfo.alipayQr} alt="支付宝收款码" className="w-48 h-48 rounded-xl mx-auto mb-3 object-cover shadow-md border border-blue-100" />
                   <div className="flex items-center justify-center gap-2 font-bold" style={{color:'#1677ff'}}>
@@ -266,14 +270,29 @@ export default function CheckoutPage() {
             </Link>
           </div>
         ) : (
-          <div className="text-center">
-            <p className="text-gray-500 mb-4 text-sm">扫码支付完成后，点击下方按钮提交凭证</p>
+            <div className="text-center">
+              {hasWechat && hasAlipay && (
+                <div className="mb-6 p-4 bg-gray-50 rounded-xl">
+                  <p className="text-sm text-gray-600 mb-3">请选择支付方式：</p>
+                  <div className="flex justify-center gap-4">
+                    <label className={`flex items-center gap-2 cursor-pointer px-6 py-3 rounded-xl border-2 transition ${selectedChannel === 'wechat' ? 'border-green-500 bg-green-50' : 'border-gray-200 hover:border-green-300'}`}>
+                      <input type="radio" name="pchannel" value="wechat" checked={selectedChannel === 'wechat'} onChange={() => setSelectedChannel('wechat')} className="hidden" />
+                      <span className="font-bold text-green-700">微信支付</span>
+                    </label>
+                    <label className={`flex items-center gap-2 cursor-pointer px-6 py-3 rounded-xl border-2 transition ${selectedChannel === 'alipay' ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-blue-300'}`}>
+                      <input type="radio" name="pchannel" value="alipay" checked={selectedChannel === 'alipay'} onChange={() => setSelectedChannel('alipay')} className="hidden" />
+                      <span className="font-bold text-blue-700">支付宝</span>
+                    </label>
+                  </div>
+                </div>
+              )}
+              <p className="text-gray-500 mb-4 text-sm">扫码支付完成后，点击下方按钮提交凭证</p>
             <button
               onClick={async () => {
                 if (!currentOrder) return;
                 setSubmittingPayment(true);
                 try {
-                  const channel = hasWechat ? 'wechat' : 'alipay';
+                  const channel = selectedChannel;
                   const res = await createPaymentVerification({
                     order_id: currentOrder.id,
                     customer_name: form.customerName,
