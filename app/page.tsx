@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
@@ -193,10 +193,14 @@ function HomeContent() {
                   className="group bg-white rounded-2xl border border-[var(--primary-light)] overflow-hidden hover:shadow-lg transition-all"
                 >
                   <div
-                    className="w-full aspect-square flex items-center justify-center text-white text-2xl"
-                    style={{ background: product.imageUrl ? `url(${product.imageUrl}) center/cover` : product.imageColor || 'linear-gradient(135deg, #c9a87c, #e8d5b8)' }}
+                    className="w-full aspect-square flex items-center justify-center text-white text-4xl font-bold"
+                    style={{ background: product.imageUrl ? `url(${product.imageUrl}) center/cover` : 'linear-gradient(135deg, #c9a87c, #e8d5b8)', fontFamily: "'Noto Serif SC',serif" }}
                   >
-                    {!product.imageUrl && <span className="opacity-80 font-light">{product.name.charAt(0)}</span>}
+                    {!product.imageUrl && (
+                      <div className="text-center">
+                        <div className="text-white text-4xl font-bold opacity-80">{product.name.charAt(0)}</div>
+                      </div>
+                    )}
                   </div>
                   <div className="p-3">
                     <div className="text-xs font-medium text-[var(--foreground)] group-hover:text-[var(--primary)] transition-colors leading-tight mb-1">

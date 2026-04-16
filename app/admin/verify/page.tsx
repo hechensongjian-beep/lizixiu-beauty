@@ -94,9 +94,9 @@ export default function PaymentVerifyPage() {
   const fmtDate = (d: string) => new Date(d).toLocaleString('zh-CN');
 
   const CHANNEL_EMOJI: Record<string, string> = {
-    wechat: '',
-    alipay: '',
-    cash: '',
+    wechat: '●',
+    alipay: '●',
+    cash: '●',
   };
   const CHANNEL_LABEL: Record<string, string> = {
     wechat: '微信支付',
@@ -121,7 +121,7 @@ export default function PaymentVerifyPage() {
           <div className="flex items-center gap-3">
             <Link href="/" className="text-gray-400 hover:text-gray-600">首页</Link>
             <span className="text-gray-300">/</span>
-            <h1 className="text-2xl font-bold text-gray-900"> 支付核验</h1>
+            <h1 className="text-2xl font-bold text-gray-900">支付核验</h1>
           </div>
           <p className="text-gray-500 text-sm mt-1">客户提交支付凭证后，商家审核确认</p>
         </div>
@@ -134,7 +134,7 @@ export default function PaymentVerifyPage() {
             disabled={loading}
             className="px-4 py-2 bg-gray-100 text-gray-700 rounded-xl text-sm hover:bg-gray-200 disabled:opacity-50 transition"
           >
-            {loading ? '刷新中..' : ''}
+            {loading ? '刷新中...' : '刷新数据'}
           </button>
         </div>
       </div>
@@ -143,7 +143,7 @@ export default function PaymentVerifyPage() {
       {!loading && (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
           {[
-            { label: '待核验', value: summary.pending, color: 'from-[#c9a87c] to-[#b8956a]', icon: '...' },
+            { label: '待核验', value: summary.pending, color: 'from-[#c9a87c] to-[#b8956a]', icon: '⏱' },
             { label: '已通过', value: summary.approved, color: 'from-[#a88a5c] to-[#b8956a]', icon: '' },
             { label: '已拒绝', value: summary.rejected, color: 'from-red-400 to-[#c9a87c]', icon: '' },
             { label: '已确认金额', value: fmt(summary.totalAmount), color: 'from-purple-400 to-indigo-500', icon: '' },
@@ -194,14 +194,18 @@ export default function PaymentVerifyPage() {
       {/* 加载 */}
       {loading && (
         <div className="flex items-center justify-center py-16">
-          <div className="text-4xl animate-pulse">...</div>
+          <div className="w-10 h-10 border-4 border-gray-200 border-t-[#c9a87c] rounded-full animate-spin mx-auto"></div>
         </div>
       )}
 
       {/* 空状态 */}
       {!loading && filtered.length === 0 && (
         <div className="bg-white border border-gray-200 rounded-2xl p-16 text-center">
-          <div className="text-5xl mb-4"></div>
+          <div className="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#d1d5db" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                      </div>
           <p className="text-gray-500 text-lg font-medium">暂无{filter === 'all' ? '' : filter === 'pending' ? '待核验' : filter === 'approved' ? '已通过' : '已拒绝'}记录</p>
           <p className="text-gray-400 text-sm mt-2">
             {filter === 'pending' ? '客户扫码支付后会在此处显示' : '选择全部查看所有记录'}
