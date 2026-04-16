@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
@@ -152,15 +152,14 @@ export default function ProductsPage() {
                 onMouseEnter={e => (e.currentTarget.style.boxShadow = '0 12px 40px rgba(0,0,0,0.1)')}
                 onMouseLeave={e => (e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.04)')}>
                 {/* 产品图 */}
-                <div className={`w-full h-44 rounded-xl mb-5 bg-gradient-to-br ${product.imageColor} flex items-center justify-center relative overflow-hidden`}>
+                <div className={`w-full h-44 rounded-xl mb-5 flex items-center justify-center relative overflow-hidden ${product.imageUrl ? '' : 'bg-gradient-to-br from-[#e8d5b8] to-[#c9a87c]'}`}>
                   {product.imageUrl ? (
                     <img src={product.imageUrl} alt={product.name} className="w-full h-full object-cover rounded-xl" />
                   ) : (
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.6">
-                      <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-                      <circle cx="8.5" cy="8.5" r="1.5"/>
-                      <polyline points="21,15 16,10 5,21"/>
-                    </svg>
+                    <div className="text-center">
+                      <div className="text-white text-5xl font-bold opacity-80 mb-2" style={{fontFamily:"'Noto Serif SC',serif"}}>{product.name.charAt(0)}</div>
+                      <div className="text-white text-xs opacity-70">{product.name}</div>
+                    </div>
                   )}
                   {product.stock === 0 && (
                     <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
