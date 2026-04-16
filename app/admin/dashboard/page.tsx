@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
@@ -97,19 +97,19 @@ export default function AdminDashboardPage() {
   };
 
   const statCards = [
-    { label: '总收入', value: fmt(stats.totalRevenue), icon: '', color: 'from-[#c9a87c] to-[#e8d5b8]', sub: '历史累计' },
-    { label: '本月收入', value: fmt(stats.monthRevenue), icon: '', color: 'from-purple-500 to-indigo-500', sub: `本月 ${stats.monthOrders} 笔` },
-    { label: '总订单', value: `${stats.totalOrders} 笔`, icon: '', color: 'from-blue-500 to-cyan-500', sub: `待处理 ${stats.pendingOrders}` },
-    { label: '客户总数', value: `${stats.totalCustomers} 人`, icon: '', color: 'from-[#c9a87c] to-[#e8d5b8]', sub: '注册用户' },
-    { label: '商品总数', value: `${stats.totalProducts} 个`, icon: '', color: 'from-[#c9a87c] to-[#e8d5b8]', sub: `库存紧张 ${stats.lowStockProducts}` },
-    { label: '平均客单价', value: stats.totalOrders > 0 ? fmt(stats.totalRevenue / stats.totalOrders) : fmt(0), icon: '', color: 'from-teal-500 to-cyan-500', sub: '每笔订单' },
+    { label: '总收入', value: fmt(stats.totalRevenue), icon: '💰', color: 'from-[#c9a87c] to-[#e8d5b8]', sub: '历史累计' },
+    { label: '本月收入', value: fmt(stats.monthRevenue), icon: '📈', color: 'from-purple-500 to-indigo-500', sub: `本月 ${stats.monthOrders} 笔` },
+    { label: '总订单', value: `${stats.totalOrders} 笔`, icon: '📋', color: 'from-blue-500 to-cyan-500', sub: `待处理 ${stats.pendingOrders}` },
+    { label: '客户总数', value: `${stats.totalCustomers} 人`, icon: '👥', color: 'from-[#c9a87c] to-[#e8d5b8]', sub: '注册用户' },
+    { label: '商品总数', value: `${stats.totalProducts} 个`, icon: '📦', color: 'from-[#c9a87c] to-[#e8d5b8]', sub: `库存紧张 ${stats.lowStockProducts}` },
+    { label: '平均客单价', value: stats.totalOrders > 0 ? fmt(stats.totalRevenue / stats.totalOrders) : fmt(0), icon: '🎯', color: 'from-teal-500 to-cyan-500', sub: '每笔订单' },
   ];
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-10">
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900"> 数据面板</h1>
+          <h1 className="text-3xl font-bold text-gray-900">数据面板</h1>
           <p className="text-gray-500 mt-1">实时掌握店铺运营数据</p>
         </div>
         <button onClick={fetchDashboardData} disabled={loading}
@@ -158,7 +158,7 @@ export default function AdminDashboardPage() {
 
             {/* 订单状态分布 */}
             <div className="bg-white rounded-2xl shadow p-6">
-              <h2 className="text-lg font-bold text-gray-900 mb-4"> 订单状态分布</h2>
+              <h2 className="text-lg font-bold text-gray-900 mb-4">订单状态分布</h2>
               <div className="flex items-center gap-6">
                 <ResponsiveContainer width={180} height={180}>
                   <PieChart>
@@ -208,7 +208,7 @@ export default function AdminDashboardPage() {
           {/* 最近订单 */}
           <div className="bg-white rounded-2xl shadow p-6 mb-6">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-lg font-bold text-gray-900"> 最近订单</h2>
+              <h2 className="text-lg font-bold text-gray-900">最近订单</h2>
               <Link href="/admin/orders" className="text-[#a88a5c] text-sm font-medium hover:underline">全部订单 →</Link>
             </div>
             {recentOrders.length === 0 ? (
@@ -277,10 +277,10 @@ export default function AdminDashboardPage() {
       {/* 快速入口 */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { href: '/admin/orders', emoji: '', label: '订单管理', color: 'from-[#c9a87c] to-[#e8d5b8]' },
-          { href: '/admin/products', emoji: '', label: '产品管理', color: 'from-[#c9a87c] to-[#e8d5b8]' },
-          { href: '/customers', emoji: '', label: '客户管理', color: 'from-[#c9a87c] to-[#e8d5b8]' },
-          { href: '/calendar', emoji: '', label: '预约日历', color: 'from-[#c9a87c] to-[#e8d5b8]' },
+          { href: '/admin/orders', emoji: '📋', label: '订单管理', color: 'from-[#c9a87c] to-[#e8d5b8]' },
+          { href: '/admin/products', emoji: '🛍️', label: '产品管理', color: 'from-[#c9a87c] to-[#e8d5b8]' },
+          { href: '/customers', emoji: '👥', label: '客户管理', color: 'from-[#c9a87c] to-[#e8d5b8]' },
+          { href: '/calendar', emoji: '📅', label: '预约日历', color: 'from-[#c9a87c] to-[#e8d5b8]' },
         ].map(item => (
           <Link key={item.href} href={item.href}
             className={`bg-gradient-to-br ${item.color} text-white rounded-2xl p-6 text-center hover:shadow-lg transition`}>
