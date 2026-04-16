@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import Link from 'next/link';
@@ -311,7 +311,7 @@ export default function AdminSchedulePage() {
           <div className="flex items-center gap-3">
             <Link href="/" className="text-gray-400 hover:text-gray-600">首页</Link>
             <span className="text-gray-300">/</span>
-            <h1 className="text-2xl font-bold text-gray-900"> 员工排班日历</h1>
+            <h1 className="text-2xl font-bold text-gray-900">员工排班日历</h1>
           </div>
           <p className="text-gray-500 text-sm mt-1">商家视角 · 所有员工预约一览 · 支持调换分配</p>
         </div>
@@ -397,11 +397,11 @@ export default function AdminSchedulePage() {
       {data && (
         <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6">
           {[
-            { label: '员工数', value: data.summary.totalStaff, color: 'from-purple-400 to-purple-600', icon: '' },
-            { label: '总预约', value: data.summary.totalAppointments, color: 'from-blue-400 to-blue-600', icon: '' },
-            { label: '待确认', value: data.summary.pending, color: 'from-amber-400 to-amber-600', icon: '...' },
+            { label: '员工数', value: data.summary.totalStaff, color: 'from-purple-400 to-purple-600', icon: '⏱' },
+            { label: '总预约', value: data.summary.totalAppointments, color: 'from-blue-400 to-blue-600', icon: '⏱' },
+            { label: '待确认', value: data.summary.pending, color: 'from-amber-400 to-amber-600', icon: '⏱' },
             { label: '已确认', value: data.summary.confirmed, color: 'from-indigo-400 to-indigo-600', icon: '✓' },
-            { label: '已完成', value: data.summary.completed, color: 'from-green-400 to-green-600', icon: '' },
+            { label: '已完成', value: data.summary.completed, color: 'from-green-400 to-green-600', icon: '⏱' },
           ].map(item => (
             <div key={item.label} className={`bg-gradient-to-br ${item.color} text-white rounded-xl p-4 shadow-sm`}>
               <div className="text-2xl mb-1">{item.icon}</div>
