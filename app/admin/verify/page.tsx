@@ -144,8 +144,8 @@ export default function PaymentVerifyPage() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
           {[
             { label: '待核验', value: summary.pending, color: 'from-[#c9a87c] to-[#b8956a]', icon: '...' },
-            { label: '已通过', value: summary.approved, color: 'from-[#a88a5c] to-[#b8956a]', icon: '✓' },
-            { label: '已拒绝', value: summary.rejected, color: 'from-red-400 to-[#c9a87c]', icon: '❌' },
+            { label: '已通过', value: summary.approved, color: 'from-[#a88a5c] to-[#b8956a]', icon: '' },
+            { label: '已拒绝', value: summary.rejected, color: 'from-red-400 to-[#c9a87c]', icon: '' },
             { label: '已确认金额', value: fmt(summary.totalAmount), color: 'from-purple-400 to-indigo-500', icon: '' },
           ].map(item => (
             <div key={item.label} className={`bg-gradient-to-br ${item.color} text-white rounded-xl p-4 shadow-sm`}>
@@ -279,7 +279,7 @@ export default function PaymentVerifyPage() {
                       disabled={processingId === v.id}
                       className="flex-1 py-2.5 bg-red-50 text-red-600 rounded-xl font-medium hover:bg-red-100 disabled:opacity-50 transition flex items-center justify-center gap-2"
                     >
-                      ❌ 拒绝
+                      拒绝
                     </button>
                   </div>
                 )}

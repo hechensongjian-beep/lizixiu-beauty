@@ -77,7 +77,7 @@ export default function ResetPasswordPage() {
     return (
       <div className="max-w-md mx-auto px-4 py-12 text-center">
         <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-red-100 to-orange-100 rounded-2xl mb-6">
-          <div className="text-3xl">⚠️</div>
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#d97706" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
         </div>
         <h1 className="text-2xl font-bold text-gray-900 mb-4">链接无效</h1>
         <p className="text-gray-700 mb-6">{error}</p>

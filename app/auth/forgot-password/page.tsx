@@ -129,7 +129,7 @@ export default function ForgotPasswordPage() {
       </div>
 
       <div className="mt-12 p-6 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl">
-        <h3 className="font-semibold text-gray-800 mb-2">ℹ️ 注意事项</h3>
+        <h3 className="font-semibold text-gray-800 mb-2">注意事项</h3>
         <ul className="text-sm text-gray-700 space-y-1">
           <li>• 重置链接有效期 <strong>24 小时</strong>，请尽快操作</li>
           <li>• 如果收不到邮件，请检查垃圾邮件文件夹</li>

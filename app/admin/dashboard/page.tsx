@@ -101,7 +101,7 @@ export default function AdminDashboardPage() {
     { label: '本月收入', value: fmt(stats.monthRevenue), icon: '', color: 'from-purple-500 to-indigo-500', sub: `本月 ${stats.monthOrders} 笔` },
     { label: '总订单', value: `${stats.totalOrders} 笔`, icon: '', color: 'from-blue-500 to-cyan-500', sub: `待处理 ${stats.pendingOrders}` },
     { label: '客户总数', value: `${stats.totalCustomers} 人`, icon: '', color: 'from-[#c9a87c] to-[#e8d5b8]', sub: '注册用户' },
-    { label: '商品总数', value: `${stats.totalProducts} 个`, icon: '️', color: 'from-[#c9a87c] to-[#e8d5b8]', sub: `库存紧张 ${stats.lowStockProducts}` },
+    { label: '商品总数', value: `${stats.totalProducts} 个`, icon: '', color: 'from-[#c9a87c] to-[#e8d5b8]', sub: `库存紧张 ${stats.lowStockProducts}` },
     { label: '平均客单价', value: stats.totalOrders > 0 ? fmt(stats.totalRevenue / stats.totalOrders) : fmt(0), icon: '', color: 'from-teal-500 to-cyan-500', sub: '每笔订单' },
   ];
 
@@ -192,7 +192,7 @@ export default function AdminDashboardPage() {
           {/* 商品分类 */}
           {categoryData.length > 0 && (
             <div className="bg-white rounded-2xl shadow p-6 mb-6">
-              <h2 className="text-lg font-bold text-gray-900 mb-4">️ 商品分类分布</h2>
+              <h2 className="text-lg font-bold text-gray-900 mb-4">商品分类分布</h2>
               <ResponsiveContainer width="100%" height={200}>
                 <BarChart data={categoryData} layout="vertical">
                   <CartesianGrid strokeDasharray="3 3" />
@@ -252,7 +252,7 @@ export default function AdminDashboardPage() {
 
           {/* 库存预警 */}
           <div className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-2xl p-6 mb-6">
-            <h2 className="text-lg font-bold text-gray-900 mb-4">⚠️ 运营提醒</h2>
+            <h2 className="text-lg font-bold text-gray-900 mb-4">运营提醒</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="bg-white rounded-xl p-4 border border-amber-200">
                 <div className="text-[#c9a87c] font-bold text-2xl mb-1">{stats.lowStockProducts}</div>

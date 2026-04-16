@@ -476,7 +476,7 @@ export default function ServicesPage() {
       ) : error ? (
         <div className="bg-red-50 border border-red-200 rounded-xl p-6 mb-8">
           <div className="flex items-center">
-            <div className="text-red-600 text-xl mr-3">⚠️</div>
+            <div className="text-red-600 text-xl mr-3 flex-shrink-0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
             <div>
               <h3 className="font-semibold text-red-800">加载失败</h3>
               <p className="text-red-700 mt-1">{error}</p>
@@ -586,7 +586,7 @@ export default function ServicesPage() {
                 <div className="text-sm text-gray-600">总定价</div>
               </div>
               <div className="bg-white rounded-xl p-6 border border-[#c9a87c] shadow-sm">
-                <div className="text-2xl mb-2">⏱️</div>
+                <div className="text-2xl mb-2 flex items-center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#a88a5c" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
                 <div className="text-3xl font-bold text-gray-900">
                   {formatDuration(services.reduce((sum, s) => sum + s.duration, 0))}
                 </div>

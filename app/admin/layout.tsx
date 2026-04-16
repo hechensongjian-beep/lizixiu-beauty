@@ -65,7 +65,7 @@ export default function AdminLayout({
                     href="/admin/products"
                     className="text-gray-700 hover:text-[#a88a5c] font-medium px-3 py-2 rounded-lg hover:bg-[#c9a87c]/10 transition"
                   >
-                    ️ 产品管理
+                    产品管理
                   </a>
 
                   <a

@@ -114,7 +114,7 @@ export default function AdminProductsPage() {
       {/* 添加/编辑表单 */}
       {tab === 'add' && (
         <div className="bg-white rounded-2xl shadow-lg p-8 mb-8">
-          <h2 className="text-xl font-bold text-gray-900 mb-6">{editing ? '✏️ 编辑商品' : '添加新商品'}</h2>
+          <h2 className="text-xl font-bold text-gray-900 mb-6">{editing ? '编辑商品' : '添加新商品'}</h2>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
@@ -148,7 +148,9 @@ export default function AdminProductsPage() {
                 <label className="block text-sm font-medium text-gray-700 mb-2">商品图片（上传到云存储）</label>
                 <div className="flex items-start gap-6">
                   <div className={`w-40 h-40 rounded-xl bg-gradient-to-br ${form.imageColor} flex items-center justify-center overflow-hidden flex-shrink-0`}>
-                    {form.imageUrl ? <img src={form.imageUrl} alt="预览" className="w-full h-full object-cover" /> : <span className="text-4xl">️</span>}
+                    {form.imageUrl ? <img src={form.imageUrl} alt="预览" className="w-full h-full object-cover" /> : (
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg>
+                      )}
                   </div>
                   <div className="flex-1">
                     <input ref={fileRef} type="file" accept="image/*" onChange={handleFileChange} className="hidden" />
@@ -193,8 +195,8 @@ export default function AdminProductsPage() {
             {[
               { label: '商品总数', value: products.length, icon: '', color: 'from-[#c9a87c] to-[#e8d5b8]' },
               { label: '总库存', value: products.reduce((s,p)=>s+p.stock,0), icon: '', color: 'from-[#c9a87c] to-[#e8d5b8]' },
-              { label: '分类数', value: categories.length, icon: '️', color: 'from-[#c9a87c] to-[#e8d5b8]' },
-              { label: '缺货商品', value: products.filter(p=>p.stock===0).length, icon: '⚠️', color: 'from-[#c9a87c] to-[#e8d5b8]' },
+              { label: '分类数', value: categories.length, icon: '', color: 'from-[#c9a87c] to-[#e8d5b8]' },
+              { label: '缺货商品', value: products.filter(p=>p.stock===0).length, icon: '', color: 'from-[#c9a87c] to-[#e8d5b8]' },
             ].map(s => (
               <div key={s.label} className={`bg-gradient-to-br ${s.color} text-white rounded-2xl p-5 shadow`}>
                 <div className="text-2xl mb-1">{s.icon}</div>
@@ -245,8 +247,8 @@ export default function AdminProductsPage() {
                         </td>
                         <td className="py-4 px-6">
                           <div className="flex gap-2">
-                            <button onClick={() => openEdit(p)} className="px-3 py-1.5 bg-blue-50 text-blue-600 rounded-lg text-sm font-medium hover:bg-blue-100">✏️ 编辑</button>
-                            <button onClick={() => handleDelete(p.id)} className="px-3 py-1.5 bg-red-50 text-red-600 rounded-lg text-sm font-medium hover:bg-red-100">️ 删除</button>
+                            <button onClick={() => openEdit(p)} className="px-3 py-1.5 bg-blue-50 text-blue-600 rounded-lg text-sm font-medium hover:bg-blue-100">编辑</button>
+                            <button onClick={() => handleDelete(p.id)} className="px-3 py-1.5 bg-red-50 text-red-600 rounded-lg text-sm font-medium hover:bg-red-100">删除</button>
                           </div>
                         </td>
                       </tr>
