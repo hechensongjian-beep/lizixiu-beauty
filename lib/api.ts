@@ -4,7 +4,7 @@ import { supabase } from '@/lib/supabase';
 
 // ===== Formatters =====
 function fmtProduct(p: any): any {
-  const firstImage = p.image_url || (Array.isArray(p.image_urls) ? p.image_urls[0] : null);
+  const firstImage = p.image_url || null;
   return {
     id: p.id, name: p.name, description: p.description || '',
     price: p.price, originalPrice: p.price,
@@ -67,7 +67,7 @@ export async function createProduct(payload): Promise<any> {
     // Strip local-only fields that are not in DB schema
     const { imageColor, tags, imageUrl, ...dbPayload } = payload;
     // Map imageUrl -> image_urls (DB has array column)
-    if (imageUrl) dbPayload.image_urls = [imageUrl];
+    if (imageUrl) dbPayload.image_url = imageUrl;
     const { data, error } = await supabase.from('products').insert(dbPayload).select().single();
     if (error) return { error: error.message };
     return { product: fmtProduct(data) };
@@ -78,7 +78,7 @@ export async function updateProduct(id, payload): Promise<any> {
   try {
     // Strip local-only fields
     const { imageColor, tags, imageUrl, ...dbPayload } = payload;
-    if (imageUrl) dbPayload.image_urls = [imageUrl];
+    if (imageUrl) dbPayload.image_url = imageUrl;
     const { data, error } = await supabase.from('products').update(dbPayload).eq('id', id).select().single();
     if (error) return { error: error.message };
     return { product: fmtProduct(data) };
