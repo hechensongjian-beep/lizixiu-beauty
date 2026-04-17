@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { getAppointments } from '@/lib/api';
-import { useRole } from '@/components/RoleProvider';
+import { useAuth } from '@/components/AuthProvider';
 
 interface Appointment {
   id: string;
@@ -28,7 +28,7 @@ const STATUS_STYLE: Record<string, string> = {
 };
 
 export default function ProfilePage() {
-  const { role } = useRole();
+  const { role } = useAuth();
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [loading, setLoading] = useState(true);
   const [tab, setTab] = useState<'info' | 'appointments'>('info');

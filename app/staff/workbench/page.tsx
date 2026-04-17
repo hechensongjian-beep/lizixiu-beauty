@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useRole } from '@/components/RoleProvider';
+import { useAuth } from '@/components/AuthProvider';
 import { getStaff, getStaffDashboard, updateAppointmentStatus } from '@/lib/api';
 
 interface Staff {
@@ -59,20 +59,21 @@ const STATUS_COLORS: Record<string, { bg: string; text: string; label: string }>
 
 export default function StaffWorkbenchPage() {
   const router = useRouter();
-  const { role, mounted } = useRole();
+  const { role, loading } = useAuth();
   const [staffList, setStaffList] = useState<Staff[]>([]);
   const [selectedStaffId, setSelectedStaffId] = useState<string | null>(null);
   const [dashboard, setDashboard] = useState<DashboardData | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [pageLoading, setPageLoading] = useState(true);
   const [dashboardLoading, setDashboardLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [updatingId, setUpdatingId] = useState<string | null>(null);
 
+  // 未登录或非员工 → 重定向
   useEffect(() => {
-    if (mounted && role !== 'staff') {
+    if (!loading && role !== 'staff') {
       router.push('/auth/staff-login');
     }
-  }, [mounted, role, router]);
+  }, [loading, role, router]);
 
   const fetchStaff = useCallback(async () => {
     try {
@@ -81,7 +82,7 @@ export default function StaffWorkbenchPage() {
     } catch {
       setError('加载员工列表失败');
     } finally {
-      setLoading(false);
+      setPageLoading(false);
     }
   }, []);
 
@@ -131,7 +132,7 @@ export default function StaffWorkbenchPage() {
       setSelectedStaffId(savedId);
       fetchDashboard(savedId);
     } else {
-      setLoading(false);
+      setPageLoading(false);
     }
   }, [fetchStaff, fetchDashboard]);
 
@@ -166,8 +167,8 @@ export default function StaffWorkbenchPage() {
     : '';
   const maxDaily = dashboard?.week.daily.reduce((m, d) => Math.max(m, d.count), 0) || 1;
 
-  // === 未挂载或非员工角色 ===
-  if (!mounted || role !== 'staff') {
+  // Loading state
+  if (loading || pageLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
@@ -178,28 +179,23 @@ export default function StaffWorkbenchPage() {
     );
   }
 
-  // === 员工选择界面 ===
+  if (!loading && role !== 'staff') return null;
+
+  // 员工选择界面
   if (!selectedStaffId) {
     return (
       <div className="max-w-2xl mx-auto py-12 px-4">
         <div className="text-center mb-10">
           <div className="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center" style={{ background: 'var(--primary-light)' }}>
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="1.5">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-              <circle cx="12" cy="7" r="4"/>
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
             </svg>
           </div>
           <h1 className="text-3xl text-[var(--foreground)] mb-2" style={{ fontFamily: 'var(--font-serif)' }}>员工工作台</h1>
           <p className="text-[var(--foreground-muted)]">请选择您的账号，进入个人工作台</p>
         </div>
 
-        {loading ? (
-          <div className="animate-pulse space-y-3">
-            {[1,2,3,4].map(i => (
-              <div key={i} className="h-16 bg-white rounded-xl border border-[var(--primary-light)]"></div>
-            ))}
-          </div>
-        ) : staffList.length === 0 ? (
+        {staffList.length === 0 ? (
           <div className="text-center py-12 bg-white rounded-2xl border border-[var(--primary-light)]">
             <p className="text-[var(--foreground-muted)]">暂无可用员工账号</p>
             <p className="text-sm text-[var(--foreground-muted)] mt-1 opacity-60">请联系商家添加员工</p>
@@ -207,11 +203,8 @@ export default function StaffWorkbenchPage() {
         ) : (
           <div className="space-y-3">
             {staffList.map((s) => (
-              <button
-                key={s.id}
-                onClick={() => handleSelectStaff(s.id)}
-                className="w-full flex items-center gap-4 p-4 bg-white border border-[var(--primary-light)] rounded-xl hover:shadow-md hover:-translate-y-0.5 transition text-left"
-              >
+              <button key={s.id} onClick={() => handleSelectStaff(s.id)}
+                className="w-full flex items-center gap-4 p-4 bg-white border border-[var(--primary-light)] rounded-xl hover:shadow-md hover:-translate-y-0.5 transition text-left">
                 <div className="w-12 h-12 rounded-full flex items-center justify-center text-white font-medium text-sm" style={{ background: 'var(--primary)' }}>
                   {s.name.charAt(0)}
                 </div>
@@ -232,7 +225,7 @@ export default function StaffWorkbenchPage() {
     );
   }
 
-  // === 工作台加载中 ===
+  // 加载状态
   if (dashboardLoading) {
     return (
       <div className="max-w-5xl mx-auto py-8 px-4">
@@ -247,7 +240,7 @@ export default function StaffWorkbenchPage() {
     );
   }
 
-  // === 工作台出错 ===
+  // 错误状态
   if (error) {
     return (
       <div className="max-w-2xl mx-auto py-12 px-4 text-center">
@@ -270,10 +263,9 @@ export default function StaffWorkbenchPage() {
     );
   }
 
-  // === 工作台主视图 ===
+  // 工作台主视图
   return (
     <div className="max-w-5xl mx-auto py-8 px-4">
-      {/* 顶部标题栏 */}
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-2xl text-[var(--foreground)]" style={{ fontFamily: 'var(--font-serif)' }}>
@@ -312,7 +304,7 @@ export default function StaffWorkbenchPage() {
             {(dashboard?.week.earnings || 0).toLocaleString('zh-CN', { style: 'currency', currency: 'CNY', minimumFractionDigits: 0 })}
           </div>
         </div>
-        <div className="bg-white rounded-2xl border border-[var(--primary-light)] p-5">
+        <div className="bg-white rounded-2xl border border-[(--primary-light)] p-5">
           <p className="text-xs text-[var(--foreground-muted)] mb-1">待服务</p>
           <div className="text-3xl font-bold text-amber-600">
             {(dashboard?.week.pending || 0) + (dashboard?.week.confirmed || 0)}
@@ -321,7 +313,6 @@ export default function StaffWorkbenchPage() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
-        {/* 左侧 */}
         <div className="lg:col-span-3 space-y-5">
           {/* 今日预约 */}
           <div className="bg-white rounded-2xl border border-[var(--primary-light)] p-6">
@@ -401,7 +392,6 @@ export default function StaffWorkbenchPage() {
               近期待办
               <span className="text-xs text-[var(--foreground-muted)]">未来7天</span>
             </h2>
-
             {dashboard?.upcoming.length === 0 ? (
               <div className="text-center py-8">
                 <p className="text-[var(--foreground-muted)] text-sm">近期暂无预约安排</p>

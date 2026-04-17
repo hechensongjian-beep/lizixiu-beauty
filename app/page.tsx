@@ -2,14 +2,14 @@
 
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
-import { useRole } from '@/components/RoleProvider';
+import { useAuth } from '@/components/AuthProvider';
 import { getProducts, getServices } from '@/lib/api';
 
 interface Product { id: string; name: string; price: number; imageColor: string; imageUrl?: string; }
 interface Service { id: string; name: string; price: number; duration?: number; category?: string; }
 
 function HomeContent() {
-  const { role } = useRole();
+  const { role } = useAuth();
   const [products, setProducts] = useState<Product[]>([]);
   const [services, setServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState(true);

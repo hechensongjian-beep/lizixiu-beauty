@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { getOrders } from '@/lib/api';
-import { useRole } from '@/components/RoleProvider';
+import { useAuth } from '@/components/AuthProvider';
 
 interface OrderItem {
   productId: string;
@@ -29,7 +29,7 @@ interface Order {
 }
 
 export default function OrdersPage() {
-  const { role } = useRole();
+  const { role } = useAuth();
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
 

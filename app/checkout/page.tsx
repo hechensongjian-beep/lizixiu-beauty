@@ -1,7 +1,7 @@
 ﻿'use client';
 
 import { useState, useEffect } from 'react';
-import { useRole } from '@/components/RoleProvider';
+import { useAuth } from '@/components/AuthProvider';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { getProducts, createOrder, createPaymentVerification, getPaymentSettings } from '@/lib/api';
@@ -27,7 +27,7 @@ function IconArrowLeft({ className }: { className?: string }) {
 
 export default function CheckoutPage() {
   const router = useRouter();
-  const { role } = useRole();
+  const { role } = useAuth();
   const [products, setProducts] = useState<Record<string, any>>({});
   const [cart, setCart] = useState<CartItem[]>([]);
   const [paymentInfo, setPaymentInfo] = useState<PaymentInfo>({ wechatQr: '', alipayQr: '', merchantName: '丽姿秀' });
