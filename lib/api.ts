@@ -200,7 +200,9 @@ export async function createAppointment(payload): Promise<any> {
       staff_id: payload.staff_id,
       start_time: payload.start_time,
       end_time: payload.end_time,
-      notes: `客户:${payload.customer_name || '游客'}|电话:${payload.customer_phone || ''}${payload.notes ? '|' + payload.notes : ''}`,
+      customer_name: payload.customer_name || '匿名',
+      customer_phone: payload.customer_phone || '',
+      notes: `客户:${payload.customer_name || '匿名'}|电话:${payload.customer_phone || ''}${payload.notes ? '|' + payload.notes : ''}`,
       status: 'confirmed',
     };
 
