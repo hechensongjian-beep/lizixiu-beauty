@@ -6,7 +6,7 @@ import { getAppointments } from '@/lib/api';
 
 interface Appointment {
   id: string; start_time: string; end_time: string; status: string;
-  service_type?: string; staff_name?: string; customer_name?: string; notes?: string;
+  service_name?: string; service_type?: string; staff_name?: string; customer_name?: string; notes?: string;
 }
 
 const TIMES = ['09:00','09:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30'];
@@ -36,7 +36,7 @@ function CalendarGrid({ date, appointments, onPrev, onNext, today }: { date: Dat
               <div className="flex-1 py-2 px-3">
                 {appt ? (
                   <div className={`px-3 py-2 rounded-lg border-l-4 text-xs ${STATUS_COLORS[appt.status] || STATUS_COLORS.pending}`}>
-                    <div className="font-bold">{appt.service_type || '服务'}</div>
+                    <div className="font-bold">{appt.service_name || appt.service_type || '服务'}</div>
                     <div className="opacity-75">{appt.customer_name || '客户'} · {appt.staff_name || '美容师'}</div>
                     <div className="opacity-60">{appt.start_time?.substring(11,16)} – {appt.end_time?.substring(11,16)}</div>
                     {appt.notes && <div className="opacity-60 mt-1">备注：{appt.notes}</div>}

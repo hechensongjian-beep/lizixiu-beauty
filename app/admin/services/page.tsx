@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { getServices, createOrder as dummy } from '@/lib/api';
+import { getServices, createService, updateService, deleteService } from '@/lib/api';
 
 interface Service {
   id: string;
@@ -29,24 +29,14 @@ export default function AdminServicesPage() {
   const [saving, setSaving] = useState(false);
   const [msg, setMsg] = useState('');
 
-  const SUPABASE_URL = 'https://czvmhylvatlegobrxyrx.supabase.co';
-  const SERVICE_KEY = 'sb_secret_Tw_bq2ADdH4ES1GvWeyfFQ_4ph7WZFr';
 
   useEffect(() => { loadServices(); }, []);
 
   const loadServices = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`${SUPABASE_URL}/rest/v1/services?select=*&order=pinned.desc,name.asc`, {
-        headers: {
-          'apikey': SERVICE_KEY,
-          'Authorization': `Bearer ${SERVICE_KEY}`,
-        },
-      });
-      if (res.ok) {
-        const data = await res.json();
-        setServices(data);
-      }
+      const res = await getServices();
+      setServices(res?.services || []);
     } catch {}
     setLoading(false);
   };
@@ -58,44 +48,30 @@ export default function AdminServicesPage() {
     const payload = {
       name: form.name,
       description: form.description,
-      price: parseFloat(form.price),
-      duration: parseInt(form.duration),
+      price: typeof form.price === 'string' ? parseFloat(form.price) : form.price,
+      duration: typeof form.duration === 'string' ? parseInt(form.duration) : form.duration,
       category: form.category,
       pinned: form.pinned,
       featured: form.featured,
-      updated_at: new Date().toISOString(),
     };
     try {
       let res;
-      if (editId) {
-        res = await fetch(`${SUPABASE_URL}/rest/v1/services?id=eq.${editId}`, {
-          method: 'PATCH',
-          headers: {
-            'apikey': SERVICE_KEY,
-            'Authorization': `Bearer ${SERVICE_KEY}`,
-            'Content-Type': 'application/json',
-            'Prefer': 'return=minimal',
-          },
-          body: JSON.stringify(payload),
-        });
+      // Use current editId state (set before this call)
+      const id = editId;
+      if (id) {
+        res = await updateService(id, payload);
       } else {
-        res = await fetch(`${SUPABASE_URL}/rest/v1/services`, {
-          method: 'POST',
-          headers: {
-            'apikey': SERVICE_KEY,
-            'Authorization': `Bearer ${SERVICE_KEY}`,
-            'Content-Type': 'application/json',
-            'Prefer': 'return=minimal',
-          },
-          body: JSON.stringify({ ...payload, created_at: new Date().toISOString() }),
-        });
+        res = await createService(payload);
       }
-      if (res.ok || res.status === 201) {
-        setMsg(editId ? '更新成功！' : '添加成功！');
-        setTimeout(() => { setMsg(''); setTab('list'); setEditId(null); setForm({ name: '', description: '', price: '', duration: '', category: '面部护理', pinned: false, featured: false }); loadServices(); }, 1000);
+      if (res?.error) {
+        setMsg('保存失败: ' + res.error);
       } else {
-        const err = await res.text();
-        setMsg('保存失败: ' + err);
+        setMsg(id ? '更新成功！' : '添加成功！');
+        setTimeout(() => {
+          setMsg(''); setTab('list'); setEditId(null);
+          setForm({ name: '', description: '', price: '', duration: '', category: '面部护理', pinned: false, featured: false });
+          loadServices();
+        }, 1000);
       }
     } catch (e: any) { setMsg('网络错误: ' + e.message); }
     setSaving(false);
@@ -104,16 +80,9 @@ export default function AdminServicesPage() {
   const handleDelete = async (id: string) => {
     if (!confirm('确认删除该项目？')) return;
     try {
-      const res = await fetch(`${SUPABASE_URL}/rest/v1/services?id=eq.${id}`, {
-        method: 'DELETE',
-        headers: {
-          'apikey': SERVICE_KEY,
-          'Authorization': `Bearer ${SERVICE_KEY}`,
-          'Content-Type': 'application/json',
-        },
-      });
-      if (res.ok || res.status === 204) { setMsg('已删除'); loadServices(); }
-      else { setMsg('删除失败'); }
+      const res = await deleteService(id);
+      if (res?.error) { setMsg('删除失败: ' + res.error); }
+      else { setMsg('已删除'); loadServices(); }
     } catch { setMsg('删除失败'); }
     setTimeout(() => setMsg(''), 2000);
   };
@@ -122,16 +91,7 @@ export default function AdminServicesPage() {
     const svc = services.find(s => s.id === id);
     if (!svc) return;
     try {
-      await fetch(`${SUPABASE_URL}/rest/v1/services?id=eq.${id}`, {
-        method: 'PATCH',
-        headers: {
-          'apikey': SERVICE_KEY,
-          'Authorization': `Bearer ${SERVICE_KEY}`,
-          'Content-Type': 'application/json',
-          'Prefer': 'return=minimal',
-        },
-        body: JSON.stringify({ [field]: !svc[field], updated_at: new Date().toISOString() }),
-      });
+      await updateService(id, { [field]: !svc[field] });
       loadServices();
     } catch {}
   };

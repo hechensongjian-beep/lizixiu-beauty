@@ -4,13 +4,14 @@ import { supabase } from '@/lib/supabase';
 
 // ===== Formatters =====
 function fmtProduct(p: any): any {
-  const firstImage = p.image_url || null;
+  // DB may store as image_urls (array) or image_url (string); read from whichever exists
+  const rawImg = Array.isArray(p.image_urls) ? p.image_urls[0] : (p.image_url || null);
   return {
     id: p.id, name: p.name, description: p.description || '',
     price: p.price, originalPrice: p.price,
     category: p.category || '未分类', stock: p.stock_quantity || p.stock || 0,
-    imageColor: firstImage ? 'from-[#c9a87c] to-[#e8d5b8]' : 'from-gray-300 to-gray-400',
-    imageUrl: firstImage || '', tags: [],
+    imageColor: rawImg ? 'from-[#c9a87c] to-[#e8d5b8]' : 'from-gray-300 to-gray-400',
+    imageUrl: rawImg || '', tags: [],
     createdAt: p.created_at, updatedAt: p.updated_at,
   };
 }
@@ -41,6 +42,8 @@ function fmtStaff(s) {
 }
 
 function fmtAppointment(a) {
+  const serviceName = a.service_name || a.notes?.match(/项目:([^|]+)/)?.[1]?.trim() || a.service_type || '';
+  const staffName = a.staff_name || a.notes?.match(/美容师:([^|]+)/)?.[1]?.trim() || '';
   return {
     id: a.id, service_id: a.service_id, staff_id: a.staff_id,
     start_time: a.start_time, end_time: a.end_time,
@@ -48,7 +51,7 @@ function fmtAppointment(a) {
     customer_name: a.customer_name || a.notes?.match(/客户:([^|]+)/)?.[1]?.trim() || '',
     customer_phone: a.customer_phone || a.notes?.match(/电话:([^|\n]+)/)?.[1]?.trim() || '',
     notes: a.notes || '',
-    service_type: a.service_type || '', staff_name: a.staff_name || '',
+    service_name: serviceName, staff_name: staffName,
     created_at: a.created_at,
   };
 }
@@ -192,23 +195,28 @@ export async function getAppointments(): Promise<any> {
 
 export async function createAppointment(payload): Promise<any> {
   try {
-    const { data: staffData } = await supabase.from('staff').select('name').eq('id', payload.staff_id).single();
-    const { data: svcData } = await supabase.from('services').select('name').eq('id', payload.service_id).single();
-
-    const insertPayload = {
-      service_id: payload.service_id,
-      staff_id: payload.staff_id,
-      start_time: payload.start_time,
-      end_time: payload.end_time,
-      customer_name: payload.customer_name || '匿名',
-      customer_phone: payload.customer_phone || '',
-      notes: `客户:${payload.customer_name || '匿名'}|电话:${payload.customer_phone || ''}${payload.notes ? '|' + payload.notes : ''}`,
-      status: 'confirmed',
-    };
-
-    const { data, error } = await supabase.from('appointments').insert(insertPayload).select().single();
+    // Lookup names for storage
+    let staffName = '', serviceName = '';
+    try {
+      const [sr, svr] = await Promise.all([
+        supabase.from('staff').select('name').eq('id', payload.staff_id).single(),
+        supabase.from('services').select('name').eq('id', payload.service_id).single(),
+      ]);
+      staffName = sr.data?.name || '';
+      serviceName = svr.data?.name || '';
+    } catch {}
+    const sids = payload.service_ids || [payload.service_id];
+    const svcLabel = sids.length > 1 ? '项目: ' + serviceName + ' 等' + sids.length + '项' : '项目: ' + serviceName;
+    const notes = '客户:' + (payload.customer_name || '匿名') + '|电话:' + (payload.customer_phone || '') + '|美容师:' + staffName + '|' + svcLabel;
+    const rows = sids.map(sid => ({
+      service_id: sid, staff_id: payload.staff_id,
+      start_time: payload.start_time, end_time: payload.end_time,
+      customer_name: payload.customer_name || '匿名', customer_phone: payload.customer_phone || '',
+      notes, status: 'confirmed',
+    }));
+    const { data, error } = await supabase.from('appointments').insert(rows).select();
     if (error) return { error: error.message };
-    return { success: true, appointment: fmtAppointment(data) };
+    return { success: true, appointment: fmtAppointment(data?.[0] || {}) };
   } catch (e) { return { error: String(e) }; }
 }
 
