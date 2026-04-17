@@ -2,6 +2,8 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import { useAuth } from '@/components/AuthProvider';
+import { useRouter } from 'next/navigation';
 import { supabaseAdmin } from '@/lib/supabase-admin';
 import { getProducts, createProduct, updateProduct, deleteProduct } from '@/lib/api';
 
@@ -18,7 +20,20 @@ const IMAGE_COLORS = [
 ];
 
 export default function AdminProductsPage() {
-  const [products, setProducts] = useState<Product[]>([]);
+const { role } = useAuth();
+  const router = useRouter();
+  if (role && role !== 'merchant' && role !== 'admin') {
+    router.replace('/auth/login');
+    return (
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <div className="text-center">
+          <div className="w-8 h-8 border-2 border-[#c9a87c] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-sm text-gray-500">正在检查权限...</p>
+        </div>
+      </div>
+    );
+  }
+    const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState<Product | null>(null);
   const [showForm, setShowForm] = useState(false);

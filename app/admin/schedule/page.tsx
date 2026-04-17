@@ -2,6 +2,8 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import Link from 'next/link';
+import { useAuth } from '@/components/AuthProvider';
+import { useRouter } from 'next/navigation';
 import { getStaffSchedule, updateStaffSchedule, getStaff, getAppointments, updateAppointmentStatus } from '@/lib/api';
 
 interface Staff {
@@ -194,7 +196,20 @@ function WeekCell({
 }
 
 export default function AdminSchedulePage() {
-  const [data, setData] = useState<ScheduleData | null>(null);
+const { role } = useAuth();
+  const router = useRouter();
+  if (role && role !== 'merchant' && role !== 'admin') {
+    router.replace('/auth/login');
+    return (
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <div className="text-center">
+          <div className="w-8 h-8 border-2 border-[#c9a87c] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-sm text-gray-500">正在检查权限...</p>
+        </div>
+      </div>
+    );
+  }
+    const [data, setData] = useState<ScheduleData | null>(null);
   const [loading, setLoading] = useState(true);
   const [currentDate, setCurrentDate] = useState(() => new Date().toISOString().split('T')[0]);
   const [view, setView] = useState<'day' | 'week'>('day');

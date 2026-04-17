@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
+import { useAuth } from '@/components/AuthProvider';
 
 interface Staff {
   id: string;
@@ -23,7 +24,19 @@ interface NewStaff {
 }
 
 export default function AdminStaffPage() {
+  const { role } = useAuth();
   const router = useRouter();
+  if (role && role !== 'merchant' && role !== 'admin') {
+    router.replace('/auth/login');
+    return (
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <div className="text-center">
+          <div className="w-8 h-8 border-2 border-[#c9a87c] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-sm text-gray-500">Loading...</p>
+        </div>
+      </div>
+    );
+  }
   const [staffList, setStaffList] = useState<Staff[]>([]);
   const [loading, setLoading] = useState(true);
   const [showAdd, setShowAdd] = useState(false);

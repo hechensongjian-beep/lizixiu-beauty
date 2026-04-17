@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useAuth } from '@/components/AuthProvider';
+import { useRouter } from 'next/navigation';
 import { supabaseAdmin } from '@/lib/supabase-admin';
 import { getPaymentSettings, savePaymentSettings } from '@/lib/api';
 
@@ -30,7 +32,20 @@ function IconX({ className }: { className?: string }) {
 }
 
 export default function PaymentSettingsPage() {
-  const [settings, setSettings] = useState<PaymentSettings>({ wechatQr: '', alipayQr: '', merchantName: '丽姿秀' });
+const { role } = useAuth();
+  const router = useRouter();
+  if (role && role !== 'merchant' && role !== 'admin') {
+    router.replace('/auth/login');
+    return (
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <div className="text-center">
+          <div className="w-8 h-8 border-2 border-[#c9a87c] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-sm text-gray-500">正在检查权限...</p>
+        </div>
+      </div>
+    );
+  }
+    const [settings, setSettings] = useState<PaymentSettings>({ wechatQr: '', alipayQr: '', merchantName: '丽姿秀' });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);

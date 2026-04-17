@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useAuth } from '@/components/AuthProvider';
+import { useRouter } from 'next/navigation';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   PieChart, Pie, Cell, LineChart, Line, Legend,
@@ -11,7 +13,20 @@ import { getOrders, getProducts, getCustomers } from '@/lib/api';
 const COLORS = ['#ec4899', '#8b5cf6', '#f59e0b', '#10b981', '#3b82f6', '#ef4444'];
 
 export default function AdminDashboardPage() {
-  const [stats, setStats] = useState({
+const { role } = useAuth();
+  const router = useRouter();
+  if (role && role !== 'merchant' && role !== 'admin') {
+    router.replace('/auth/login');
+    return (
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <div className="text-center">
+          <div className="w-8 h-8 border-2 border-[#c9a87c] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-sm text-gray-500">正在检查权限...</p>
+        </div>
+      </div>
+    );
+  }
+    const [stats, setStats] = useState({
     totalOrders: 0, totalRevenue: 0, totalCustomers: 0, totalProducts: 0,
     pendingOrders: 0, lowStockProducts: 0, monthRevenue: 0, monthOrders: 0,
   });
