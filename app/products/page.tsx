@@ -151,12 +151,12 @@ export default function ProductsPage() {
               <div key={product.id}
                 className="bg-white rounded-2xl p-6 transition-all hover:-translate-y-1 cursor-pointer"
                 style={{border:'1px solid rgba(201,168,124,0.15)',boxShadow:'0 4px 20px rgba(0,0,0,0.04)'}}
-                onClick={() => router.push(`/product?id=$\{product.id\}`)}
+                onClick={() => router.push(`/product?id=${product.id}`)}
                 onMouseEnter={e => (e.currentTarget.style.boxShadow = '0 12px 40px rgba(0,0,0,0.1)')}
                 onMouseLeave={e => (e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.04)')}>
                 {/* 产品图 */}
                 <div className={`w-full h-44 rounded-xl mb-5 flex items-center justify-center relative overflow-hidden ${product.imageUrl ? '' : 'bg-gradient-to-br from-[#e8d5b8] to-[#c9a87c]'}`}
-                  onClick={e => { e.stopPropagation(); router.push(`/product?id=$\{product.id\}`); }}>
+                  onClick={e => { e.stopPropagation(); router.push(`/product?id=${product.id}`); }}>
                   {product.imageUrl ? (
                     <img src={product.imageUrl} alt={product.name} className="w-full h-full object-cover rounded-xl" />
                   ) : (
