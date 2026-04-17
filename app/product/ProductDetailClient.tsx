@@ -3,6 +3,7 @@
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import { getServices } from '@/lib/api';
 import AddToCartButton from './AddToCartButton';
 
 interface Product {
@@ -32,6 +33,7 @@ function ProductDetailInner() {
   const id = searchParams.get('id');
   const [product, setProduct] = useState<Product | null>(null);
   const [related, setRelated] = useState<Product[]>([]);
+  const [services, setServices] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -48,6 +50,12 @@ function ProductDetailInner() {
       }).catch(() => setLoading(false));
     });
   }, [id]);
+
+  useEffect(() => {
+    getServices().then(svc => {
+      setServices((svc?.services || []).slice(0, 3));
+    });
+  }, []);
 
   const fmt = (n: number) => new Intl.NumberFormat('zh-CN', { style: 'currency', currency: 'CNY' }).format(n);
 
@@ -206,6 +214,37 @@ function ProductDetailInner() {
             <AddToCartButton product={product} />
           </div>
         </div>
+
+        {/* 搭配服务推荐 */}
+        {services.length > 0 && (
+          <div className="border-t border-[#e8d5b8]/30 pt-10 mb-10">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-1 h-5 rounded-full" style={{background:'linear-gradient(180deg, #c9a87c, #e8d5b8)'}}></div>
+              <h2 className="text-lg font-bold" style={{color:'#2a2a28',fontFamily:"'Noto Serif SC',serif"}}>搭配服务推荐</h2>
+            </div>
+            <div className="space-y-3">
+              {services.map(svc => (
+                <Link key={svc.id} href={`/services?id=${svc.id}`}
+                  className="flex items-center justify-between bg-white rounded-2xl px-5 py-4 group transition hover:shadow-sm"
+                  style={{border:'1px solid rgba(201,168,124,0.15)'}}>
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-bold" style={{background:'linear-gradient(135deg, #c9a87c, #e8d5b8)'}}>
+                      {svc.name?.charAt(0) || 'S'}
+                    </div>
+                    <div>
+                      <div className="text-sm font-medium" style={{color:'#2a2a28'}}>{svc.name}</div>
+                      {svc.duration && <div className="text-xs" style={{color:'#9b9b98'}}>{svc.duration} 分钟</div>}
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="text-sm font-bold" style={{color:'#a88a5c'}}>{fmt(svc.price)}</span>
+                    <span className="px-3 py-1 rounded-full text-xs font-medium text-white" style={{background:'#c9a87c'}}>预约</span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* 相关推荐 */}
         {related.length > 0 && (
