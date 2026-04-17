@@ -4,12 +4,13 @@ import { supabase } from '@/lib/supabase';
 
 // ===== Formatters =====
 function fmtProduct(p: any): any {
+  const firstImage = p.image_url || (Array.isArray(p.image_urls) ? p.image_urls[0] : null);
   return {
     id: p.id, name: p.name, description: p.description || '',
     price: p.price, originalPrice: p.price,
-    category: p.category || '未分类', stock: p.stock || 0,
-    imageColor: p.image_url ? 'from-blue-300 to-blue-400' : 'from-gray-300 to-gray-400',
-    imageUrl: p.image_url || '', tags: [],
+    category: p.category || '未分类', stock: p.stock_quantity || p.stock || 0,
+    imageColor: firstImage ? 'from-[#c9a87c] to-[#e8d5b8]' : 'from-gray-300 to-gray-400',
+    imageUrl: firstImage || '', tags: [],
     createdAt: p.created_at, updatedAt: p.updated_at,
   };
 }
@@ -29,7 +30,7 @@ function fmtOrder(o) {
 function fmtService(s) {
   return {
     id: s.id, name: s.name, description: s.description || '',
-    duration: s.duration, price: s.price,
+    duration: s.duration || s.duration_minutes || 60, price: s.price,
     category: s.category || '未分类', popularity: s.popularity || 3,
     is_active: s.is_active !== false, created_at: s.created_at,
   };
@@ -63,7 +64,11 @@ export async function getProducts(): Promise<any> {
 
 export async function createProduct(payload): Promise<any> {
   try {
-    const { data, error } = await supabase.from('products').insert(payload).select().single();
+    // Strip local-only fields that are not in DB schema
+    const { imageColor, tags, imageUrl, ...dbPayload } = payload;
+    // Map imageUrl -> image_urls (DB has array column)
+    if (imageUrl) dbPayload.image_urls = [imageUrl];
+    const { data, error } = await supabase.from('products').insert(dbPayload).select().single();
     if (error) return { error: error.message };
     return { product: fmtProduct(data) };
   } catch (e) { return { error: String(e) }; }
@@ -71,7 +76,10 @@ export async function createProduct(payload): Promise<any> {
 
 export async function updateProduct(id, payload): Promise<any> {
   try {
-    const { data, error } = await supabase.from('products').update(payload).eq('id', id).select().single();
+    // Strip local-only fields
+    const { imageColor, tags, imageUrl, ...dbPayload } = payload;
+    if (imageUrl) dbPayload.image_urls = [imageUrl];
+    const { data, error } = await supabase.from('products').update(dbPayload).eq('id', id).select().single();
     if (error) return { error: error.message };
     return { product: fmtProduct(data) };
   } catch (e) { return { error: String(e) }; }
@@ -101,7 +109,7 @@ export async function createOrder(body): Promise<any> {
     const total = body.total || subtotal + shippingFee;
 
     const { data: orderData, error: orderError } = await supabase.from('orders').insert({
-      customer_name: body.customerName, customer_phone: body.customerPhone || '',
+      customer_name: body.customerName || '', customer_phone: body.customerPhone || '',
       customer_email: body.customerEmail || '', shipping_address: body.shippingAddress || '',
       subtotal, shipping_fee: shippingFee, tax: 0, total, status: 'pending',
       delivery_method: body.deliveryMethod || 'express',
@@ -192,7 +200,7 @@ export async function createAppointment(payload): Promise<any> {
       staff_id: payload.staff_id,
       start_time: payload.start_time,
       end_time: payload.end_time,
-      notes: `客户:${payload.customer_name || ''}|电话:${payload.customer_phone || ''}${payload.notes ? '|' + payload.notes : ''}`,
+      notes: `客户:${payload.customer_name || '游客'}|电话:${payload.customer_phone || ''}${payload.notes ? '|' + payload.notes : ''}`,
       status: 'confirmed',
     };
 
