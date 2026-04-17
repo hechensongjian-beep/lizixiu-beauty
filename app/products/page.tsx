@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { getProducts } from '@/lib/api';
 
 interface Product {
@@ -20,6 +21,7 @@ interface Product {
 const CART_KEY = 'beauty-shop-cart';
 
 export default function ProductsPage() {
+  const router = useRouter();
   const [products, setProducts] = useState<Product[]>([]);
   const [cart, setCart] = useState<Record<string, number>>({});
   const [filter, setFilter] = useState<string>('all');
@@ -147,12 +149,14 @@ export default function ProductsPage() {
             const justAdded = addedId === product.id;
             return (
               <div key={product.id}
-                className="bg-white rounded-2xl p-6 transition-all hover:-translate-y-1"
+                className="bg-white rounded-2xl p-6 transition-all hover:-translate-y-1 cursor-pointer"
                 style={{border:'1px solid rgba(201,168,124,0.15)',boxShadow:'0 4px 20px rgba(0,0,0,0.04)'}}
+                onClick={() => router.push(`/product?id=$\{product.id\}`)}
                 onMouseEnter={e => (e.currentTarget.style.boxShadow = '0 12px 40px rgba(0,0,0,0.1)')}
                 onMouseLeave={e => (e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.04)')}>
                 {/* 产品图 */}
-                <div className={`w-full h-44 rounded-xl mb-5 flex items-center justify-center relative overflow-hidden ${product.imageUrl ? '' : 'bg-gradient-to-br from-[#e8d5b8] to-[#c9a87c]'}`}>
+                <div className={`w-full h-44 rounded-xl mb-5 flex items-center justify-center relative overflow-hidden ${product.imageUrl ? '' : 'bg-gradient-to-br from-[#e8d5b8] to-[#c9a87c]'}`}
+                  onClick={e => { e.stopPropagation(); router.push(`/product?id=$\{product.id\}`); }}>
                   {product.imageUrl ? (
                     <img src={product.imageUrl} alt={product.name} className="w-full h-full object-cover rounded-xl" />
                   ) : (
@@ -253,3 +257,4 @@ export default function ProductsPage() {
     </div>
   );
 }
+
