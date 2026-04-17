@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { getOrders } from '@/lib/api';
+import { useRole } from '@/components/RoleProvider';
 
 interface OrderItem {
   productId: string;
@@ -28,6 +29,7 @@ interface Order {
 }
 
 export default function OrdersPage() {
+  const { role } = useRole();
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -122,9 +124,25 @@ export default function OrdersPage() {
             </div>
           </div>
         </div>
+      ) : orders.length === 0 && role === 'guest' ? (
+        <div className="bg-[#faf8f5] border border-gray-200 rounded-2xl p-16 text-center">
+          <div className="mb-6 flex justify-center"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#c9a87c" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
+          <h3 className="text-2xl font-bold mb-4" style={{color:'#2a2a28'}}>查看我的订单</h3>
+          <p className="text-gray-500 max-w-md mx-auto mb-8">
+            登录后即可查看您的所有订单记录
+          </p>
+          <div className="flex items-center justify-center gap-3 flex-wrap">
+            <Link href="/auth/login" className="px-8 py-3 rounded-full text-white font-bold text-sm" style={{background:'linear-gradient(135deg, #c9a87c, #b8956a)',boxShadow:'0 4px 16px rgba(201,168,124,0.3)'}}>
+              登录 / 注册
+            </Link>
+            <Link href="/products" className="px-8 py-3 rounded-full font-bold text-sm" style={{border:'1px solid #e8d5b8',color:'#a88a5c'}}>
+              先去逛逛
+            </Link>
+          </div>
+        </div>
       ) : orders.length === 0 ? (
         <div className="bg-[#faf8f5] border border-gray-200 rounded-2xl p-16 text-center">
-          <div className="text-6xl mb-6"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#c0bdb8" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+          <div className="mb-6 flex justify-center"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#c0bdb8" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
           <h3 className="text-2xl font-bold text-gray-800 mb-4">暂无订单</h3>
           <p className="text-gray-600 max-w-md mx-auto mb-8">
             您还没有创建任何订单。快去产品商店逛逛吧！

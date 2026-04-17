@@ -184,6 +184,21 @@ export default function ProfilePage() {
             <div className="space-y-3">
               {[1,2,3].map(i => <div key={i} className="h-16 rounded-xl animate-pulse" style={{background:'var(--primary-light)'}}></div>)}
             </div>
+          ) : appointments.length === 0 && role === 'guest' ? (
+            <div className="text-center py-12">
+              <div className="w-10 h-10 rounded-full mx-auto mb-3 flex items-center justify-center" style={{background:'var(--primary-light)'}}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              </div>
+              <p className="text-[var(--foreground-muted)]">登录后查看您的预约记录</p>
+              <div className="mt-3 flex items-center justify-center gap-3 flex-wrap">
+                <Link href="/auth/login" className="px-5 py-2 rounded-full text-white text-xs font-bold" style={{background:'linear-gradient(135deg, #c9a87c, #b8956a)'}}>
+                  登录 / 注册
+                </Link>
+                <Link href="/appointments" className="px-5 py-2 rounded-full text-xs font-bold" style={{border:'1px solid #e8d5b8',color:'#a88a5c'}}>
+                  立即预约
+                </Link>
+              </div>
+            </div>
           ) : appointments.length === 0 ? (
             <div className="text-center py-12">
               <div className="w-10 h-10 rounded-full mx-auto mb-3 flex items-center justify-center" style={{background:'var(--primary-light)'}}>
