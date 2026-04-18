@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { getOrders } from '@/lib/api';
+import { getOrders, updateOrderStatus } from '@/lib/api';
 import { useAuth } from '@/components/AuthProvider';
 
 interface OrderItem {
@@ -82,6 +82,21 @@ export default function OrdersPage() {
       cancelled: '已取消',
     };
     return map[status] || status;
+  };
+
+
+  const cancelOrder = async (orderId: string) => {
+    if (!confirm('确定要取消这个订单吗？')) return;
+    try {
+      const result = await updateOrderStatus(orderId, 'cancelled');
+      if (result.success) {
+        setOrders(prev => prev.map(o => o.id === orderId ? { ...o, status: 'cancelled' } : o));
+      } else {
+        alert(result.error || '取消失败，请重试');
+      }
+    } catch {
+      alert('网络错误，请重试');
+    }
   };
 
   return (
@@ -253,13 +268,13 @@ export default function OrdersPage() {
                 {order.status === 'pending' && (
                   <>
                     <button
-                      onClick={() => alert('模拟支付成功！')}
+                      onClick={() => { window.location.href = '/checkout'; }}
                       className="px-6 py-3 bg-gradient-to-r from-[#2d4a3e] to-[#3d6252] text-white font-bold rounded-lg hover:opacity-90 transition"
                     >
                       立即支付
                     </button>
                     <button
-                      onClick={() => alert('订单取消功能待实现')}
+                      onClick={() => cancelOrder(order.id)}
                       className="px-6 py-3 bg-red-50 text-red-700 font-bold rounded-lg hover:bg-red-100 transition"
                     >
                       取消订单
@@ -267,7 +282,7 @@ export default function OrdersPage() {
                   </>
                 )}
                 <button
-                  onClick={() => alert('订单详情页待实现')}
+                  onClick={() => { alert('订单详情：' + order.id.substring(0, 12)); }}
                   className="px-6 py-3 border-2 border-gray-300 text-gray-800 font-bold rounded-lg hover:bg-gray-50 transition"
                 >
                   查看详情
