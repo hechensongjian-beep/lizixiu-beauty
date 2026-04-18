@@ -309,6 +309,52 @@ function NavContent() {
   );
 }
 
+// 回到顶部按钮
+function ScrollToTop() {
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setVisible(window.scrollY > 400);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+  if (!visible) return null;
+  return (
+    <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+      className="fixed bottom-20 right-6 w-11 h-11 rounded-full bg-white border shadow-lg flex items-center justify-center z-40 transition-all hover:-translate-y-1 hover:shadow-xl"
+      style={{ borderColor: 'rgba(201,168,124,0.3)', boxShadow: '0 4px 20px rgba(0,0,0,0.1)' }}
+      aria-label="回到顶部">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c9a87c" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="18 15 12 9 6 15"/>
+      </svg>
+    </button>
+  );
+}
+
+// Cookie 提示
+function CookieNotice() {
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    if (!localStorage.getItem('cookie_accepted')) setShow(true);
+  }, []);
+  const accept = () => { localStorage.setItem('cookie_accepted', '1'); setShow(false); };
+  if (!show) return null;
+  return (
+    <div className="fixed bottom-20 left-4 right-4 md:left-auto md:right-6 md:max-w-sm z-50"
+      style={{ bottom: '80px' }}>
+      <div className="bg-white rounded-2xl p-5 shadow-2xl border" style={{ borderColor: 'rgba(201,168,124,0.3)', boxShadow: '0 8px 40px rgba(0,0,0,0.15)' }}>
+        <p className="text-sm mb-3" style={{ color: 'var(--foreground-muted)' }}>
+          我们使用 Cookie 来改善您的浏览体验。访问我们的网站即表示您同意我们的使用条款。
+        </p>
+        <button onClick={accept}
+          className="w-full py-2.5 rounded-xl text-white text-sm font-semibold transition hover:opacity-90"
+          style={{ background: 'var(--primary)', boxShadow: '0 4px 15px rgba(201,168,124,0.3)' }}>
+          我知道了
+        </button>
+      </div>
+    </div>
+  );
+}
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -341,6 +387,10 @@ export default function RootLayout({
               </p>
             </div>
           </footer>
+          {/* 回到顶部 */}
+          <ScrollToTop />
+          {/* Cookie提示 */}
+          <CookieNotice />
         </AuthProvider>
       </body>
     </html>
