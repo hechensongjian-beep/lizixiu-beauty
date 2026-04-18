@@ -32,7 +32,7 @@ function IconX({ className }: { className?: string }) {
 }
 
 export default function PaymentSettingsPage() {
-const { role } = useAuth();
+  const { role } = useAuth();
   const router = useRouter();
   if (role && role !== 'merchant' && role !== 'admin') {
     router.replace('/auth/login');

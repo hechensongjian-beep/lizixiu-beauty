@@ -196,7 +196,7 @@ function WeekCell({
 }
 
 export default function AdminSchedulePage() {
-const { role } = useAuth();
+  const { role } = useAuth();
   const router = useRouter();
   if (role && role !== 'merchant' && role !== 'admin') {
     router.replace('/auth/login');

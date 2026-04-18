@@ -41,8 +41,7 @@ const CATEGORIES = ['面部护理', '身体护理', '美甲', '美睫', '脱毛'
 
 
 export default function AdminServicesPage() {
-
-const { role } = useAuth();
+  const { role } = useAuth();
   const router = useRouter();
   if (role && role !== 'merchant' && role !== 'admin') {
     router.replace('/auth/login');

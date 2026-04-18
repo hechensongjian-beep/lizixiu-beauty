@@ -13,7 +13,7 @@ import { getOrders, getProducts, getCustomers } from '@/lib/api';
 const COLORS = ['#ec4899', '#8b5cf6', '#f59e0b', '#10b981', '#3b82f6', '#ef4444'];
 
 export default function AdminDashboardPage() {
-const { role } = useAuth();
+  const { role } = useAuth();
   const router = useRouter();
   if (role && role !== 'merchant' && role !== 'admin') {
     router.replace('/auth/login');
@@ -26,7 +26,7 @@ const { role } = useAuth();
       </div>
     );
   }
-    const [stats, setStats] = useState({
+  const [stats, setStats] = useState({
     totalOrders: 0, totalRevenue: 0, totalCustomers: 0, totalProducts: 0,
     pendingOrders: 0, lowStockProducts: 0, monthRevenue: 0, monthOrders: 0,
   });

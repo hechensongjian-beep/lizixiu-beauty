@@ -20,7 +20,7 @@ const IMAGE_COLORS = [
 ];
 
 export default function AdminProductsPage() {
-const { role } = useAuth();
+  const { role } = useAuth();
   const router = useRouter();
   if (role && role !== 'merchant' && role !== 'admin') {
     router.replace('/auth/login');
@@ -33,7 +33,7 @@ const { role } = useAuth();
       </div>
     );
   }
-    const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState<Product | null>(null);
   const [showForm, setShowForm] = useState(false);
