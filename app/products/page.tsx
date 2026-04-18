@@ -25,6 +25,7 @@ export default function ProductsPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [cart, setCart] = useState<Record<string, number>>({});
   const [filter, setFilter] = useState<string>('all');
+  const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
   const [addedId, setAddedId] = useState<string | null>(null);
 
@@ -72,7 +73,11 @@ export default function ProductsPage() {
       return t + (p ? p.price * qty : 0);
     }, 0);
 
-  const filtered = filter === 'all' ? products : products.filter(p => p.category === filter);
+  const filtered = products.filter(p => {
+    const matchCat = filter === 'all' || p.category === filter;
+    const matchSearch = !search || p.name.includes(search) || p.description.includes(search);
+    return matchCat && matchSearch;
+  });
   const categories = Array.from(new Set(products.map(p => p.category)));
   const fmt = (n: number) => new Intl.NumberFormat('zh-CN', { style: 'currency', currency: 'CNY' }).format(n);
 
@@ -112,6 +117,25 @@ export default function ProductsPage() {
         <p style={{color:'#6b6b68'}}>精选美容护肤产品，专业级护理体验</p>
       </div>
 
+      {/* 搜索框 */}
+      <div className="mb-8">
+        <div className="relative max-w-md mx-auto">
+          <svg className="absolute left-4 top-1/2 -translate-y-1/2" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9b9b98" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input type="text" placeholder="搜索产品..." value={search} onChange={e => setSearch(e.target.value)}
+            className="w-full pl-11 pr-4 py-3 rounded-xl border-2 text-sm outline-none transition"
+            style={{borderColor:'rgba(201,168,124,0.3)',background:'white',color:'#2a2a28'}}
+            onFocus={e => (e.target.style.borderColor = '#c9a87c')}
+            onBlur={e => (e.target.style.borderColor = 'rgba(201,168,124,0.3)')} />
+          {search && (
+            <button onClick={() => setSearch('')} className="absolute right-4 top-1/2 -translate-y-1/2" style={{color:'#9b9b98'}}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          )}
+        </div>
+      </div>
+
       {/* 分类筛选 */}
       <div className="flex flex-wrap justify-center gap-3 mb-12">
         <button onClick={() => setFilter('all')}
@@ -136,11 +160,15 @@ export default function ProductsPage() {
       {filtered.length === 0 ? (
         <div className="text-center py-20" style={{color:'#9b9b98'}}>
           <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="mx-auto mb-4 opacity-40">
-            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
-            <line x1="3" y1="6" x2="21" y2="6"/>
-            <path d="M16 10a4 4 0 0 1-8 0"/>
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
           </svg>
-          <p className="text-xl">暂无商品</p>
+          <p className="text-xl mb-2">{search || filter !== 'all' ? '未找到相关商品' : '暂无商品'}</p>
+          <p className="text-sm">{search || filter !== 'all' ? '试试其他关键词或分类' : '商家正在准备中，敬请期待'}</p>
+          {(search || filter !== 'all') && (
+            <button onClick={() => { setSearch(''); setFilter('all'); }} className="mt-4 px-6 py-2 rounded-lg text-sm font-medium text-white" style={{background:'var(--primary)'}}>
+              清除筛选
+            </button>
+          )}
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mb-20">
