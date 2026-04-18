@@ -33,6 +33,7 @@ export default function CartPage() {
 
   useEffect(() => {
     localStorage.setItem('beauty-shop-cart', JSON.stringify(cart));
+    window.dispatchEvent(new Event('cart-updated'));
   }, [cart]);
 
   const updateQuantity = (productId: string, delta: number) => {

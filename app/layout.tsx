@@ -137,6 +137,30 @@ function NavContent() {
   const [adminMenuOpen, setAdminMenuOpen] = useState(false);
   const [myMenuOpen, setMyMenuOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
+
+  useEffect(() => {
+    const saved = localStorage.getItem('beauty-shop-cart');
+    if (saved) {
+      try {
+        const cart: Record<string, number> = JSON.parse(saved);
+        setCartCount(Object.values(cart).reduce((a: number, b: number) => a + b, 0));
+      } catch {}
+    }
+    const onCart = () => {
+      const s = localStorage.getItem('beauty-shop-cart');
+      if (s) {
+        try {
+          const c: Record<string, number> = JSON.parse(s);
+          setCartCount(Object.values(c).reduce((a: number, b: number) => a + b, 0));
+        } catch {}
+      } else {
+        setCartCount(0);
+      }
+    };
+    window.addEventListener('cart-updated', onCart);
+    return () => window.removeEventListener('cart-updated', onCart);
+  }, []);
 
   const mainNav = MAIN_NAV[role] || MAIN_NAV.guest;
   const myMenu = MY_MENU[role] || MY_MENU.guest;
@@ -202,7 +226,21 @@ function NavContent() {
             <div className="flex items-center gap-3">
               {loading ? (
                 <div className="w-5 h-5 border-2 border-[var(--primary)] border-t-transparent rounded-full animate-spin" />
-              ) : showUserMenu ? (
+              ) : (
+                <Link href="/cart" className="relative p-2 rounded-lg transition-colors hover:bg-[var(--background-secondary)]" aria-label="购物车">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--foreground)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                  </svg>
+                  {cartCount > 0 && (
+                    <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full text-white text-xs font-bold flex items-center justify-center"
+                      style={{ background: 'var(--primary)', minWidth: '20px', minHeight: '20px', padding: '0 4px' }}>
+                      {cartCount > 99 ? '99+' : cartCount}
+                    </span>
+                  )}
+                </Link>
+              )}
+              {showUserMenu ? (
                 <div className="relative">
                   <button
                     onClick={() => { setUserMenuOpen(!userMenuOpen); setAdminMenuOpen(false); setMyMenuOpen(false); }}
