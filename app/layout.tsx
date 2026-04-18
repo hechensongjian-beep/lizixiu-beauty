@@ -318,9 +318,15 @@ export default function RootLayout({
     <html lang="zh-CN" className="h-full">
       <head>
         <title>丽姿秀 · 美容管理系统</title>
-        <meta name="description" content="丽姿秀专业美容服务与电商平台" />
+        <meta name="description" content="丽姿秀专业美容服务与电商平台。面部护理、身体SPA、美甲美睫，精选草本成分，现代美容科技。立即预约，享受专属美丽蜕变。" />
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="keywords" content="美容,面部护理,身体SPA,美甲,美睫,美容工作室,丽姿秀" />
+        <meta property="og:title" content="丽姿秀 · 专业美容服务" />
+        <meta property="og:description" content="东方草本 · 现代美容科技 · 专属定制服务" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>" />
       </head>
       <body className="min-h-full" style={{ background: 'var(--background)' }}>
         <AuthProvider>
