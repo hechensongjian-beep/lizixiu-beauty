@@ -200,8 +200,8 @@ export default function PaymentVerifyPage() {
           <p className="text-red-700 font-medium">{error}</p>
           <p className="text-sm text-red-500 mt-1">
             请确认已在 Supabase 执行初始化 SQL：
-            <code className="bg-red-100 px-1 rounded text-xs">payment_verifications</code> 表和
-            <code className="bg-red-100 px-1 rounded text-xs">orders.payment_status</code> 字段
+            <code className="bg-red-100 px-1 rounded text-sm">payment_verifications</code> 表和
+            <code className="bg-red-100 px-1 rounded text-sm">orders.payment_status</code> 字段
           </p>
         </div>
       )}
@@ -248,27 +248,27 @@ export default function PaymentVerifyPage() {
                           {v.customer_phone && <span className="ml-2">{v.customer_phone}</span>}
                         </div>
                       </div>
-                      <span className={`px-3 py-1 rounded-full text-xs font-bold ${sc.bg} ${sc.text} ml-auto`}>
+                      <span className={`px-3 py-1 rounded-full text-sm font-bold ${sc.bg} ${sc.text} ml-auto`}>
                         {sc.label}
                       </span>
                     </div>
 
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                       <div>
-                        <div className="text-xs text-gray-500 mb-1">订单号</div>
+                        <div className="text-sm text-gray-500 mb-1">订单号</div>
                         <div className="font-mono text-sm text-gray-900">{v.orders?.order_number || v.order_id?.substring(0, 8)}</div>
                       </div>
                       <div>
-                        <div className="text-xs text-gray-500 mb-1">支付金额</div>
+                        <div className="text-sm text-gray-500 mb-1">支付金额</div>
                         <div className="font-bold text-xl text-green-600">{fmt(v.amount)}</div>
                       </div>
                       <div>
-                        <div className="text-xs text-gray-500 mb-1">提交时间</div>
+                        <div className="text-sm text-gray-500 mb-1">提交时间</div>
                         <div className="text-sm text-gray-700">{fmtDate(v.created_at)}</div>
                       </div>
                       {v.verified_at && (
                         <div>
-                          <div className="text-xs text-gray-500 mb-1">核验时间</div>
+                          <div className="text-sm text-gray-500 mb-1">核验时间</div>
                           <div className="text-sm text-gray-700">{fmtDate(v.verified_at)}</div>
                         </div>
                       )}
@@ -276,7 +276,7 @@ export default function PaymentVerifyPage() {
 
                     {v.merchant_note && (
                       <div className="mt-3 p-3 bg-gray-50 rounded-xl">
-                        <div className="text-xs text-gray-500 mb-1">商家备注</div>
+                        <div className="text-sm text-gray-500 mb-1">商家备注</div>
                         <div className="text-sm text-gray-700">{v.merchant_note}</div>
                       </div>
                     )}
@@ -318,7 +318,7 @@ export default function PaymentVerifyPage() {
               </h3>
             </div>
             <div className="p-6">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block font-medium text-gray-700 mb-2" style={{fontSize:'1rem'}}>
                 备注（可选）
               </label>
               <textarea

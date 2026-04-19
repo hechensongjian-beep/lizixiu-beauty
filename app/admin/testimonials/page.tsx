@@ -151,13 +151,13 @@ export default function TestimonialsPage() {
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-1">
                   <span className="font-semibold">{t.name}</span>
-                  {t.service && <span className="text-xs text-gray-500">· {t.service}</span>}
+                  {t.service && <span className="text-sm text-gray-500">· {t.service}</span>}
                   <span className="flex gap-0.5 ml-2">
                     {Array.from({ length: t.score }).map((_, i) => (
                       <svg key={i} width="12" height="12" viewBox="0 0 24 24" fill="#f59e0b"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
                     ))}
                   </span>
-                  {!t.is_active && <span className="text-xs text-red-500 ml-2">(已隐藏)</span>}
+                  {!t.is_active && <span className="text-sm text-red-500 ml-2">(已隐藏)</span>}
                 </div>
                 <p className="text-gray-700 text-sm">{t.text}</p>
               </div>

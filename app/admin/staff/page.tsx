@@ -211,11 +211,11 @@ export default function AdminStaffPage() {
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
                   <span className="font-medium text-[var(--foreground)]">{staff.name}</span>
-                  <span className={`text-xs px-2 py-0.5 rounded-full ${staff.is_active ? 'bg-green-50 text-green-700' : 'bg-gray-100 text-gray-400'}`}>
+                  <span className={`text-sm px-2 py-0.5 rounded-full ${staff.is_active ? 'bg-green-50 text-green-700' : 'bg-gray-100 text-gray-400'}`}>
                     {staff.is_active ? '已激活' : '已停用'}
                   </span>
                   {staff.user_id && (
-                    <span className="text-xs px-2 py-0.5 rounded-full bg-blue-50 text-blue-600">已绑定账号</span>
+                    <span className="text-sm px-2 py-0.5 rounded-full bg-blue-50 text-blue-600">已绑定账号</span>
                   )}
                 </div>
                 <div className="text-sm text-[var(--foreground-muted)] mt-0.5">
@@ -226,14 +226,14 @@ export default function AdminStaffPage() {
                 {staff.user_id && (
                   <button
                     onClick={() => setResetPwd({ id: staff.id, email: staff.email || '', pwd: '' })}
-                    className="px-3 py-1.5 rounded-lg border border-[var(--primary-light)] text-xs text-[var(--primary)] hover:bg-[var(--primary-light)] transition-all"
+                    className="px-3 py-1.5 rounded-lg border border-[var(--primary-light)] text-sm text-[var(--primary)] hover:bg-[var(--primary-light)] transition-all"
                   >
                     重置密码
                   </button>
                 )}
                 <button
                   onClick={() => handleToggleActive(staff)}
-                  className={`px-3 py-1.5 rounded-lg text-xs transition-all ${staff.is_active ? 'text-red-500 border border-red-200 hover:bg-red-50' : 'text-green-600 border border-green-200 hover:bg-green-50'}`}
+                  className={`px-3 py-1.5 rounded-lg text-sm transition-all ${staff.is_active ? 'text-red-500 border border-red-200 hover:bg-red-50' : 'text-green-600 border border-green-200 hover:bg-green-50'}`}
                 >
                   {staff.is_active ? '停用' : '启用'}
                 </button>
@@ -246,7 +246,7 @@ export default function AdminStaffPage() {
       {/* 密码说明 */}
       <div className="bg-[var(--background-secondary)] rounded-2xl p-5 border border-[var(--primary-light)]">
         <h3 className="font-medium text-[var(--foreground)] mb-2 text-sm">账号说明</h3>
-        <ul className="text-xs text-[var(--foreground-muted)] space-y-1">
+        <ul className="text-sm text-[var(--foreground-muted)] space-y-1">
           <li>· 员工账号使用 Supabase Auth，安全可靠</li>
           <li>· 添加员工时自动创建登录账号，密码加密存储</li>
           <li>· 员工使用邮箱 + 密码在员工登录页登录</li>
@@ -261,22 +261,22 @@ export default function AdminStaffPage() {
             <h2 className="text-xl text-[var(--foreground)] mb-5" style={{ fontFamily: 'var(--font-serif)' }}>添加员工</h2>
             <form onSubmit={handleAdd} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-[var(--foreground)] mb-1">姓名</label>
+                <label className="block font-medium text-[var(--foreground)] mb-1">姓名</label>
                 <input value={newStaff.name} onChange={e => setNewStaff(s => ({ ...s, name: e.target.value }))}
                   className="w-full px-4 py-2.5 rounded-xl border border-[var(--primary-light)] text-sm focus:outline-none focus:ring-2 focus:ring-[var(--primary)]" placeholder="员工姓名" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-[var(--foreground)] mb-1">职位</label>
+                <label className="block font-medium text-[var(--foreground)] mb-1">职位</label>
                 <input value={newStaff.role} onChange={e => setNewStaff(s => ({ ...s, role: e.target.value }))}
                   className="w-full px-4 py-2.5 rounded-xl border border-[var(--primary-light)] text-sm focus:outline-none focus:ring-2 focus:ring-[var(--primary)]" placeholder="美容师 / 按摩师" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-[var(--foreground)] mb-1">邮箱（登录账号）</label>
+                <label className="block font-medium text-[var(--foreground)] mb-1">邮箱（登录账号）</label>
                 <input type="email" value={newStaff.email} onChange={e => setNewStaff(s => ({ ...s, email: e.target.value }))}
                   className="w-full px-4 py-2.5 rounded-xl border border-[var(--primary-light)] text-sm focus:outline-none focus:ring-2 focus:ring-[var(--primary)]" placeholder="staff@example.com" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-[var(--foreground)] mb-1">初始密码</label>
+                <label className="block font-medium text-[var(--foreground)] mb-1">初始密码</label>
                 <input type="password" value={newStaff.password} onChange={e => setNewStaff(s => ({ ...s, password: e.target.value }))}
                   className="w-full px-4 py-2.5 rounded-xl border border-[var(--primary-light)] text-sm focus:outline-none focus:ring-2 focus:ring-[var(--primary)]" placeholder="至少6位" />
               </div>
@@ -299,7 +299,7 @@ export default function AdminStaffPage() {
             <p className="text-sm text-[var(--foreground-muted)] mb-5">账号：{resetPwd.email}</p>
             <form onSubmit={handleResetPwd} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-[var(--foreground)] mb-1">新密码</label>
+                <label className="block font-medium text-[var(--foreground)] mb-1">新密码</label>
                 <input type="password" value={resetPwd.pwd} onChange={e => setResetPwd(s => s ? ({ ...s, pwd: e.target.value }) : null)}
                   className="w-full px-4 py-2.5 rounded-xl border border-[var(--primary-light)] text-sm focus:outline-none focus:ring-2 focus:ring-[var(--primary)]" placeholder="至少6位" autoFocus />
               </div>

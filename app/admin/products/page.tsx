@@ -137,34 +137,34 @@ export default function AdminProductsPage() {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">商品名称 *</label>
+                <label className="block font-medium text-gray-700 mb-2" style={{fontSize:'1rem'}}>商品名称 *</label>
                 <input type="text" value={form.name} onChange={e=>setForm(f=>({...f,name:e.target.value}))}
                   placeholder="如：玫瑰精油焕肤套装" className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#c9a87c]" required />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">分类 *</label>
+                <label className="block font-medium text-gray-700 mb-2" style={{fontSize:'1rem'}}>分类 *</label>
                 <input type="text" value={form.category} onChange={e=>setForm(f=>({...f,category:e.target.value}))}
                   placeholder="如：面部护理" list="categories" className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#c9a87c]" required />
                 <datalist id="categories">{categories.map(c=><option key={c} value={c}/>)}</datalist>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">价格（元） *</label>
+                <label className="block font-medium text-gray-700 mb-2" style={{fontSize:'1rem'}}>价格（元） *</label>
                 <input type="number" step="0.01" min="0" value={form.price||''} onChange={e=>setForm(f=>({...f,price:parseFloat(e.target.value)||0}))}
                   className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#c9a87c]" required />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">库存数量 *</label>
+                <label className="block font-medium text-gray-700 mb-2" style={{fontSize:'1rem'}}>库存数量 *</label>
                 <input type="number" min="0" value={form.stock||''} onChange={e=>setForm(f=>({...f,stock:parseInt(e.target.value)||0}))}
                   className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#c9a87c]" required />
               </div>
               <div className="md:col-span-2">
-                <label className="block text-sm font-medium text-gray-700 mb-2">商品描述</label>
+                <label className="block font-medium text-gray-700 mb-2" style={{fontSize:'1rem'}}>商品描述</label>
                 <textarea rows={3} value={form.description} onChange={e=>setForm(f=>({...f,description:e.target.value}))}
                   placeholder="详细描述商品特点..." className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#c9a87c]" />
               </div>
               {/* 图片上传 */}
               <div className="md:col-span-2">
-                <label className="block text-sm font-medium text-gray-700 mb-2">商品图片（上传到云存储）</label>
+                <label className="block font-medium text-gray-700 mb-2" style={{fontSize:'1rem'}}>商品图片（上传到云存储）</label>
                 <div className="flex items-start gap-6">
                   <div className={`w-40 h-40 rounded-xl bg-gradient-to-br ${form.imageColor} flex items-center justify-center overflow-hidden flex-shrink-0`}>
                     {form.imageUrl ? <img src={form.imageUrl} alt="预览" className="w-full h-full object-cover" /> : (
@@ -181,13 +181,13 @@ export default function AdminProductsPage() {
                       <button type="button" onClick={() => setForm(f=>({...f,imageUrl:''}))}
                         className="ml-3 px-3 py-2 bg-red-50 text-red-600 rounded-lg text-sm hover:bg-red-100">移除</button>
                     )}
-                    <p className="text-xs text-gray-500 mt-2">支持 JPG、PNG、WebP，自动上传到云存储</p>
+                    <p className="text-sm text-gray-500 mt-2">支持 JPG、PNG、WebP，自动上传到云存储</p>
                     {uploading && <div className="mt-3 w-full bg-gray-200 rounded-full h-2"><div className="bg-[#c9a87c] h-2 rounded-full animate-pulse" style={{width:'60%'}}></div></div>}
                   </div>
                 </div>
                 {/* 颜色选择（无图片时作为占位背景） */}
                 <div className="mt-4">
-                  <label className="block text-xs text-gray-500 mb-2">背景色（无图片时显示）</label>
+                  <label className="block text-sm text-gray-500 mb-2">背景色（无图片时显示）</label>
                   <div className="flex gap-2 flex-wrap">
                     {IMAGE_COLORS.map((c, i) => (
                       <button key={i} type="button" onClick={() => setForm(f=>({...f,imageColor:c}))}
@@ -253,7 +253,7 @@ export default function AdminProductsPage() {
                             </div>
                             <div>
                               <div className="font-bold text-gray-900">{p.name}</div>
-                              <div className="text-xs text-gray-500 max-w-xs truncate">{p.description}</div>
+                              <div className="text-sm text-gray-500 max-w-xs truncate">{p.description}</div>
                             </div>
                           </div>
                         </td>
@@ -261,8 +261,8 @@ export default function AdminProductsPage() {
                         <td className="py-4 px-6 font-bold text-[#a88a5c]">{fmt(p.price)}</td>
                         <td className="py-4 px-6">
                           <span className={`font-bold ${p.stock===0?'text-red-500':p.stock<=10?'text-yellow-600':'text-green-600'}`}>{p.stock} 件</span>
-                          {p.stock===0 && <span className="ml-2 text-xs bg-red-100 text-red-600 px-2 py-0.5 rounded-full">缺货</span>}
-                          {p.stock>0 && p.stock<=10 && <span className="ml-2 text-xs bg-yellow-100 text-yellow-600 px-2 py-0.5 rounded-full">紧张</span>}
+                          {p.stock===0 && <span className="ml-2 text-sm bg-red-100 text-red-600 px-2 py-0.5 rounded-full">缺货</span>}
+                          {p.stock>0 && p.stock<=10 && <span className="ml-2 text-sm bg-yellow-100 text-yellow-600 px-2 py-0.5 rounded-full">紧张</span>}
                         </td>
                         <td className="py-4 px-6">
                           <div className="flex gap-2">

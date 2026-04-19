@@ -306,7 +306,7 @@ export default function AdminServicesPage() {
 
                     {svc.pinned && (
 
-                      <div className="px-4 py-2 text-xs font-bold text-white flex items-center gap-1" style={{background:'linear-gradient(135deg, #c9a87c 0%, #e8d5b8 100%)'}}>
+                      <div className="px-4 py-2 text-sm font-bold text-white flex items-center gap-1" style={{background:'linear-gradient(135deg, #c9a87c 0%, #e8d5b8 100%)'}}>
 
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
 
@@ -326,11 +326,11 @@ export default function AdminServicesPage() {
 
                             {svc.featured && (
 
-                              <span className="px-2 py-0.5 rounded-full text-xs font-bold text-green-700" style={{background:'#ecfdf5',border:'1px solid #a7f3d0'}}>人气王</span>
+                              <span className="px-2 py-0.5 rounded-full text-sm font-bold text-green-700" style={{background:'#ecfdf5',border:'1px solid #a7f3d0'}}>人气王</span>
 
                             )}
 
-                            <span className="text-xs px-2 py-0.5 rounded-full" style={{background:'#f5f2ed',color:'#6b6b68'}}>{svc.category || '其他'}</span>
+                            <span className="text-sm px-2 py-0.5 rounded-full" style={{background:'#f5f2ed',color:'#6b6b68'}}>{svc.category || '其他'}</span>
 
                           </div>
 
@@ -358,7 +358,7 @@ export default function AdminServicesPage() {
 
                         <button onClick={() => handleToggle(svc.id, 'pinned')}
 
-                          className={`flex-1 py-2 rounded-lg text-xs font-bold transition border ${svc.pinned ? 'text-white' : ''}`}
+                          className={`flex-1 py-2 rounded-lg text-sm font-bold transition border ${svc.pinned ? 'text-white' : ''}`}
 
                           style={svc.pinned ? {background:'#2d4a3e',border:'none'} : {border:'1.5px solid #e8e4df',color:'#6b6b68'}}>
 
@@ -368,7 +368,7 @@ export default function AdminServicesPage() {
 
                         <button onClick={() => handleToggle(svc.id, 'featured')}
 
-                          className={`flex-1 py-2 rounded-lg text-xs font-bold transition border ${svc.featured ? 'text-white' : ''}`}
+                          className={`flex-1 py-2 rounded-lg text-sm font-bold transition border ${svc.featured ? 'text-white' : ''}`}
 
                           style={svc.featured ? {background:'#dc2626',border:'none'} : {border:'1.5px solid #e8e4df',color:'#6b6b68'}}>
 
@@ -378,7 +378,7 @@ export default function AdminServicesPage() {
 
                         <button onClick={() => startEdit(svc)}
 
-                          className="flex-1 py-2 rounded-lg text-xs font-bold border transition hover:bg-gray-50" style={{border:'1.5px solid #e8e4df',color:'#6b6b68'}}>
+                          className="flex-1 py-2 rounded-lg text-sm font-bold border transition hover:bg-gray-50" style={{border:'1.5px solid #e8e4df',color:'#6b6b68'}}>
 
                           编辑
 
@@ -386,7 +386,7 @@ export default function AdminServicesPage() {
 
                         <button onClick={() => handleDelete(svc.id)}
 
-                          className="px-3 py-2 rounded-lg text-xs font-bold border transition hover:bg-red-50 hover:border-red-300 hover:text-red-600" style={{border:'1.5px solid #e8e4df',color:'#6b6b68'}}>
+                          className="px-3 py-2 rounded-lg text-sm font-bold border transition hover:bg-red-50 hover:border-red-300 hover:text-red-600" style={{border:'1.5px solid #e8e4df',color:'#6b6b68'}}>
 
                           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
 
@@ -428,7 +428,7 @@ export default function AdminServicesPage() {
 
                   <div className="md:col-span-2">
 
-                    <label className="block text-sm font-medium mb-2" style={{color:'#2a2a28'}}>项目名称 *</label>
+                    <label className="block font-medium mb-2" style={{color:'#2a2a28'}}>项目名称 *</label>
 
                     <input type="text" value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} required placeholder="例如：深层清洁护理"
 
@@ -442,7 +442,7 @@ export default function AdminServicesPage() {
 
                   <div>
 
-                    <label className="block text-sm font-medium mb-2" style={{color:'#2a2a28'}}>价格 (元) *</label>
+                    <label className="block font-medium mb-2" style={{color:'#2a2a28'}}>价格 (元) *</label>
 
                     <input type="number" value={form.price} onChange={e => setForm(f => ({ ...f, price: e.target.value }))} required min="0" step="0.01" placeholder="199"
 
@@ -456,7 +456,7 @@ export default function AdminServicesPage() {
 
                   <div>
 
-                    <label className="block text-sm font-medium mb-2" style={{color:'#2a2a28'}}>服务时长 (分钟) *</label>
+                    <label className="block font-medium mb-2" style={{color:'#2a2a28'}}>服务时长 (分钟) *</label>
 
                     <input type="number" value={form.duration} onChange={e => setForm(f => ({ ...f, duration: e.target.value }))} required min="1" placeholder="60"
 
@@ -470,7 +470,7 @@ export default function AdminServicesPage() {
 
                   <div className="md:col-span-2">
 
-                    <label className="block text-sm font-medium mb-2" style={{color:'#2a2a28'}}>项目分类</label>
+                    <label className="block font-medium mb-2" style={{color:'#2a2a28'}}>项目分类</label>
 
                     <select value={form.category} onChange={e => setForm(f => ({ ...f, category: e.target.value }))}
 
@@ -488,7 +488,7 @@ export default function AdminServicesPage() {
 
                   <div className="md:col-span-2">
 
-                    <label className="block text-sm font-medium mb-2" style={{color:'#2a2a28'}}>项目介绍</label>
+                    <label className="block font-medium mb-2" style={{color:'#2a2a28'}}>项目介绍</label>
 
                     <textarea value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))} rows={3} placeholder="详细介绍..."
 
@@ -502,7 +502,7 @@ export default function AdminServicesPage() {
 
                   <div className="md:col-span-2">
 
-                    <label className="block text-sm font-medium mb-3" style={{color:'#2a2a28'}}>特殊标记</label>
+                    <label className="block font-medium mb-3" style={{color:'#2a2a28'}}>特殊标记</label>
 
                     <div className="flex gap-4">
 
@@ -516,7 +516,7 @@ export default function AdminServicesPage() {
 
                           <div className="font-bold text-sm" style={{color:'#2a2a28'}}>置顶推荐</div>
 
-                          <div className="text-xs" style={{color:'#9b9b98'}}>在服务列表顶部显示</div>
+                          <div className="text-sm" style={{color:'#9b9b98'}}>在服务列表顶部显示</div>
 
                         </div>
 
@@ -532,7 +532,7 @@ export default function AdminServicesPage() {
 
                           <div className="font-bold text-sm" style={{color:'#2a2a28'}}>人气王标签</div>
 
-                          <div className="text-xs" style={{color:'#9b9b98'}}>显示"人气王"徽章</div>
+                          <div className="text-sm" style={{color:'#9b9b98'}}>显示"人气王"徽章</div>
 
                         </div>
 

@@ -120,7 +120,7 @@ function ReassignModal({
                 </div>
                 <div>
                   <div className="font-semibold text-gray-900">{s.name}</div>
-                  <div className="text-xs text-gray-500">{s.role}</div>
+                  <div className="text-sm text-gray-500">{s.role}</div>
                 </div>
                 {targetId === s.id && (
                   <span className="ml-auto text-[#c9a87c] text-lg">✓</span>
@@ -130,7 +130,7 @@ function ReassignModal({
           </div>
           {appointment.customers && (
             <div className="mt-4 p-3 bg-gray-50 rounded-xl">
-              <div className="text-xs text-gray-500 mb-1">客户信息</div>
+              <div className="text-sm text-gray-500 mb-1">客户信息</div>
               <div className="font-medium text-gray-900">{appointment.customers.name}</div>
               {appointment.customers.phone && (
                 <div className="text-sm text-gray-600">{appointment.customers.phone}</div>
@@ -181,7 +181,7 @@ function WeekCell({
       {staffApts.slice(0, 2).map(apt => (
         <div
           key={apt.id}
-          className={`text-xs px-1.5 py-0.5 rounded border-l-2 mb-0.5 truncate ${
+          className={`text-sm px-1.5 py-0.5 rounded border-l-2 mb-0.5 truncate ${
             STATUS_COLORS[apt.status] || STATUS_COLORS.pending
           }`}
         >
@@ -189,7 +189,7 @@ function WeekCell({
         </div>
       ))}
       {staffApts.length > 2 && (
-        <div className="text-xs text-gray-400 text-center">+{staffApts.length - 2}</div>
+        <div className="text-sm text-gray-400 text-center">+{staffApts.length - 2}</div>
       )}
     </div>
   );
@@ -458,17 +458,17 @@ export default function AdminSchedulePage() {
                     {s.name.slice(0, 2)}
                   </div>
                   <div className="font-bold text-gray-900 text-sm">{s.name}</div>
-                  <div className="text-xs text-gray-500">{s.role}</div>
+                  <div className="text-sm text-gray-500">{s.role}</div>
                   {s.specialties && s.specialties.length > 0 && (
                     <div className="flex flex-wrap gap-1 justify-center mt-1">
                       {s.specialties.slice(0, 2).map((spec, i) => (
-                        <span key={i} className="text-xs bg-[#faf8f5] text-[#a88a5c] px-1.5 py-0.5 rounded-full">
+                        <span key={i} className="text-sm bg-[#faf8f5] text-[#a88a5c] px-1.5 py-0.5 rounded-full">
                           {spec}
                         </span>
                       ))}
                     </div>
                   )}
-                  <div className="text-xs text-gray-400 mt-1">
+                  <div className="text-sm text-gray-400 mt-1">
                     {data.schedule[s.id]?.length || 0}个预约
                   </div>
                 </div>
@@ -482,7 +482,7 @@ export default function AdminSchedulePage() {
                 <div className="p-2 bg-gray-50"></div>
                 {data.staff.map(s => (
                   <div key={s.id} className="p-2 bg-gray-50 text-center border-l border-gray-100">
-                    <span className="text-xs font-semibold text-gray-500">
+                    <span className="text-sm font-semibold text-gray-500">
                       {data.schedule[s.id]?.filter(a => a.status !== 'cancelled').length || 0} 节
                     </span>
                   </div>
@@ -496,7 +496,7 @@ export default function AdminSchedulePage() {
                   className="grid divide-x divide-gray-100 border-t border-gray-100"
                   style={{ gridTemplateColumns: '64px repeat(' + data.staff.length + ', 1fr)' }}
                 >
-                  <div className="p-2 text-xs text-gray-400 font-medium flex items-center">
+                  <div className="p-2 text-sm text-gray-400 font-medium flex items-center">
                     {time}
                   </div>
                   {data.staff.map(s => {
@@ -507,7 +507,7 @@ export default function AdminSchedulePage() {
                         <div key={s.id} className="p-1 border-l border-gray-100">
                           <button
                             onClick={() => setSelectedApt(apt)}
-                            className={`w-full text-left px-2 py-1.5 rounded-lg border-l-3 ${color} hover:opacity-80 transition text-xs cursor-pointer`}
+                            className={`w-full text-left px-2 py-1.5 rounded-lg border-l-3 ${color} hover:opacity-80 transition text-sm cursor-pointer`}
                             title={`${apt.services?.name} · ${apt.customers?.name} · 点击调换`}
                           >
                             <div className="font-bold truncate">{apt.services?.name || '服务'}</div>
@@ -528,11 +528,11 @@ export default function AdminSchedulePage() {
             {/* 状态图例 */}
             <div className="flex gap-4 mt-4 flex-wrap">
               {Object.entries(STATUS_COLORS).map(([status, cls]) => (
-                <div key={status} className={`px-3 py-1 rounded-full text-xs font-medium ${cls}`}>
+                <div key={status} className={`px-3 py-1 rounded-full text-sm font-medium ${cls}`}>
                   {STATUS_LABEL[status] || status}
                 </div>
               ))}
-              <div className="text-xs text-gray-400 self-center ml-2">点击预约可调换负责员工</div>
+              <div className="text-sm text-gray-400 self-center ml-2">点击预约可调换负责员工</div>
             </div>
           </div>
         </div>
@@ -550,7 +550,7 @@ export default function AdminSchedulePage() {
                 {data.staff.map(s => (
                   <div key={s.id} className="p-3 text-center border-l border-gray-100">
                     <div className="font-bold text-gray-900 text-sm">{s.name}</div>
-                    <div className="text-xs text-gray-500">{s.role}</div>
+                    <div className="text-sm text-gray-500">{s.role}</div>
                   </div>
                 ))}
               </div>
@@ -569,8 +569,8 @@ export default function AdminSchedulePage() {
                   >
                     <div className={`p-3 flex flex-col justify-center ${isCurrentDay ? 'text-[#a88a5c]' : 'text-gray-700'}`}>
                       <div className="font-bold text-sm">{dateObj.getDate()}日</div>
-                      <div className="text-xs text-gray-500">周{dayNames[idx]}</div>
-                      {isCurrentDay && <div className="text-xs text-[#c9a87c] font-medium">今天</div>}
+                      <div className="text-sm text-gray-500">周{dayNames[idx]}</div>
+                      {isCurrentDay && <div className="text-sm text-[#c9a87c] font-medium">今天</div>}
                     </div>
                     {data.staff.map(s => {
                       const count = (data.appointments || []).filter(
@@ -589,13 +589,13 @@ export default function AdminSchedulePage() {
                           className="p-3 border-l border-gray-100 cursor-pointer hover:bg-[#faf8f5] transition min-h-[64px] flex flex-col justify-center"
                         >
                           {count === 0 ? (
-                            <div className="text-xs text-gray-300 text-center">—</div>
+                            <div className="text-sm text-gray-300 text-center">—</div>
                           ) : (
                             <div className="text-center">
                               <div className="text-2xl font-bold text-gray-900">{count}</div>
-                              <div className="text-xs text-gray-500">预约</div>
+                              <div className="text-sm text-gray-500">预约</div>
                               {pendingCount > 0 && (
-                                <div className="text-xs text-amber-600 mt-0.5">({pendingCount}) 待确认</div>
+                                <div className="text-sm text-amber-600 mt-0.5">({pendingCount}) 待确认</div>
                               )}
                             </div>
                           )}

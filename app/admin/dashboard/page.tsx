@@ -144,9 +144,9 @@ export default function AdminDashboardPage() {
             {statCards.map(card => (
               <div key={card.label} className={`bg-gradient-to-br ${card.color} rounded-2xl p-5 text-white shadow-lg`}>
                 <div className="text-2xl mb-2">{card.icon}</div>
-                <div className="text-xs font-medium opacity-80">{card.label}</div>
+                <div className="text-sm font-medium opacity-80">{card.label}</div>
                 <div className="text-xl font-bold mt-1 truncate">{card.value}</div>
-                <div className="text-xs opacity-70 mt-1">{card.sub}</div>
+                <div className="text-sm opacity-70 mt-1">{card.sub}</div>
               </div>
             ))}
           </div>
@@ -243,18 +243,18 @@ export default function AdminDashboardPage() {
                   <tbody>
                     {recentOrders.map(o => (
                       <tr key={o.id} className="border-b hover:bg-gray-50">
-                        <td className="py-3 px-2 font-mono text-xs text-gray-500">#{o.id.substring(0, 10)}</td>
+                        <td className="py-3 px-2 font-mono text-sm text-gray-500">#{o.id.substring(0, 10)}</td>
                         <td className="py-3 px-2">
                           <div className="font-medium text-gray-900">{o.customerName || '—'}</div>
-                          <div className="text-xs text-gray-500">{o.customerPhone || '—'}</div>
+                          <div className="text-sm text-gray-500">{o.customerPhone || '—'}</div>
                         </td>
                         <td className="py-3 px-2 font-bold text-gray-900">{fmt(o.total || 0)}</td>
                         <td className="py-3 px-2">
-                          <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${statusColor[o.status] || 'bg-gray-100 text-gray-600'}`}>
+                          <span className={`px-2 py-0.5 rounded-full text-sm font-medium ${statusColor[o.status] || 'bg-gray-100 text-gray-600'}`}>
                             {statusLabel[o.status] || o.status}
                           </span>
                         </td>
-                        <td className="py-3 px-2 text-gray-500 text-xs">
+                        <td className="py-3 px-2 text-gray-500 text-sm">
                           {o.createdAt ? new Date(o.createdAt).toLocaleString('zh-CN', { month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit' }) : '—'}
                         </td>
                       </tr>
@@ -272,17 +272,17 @@ export default function AdminDashboardPage() {
               <div className="bg-white rounded-xl p-4 border border-amber-200">
                 <div className="text-[#c9a87c] font-bold text-2xl mb-1">{stats.lowStockProducts}</div>
                 <div className="text-gray-700 font-medium">库存紧张商品</div>
-                <div className="text-gray-500 text-xs mt-1">库存 ≤ 10 件</div>
+                <div className="text-gray-500 text-sm mt-1">库存 ≤ 10 件</div>
               </div>
               <div className="bg-white rounded-xl p-4 border border-amber-200">
                 <div className="text-yellow-500 font-bold text-2xl mb-1">{stats.pendingOrders}</div>
                 <div className="text-gray-700 font-medium">待处理订单</div>
-                <div className="text-gray-500 text-xs mt-1">等待客户付款</div>
+                <div className="text-gray-500 text-sm mt-1">等待客户付款</div>
               </div>
               <div className="bg-white rounded-xl p-4 border border-amber-200">
                 <div className="text-blue-500 font-bold text-2xl mb-1">{stats.totalProducts}</div>
                 <div className="text-gray-700 font-medium">在售商品</div>
-                <div className="text-gray-500 text-xs mt-1">建议定期更新库存</div>
+                <div className="text-gray-500 text-sm mt-1">建议定期更新库存</div>
               </div>
             </div>
           </div>

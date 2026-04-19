@@ -330,7 +330,7 @@ export default function AdminOrdersPage() {
 
             <div>
 
-              <label className="block text-sm font-medium text-gray-700 mb-2">搜索订单</label>
+              <label className="block font-medium text-gray-700 mb-2" style={{fontSize:'1rem'}}>搜索订单</label>
 
               <input
 
@@ -350,7 +350,7 @@ export default function AdminOrdersPage() {
 
             <div>
 
-              <label className="block text-sm font-medium text-gray-700 mb-2">状态筛选</label>
+              <label className="block font-medium text-gray-700 mb-2" style={{fontSize:'1rem'}}>状态筛选</label>
 
               <div className="flex flex-wrap gap-2">
 
