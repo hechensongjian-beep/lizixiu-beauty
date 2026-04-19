@@ -64,65 +64,41 @@ export default function AdminStaffPage() {
 
   useEffect(() => { loadStaff(); }, []);
 
-  // 添加员工：创建 Supabase Auth 账号 + staff 表记录
+  // Add staff: via API route (uses supabaseAdmin, won't log out merchant)
   const handleAdd = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newStaff.name || !newStaff.email || !newStaff.password) {
-      setMsg({ type: 'error', text: '请填写完整信息' });
+      setMsg({ type: 'error', text: 'Please fill all fields' });
       return;
     }
     if (newStaff.password.length < 6) {
-      setMsg({ type: 'error', text: '密码至少6位' });
+      setMsg({ type: 'error', text: 'Password must be at least 6 characters' });
       return;
     }
-    
     setAdding(true);
     setMsg(null);
-    
     try {
-      // 1. 创建 Supabase Auth 用户（role 存入 metadata）
-      const { data: authData, error: authErr } = await supabase.auth.signUp({
-        email: newStaff.email,
-        password: newStaff.password,
-        options: {
-          data: { role: 'staff', name: newStaff.name }
-        }
+      const res = await fetch('/api/admin/create-staff', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: newStaff.email,
+          password: newStaff.password,
+          name: newStaff.name,
+          staffRole: newStaff.role || 'beautician',
+        }),
       });
-      
-      if (authErr) {
-        // 邮箱已存在等错误
-        setMsg({ type: 'error', text: '创建账号失败：' + authErr.message });
-        setAdding(false);
-        return;
-      }
-      
-      const userId = authData.user?.id;
-      if (!userId) {
-        setMsg({ type: 'error', text: '创建账号失败：未获取用户ID' });
-        setAdding(false);
-        return;
-      }
-      
-      // 2. 创建 staff 表记录
-      const { error: staffErr } = await supabase.from('staff').insert({
-        name: newStaff.name,
-        role: newStaff.role || '美容师',
-        email: newStaff.email,
-        is_active: true,
-        user_id: userId,
-      });
-      
-      if (staffErr) {
-        setMsg({ type: 'error', text: '添加员工记录失败：' + staffErr.message });
-        // 回滚：删除刚创建的 auth 用户（需要 admin API，这里先忽略）
+      const result = await res.json();
+      if (result.error) {
+        setMsg({ type: 'error', text: result.error });
       } else {
-        setMsg({ type: 'success', text: `员工 ${newStaff.name} 添加成功，请告知员工使用邮箱和密码登录` });
+        setMsg({ type: 'success', text: `${newStaff.name} added successfully` });
         setNewStaff({ name: '', role: '', email: '', password: '' });
         setShowAdd(false);
         loadStaff();
       }
     } catch (e: any) {
-      setMsg({ type: 'error', text: '添加失败：' + e.message });
+      setMsg({ type: 'error', text: 'Error: ' + e.message });
     } finally {
       setAdding(false);
     }

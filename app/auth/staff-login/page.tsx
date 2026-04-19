@@ -27,21 +27,15 @@ export default function StaffLoginPage() {
     setLoading(true);
     setError('');
     try {
-      // 1. Supabase Auth 登录
+      // 1. Supabase Auth login
       const { data: authData, error: authErr } = await supabase.auth.signInWithPassword({ email, password });
       if (authErr) throw new Error(authErr.message);
 
-      // 2. 检查 profiles 表，确认角色是 staff
-      const { data: profile } = await supabase
-        .from('profiles')
-        .select('role, staff_id')
-        .eq('user_id', authData.user.id)
-        .single();
-
-      if (!profile || profile.role !== 'staff') {
-        // 不是员工账号，退出并报错
+      // 2. Check user_metadata for staff role
+      const userRole = authData.user.user_metadata?.role;
+      if (userRole !== 'staff') {
         await supabase.auth.signOut();
-        setError('该账号不是员工账号，请使用客户或商家账号登录');
+        setError('This account is not a staff account');
         setLoading(false);
         return;
       }

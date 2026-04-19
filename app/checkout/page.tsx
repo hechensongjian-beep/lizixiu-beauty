@@ -118,7 +118,7 @@ export default function CheckoutPage() {
 
   const subtotal = resolvedCart.reduce((s, i) => s + i.price * i.quantity, 0);
   const freeDeliveryThreshold = 500;
-  const shipping = deliveryMethod === 'pickup' ? 0 : (subtotal >= freeDeliveryThreshold ? 0 : 15);
+  const shipping = deliveryMethod === 'pickup' || deliveryMethod === 'delivery' ? 0 : (subtotal >= freeDeliveryThreshold ? 0 : 15);
   const total = subtotal + shipping;
   const fmt = (n: number) => new Intl.NumberFormat('zh-CN', { style: 'currency', currency: 'CNY' }).format(n);
 

@@ -60,7 +60,7 @@ export default function CartPage() {
   const subtotal = cartItems.reduce((s, i) => s + i.product.price * i.qty, 0);
   const [deliveryMethod, setDeliveryMethod] = useState<'express' | 'pickup' | 'delivery'>('express');
   const freeDeliveryThreshold = 500;
-  const shipping = deliveryMethod === 'pickup' ? 0 : (subtotal >= freeDeliveryThreshold ? 0 : 15);
+  const shipping = deliveryMethod === 'pickup' || deliveryMethod === 'delivery' ? 0 : (subtotal >= freeDeliveryThreshold ? 0 : 15);
   const total = subtotal + shipping;
 
   return (
@@ -155,7 +155,7 @@ export default function CartPage() {
                   {[
                     { key: 'express', label: '快递配送', desc: subtotal >= freeDeliveryThreshold ? '免费' : fmt(15) },
                     { key: 'pickup', label: '到店自取', desc: '免费' },
-                    { key: 'delivery', label: '送货上门', desc: subtotal >= freeDeliveryThreshold ? '免费' : fmt(15) },
+                    { key: 'delivery', label: '送货上门', desc: '镇内免费' },
                   ].map(opt => (
                     <button key={opt.key} onClick={() => setDeliveryMethod(opt.key as any)}
                       className={`p-3 rounded-xl text-center transition border-2 ${deliveryMethod === opt.key ? 'border-[#c9a87c] bg-[#faf8f5]' : 'border-gray-200 hover:border-[#c9a87c44]'}`}>
