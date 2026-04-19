@@ -1,4 +1,4 @@
-name: Deploy to Vercel
+name: Deploy to Cloudflare Pages
 
 on:
   push:
@@ -7,10 +7,10 @@ on:
 
 jobs:
   deploy:
-    name: Build
+    name: Build & Deploy
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Setup Node.js
@@ -22,8 +22,33 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build
+      - name: Build Next.js static site
         run: npm run build
         env:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+
+      - name: Set Cloudflare Pages secrets
+        run: |
+          echo '${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}' | npx wrangler pages secret put SUPABASE_SERVICE_ROLE_KEY --project-name=lizixiu-beauty
+          echo '${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}' | npx wrangler pages secret put NEXT_PUBLIC_SUPABASE_URL --project-name=lizixiu-beauty
+          echo '${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}' | npx wrangler pages secret put NEXT_PUBLIC_SUPABASE_ANON_KEY --project-name=lizixiu-beauty
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+      - name: Deploy to Cloudflare Pages
+        run: npx wrangler pages deploy out --project-name=lizixiu-beauty --branch=main
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+      - name: Verify deployment
+        run: |
+          echo "Waiting for deployment to propagate..."
+          sleep 10
+          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://lizixiu-beauty.pages.dev)
+          echo "HTTP Status: $HTTP_STATUS"
+          if [ "$HTTP_STATUS" = "200" ]; then
+            echo "✅ lizixiu-beauty.pages.dev is live!"
+          else
+            echo "⚠️  Expected 200, got $HTTP_STATUS"
+          fi
