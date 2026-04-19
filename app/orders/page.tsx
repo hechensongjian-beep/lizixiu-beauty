@@ -179,11 +179,11 @@ export default function OrdersPage() {
               {/* 订单头部 */}
               <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 pb-6 border-b border-gray-200">
                 <div>
-                  <h3 className="text-xl font-bold text-gray-900">订单 #{order.id.substring(0, 12)}</h3>
-                  <p className="text-gray-600 mt-1">创建于 {formatDate(order.createdAt)}</p>
+                  <h3 className="text-2xl font-bold text-gray-900">订单 #{order.id.substring(0, 12)}</h3>
+                  <p className="text-base text-gray-600 mt-2">创建于 {formatDate(order.createdAt)}</p>
                 </div>
                 <div className="flex items-center space-x-4 mt-4 md:mt-0">
-                  <span className={`px-4 py-2 rounded-full text-sm font-medium ${getStatusColor(order.status)}`}>
+                  <span className={`px-4 py-2 rounded-full font-medium ${getStatusColor(order.status)}`} style={{fontSize:'1rem'}}>
                     {translateStatus(order.status)}
                   </span>
                   <div className="text-2xl font-bold text-gray-900">
@@ -195,39 +195,39 @@ export default function OrdersPage() {
               {/* 客户信息 */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                 <div>
-                  <h4 className="font-bold text-gray-900 mb-2">客户信息</h4>
-                  <p className="text-gray-700">{order.customerName}</p>
-                  <p className="text-gray-700">{order.customerPhone}</p>
+                  <h4 className="text-lg font-bold text-gray-900 mb-3">客户信息</h4>
+                  <p className="text-base text-gray-700">{order.customerName}</p>
+                  <p className="text-base text-gray-700">{order.customerPhone}</p>
                   {order.customerEmail && (
-                    <p className="text-gray-700">{order.customerEmail}</p>
+                    <p className="text-base text-gray-700">{order.customerEmail}</p>
                   )}
                 </div>
                 <div>
-                  <h4 className="font-bold text-gray-900 mb-2">收货地址</h4>
-                  <p className="text-gray-700 whitespace-pre-line">{order.shippingAddress}</p>
+                  <h4 className="text-lg font-bold text-gray-900 mb-3">收货地址</h4>
+                  <p className="text-base text-gray-700 whitespace-pre-line">{order.shippingAddress}</p>
                 </div>
               </div>
 
               {/* 商品列表 */}
               <div className="mb-8">
-                <h4 className="font-bold text-gray-900 mb-4">商品清单</h4>
+                <h4 className="text-lg font-bold text-gray-900 mb-4">商品清单</h4>
                 <div className="border border-gray-200 rounded-xl overflow-hidden">
                   <table className="w-full">
                     <thead className="bg-gray-50">
                       <tr>
-                        <th className="py-3 px-4 text-left font-bold text-gray-900">商品</th>
-                        <th className="py-3 px-4 text-left font-bold text-gray-900">单价</th>
-                        <th className="py-3 px-4 text-left font-bold text-gray-900">数量</th>
-                        <th className="py-3 px-4 text-left font-bold text-gray-900">小计</th>
+                        <th className="py-3 px-4 text-left font-bold text-gray-900" style={{fontSize:'1rem'}}>商品</th>
+                        <th className="py-3 px-4 text-left font-bold text-gray-900" style={{fontSize:'1rem'}}>单价</th>
+                        <th className="py-3 px-4 text-left font-bold text-gray-900" style={{fontSize:'1rem'}}>数量</th>
+                        <th className="py-3 px-4 text-left font-bold text-gray-900" style={{fontSize:'1rem'}}>小计</th>
                       </tr>
                     </thead>
                     <tbody>
                       {order.items.map((item, idx) => (
                         <tr key={idx} className="border-t border-gray-200">
-                          <td className="py-4 px-4 font-medium text-gray-900">{item.name}</td>
-                          <td className="py-4 px-4">{formatCurrency(item.price)}</td>
-                          <td className="py-4 px-4">{item.quantity}</td>
-                          <td className="py-4 px-4 font-bold">{formatCurrency(item.price * item.quantity)}</td>
+                          <td className="py-4 px-4 font-medium text-gray-900" style={{fontSize:'1rem'}}>{item.name}</td>
+                          <td className="py-4 px-4" style={{fontSize:'1rem'}}>{formatCurrency(item.price)}</td>
+                          <td className="py-4 px-4" style={{fontSize:'1rem'}}>{item.quantity}</td>
+                          <td className="py-4 px-4 font-bold" style={{fontSize:'1rem'}}>{formatCurrency(item.price * item.quantity)}</td>
                         </tr>
                       ))}
                     </tbody>
