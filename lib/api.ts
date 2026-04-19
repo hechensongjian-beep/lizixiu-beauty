@@ -395,11 +395,21 @@ export async function getAllTestimonials(): Promise<any> {
   } catch { return { testimonials: [] }; }
 }
 
+async function getAuthHeaders(): Promise<Record<string,string>> {
+  const headers: Record<string,string> = { 'Content-Type': 'application/json' };
+  try {
+    const { supabase: sb } = await import('@/lib/supabase');
+    const { data: { session } } = await sb.auth.getSession();
+    if (session?.access_token) headers['Authorization'] = `Bearer ${session.access_token}`;
+  } catch {}
+  return headers;
+}
+
 export async function createTestimonial(payload: { name: string; avatar?: string; service?: string; text: string; score?: number }): Promise<any> {
   try {
     const res = await fetch('/api/admin/testimonials', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: await getAuthHeaders(),
       body: JSON.stringify({ action: 'create', payload }),
     });
     const result = await res.json();
@@ -412,7 +422,7 @@ export async function updateTestimonial(id: string, payload: Partial<{ name: str
   try {
     const res = await fetch('/api/admin/testimonials', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: await getAuthHeaders(),
       body: JSON.stringify({ action: 'update', id, payload }),
     });
     const result = await res.json();
@@ -425,7 +435,7 @@ export async function deleteTestimonial(id: string): Promise<any> {
   try {
     const res = await fetch('/api/admin/testimonials', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: await getAuthHeaders(),
       body: JSON.stringify({ action: 'delete', id }),
     });
     const result = await res.json();

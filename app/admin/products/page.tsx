@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/components/AuthProvider';
 import { useRouter } from 'next/navigation';
+import { supabase } from '@/lib/supabase';
 import { getProducts, createProduct, updateProduct, deleteProduct } from '@/lib/api';
 
 interface Product {
@@ -55,16 +56,16 @@ export default function AdminProductsPage() {
   const uploadImage = async (file: File): Promise<string | null> => {
     setUploading(true);
     try {
-      const ext = file.name.split('.').pop();
-      const name = `product_${Date.now()}.${ext}`;
       const formData = new FormData();
       formData.append('file', file);
       formData.append('bucket', 'product-images');
-      formData.append('name', name);
-      const res = await fetch('/api/admin/upload', { method: 'POST', body: formData });
+      const { data: { session } } = await supabase.auth.getSession();
+      const authHeaders: Record<string, string> = {};
+      if (session?.access_token) authHeaders['Authorization'] = `Bearer ${session.access_token}`;
+      const res = await fetch('/api/admin/upload', { method: 'POST', body: formData, headers: authHeaders });
       const result = await res.json();
       if (result.error) { console.error('Upload failed:', result.error); return null; }
-      return result.url;
+      return result.url || result.publicUrl;
     } catch (e) { console.error(e); return null; }
     finally { setUploading(false); }
   };

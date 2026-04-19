@@ -78,9 +78,12 @@ export default function AdminStaffPage() {
     setAdding(true);
     setMsg(null);
     try {
+      const { data: { session } } = await supabase.auth.getSession();
+      const authHeaders: Record<string,string> = { 'Content-Type': 'application/json' };
+      if (session?.access_token) authHeaders['Authorization'] = `Bearer ${session.access_token}`;
       const res = await fetch('/api/admin/create-staff', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: authHeaders,
         body: JSON.stringify({
           email: newStaff.email,
           password: newStaff.password,
@@ -125,9 +128,12 @@ export default function AdminStaffPage() {
       }
       
       // 使用 admin API 更新用户密码
+      const { data: { session: s2 } } = await supabase.auth.getSession();
+      const pwdHeaders: Record<string,string> = { 'Content-Type': 'application/json' };
+      if (s2?.access_token) pwdHeaders['Authorization'] = `Bearer ${s2.access_token}`;
       const res = await fetch('/api/admin/update-user-password', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: pwdHeaders,
         body: JSON.stringify({ userId: staff.user_id, newPassword: resetPwd.pwd })
       });
       

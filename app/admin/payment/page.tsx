@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/components/AuthProvider';
 import { useRouter } from 'next/navigation';
+import { supabase } from '@/lib/supabase';
 import { getPaymentSettings, savePaymentSettings } from '@/lib/api';
 
 interface PaymentSettings { wechatQr: string; alipayQr: string; merchantName: string; }
@@ -62,17 +63,17 @@ export default function PaymentSettingsPage() {
   const uploadQr = async (type: 'wechat' | 'alipay', file: File) => {
     setUploading(type);
     try {
-      const ext = file.name.split('.').pop() || 'png';
-      const name = `${type}_qr_${Date.now()}.${ext}`;
       const formData = new FormData();
       formData.append('file', file);
       formData.append('bucket', 'payment-qr');
-      formData.append('name', name);
-      const res = await fetch('/api/admin/upload', { method: 'POST', body: formData });
+      const { data: { session } } = await supabase.auth.getSession();
+      const authHeaders: Record<string, string> = {};
+      if (session?.access_token) authHeaders['Authorization'] = `Bearer ${session.access_token}`;
+      const res = await fetch('/api/admin/upload', { method: 'POST', body: formData, headers: authHeaders });
       const result = await res.json();
       if (result.error) { alert(`Upload failed: ${result.error}`); return; }
       const key = type === 'wechat' ? 'wechatQr' : 'alipayQr';
-      setSettings(s => ({ ...s, [key]: result.url }));
+      setSettings(s => ({ ...s, [key]: result.url || result.publicUrl }));
     } catch (e: any) { alert(`Upload failed: ${e.message}`); }
     finally { setUploading(null); }
   };
