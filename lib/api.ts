@@ -377,3 +377,44 @@ export async function deleteAppointment(id: string): Promise<any> {
     return { success: true };
   } catch (e) { return { error: String(e) }; }
 }
+
+// ===== Testimonials =====
+export async function getTestimonials(): Promise<any> {
+  try {
+    const { data, error } = await supabase.from('testimonials').select('*').eq('is_active', true).order('sort_order', { ascending: true });
+    if (error) return { testimonials: [] };
+    return { testimonials: data || [] };
+  } catch { return { testimonials: [] }; }
+}
+
+export async function getAllTestimonials(): Promise<any> {
+  try {
+    const { data, error } = await supabase.from('testimonials').select('*').order('sort_order', { ascending: true });
+    if (error) return { testimonials: [] };
+    return { testimonials: data || [] };
+  } catch { return { testimonials: [] }; }
+}
+
+export async function createTestimonial(payload: { name: string; avatar?: string; service?: string; text: string; score?: number }): Promise<any> {
+  try {
+    const { data, error } = await supabaseAdmin.from('testimonials').insert(payload).select().single();
+    if (error) return { error: error.message };
+    return { testimonial: data };
+  } catch (e) { return { error: String(e) }; }
+}
+
+export async function updateTestimonial(id: string, payload: Partial<{ name: string; avatar: string; service: string; text: string; score: number; is_active: boolean; sort_order: number }>): Promise<any> {
+  try {
+    const { data, error } = await supabaseAdmin.from('testimonials').update(payload).eq('id', id).select().single();
+    if (error) return { error: error.message };
+    return { testimonial: data };
+  } catch (e) { return { error: String(e) }; }
+}
+
+export async function deleteTestimonial(id: string): Promise<any> {
+  try {
+    const { error } = await supabaseAdmin.from('testimonials').delete().eq('id', id);
+    if (error) return { error: error.message };
+    return { success: true };
+  } catch (e) { return { error: String(e) }; }
+}

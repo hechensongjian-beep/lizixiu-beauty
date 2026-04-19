@@ -43,6 +43,7 @@ const ADMIN_MENU: { href: string; label: string }[] = [
   { href: '/admin/services', label: '服务管理' },
   { href: '/admin/staff', label: '员工管理' },
   { href: '/admin/schedule', label: '排班管理' },
+  { href: '/admin/testimonials', label: '口碑管理' },
   { href: '/customers', label: '客户管理' },
   { href: '/admin/payment', label: '收款码设置' },
   { href: '/admin/verify', label: '支付核验' },

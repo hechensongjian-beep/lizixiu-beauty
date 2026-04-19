@@ -3,10 +3,11 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/components/AuthProvider';
-import { getProducts, getServices } from '@/lib/api';
+import { getProducts, getServices, getTestimonials } from '@/lib/api';
 
 interface Product { id: string; name: string; price: number; imageColor: string; imageUrl?: string; category: string; description: string; stock: number; tags?: string[]; }
 interface Service { id: string; name: string; price: number; duration?: number; category?: string; description?: string; popularity?: number; }
+interface Testimonial { id: string; name: string; avatar?: string; service?: string; text: string; score: number; }
 
 function fmtCurrency(n: number) {
   return new Intl.NumberFormat('zh-CN', { style: 'currency', currency: 'CNY' }).format(n);
@@ -16,14 +17,16 @@ export default function HomePage() {
   const { role } = useAuth();
   const [products, setProducts] = useState<Product[]>([]);
   const [services, setServices] = useState<Service[]>([]);
+  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [loading, setLoading] = useState(true);
   const isMerchant = role === 'merchant' || role === 'admin';
 
   useEffect(() => {
-    Promise.all([getProducts(), getServices()])
-      .then(([prod, svc]) => {
+    Promise.all([getProducts(), getServices(), getTestimonials()])
+      .then(([prod, svc, test]) => {
         setProducts((prod?.products || []).slice(0, 6));
         setServices((svc?.services || []).slice(0, 6));
+        setTestimonials(test?.testimonials || []);
       })
       .catch(() => {})
       .finally(() => setLoading(false));
@@ -277,22 +280,22 @@ export default function HomePage() {
             <h2 className="text-3xl font-bold" style={{ fontFamily: "'Noto Serif SC', serif", color: 'var(--foreground)' }}>用户真实评价</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              { name: '王女士', avatar: '王', text: '做了面部深层清洁，皮肤状态明显改善了很多！技师手法很专业，环境也很舒适，强烈推荐！', score: 5, service: '面部护理' },
-              { name: '李女士', avatar: '李', text: '在这里办了会员卡，性价比很高。服务很细致，每次做完都感觉整个人精神了很多。支持！', score: 5, service: '身体SPA' },
-              { name: '张女士', avatar: '张', text: '第一次体验就爱上了！预约很方便，技师会根据你的肤质推荐合适的项目，很贴心。', score: 5, service: '面部补水' },
-            ].map((r) => (
-              <div key={r.name} className="bg-white rounded-2xl p-6" style={{ border: '1px solid var(--primary-light)', boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
+            {(testimonials.length > 0 ? testimonials : [
+              { id: '1', name: '王女士', avatar: '王', text: '做了面部深层清洁，皮肤状态明显改善了很多！技师手法很专业，环境也很舒适，强烈推荐！', score: 5, service: '面部护理' },
+              { id: '2', name: '李女士', avatar: '李', text: '在这里办了会员卡，性价比很高。服务很细致，每次做完都感觉整个人精神了很多。支持！', score: 5, service: '身体SPA' },
+              { id: '3', name: '张女士', avatar: '张', text: '第一次体验就爱上了！预约很方便，技师会根据你的肤质推荐合适的项目，很贴心。', score: 5, service: '面部补水' },
+            ]).map((r, idx) => (
+              <div key={r.id || idx} className="bg-white rounded-2xl p-6" style={{ border: '1px solid var(--primary-light)', boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm" style={{ background: 'linear-gradient(135deg, var(--primary), var(--primary-dark))' }}>
-                    {r.avatar}
+                    {r.avatar || r.name.charAt(0)}
                   </div>
                   <div>
                     <div className="text-sm font-semibold" style={{ color: 'var(--foreground)' }}>{r.name}</div>
                     <div className="text-xs" style={{ color: 'var(--foreground-muted)' }}>{r.service}</div>
                   </div>
                   <div className="ml-auto flex gap-0.5">
-                    {Array.from({ length: r.score }).map((_, i) => (
+                    {Array.from({ length: r.score || 5 }).map((_, i) => (
                       <svg key={i} width="12" height="12" viewBox="0 0 24 24" fill="#f59e0b"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
                     ))}
                   </div>
