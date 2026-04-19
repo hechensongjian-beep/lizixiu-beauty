@@ -7,10 +7,10 @@ on:
 
 jobs:
   deploy:
-    name: Build & Deploy
+    name: Build
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup Node.js
@@ -22,27 +22,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Install Vercel CLI
-        run: npm install -g vercel
-
-      - name: Pull Vercel Environment
-        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
-
-      - name: Build Vercel Project
-        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
-
-      - name: Deploy to Vercel
-        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
-
-      - name: Verify deployment
-        run: |
-          echo "Waiting for deployment..."
-          sleep 10
-          echo "Checking lizixiu-beauty.vercel.app..."
-          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://lizixiu-beauty.vercel.app)
-          echo "HTTP Status: $HTTP_STATUS"
-          if [ "$HTTP_STATUS" = "200" ]; then
-            echo "✅ lizixiu-beauty.vercel.app is live!"
-          else
-            echo "⚠️  Expected 200, got $HTTP_STATUS"
-          fi
+      - name: Build
+        run: npm run build
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
