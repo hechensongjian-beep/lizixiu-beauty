@@ -121,7 +121,7 @@ export default function RegisterPage() {
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label className="block text-sm font-medium text-gray-800 mb-2">邮箱地址 *</label>
+          <label className="block font-medium text-gray-800 mb-2">邮箱地址 *</label>
           <input type="email" required
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c9a87c]"
             placeholder="用于登录和接收通知"
@@ -131,7 +131,7 @@ export default function RegisterPage() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-800 mb-2">设置密码 *</label>
+          <label className="block font-medium text-gray-800 mb-2">设置密码 *</label>
           <input type="password" required
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c9a87c]"
             placeholder="至少6位字符"
@@ -141,7 +141,7 @@ export default function RegisterPage() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-800 mb-2">确认密码 *</label>
+          <label className="block font-medium text-gray-800 mb-2">确认密码 *</label>
           <input type="password" required
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c9a87c]"
             placeholder="再次输入密码"
@@ -151,7 +151,7 @@ export default function RegisterPage() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-800 mb-2">手机号 *</label>
+          <label className="block font-medium text-gray-800 mb-2">手机号 *</label>
           <input type="tel" required
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c9a87c]"
             placeholder="11位数字，仅用于联系"

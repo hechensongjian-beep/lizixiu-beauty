@@ -95,7 +95,7 @@ export default function LoginPage() {
               <IconUser className="text-[#a88a5c]" />
             </div>
             <div className="font-medium text-gray-800 text-sm">客户演示</div>
-            <div className="text-xs text-gray-500">体验预约流程</div>
+            <div className="text-sm text-gray-500">体验预约流程</div>
           </button>
           <button
             onClick={() => handleDemoLogin('merchant')}
@@ -106,10 +106,10 @@ export default function LoginPage() {
               <IconStore className="text-white" />
             </div>
             <div className="font-medium text-gray-800 text-sm">商家演示</div>
-            <div className="text-xs text-gray-500">体验后台管理</div>
+            <div className="text-sm text-gray-500">体验后台管理</div>
           </button>
         </div>
-        <p className="mt-3 text-xs text-gray-500">演示账户数据为临时生成，重启服务后会重置</p>
+        <p className="mt-3 text-sm text-gray-500">演示账户数据为临时生成，重启服务后会重置</p>
       </div>
 
       <div className="relative mb-8">
@@ -121,7 +121,7 @@ export default function LoginPage() {
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label className="block text-sm font-medium text-gray-800 mb-2">邮箱地址</label>
+          <label className="block font-medium text-gray-800 mb-2">邮箱地址</label>
           <input
             type="email"
             required
@@ -134,7 +134,7 @@ export default function LoginPage() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-800 mb-2">密码</label>
+          <label className="block font-medium text-gray-800 mb-2">密码</label>
           <input
             type="password"
             required

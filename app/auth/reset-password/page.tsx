@@ -135,7 +135,7 @@ export default function ResetPasswordPage() {
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label className="block text-sm font-medium text-gray-800 mb-2">
+          <label className="block font-medium text-gray-800 mb-2">
             新密码
           </label>
           <input
@@ -150,7 +150,7 @@ export default function ResetPasswordPage() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-800 mb-2">
+          <label className="block font-medium text-gray-800 mb-2">
             确认新密码
           </label>
           <input

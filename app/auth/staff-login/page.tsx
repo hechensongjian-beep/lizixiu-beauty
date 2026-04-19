@@ -71,12 +71,12 @@ export default function StaffLoginPage() {
 
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-[var(--foreground)] mb-1.5">邮箱</label>
+            <label className="block font-medium text-[var(--foreground)] mb-1.5">邮箱</label>
             <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="请输入邮箱"
               className="w-full px-4 py-3 rounded-xl border border-[var(--primary-light)] bg-white text-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] text-sm" />
           </div>
           <div>
-            <label className="block text-sm font-medium text-[var(--foreground)] mb-1.5">密码</label>
+            <label className="block font-medium text-[var(--foreground)] mb-1.5">密码</label>
             <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="请输入密码"
               className="w-full px-4 py-3 rounded-xl border border-[var(--primary-light)] bg-white text-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] text-sm" />
           </div>
@@ -94,10 +94,10 @@ export default function StaffLoginPage() {
 
         <div className="mt-6 text-center space-y-2">
           <Link href="/auth/login" className="block text-sm text-[var(--primary)] hover:underline">客户登录入口</Link>
-          <Link href="/" className="block text-xs text-[var(--foreground-muted)] hover:text-[var(--foreground)]">← 返回首页</Link>
+          <Link href="/" className="block text-sm text-[var(--foreground-muted)] hover:text-[var(--foreground)]">← 返回首页</Link>
         </div>
 
-        <p className="text-xs text-center text-[var(--foreground-muted)] mt-6">
+        <p className="text-sm text-center text-[var(--foreground-muted)] mt-6">
           员工账号由商家在后台创建，如有问题请联系商家
         </p>
       </div>

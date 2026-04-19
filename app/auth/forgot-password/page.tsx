@@ -81,7 +81,7 @@ export default function ForgotPasswordPage() {
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label className="block text-sm font-medium text-gray-800 mb-2">
+          <label className="block font-medium text-gray-800 mb-2">
             邮箱地址
           </label>
           <input
