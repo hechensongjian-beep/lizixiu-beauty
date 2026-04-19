@@ -1,22 +1,42 @@
-﻿@import "tailwindcss";
+@import "tailwindcss";
 
-/* 字体变量 - 使用系统字体回退 */
+/* ========================================
+   丽姿秀美容院 - 大气优雅网页版设计规范
+   ======================================== */
+
+/* 字体变量 - 优先使用系统字体，确保清晰度 */
 :root {
-  --font-sans: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-serif: 'Noto Serif SC', 'Songti SC', 'STSong', 'SimSun', serif;
+  --font-sans: 'PingFang SC', 'Microsoft YaHei', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-serif: 'Noto Serif SC', 'Songti SC', 'STSong', serif;
+  
+  /* 大字体基准 - 网页版舒适阅读 */
+  --text-xs: 0.875rem;    /* 14px */
+  --text-sm: 1rem;        /* 16px */
+  --text-base: 1.125rem;  /* 18px */
+  --text-lg: 1.25rem;     /* 20px */
+  --text-xl: 1.5rem;      /* 24px */
+  --text-2xl: 1.875rem;   /* 30px */
+  --text-3xl: 2.25rem;    /* 36px */
+  --text-4xl: 3rem;       /* 48px */
+  --text-5xl: 3.75rem;    /* 60px */
+  --text-6xl: 4.5rem;     /* 72px */
 }
 
 
-/* 丽姿秀美容院专属配色 - 优雅精致风格 */
+/* ========================================
+   丽姿秀专属配色 - 优雅精致风格
+   ======================================== */
 :root {
   /* 背景 - 温暖奶油色 */
   --background: #faf8f5;
   --background-secondary: #f5f2ed;
+  --background-card: #ffffff;
   
   /* 主色 - 香槟金 */
   --primary: #c9a87c;
   --primary-dark: #a88a5c;
   --primary-light: #e8d5b8;
+  --primary-ultra-light: #f8f3eb;
   
   /* 强调色 - 深森林绿 */
   --accent: #2d4a3e;
@@ -25,6 +45,7 @@
   /* 文字 - 暖炭灰 */
   --foreground: #2a2a28;
   --foreground-muted: #6b6b68;
+  --foreground-light: #9a9a97;
   
   /* 辅助色 */
   --rose: #d4a5a5;
@@ -34,6 +55,20 @@
   /* 渐变 */
   --gradient-gold: linear-gradient(135deg, #c9a87c 0%, #e8d5b8 100%);
   --gradient-rose: linear-gradient(135deg, #d4a5a5 0%, #f0d9d9 100%);
+  --gradient-hero: linear-gradient(135deg, rgba(45,74,62,0.9) 0%, rgba(61,99,82,0.8) 50%, rgba(74,122,99,0.7) 100%);
+  
+  /* 圆角 */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-2xl: 2rem;
+  
+  /* 阴影 */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
+  --shadow-lg: 0 8px 30px rgba(0,0,0,0.08);
+  --shadow-xl: 0 16px 50px rgba(0,0,0,0.1);
 }
 
 @theme inline {
@@ -51,56 +86,173 @@
   --color-ivory: var(--ivory);
 }
 
+/* ========================================
+   全局样式
+   ======================================== */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  line-height: 1.7;
+  font-family: var(--font-sans);
+  font-size: 1.125rem;  /* 18px 基准 */
+  line-height: 1.8;
   letter-spacing: 0.02em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* 标题字体 - 优雅衬线 */
-h1, h2, h3 {
-  font-family: 'Noto Serif SC', 'Songti SC', serif;
+/* ========================================
+   标题样式 - 大气优雅
+   ======================================== */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
   font-weight: 600;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.03em;
+  line-height: 1.3;
+  color: var(--foreground);
 }
 
-/* 链接悬停效果 */
+h1 {
+  font-size: 3.5rem;    /* 56px */
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 2.5rem;    /* 40px */
+}
+
+h3 {
+  font-size: 1.75rem;   /* 28px */
+}
+
+h4 {
+  font-size: 1.5rem;    /* 24px */
+}
+
+h5 {
+  font-size: 1.25rem;   /* 20px */
+}
+
+h6 {
+  font-size: 1.125rem;  /* 18px */
+}
+
+/* ========================================
+   段落与文字
+   ======================================== */
+p {
+  font-size: 1.125rem;  /* 18px */
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+.text-display {
+  font-size: 4rem;      /* 64px */
+  font-weight: 700;
+  font-family: var(--font-serif);
+  line-height: 1.2;
+}
+
+.text-hero {
+  font-size: 3rem;      /* 48px */
+  font-weight: 700;
+  font-family: var(--font-serif);
+  line-height: 1.25;
+}
+
+.text-section-title {
+  font-size: 2.25rem;   /* 36px */
+  font-weight: 600;
+  font-family: var(--font-serif);
+}
+
+.text-card-title {
+  font-size: 1.375rem;  /* 22px */
+  font-weight: 600;
+}
+
+.text-body {
+  font-size: 1.125rem;  /* 18px */
+  line-height: 1.8;
+}
+
+.text-body-sm {
+  font-size: 1rem;      /* 16px */
+  line-height: 1.7;
+}
+
+.text-caption {
+  font-size: 0.9375rem; /* 15px */
+  color: var(--foreground-muted);
+}
+
+/* ========================================
+   链接样式
+   ======================================== */
 a {
-  transition: color 0.3s ease, transform 0.2s ease;
+  color: var(--primary);
+  text-decoration: none;
+  transition: color 0.25s ease, transform 0.2s ease;
 }
 
 a:hover {
-  color: var(--primary);
+  color: var(--primary-dark);
 }
 
-/* 按钮样式 */
+/* ========================================
+   按钮样式 - 大气醒目
+   ======================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.75rem;
+  font-size: 1rem;      /* 16px */
+  font-weight: 600;
+  border-radius: var(--radius-lg);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+}
+
+.btn-lg {
+  padding: 1rem 2rem;
+  font-size: 1.125rem;  /* 18px */
+  border-radius: var(--radius-xl);
+}
+
+.btn-xl {
+  padding: 1.25rem 2.5rem;
+  font-size: 1.25rem;  /* 20px */
+  border-radius: var(--radius-xl);
+}
+
 .btn-primary {
   background: var(--gradient-gold);
   color: white;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.5rem;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  border: none;
-  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(201,168,124,0.35);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(201, 168, 124, 0.35);
+  box-shadow: 0 8px 30px rgba(201,168,124,0.45);
+  color: white;
 }
 
 .btn-secondary {
   background: transparent;
   color: var(--accent);
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.5rem;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  border: 1.5px solid var(--accent);
-  cursor: pointer;
+  border: 2px solid var(--accent);
 }
 
 .btn-secondary:hover {
@@ -108,31 +260,107 @@ a:hover {
   color: white;
 }
 
-/* 卡片样式 */
+.btn-outline {
+  background: transparent;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+}
+
+.btn-outline:hover {
+  background: var(--primary);
+  color: white;
+}
+
+/* ========================================
+   卡片样式 - 优雅精致
+   ======================================== */
 .card {
   background: white;
-  border-radius: 1rem;
-  padding: 1.5rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-  border: 1px solid rgba(201, 168, 124, 0.15);
-  transition: all 0.3s ease;
+  border-radius: var(--radius-xl);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--primary-light);
+  transition: all 0.35s ease;
 }
 
 .card:hover {
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow-lg);
   transform: translateY(-4px);
 }
 
-/* 柔和阴影 */
-.shadow-soft {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+.card-flat {
+  background: white;
+  border-radius: var(--radius-xl);
+  padding: 2rem;
+  border: 1px solid var(--primary-light);
 }
 
-.shadow-hover:hover {
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+/* ========================================
+   表单样式
+   ======================================== */
+input, textarea, select {
+  font-size: 1rem;
+  padding: 0.875rem 1rem;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--primary-light);
+  background: white;
+  color: var(--foreground);
+  transition: all 0.25s ease;
 }
 
-/* 渐变文字 */
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(201,168,124,0.15);
+}
+
+input::placeholder, textarea::placeholder {
+  color: var(--foreground-light);
+}
+
+label {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--foreground);
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+/* ========================================
+   容器与布局
+   ======================================== */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.section {
+  padding: 5rem 0;
+}
+
+.section-sm {
+  padding: 3rem 0;
+}
+
+/* ========================================
+   分隔线
+   ======================================== */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--primary-light), transparent);
+  margin: 2rem 0;
+}
+
+.divider-gold {
+  height: 2px;
+  background: var(--gradient-gold);
+  border-radius: 1px;
+}
+
+/* ========================================
+   渐变文字
+   ======================================== */
 .text-gradient {
   background: var(--gradient-gold);
   -webkit-background-clip: text;
@@ -140,17 +368,13 @@ a:hover {
   background-clip: text;
 }
 
-/* 分隔线 */
-.divider {
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--primary-light), transparent);
-}
-
-/* 动画 */
+/* ========================================
+   动画
+   ======================================== */
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(30px);
   }
   to {
     opacity: 1;
@@ -162,10 +386,23 @@ a:hover {
   animation: fadeInUp 0.6s ease-out forwards;
 }
 
-/* 滚动条美化 */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* ========================================
+   滚动条美化
+   ======================================== */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-track {
@@ -174,9 +411,46 @@ a:hover {
 
 ::-webkit-scrollbar-thumb {
   background: var(--primary-light);
-  border-radius: 4px;
+  border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--primary);
+}
+
+/* ========================================
+   响应式适配
+   ======================================== */
+@media (max-width: 1024px) {
+  html { font-size: 15px; }
+  h1 { font-size: 2.75rem; }
+  h2 { font-size: 2rem; }
+  .section { padding: 3.5rem 0; }
+}
+
+@media (max-width: 768px) {
+  html { font-size: 14px; }
+  h1 { font-size: 2.25rem; }
+  h2 { font-size: 1.75rem; }
+  .section { padding: 2.5rem 0; }
+  .container { padding: 0 1.25rem; }
+}
+
+/* ========================================
+   辅助类
+   ======================================== */
+.text-balance {
+  text-wrap: balance;
+}
+
+.shadow-soft {
+  box-shadow: var(--shadow-md);
+}
+
+.shadow-hover:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+.rounded-elegant {
+  border-radius: var(--radius-xl);
 }

@@ -107,21 +107,23 @@ function Dropdown({ label, items, isOpen, onToggle, onClose }: {
     <div className="relative" ref={ref}>
       <button
         onClick={onToggle}
-        className="flex items-center gap-1 text-[var(--foreground)] hover:text-[var(--primary)] px-4 py-2 text-sm font-medium transition-colors"
+        className="flex items-center gap-1.5 text-[var(--foreground)] hover:text-[var(--primary)] px-5 py-3 font-medium transition-colors"
+        style={{ fontSize: '1.0625rem' }}
       >
         {label}
-        <svg className="w-3.5 h-3.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ transform: isOpen ? 'rotate(180deg)' : undefined }}>
+        <svg className="w-4 h-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ transform: isOpen ? 'rotate(180deg)' : undefined }}>
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
         </svg>
       </button>
       {isOpen && (
-        <div className="absolute left-0 mt-1 w-44 bg-white rounded-lg shadow-lg border border-[var(--primary-light)]/30 py-1 z-[60]">
+        <div className="absolute left-0 mt-2 w-52 bg-white rounded-xl shadow-lg border border-[var(--primary-light)]/30 py-2 z-[60]">
           {items.map(item => (
             <Link
               key={item.href}
               href={item.href}
               onClick={onClose}
-              className="block px-4 py-2.5 text-sm text-[var(--foreground)] hover:bg-[var(--background-secondary)] hover:text-[var(--primary)] transition-colors"
+              className="block px-5 py-3 text-[var(--foreground)] hover:bg-[var(--background-secondary)] hover:text-[var(--primary)] transition-colors"
+              style={{ fontSize: '1rem' }}
             >
               {item.label}
             </Link>
@@ -178,27 +180,28 @@ function NavContent() {
   return (
     <>
       <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-[var(--primary-light)]/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-14">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
+          <div className="flex items-center justify-between" style={{ height: '72px' }}>
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2 group">
-              <span className="text-2xl font-semibold tracking-wide" style={{ fontFamily: 'var(--font-serif)' }}>
+            <Link href="/" className="flex items-center gap-3 group">
+              <span className="text-3xl font-semibold tracking-wide" style={{ fontFamily: 'var(--font-serif)', fontSize: '1.75rem' }}>
                 丽姿秀
               </span>
               {loading ? null : (
-                <span className="text-xs text-[var(--foreground-muted)] hidden md:inline">
+                <span className="text-sm text-[var(--foreground-muted)] hidden md:inline" style={{ fontSize: '0.9375rem' }}>
                   · {ROLE_LABELS[role]}
                 </span>
               )}
             </Link>
 
-            {/* 桌面端导航 */}
-            <div className="hidden lg:flex items-center gap-1">
+            {/* 桌面端导航 - 大字体 */}
+            <div className="hidden lg:flex items-center gap-2">
               {mainNav.map(item => (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="text-[var(--foreground)] hover:text-[var(--primary)] px-4 py-2 text-sm font-medium transition-colors"
+                  className="text-[var(--foreground)] hover:text-[var(--primary)] px-5 py-3 font-medium transition-colors"
+                  style={{ fontSize: '1.0625rem' }}
                 >
                   {item.label}
                 </Link>
@@ -250,30 +253,30 @@ function NavContent() {
                     <div className="w-7 h-7 rounded-full bg-[var(--primary)] flex items-center justify-center text-white text-xs font-medium">
                       {user?.email?.[0]?.toUpperCase() || 'U'}
                     </div>
-                    <span className="hidden sm:inline">{user?.email?.split('@')[0]}</span>
-                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <span className="hidden sm:inline" style={{ fontSize: '1rem' }}>{user?.email?.split('@')[0]}</span>
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
                     </svg>
                   </button>
                   {userMenuOpen && (
-                    <div className="absolute right-0 mt-1 w-48 bg-white rounded-lg shadow-lg border border-[var(--primary-light)]/30 py-1 z-50">
-                      <div className="px-4 py-2 border-b border-gray-100">
-                        <div className="text-xs text-[var(--foreground-muted)]">已登录</div>
-                        <div className="text-sm font-medium truncate">{user?.email}</div>
+                    <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-lg border border-[var(--primary-light)]/30 py-2 z-50">
+                      <div className="px-5 py-3 border-b border-gray-100">
+                        <div className="text-sm text-[var(--foreground-muted)]" style={{ fontSize: '0.875rem' }}>已登录</div>
+                        <div className="font-medium truncate" style={{ fontSize: '1rem' }}>{user?.email}</div>
                       </div>
                       <Link href="/profile" onClick={closeAll}
-                        className="block px-4 py-2.5 text-sm text-[var(--foreground)] hover:bg-[var(--background-secondary)]">
+                        className="block px-5 py-3 text-[var(--foreground)] hover:bg-[var(--background-secondary)]" style={{ fontSize: '1rem' }}>
                         个人设置
                       </Link>
                       <button onClick={() => { signOut(); closeAll(); }}
-                        className="w-full text-left px-4 py-2.5 text-sm text-red-500 hover:bg-red-50">
+                        className="w-full text-left px-5 py-3 text-red-500 hover:bg-red-50" style={{ fontSize: '1rem' }}>
                         退出登录
                       </button>
                     </div>
                   )}
                 </div>
               ) : (
-                <Link href="/auth/login" className="btn-primary text-sm">
+                <Link href="/auth/login" className="btn-primary" style={{ fontSize: '1rem' }}>
                   登录
                 </Link>
               )}
