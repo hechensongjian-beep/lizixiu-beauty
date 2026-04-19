@@ -155,7 +155,7 @@ export default function AdminDashboardPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
             {/* 收入趋势 */}
             <div className="bg-white rounded-2xl shadow p-6">
-              <h2 className="text-lg font-bold text-gray-900 mb-4"> 近7天收入趋势</h2>
+              <h2 className="text-xl font-bold text-gray-900 mb-5"> 近7天收入趋势</h2>
               {revenueData.length > 0 && revenueData.some(d => d.amount > 0) ? (
                 <ResponsiveContainer width="100%" height={220}>
                   <BarChart data={revenueData}>
@@ -173,7 +173,7 @@ export default function AdminDashboardPage() {
 
             {/* 订单状态分布 */}
             <div className="bg-white rounded-2xl shadow p-6">
-              <h2 className="text-lg font-bold text-gray-900 mb-4">订单状态分布</h2>
+              <h2 className="text-xl font-bold text-gray-900 mb-5">订单状态分布</h2>
               <div className="flex items-center gap-6">
                 <ResponsiveContainer width={180} height={180}>
                   <PieChart>
@@ -195,8 +195,8 @@ export default function AdminDashboardPage() {
                   ].map(item => (
                     <div key={item.label} className="flex items-center gap-2">
                       <div className={`w-3 h-3 rounded-full ${item.color}`}></div>
-                      <span className="text-sm text-gray-700">{item.label}</span>
-                      <span className="text-sm font-bold text-gray-900 ml-auto">{item.value}</span>
+                      <span className="text-base text-gray-700">{item.label}</span>
+                      <span className="text-base font-bold text-gray-900 ml-auto">{item.value}</span>
                     </div>
                   ))}
                 </div>
@@ -207,7 +207,7 @@ export default function AdminDashboardPage() {
           {/* 商品分类 */}
           {categoryData.length > 0 && (
             <div className="bg-white rounded-2xl shadow p-6 mb-6">
-              <h2 className="text-lg font-bold text-gray-900 mb-4">商品分类分布</h2>
+              <h2 className="text-xl font-bold text-gray-900 mb-5">商品分类分布</h2>
               <ResponsiveContainer width="100%" height={200}>
                 <BarChart data={categoryData} layout="vertical">
                   <CartesianGrid strokeDasharray="3 3" />
@@ -222,9 +222,9 @@ export default function AdminDashboardPage() {
 
           {/* 最近订单 */}
           <div className="bg-white rounded-2xl shadow p-6 mb-6">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-lg font-bold text-gray-900">最近订单</h2>
-              <Link href="/admin/orders" className="text-[#a88a5c] text-sm font-medium hover:underline">全部订单 →</Link>
+            <div className="flex justify-between items-center mb-5">
+              <h2 className="text-xl font-bold text-gray-900">最近订单</h2>
+              <Link href="/admin/orders" className="text-[#a88a5c] text-base font-medium hover:underline">全部订单 →</Link>
             </div>
             {recentOrders.length === 0 ? (
               <div className="text-center py-10 text-gray-400">暂无订单数据</div>
