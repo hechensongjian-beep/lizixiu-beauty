@@ -4,14 +4,8 @@ import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/components/AuthProvider';
-import { getStaff, getStaffDashboard, updateAppointmentStatus } from '@/lib/api';
-
-interface Staff {
-  id: string;
-  name: string;
-  role: string;
-  specialties?: string[];
-}
+import { supabase } from '@/lib/supabase';
+import { getStaffDashboard, updateAppointmentStatus } from '@/lib/api';
 
 interface Appointment {
   id: string;
@@ -31,7 +25,7 @@ interface DayStat {
 }
 
 interface DashboardData {
-  staff: Staff;
+  staff: { id: string; name: string; role: string };
   today: {
     date: string;
     appointments: Appointment[];
@@ -60,7 +54,6 @@ const STATUS_COLORS: Record<string, { bg: string; text: string; label: string }>
 export default function StaffWorkbenchPage() {
   const router = useRouter();
   const { role, loading } = useAuth();
-  const [staffList, setStaffList] = useState<Staff[]>([]);
   const [selectedStaffId, setSelectedStaffId] = useState<string | null>(null);
   const [dashboard, setDashboard] = useState<DashboardData | null>(null);
   const [pageLoading, setPageLoading] = useState(true);
@@ -74,17 +67,6 @@ export default function StaffWorkbenchPage() {
       router.push('/auth/staff-login');
     }
   }, [loading, role, router]);
-
-  const fetchStaff = useCallback(async () => {
-    try {
-      const data = await getStaff();
-      setStaffList(data?.staff || []);
-    } catch {
-      setError('加载员工列表失败');
-    } finally {
-      setPageLoading(false);
-    }
-  }, []);
 
   const fetchDashboard = useCallback(async (staffId: string) => {
     setDashboardLoading(true);
@@ -106,8 +88,10 @@ export default function StaffWorkbenchPage() {
         };
       });
       const ws = data.weeklyStats || {};
+      // 从 staff 表获取员工姓名
+      const { data: staffData } = await supabase.from('staff').select('name').eq('id', staffId).single();
       setDashboard({
-        staff: { id: staffId, name: '', role: '' },
+        staff: { id: staffId, name: staffData?.name || '', role: '' },
         today: { date: today, appointments: todayAppts, count: todayAppts.length },
         week: {
           start: weekStart.toISOString().split('T')[0], end: '',
@@ -117,7 +101,6 @@ export default function StaffWorkbenchPage() {
         },
         upcoming: todayAppts.filter((a: any) => a.status === 'confirmed' || a.status === 'pending'),
       } as DashboardData);
-      localStorage.setItem('staff_workbench_id', staffId);
     } catch (e: any) {
       setError(e.message || '加载工作台失败');
     } finally {
@@ -125,28 +108,41 @@ export default function StaffWorkbenchPage() {
     }
   }, []);
 
+  // 从 Auth 获取当前员工身份
   useEffect(() => {
-    fetchStaff();
-    const savedId = localStorage.getItem('staff_workbench_id');
-    if (savedId) {
-      setSelectedStaffId(savedId);
-      fetchDashboard(savedId);
-    } else {
-      setPageLoading(false);
-    }
-  }, [fetchStaff, fetchDashboard]);
-
-  const handleSelectStaff = (id: string) => {
-    setSelectedStaffId(id);
-    setDashboard(null);
-    fetchDashboard(id);
-  };
-
-  const handleBack = () => {
-    localStorage.removeItem('staff_workbench_id');
-    setSelectedStaffId(null);
-    setDashboard(null);
-  };
+    if (loading || role !== 'staff') return;
+    
+    const loadStaffData = async () => {
+      setPageLoading(true);
+      try {
+        // 从 Auth 获取 user_id，然后查 staff 表
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) {
+          router.push('/auth/staff-login');
+          return;
+        }
+        
+        const { data: staffRecord } = await supabase
+          .from('staff')
+          .select('id, name')
+          .eq('user_id', user.id)
+          .single();
+        
+        if (staffRecord?.id) {
+          setSelectedStaffId(staffRecord.id);
+          fetchDashboard(staffRecord.id);
+        } else {
+          setError('未找到员工记录');
+        }
+      } catch (e: any) {
+        setError(e.message || '加载员工信息失败');
+      } finally {
+        setPageLoading(false);
+      }
+    };
+    
+    loadStaffData();
+  }, [loading, role, router, fetchDashboard]);
 
   const handleStatusChange = async (appointmentId: string, newStatus: string) => {
     setUpdatingId(appointmentId);
@@ -181,50 +177,6 @@ export default function StaffWorkbenchPage() {
 
   if (!loading && role !== 'staff') return null;
 
-  // 员工选择界面
-  if (!selectedStaffId) {
-    return (
-      <div className="max-w-2xl mx-auto py-12 px-4">
-        <div className="text-center mb-10">
-          <div className="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center" style={{ background: 'var(--primary-light)' }}>
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="1.5">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
-            </svg>
-          </div>
-          <h1 className="text-3xl text-[var(--foreground)] mb-2" style={{ fontFamily: 'var(--font-serif)' }}>员工工作台</h1>
-          <p className="text-[var(--foreground-muted)]">请选择您的账号，进入个人工作台</p>
-        </div>
-
-        {staffList.length === 0 ? (
-          <div className="text-center py-12 bg-white rounded-2xl border border-[var(--primary-light)]">
-            <p className="text-[var(--foreground-muted)]">暂无可用员工账号</p>
-            <p className="text-sm text-[var(--foreground-muted)] mt-1 opacity-60">请联系商家添加员工</p>
-          </div>
-        ) : (
-          <div className="space-y-3">
-            {staffList.map((s) => (
-              <button key={s.id} onClick={() => handleSelectStaff(s.id)}
-                className="w-full flex items-center gap-4 p-4 bg-white border border-[var(--primary-light)] rounded-xl hover:shadow-md hover:-translate-y-0.5 transition text-left">
-                <div className="w-12 h-12 rounded-full flex items-center justify-center text-white font-medium text-sm" style={{ background: 'var(--primary)' }}>
-                  {s.name.charAt(0)}
-                </div>
-                <div className="flex-1">
-                  <div className="font-medium text-[var(--foreground)]">{s.name}</div>
-                  <div className="text-sm text-[var(--foreground-muted)]">{s.role}</div>
-                </div>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2"><path d="M9 18l6-6-6-6"/></svg>
-              </button>
-            ))}
-          </div>
-        )}
-
-        <div className="mt-8 text-center">
-          <Link href="/" className="text-sm text-[var(--foreground-muted)] hover:text-[var(--primary)]">返回首页</Link>
-        </div>
-      </div>
-    );
-  }
-
   // 加载状态
   if (dashboardLoading) {
     return (
@@ -249,16 +201,10 @@ export default function StaffWorkbenchPage() {
         </div>
         <h2 className="text-xl text-[var(--foreground)] mb-2" style={{ fontFamily: 'var(--font-serif)' }}>加载失败</h2>
         <p className="text-[var(--foreground-muted)] mb-6">{error}</p>
-        <div className="flex gap-3 justify-center">
-          <button onClick={() => selectedStaffId && fetchDashboard(selectedStaffId)}
-            className="px-6 py-2.5 rounded-xl text-white text-sm font-medium hover:shadow-md transition-all" style={{ background: 'var(--primary)' }}>
-            重试
-          </button>
-          <button onClick={handleBack}
-            className="px-6 py-2.5 rounded-xl border border-[var(--primary-light)] text-sm text-[var(--foreground-muted)] hover:bg-[var(--primary-light)] transition-all">
-            切换账号
-          </button>
-        </div>
+        <button onClick={() => selectedStaffId && fetchDashboard(selectedStaffId)}
+          className="px-6 py-2.5 rounded-xl text-white text-sm font-medium hover:shadow-md transition-all" style={{ background: 'var(--primary)' }}>
+          重试
+        </button>
       </div>
     );
   }
@@ -277,10 +223,6 @@ export default function StaffWorkbenchPage() {
           <button onClick={() => selectedStaffId && fetchDashboard(selectedStaffId)}
             className="px-3 py-1.5 text-sm border border-[var(--primary-light)] rounded-lg text-[var(--foreground-muted)] hover:bg-[var(--primary-light)] transition-all">
             刷新
-          </button>
-          <button onClick={handleBack}
-            className="px-3 py-1.5 text-sm border border-[var(--primary-light)] rounded-lg text-[var(--foreground-muted)] hover:bg-[var(--primary-light)] transition-all">
-            切换账号
           </button>
         </div>
       </div>
@@ -450,19 +392,6 @@ export default function StaffWorkbenchPage() {
             </div>
           </div>
 
-          {/* 专长 */}
-          {dashboard?.staff?.specialties && dashboard.staff.specialties.length > 0 && (
-            <div className="bg-white rounded-2xl border border-[var(--primary-light)] p-6">
-              <h2 className="text-base font-medium text-[var(--foreground)] mb-3">我的专长</h2>
-              <div className="flex flex-wrap gap-2">
-                {dashboard.staff.specialties.map((spec, i) => (
-                  <span key={i} className="px-3 py-1.5 rounded-full text-xs font-medium" style={{ background: 'var(--primary-light)', color: 'var(--primary)' }}>
-                    {spec}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
         </div>
       </div>
 

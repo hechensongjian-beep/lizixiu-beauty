@@ -14,6 +14,7 @@ interface Staff {
   phone?: string;
   is_active: boolean;
   created_at: string;
+  user_id?: string;
 }
 
 interface NewStaff {
@@ -26,6 +27,8 @@ interface NewStaff {
 export default function AdminStaffPage() {
   const { role } = useAuth();
   const router = useRouter();
+  
+  // 权限守卫
   if (role && role !== 'merchant' && role !== 'admin') {
     router.replace('/auth/login');
     return (
@@ -37,19 +40,21 @@ export default function AdminStaffPage() {
       </div>
     );
   }
+  
   const [staffList, setStaffList] = useState<Staff[]>([]);
   const [loading, setLoading] = useState(true);
   const [showAdd, setShowAdd] = useState(false);
   const [newStaff, setNewStaff] = useState<NewStaff>({ name: '', role: '', email: '', password: '' });
   const [msg, setMsg] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
-  const [settingPwd, setSettingPwd] = useState<{ id: string; email: string; pwd: string } | null>(null);
+  const [resetPwd, setResetPwd] = useState<{ id: string; email: string; pwd: string } | null>(null);
+  const [adding, setAdding] = useState(false);
 
   const loadStaff = async () => {
     setLoading(true);
     try {
       const { data, error } = await supabase
         .from('staff')
-        .select('id, name, role, email, phone, is_active, created_at')
+        .select('id, name, role, email, phone, is_active, created_at, user_id')
         .order('created_at', { ascending: false });
       if (!error && data) setStaffList(data);
     } finally {
@@ -59,36 +64,109 @@ export default function AdminStaffPage() {
 
   useEffect(() => { loadStaff(); }, []);
 
+  // 添加员工：创建 Supabase Auth 账号 + staff 表记录
   const handleAdd = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newStaff.name || !newStaff.email || !newStaff.password) {
       setMsg({ type: 'error', text: '请填写完整信息' });
       return;
     }
-    const { error } = await supabase.from('staff').insert({
-      name: newStaff.name,
-      role: newStaff.role || '美容师',
-      email: newStaff.email,
-      is_active: true,
-    });
-    if (error) {
-      setMsg({ type: 'error', text: '添加失败：' + error.message });
-    } else {
-      // 保存密码到 localStorage（员工首次登录时验证）
-      localStorage.setItem(`staff_pwd_${newStaff.email}`, newStaff.password);
-      setMsg({ type: 'success', text: `员工 ${newStaff.name} 添加成功` });
-      setNewStaff({ name: '', role: '', email: '', password: '' });
-      setShowAdd(false);
-      loadStaff();
+    if (newStaff.password.length < 6) {
+      setMsg({ type: 'error', text: '密码至少6位' });
+      return;
+    }
+    
+    setAdding(true);
+    setMsg(null);
+    
+    try {
+      // 1. 创建 Supabase Auth 用户（role 存入 metadata）
+      const { data: authData, error: authErr } = await supabase.auth.signUp({
+        email: newStaff.email,
+        password: newStaff.password,
+        options: {
+          data: { role: 'staff', name: newStaff.name }
+        }
+      });
+      
+      if (authErr) {
+        // 邮箱已存在等错误
+        setMsg({ type: 'error', text: '创建账号失败：' + authErr.message });
+        setAdding(false);
+        return;
+      }
+      
+      const userId = authData.user?.id;
+      if (!userId) {
+        setMsg({ type: 'error', text: '创建账号失败：未获取用户ID' });
+        setAdding(false);
+        return;
+      }
+      
+      // 2. 创建 staff 表记录
+      const { error: staffErr } = await supabase.from('staff').insert({
+        name: newStaff.name,
+        role: newStaff.role || '美容师',
+        email: newStaff.email,
+        is_active: true,
+        user_id: userId,
+      });
+      
+      if (staffErr) {
+        setMsg({ type: 'error', text: '添加员工记录失败：' + staffErr.message });
+        // 回滚：删除刚创建的 auth 用户（需要 admin API，这里先忽略）
+      } else {
+        setMsg({ type: 'success', text: `员工 ${newStaff.name} 添加成功，请告知员工使用邮箱和密码登录` });
+        setNewStaff({ name: '', role: '', email: '', password: '' });
+        setShowAdd(false);
+        loadStaff();
+      }
+    } catch (e: any) {
+      setMsg({ type: 'error', text: '添加失败：' + e.message });
+    } finally {
+      setAdding(false);
     }
   };
 
-  const handleSetPwd = async (e: React.FormEvent) => {
+  // 重置密码
+  const handleResetPwd = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!settingPwd || !settingPwd.pwd) return;
-    localStorage.setItem(`staff_pwd_${settingPwd.email}`, settingPwd.pwd);
-    setMsg({ type: 'success', text: '密码已设置，请告知员工' });
-    setSettingPwd(null);
+    if (!resetPwd || !resetPwd.pwd || resetPwd.pwd.length < 6) {
+      setMsg({ type: 'error', text: '密码至少6位' });
+      return;
+    }
+    
+    setAdding(true);
+    setMsg(null);
+    
+    try {
+      // 查找对应的 user_id
+      const staff = staffList.find(s => s.id === resetPwd.id);
+      if (!staff?.user_id) {
+        setMsg({ type: 'error', text: '未找到关联的用户账号' });
+        setAdding(false);
+        return;
+      }
+      
+      // 使用 admin API 更新用户密码
+      const res = await fetch('/api/admin/update-user-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId: staff.user_id, newPassword: resetPwd.pwd })
+      });
+      
+      const result = await res.json();
+      if (result.error) {
+        setMsg({ type: 'error', text: '重置密码失败：' + result.error });
+      } else {
+        setMsg({ type: 'success', text: '密码已重置，请告知员工' });
+        setResetPwd(null);
+      }
+    } catch (e: any) {
+      setMsg({ type: 'error', text: '重置失败：' + e.message });
+    } finally {
+      setAdding(false);
+    }
   };
 
   const handleToggleActive = async (staff: Staff) => {
@@ -104,7 +182,7 @@ export default function AdminStaffPage() {
         <div>
           <Link href="/admin/dashboard" className="text-sm text-[var(--foreground-muted)] hover:text-[var(--primary)] mb-1 inline-block">← 返回后台</Link>
           <h1 className="text-2xl text-[var(--foreground)]" style={{ fontFamily: 'var(--font-serif)' }}>员工管理</h1>
-          <p className="text-sm text-[var(--foreground-muted)] mt-1">添加员工账号，设置登录密码</p>
+          <p className="text-sm text-[var(--foreground-muted)] mt-1">添加员工账号，设置登录密码（Supabase Auth）</p>
         </div>
         <button
           onClick={() => setShowAdd(true)}
@@ -131,7 +209,14 @@ export default function AdminStaffPage() {
         </div>
       ) : staffList.length === 0 ? (
         <div className="text-center py-16 text-[var(--foreground-muted)]">
-          <div className="text-4xl mb-3">-</div>
+          <div className="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center" style={{ background: 'var(--primary-light)' }}>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="1.5">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </div>
           <p>暂无员工，点击上方按钮添加</p>
         </div>
       ) : (
@@ -147,18 +232,23 @@ export default function AdminStaffPage() {
                   <span className={`text-xs px-2 py-0.5 rounded-full ${staff.is_active ? 'bg-green-50 text-green-700' : 'bg-gray-100 text-gray-400'}`}>
                     {staff.is_active ? '已激活' : '已停用'}
                   </span>
+                  {staff.user_id && (
+                    <span className="text-xs px-2 py-0.5 rounded-full bg-blue-50 text-blue-600">已绑定账号</span>
+                  )}
                 </div>
                 <div className="text-sm text-[var(--foreground-muted)] mt-0.5">
                   {staff.role} · {staff.email || staff.phone || '未设置联系方式'}
                 </div>
               </div>
               <div className="flex gap-2">
-                <button
-                  onClick={() => setSettingPwd({ id: staff.id, email: staff.email || '', pwd: '' })}
-                  className="px-3 py-1.5 rounded-lg border border-[var(--primary-light)] text-xs text-[var(--primary)] hover:bg-[var(--primary-light)] transition-all"
-                >
-                  设置密码
-                </button>
+                {staff.user_id && (
+                  <button
+                    onClick={() => setResetPwd({ id: staff.id, email: staff.email || '', pwd: '' })}
+                    className="px-3 py-1.5 rounded-lg border border-[var(--primary-light)] text-xs text-[var(--primary)] hover:bg-[var(--primary-light)] transition-all"
+                  >
+                    重置密码
+                  </button>
+                )}
                 <button
                   onClick={() => handleToggleActive(staff)}
                   className={`px-3 py-1.5 rounded-lg text-xs transition-all ${staff.is_active ? 'text-red-500 border border-red-200 hover:bg-red-50' : 'text-green-600 border border-green-200 hover:bg-green-50'}`}
@@ -173,12 +263,12 @@ export default function AdminStaffPage() {
 
       {/* 密码说明 */}
       <div className="bg-[var(--background-secondary)] rounded-2xl p-5 border border-[var(--primary-light)]">
-        <h3 className="font-medium text-[var(--foreground)] mb-2 text-sm">密码说明</h3>
+        <h3 className="font-medium text-[var(--foreground)] mb-2 text-sm">账号说明</h3>
         <ul className="text-xs text-[var(--foreground-muted)] space-y-1">
-          <li>· 员工账号由商家添加，密码由商家设置后告知员工</li>
-          <li>· 员工首次登录需使用商家设置的密码</li>
-          <li>· 可随时在此页面修改员工密码</li>
-          <li>· 密码存储在本地，重置设备后需重新设置</li>
+          <li>· 员工账号使用 Supabase Auth，安全可靠</li>
+          <li>· 添加员工时自动创建登录账号，密码加密存储</li>
+          <li>· 员工使用邮箱 + 密码在员工登录页登录</li>
+          <li>· 商家可随时重置员工密码</li>
         </ul>
       </div>
 
@@ -206,35 +296,36 @@ export default function AdminStaffPage() {
               <div>
                 <label className="block text-sm font-medium text-[var(--foreground)] mb-1">初始密码</label>
                 <input type="password" value={newStaff.password} onChange={e => setNewStaff(s => ({ ...s, password: e.target.value }))}
-                  className="w-full px-4 py-2.5 rounded-xl border border-[var(--primary-light)] text-sm focus:outline-none focus:ring-2 focus:ring-[var(--primary)]" placeholder="设置员工登录密码" />
+                  className="w-full px-4 py-2.5 rounded-xl border border-[var(--primary-light)] text-sm focus:outline-none focus:ring-2 focus:ring-[var(--primary)]" placeholder="至少6位" />
               </div>
-              {msg?.type === 'error' && msg.text.includes('添加失败') && (
-                <div className="text-red-600 text-sm">{msg.text}</div>
-              )}
               <div className="flex gap-3 pt-2">
                 <button type="button" onClick={() => setShowAdd(false)} className="flex-1 py-2.5 rounded-xl border border-[var(--primary-light)] text-sm text-[var(--foreground-muted)]">取消</button>
-                <button type="submit" className="flex-1 py-2.5 rounded-xl text-white text-sm font-medium" style={{ background: 'var(--primary)' }}>确认添加</button>
+                <button type="submit" disabled={adding} className="flex-1 py-2.5 rounded-xl text-white text-sm font-medium disabled:opacity-50" style={{ background: 'var(--primary)' }}>
+                  {adding ? '创建中...' : '确认添加'}
+                </button>
               </div>
             </form>
           </div>
         </div>
       )}
 
-      {/* 修改密码弹窗 */}
-      {settingPwd && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 px-4" onClick={e => { if (e.target === e.currentTarget) setSettingPwd(null); }}>
+      {/* 重置密码弹窗 */}
+      {resetPwd && (
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 px-4" onClick={e => { if (e.target === e.currentTarget) setResetPwd(null); }}>
           <div className="bg-white rounded-2xl p-6 w-full max-w-sm">
-            <h2 className="text-xl text-[var(--foreground)] mb-2" style={{ fontFamily: 'var(--font-serif)' }}>设置密码</h2>
-            <p className="text-sm text-[var(--foreground-muted)] mb-5">账号：{settingPwd.email}</p>
-            <form onSubmit={handleSetPwd} className="space-y-4">
+            <h2 className="text-xl text-[var(--foreground)] mb-2" style={{ fontFamily: 'var(--font-serif)' }}>重置密码</h2>
+            <p className="text-sm text-[var(--foreground-muted)] mb-5">账号：{resetPwd.email}</p>
+            <form onSubmit={handleResetPwd} className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-[var(--foreground)] mb-1">新密码</label>
-                <input type="password" value={settingPwd.pwd} onChange={e => setSettingPwd(s => s ? ({ ...s, pwd: e.target.value }) : null)}
-                  className="w-full px-4 py-2.5 rounded-xl border border-[var(--primary-light)] text-sm focus:outline-none focus:ring-2 focus:ring-[var(--primary)]" placeholder="输入新密码" autoFocus />
+                <input type="password" value={resetPwd.pwd} onChange={e => setResetPwd(s => s ? ({ ...s, pwd: e.target.value }) : null)}
+                  className="w-full px-4 py-2.5 rounded-xl border border-[var(--primary-light)] text-sm focus:outline-none focus:ring-2 focus:ring-[var(--primary)]" placeholder="至少6位" autoFocus />
               </div>
               <div className="flex gap-3">
-                <button type="button" onClick={() => setSettingPwd(null)} className="flex-1 py-2.5 rounded-xl border border-[var(--primary-light)] text-sm text-[var(--foreground-muted)]">取消</button>
-                <button type="submit" className="flex-1 py-2.5 rounded-xl text-white text-sm font-medium" style={{ background: 'var(--primary)' }}>确认</button>
+                <button type="button" onClick={() => setResetPwd(null)} className="flex-1 py-2.5 rounded-xl border border-[var(--primary-light)] text-sm text-[var(--foreground-muted)]">取消</button>
+                <button type="submit" disabled={adding} className="flex-1 py-2.5 rounded-xl text-white text-sm font-medium disabled:opacity-50" style={{ background: 'var(--primary)' }}>
+                  {adding ? '处理中...' : '确认'}
+                </button>
               </div>
             </form>
           </div>
