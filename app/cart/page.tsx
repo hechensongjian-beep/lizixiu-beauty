@@ -114,7 +114,7 @@ export default function CartPage() {
                       <div className="flex justify-between items-start">
                         <div>
                           <h4 className="text-xl font-bold text-gray-900">{product.name}</h4>
-                          <p className="text-gray-600 text-sm mt-1">{product.description}</p>
+                          <p className="text-base text-gray-600 mt-1">{product.description}</p>
                           <div className="mt-2 text-sm text-gray-500">分类：{product.category} · 库存：{product.stock} 件</div>
                         </div>
                         <div className="text-right ml-4">
