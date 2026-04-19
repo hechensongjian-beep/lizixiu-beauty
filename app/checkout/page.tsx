@@ -238,7 +238,7 @@ export default function CheckoutPage() {
                 <IconClock className="text-gray-400" />
               </div>
               <p className="text-gray-600">商家暂未设置收款码</p>
-              <p className="text-sm text-gray-500 mt-2">请联系商家获取支付方式</p>
+              <p className="text-base text-gray-500 mt-2">请联系商家获取支付方式</p>
             </div>
           )}
 
@@ -249,7 +249,7 @@ export default function CheckoutPage() {
               {countdown === 0 && <span className="ml-2 text-red-600 font-bold">（已超时）</span>}
             </div>
           </div>
-          <div className="mt-6 bg-gray-50 rounded-xl p-4 text-sm text-gray-700 space-y-2">
+          <div className="mt-6 bg-gray-50 rounded-xl p-4 text-base text-gray-700 space-y-2">
             <p><strong>商家：</strong>{paymentInfo.merchantName}</p>
             <p><strong>收货人：</strong>{form.customerName}，{form.customerPhone}</p>
             {deliveryMethod !== 'pickup' && <p><strong>收货地址：</strong>{form.shippingAddress}</p>}
@@ -273,7 +273,7 @@ export default function CheckoutPage() {
             <div className="text-center">
               {hasWechat && hasAlipay && (
                 <div className="mb-6 p-4 bg-gray-50 rounded-xl">
-                  <p className="text-sm text-gray-600 mb-3">请选择支付方式：</p>
+                  <p className="text-base text-gray-600 mb-3">请选择支付方式：</p>
                   <div className="flex justify-center gap-4">
                     <label className={`flex items-center gap-2 cursor-pointer px-6 py-3 rounded-xl border-2 transition ${selectedChannel === 'wechat' ? 'border-green-500 bg-green-50' : 'border-gray-200 hover:border-green-300'}`}>
                       <input type="radio" name="pchannel" value="wechat" checked={selectedChannel === 'wechat'} onChange={() => setSelectedChannel('wechat')} className="hidden" />
@@ -286,7 +286,7 @@ export default function CheckoutPage() {
                   </div>
                 </div>
               )}
-              <p className="text-gray-500 mb-4 text-sm">扫码支付完成后，点击下方按钮提交凭证</p>
+              <p className="text-gray-500 mb-4 text-base">扫码支付完成后，点击下方按钮提交凭证</p>
             <button
               onClick={async () => {
                 if (!currentOrder) return;
@@ -311,7 +311,7 @@ export default function CheckoutPage() {
             >
               {submittingPayment ? '提交中...' : '我已扫码支付，提交凭证'}
             </button>
-            {!hasQr && <p className="text-sm text-gray-500 mt-2">商家暂未配置收款码，请联系商家获取支付方式</p>}
+            {!hasQr && <p className="text-base text-gray-500 mt-2">商家暂未配置收款码，请联系商家获取支付方式</p>}
             <div className="mt-4"><Link href="/orders" className="text-gray-500 hover:text-gray-700 text-sm">查看我的订单</Link></div>
           </div>
         )}
@@ -327,7 +327,7 @@ export default function CheckoutPage() {
           <p className="text-gray-700 font-medium mb-3">您当前以访客身份操作，填写下方信息可直接下单</p>
           <div className="flex items-center justify-center gap-3 flex-wrap">
             <Link href="/auth/login" className="px-6 py-2 text-white font-bold rounded-xl transition" style={{"background":'linear-gradient(135deg,#c9a87c 0%,#e8d5b8 100%)'}}>登录/注册</Link>
-            <span className="text-gray-400 text-sm">登录后可保存订单记录、享受更多服务</span>
+            <span className="text-gray-400 text-base">登录后可保存订单记录、享受更多服务</span>
           </div>
         </div>
       )}
@@ -359,7 +359,7 @@ export default function CheckoutPage() {
                   <button key={opt.key} onClick={() => setDeliveryMethod(opt.key)}
                     className={`p-4 rounded-xl text-center transition border-2 ${deliveryMethod === opt.key ? 'border-[#c9a87c] bg-[#faf8f5]' : 'border-gray-200 hover:border-[#c9a87c44]'}`}>
                     <div className="font-bold text-gray-900">{opt.label}</div>
-                    <div className="text-xs text-gray-500 mt-1">{opt.desc}</div>
+                    <div className="text-sm text-gray-500 mt-1">{opt.desc}</div>
                   </button>
                 ))}
               </div>
@@ -434,7 +434,7 @@ export default function CheckoutPage() {
                 <div key={item.productId} className="flex justify-between items-center border-b border-gray-100 pb-4">
                   <div>
                     <div className="font-medium text-gray-900">{item.name}</div>
-                    <div className="text-sm text-gray-600">{item.quantity} x {fmt(item.price)}</div>
+                    <div className="text-base text-gray-600">{item.quantity} x {fmt(item.price)}</div>
                   </div>
                   <div className="font-bold">{fmt(item.price * item.quantity)}</div>
                 </div>
@@ -447,10 +447,10 @@ export default function CheckoutPage() {
               </div>
             </div>
             <div className="border-t border-gray-200 pt-6 space-y-3">
-              <div className="flex items-center gap-2 text-sm text-gray-600"><IconShield className="text-gray-500" /><span>SSL 加密支付</span></div>
-              <div className="flex items-center gap-2 text-sm text-gray-600"><IconReturn className="text-gray-500" /><span>7 天无忧退换</span></div>
+              <div className="flex items-center gap-2 text-base text-gray-600"><IconShield className="text-gray-500" /><span>SSL 加密支付</span></div>
+              <div className="flex items-center gap-2 text-base text-gray-600"><IconReturn className="text-gray-500" /><span>7 天无忧退换</span></div>
               {(paymentInfo.wechatQr || paymentInfo.alipayQr) && (
-                <div className="flex items-center gap-2 text-sm mt-2" style={{color:'#2d8a5e'}}>
+                <div className="flex items-center gap-2 text-base mt-2" style={{color:'#2d8a5e'}}>
                   <IconCheck className="text-[#2d8a5e]" />
                   <span>商家收款码已配置</span>
                 </div>
