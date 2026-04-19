@@ -1,7 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { useAuth } from '@/components/AuthProvider';
 import { getAllTestimonials, createTestimonial, updateTestimonial, deleteTestimonial } from '@/lib/api';
 
 interface Testimonial {
@@ -16,6 +18,19 @@ interface Testimonial {
 }
 
 export default function TestimonialsPage() {
+  const router = useRouter();
+  const { role } = useAuth();
+
+  // Permission guard
+  if (role && role !== 'merchant' && role !== 'admin') {
+    router.replace('/auth/login');
+    return (
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <div className="animate-spin rounded-full h-8 w-8 border-2 border-[#c9a87c] border-t-transparent"></div>
+      </div>
+    );
+  }
+
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [loading, setLoading] = useState(true);
   const [showAdd, setShowAdd] = useState(false);
