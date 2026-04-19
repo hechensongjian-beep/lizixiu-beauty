@@ -209,8 +209,8 @@ export default function ProductsPage() {
                   </div>
                 )}
 
-                <h3 className="text-lg font-bold mb-1" style={{color:'#2a2a28'}}>{product.name}</h3>
-                <p className="text-sm mb-4 line-clamp-2" style={{color:'#6b6b68'}}>{product.description}</p>
+                <h3 className="text-xl font-bold mb-2" style={{color:'#2a2a28'}}>{product.name}</h3>
+                <p className="text-base mb-4 line-clamp-2" style={{color:'#6b6b68'}}>{product.description}</p>
 
                 <div className="flex items-center justify-between mb-4">
                   <div>

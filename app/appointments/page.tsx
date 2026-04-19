@@ -166,7 +166,7 @@ export default function AppointmentsPage() {
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* 服务选择 */}
         <div className="bg-white rounded-2xl p-6" style={{boxShadow:'0 4px 20px rgba(0,0,0,0.04)',border:'1px solid rgba(201,168,124,0.15)'}}>
-          <h2 className="text-lg font-bold mb-4" style={{fontFamily:"'Noto Serif SC',serif",color:'#2a2a28'}}>选择服务项目</h2>
+          <h2 className="text-xl font-bold mb-5" style={{fontFamily:"'Noto Serif SC',serif",color:'#2a2a28'}}>选择服务项目</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {services.map(svc => (
               <button key={svc.id} type="button" onClick={() => toggleService(svc.id)}
@@ -176,11 +176,11 @@ export default function AppointmentsPage() {
                   borderColor: selectedServices.includes(svc.id) ? '#c9a87c' : '#e8e4df',
                   background: selectedServices.includes(svc.id) ? '#faf8f5' : 'white',
                 }}>
-                <div className="font-bold" style={{color:'#2a2a28'}}>{svc.name}</div>
-                <div className="text-xs mt-1" style={{color:'#6b6b68'}}>{svc.description?.substring(0,40) || ''}</div>
+                <div className="font-bold text-lg" style={{color:'#2a2a28'}}>{svc.name}</div>
+                <div className="text-sm mt-1" style={{color:'#6b6b68'}}>{svc.description?.substring(0,40) || ''}</div>
                 <div className="flex justify-between items-center mt-2">
-                  <span style={{color:'#a88a5c',fontWeight:700}}>{fmt(svc.price)}</span>
-                  <span className="text-xs" style={{color:'#9b9b98'}}>{svc.duration || 60}分钟</span>
+                  <span className="text-lg" style={{color:'#a88a5c',fontWeight:700}}>{fmt(svc.price)}</span>
+                  <span className="text-sm" style={{color:'#9b9b98'}}>{svc.duration || 60}分钟</span>
                 </div>
               </button>
             ))}
@@ -201,22 +201,22 @@ export default function AppointmentsPage() {
 
         {/* 日期+时间+员工 */}
         <div className="bg-white rounded-2xl p-6" style={{boxShadow:'0 4px 20px rgba(0,0,0,0.04)',border:'1px solid rgba(201,168,124,0.15)'}}>
-          <h2 className="text-lg font-bold mb-4" style={{fontFamily:"'Noto Serif SC',serif",color:'#2a2a28'}}>选择时间与美容师</h2>
+          <h2 className="text-xl font-bold mb-5" style={{fontFamily:"'Noto Serif SC',serif",color:'#2a2a28'}}>选择时间与美容师</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
             <div>
-              <label className="block text-sm font-medium mb-2" style={{color:'#2a2a28'}}>预约日期</label>
+              <label className="block font-medium mb-2" style={{color:'#2a2a28',fontSize:'1rem'}}>预约日期</label>
               <input type="date" value={date} min={today} onChange={e => {setDate(e.target.value);setTime('');}}
                 className="w-full px-4 py-3 rounded-xl outline-none transition"
-                style={{border:'1.5px solid #e8e4df',background:'white'}}
+                style={{border:'1.5px solid #e8e4df',background:'white',fontSize:'1rem'}}
                 onFocus={e=>e.target.style.borderColor='#c9a87c'}
                 onBlur={e=>e.target.style.borderColor='#e8e4df'}
                 required />
             </div>
             <div>
-              <label className="block text-sm font-medium mb-2" style={{color:'#2a2a28'}}>服务美容师</label>
+              <label className="block font-medium mb-2" style={{color:'#2a2a28',fontSize:'1rem'}}>服务美容师</label>
               <select value={staffId} onChange={e => {setStaffId(e.target.value);setTime('');}}
                 className="w-full px-4 py-3 rounded-xl outline-none transition"
-                style={{border:'1.5px solid #e8e4df',background:'white',color:'#2a2a28'}}
+                style={{border:'1.5px solid #e8e4df',background:'white',color:'#2a2a28',fontSize:'1rem'}}
                 onFocus={e=>e.target.style.borderColor='#c9a87c'}
                 onBlur={e=>e.target.style.borderColor='#e8e4df'}
                 required>

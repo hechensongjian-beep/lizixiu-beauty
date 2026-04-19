@@ -104,10 +104,10 @@ export default function ServicesPage() {
       <div className="flex flex-wrap justify-center gap-2 mb-8">
         {categories.map(cat => (
           <button key={cat} onClick={() => setFilter(cat === '全部' ? '' : cat)}
-            className="px-4 py-2 rounded-full text-sm font-medium transition"
+            className="px-5 py-2.5 rounded-full font-medium transition"
             style={(!filter && cat === '全部') || filter === cat
-              ? {background:'linear-gradient(135deg, #c9a87c, #b8956a)',color:'white',boxShadow:'0 2px 8px rgba(201,168,124,0.3)'}
-              : {background:'white',border:'1.5px solid #e8e4df',color:'#6b6b68'}}>
+              ? {background:'linear-gradient(135deg, #c9a87c, #b8956a)',color:'white',boxShadow:'0 2px 8px rgba(201,168,124,0.3)',fontSize:'1rem'}
+              : {background:'white',border:'1.5px solid #e8e4df',color:'#6b6b68',fontSize:'1rem'}}>
             {cat}
           </button>
         ))}
@@ -144,26 +144,26 @@ export default function ServicesPage() {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-start justify-between gap-2">
                     <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 flex-wrap mb-1">
-                        <h3 className="font-bold text-lg" style={{color:'#2a2a28'}}>{service.name}</h3>
+                      <div className="flex items-center gap-2 flex-wrap mb-2">
+                        <h3 className="font-bold text-xl" style={{color:'#2a2a28'}}>{service.name}</h3>
                         {service.category && (
-                          <span className="text-xs px-2 py-0.5 rounded-full" style={{background:'rgba(201,168,124,0.1)',color:'#a88a5c'}}>{service.category}</span>
+                          <span className="text-sm px-2.5 py-1 rounded-full" style={{background:'rgba(201,168,124,0.1)',color:'#a88a5c'}}>{service.category}</span>
                         )}
                         {service.popularity && service.popularity > 80 && (
-                          <span className="text-xs px-2 py-0.5 rounded-full bg-red-50 text-red-500 font-medium">热门</span>
+                          <span className="text-sm px-2.5 py-1 rounded-full bg-red-50 text-red-500 font-medium">热门</span>
                         )}
                       </div>
                       {service.description && (
-                        <p className="text-sm text-gray-500 mb-2 line-clamp-2">{service.description}</p>
+                        <p className="text-base text-gray-500 mb-2 line-clamp-2">{service.description}</p>
                       )}
-                      <div className="flex items-center gap-4 text-xs" style={{color:'#9b9b98'}}>
+                      <div className="flex items-center gap-4 text-sm" style={{color:'#9b9b98'}}>
                         {service.duration > 0 && <span>⏱ {formatDuration(service.duration)}</span>}
                         {service.popularity && <span>🔥 {service.popularity}热度</span>}
                       </div>
                     </div>
                     <div className="text-right flex-shrink-0">
-                      <div className="text-xl font-bold" style={{color:'#a88a5c'}}>{formatCurrency(service.price)}</div>
-                      <div className="mt-2 px-4 py-1.5 rounded-lg text-xs font-medium text-white inline-block" style={{background:'var(--primary)'}}>查看详情</div>
+                      <div className="text-2xl font-bold" style={{color:'#a88a5c'}}>{formatCurrency(service.price)}</div>
+                      <div className="mt-2 px-4 py-2 rounded-lg text-sm font-medium text-white inline-block" style={{background:'var(--primary)'}}>查看详情</div>
                     </div>
                   </div>
                 </div>
