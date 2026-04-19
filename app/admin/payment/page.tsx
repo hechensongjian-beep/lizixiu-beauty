@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/components/AuthProvider';
 import { useRouter } from 'next/navigation';
-import { supabaseAdmin } from '@/lib/supabase-admin';
 import { getPaymentSettings, savePaymentSettings } from '@/lib/api';
 
 interface PaymentSettings { wechatQr: string; alipayQr: string; merchantName: string; }
@@ -65,12 +64,16 @@ export default function PaymentSettingsPage() {
     try {
       const ext = file.name.split('.').pop() || 'png';
       const name = `${type}_qr_${Date.now()}.${ext}`;
-      const { error } = await supabaseAdmin.storage.from('payment-qr').upload(name, file, { upsert: true });
-      if (error) { alert(`上传失败: ${error.message}`); return; }
-      const { data: urlData } = supabaseAdmin.storage.from('payment-qr').getPublicUrl(name);
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('bucket', 'payment-qr');
+      formData.append('name', name);
+      const res = await fetch('/api/admin/upload', { method: 'POST', body: formData });
+      const result = await res.json();
+      if (result.error) { alert(`Upload failed: ${result.error}`); return; }
       const key = type === 'wechat' ? 'wechatQr' : 'alipayQr';
-      setSettings(s => ({ ...s, [key]: urlData.publicUrl }));
-    } catch (e: any) { alert(`上传失败: ${e.message}`); }
+      setSettings(s => ({ ...s, [key]: result.url }));
+    } catch (e: any) { alert(`Upload failed: ${e.message}`); }
     finally { setUploading(null); }
   };
 

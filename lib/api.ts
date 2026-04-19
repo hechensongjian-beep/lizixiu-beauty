@@ -1,7 +1,6 @@
 // @ts-nocheck
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { supabase } from '@/lib/supabase';
-import { supabaseAdmin } from '@/lib/supabase-admin';
 
 // ===== Formatters =====
 function fmtProduct(p: any): any {
@@ -398,24 +397,39 @@ export async function getAllTestimonials(): Promise<any> {
 
 export async function createTestimonial(payload: { name: string; avatar?: string; service?: string; text: string; score?: number }): Promise<any> {
   try {
-    const { data, error } = await supabaseAdmin.from('testimonials').insert(payload).select().single();
-    if (error) return { error: error.message };
-    return { testimonial: data };
+    const res = await fetch('/api/admin/testimonials', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'create', payload }),
+    });
+    const result = await res.json();
+    if (result.error) return { error: result.error };
+    return { testimonial: result.data };
   } catch (e) { return { error: String(e) }; }
 }
 
 export async function updateTestimonial(id: string, payload: Partial<{ name: string; avatar: string; service: string; text: string; score: number; is_active: boolean; sort_order: number }>): Promise<any> {
   try {
-    const { data, error } = await supabaseAdmin.from('testimonials').update(payload).eq('id', id).select().single();
-    if (error) return { error: error.message };
-    return { testimonial: data };
+    const res = await fetch('/api/admin/testimonials', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'update', id, payload }),
+    });
+    const result = await res.json();
+    if (result.error) return { error: result.error };
+    return { testimonial: result.data };
   } catch (e) { return { error: String(e) }; }
 }
 
 export async function deleteTestimonial(id: string): Promise<any> {
   try {
-    const { error } = await supabaseAdmin.from('testimonials').delete().eq('id', id);
-    if (error) return { error: error.message };
+    const res = await fetch('/api/admin/testimonials', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'delete', id }),
+    });
+    const result = await res.json();
+    if (result.error) return { error: result.error };
     return { success: true };
   } catch (e) { return { error: String(e) }; }
 }

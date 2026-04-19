@@ -4,7 +4,6 @@ import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/components/AuthProvider';
 import { useRouter } from 'next/navigation';
-import { supabaseAdmin } from '@/lib/supabase-admin';
 import { getProducts, createProduct, updateProduct, deleteProduct } from '@/lib/api';
 
 interface Product {
@@ -58,10 +57,14 @@ export default function AdminProductsPage() {
     try {
       const ext = file.name.split('.').pop();
       const name = `product_${Date.now()}.${ext}`;
-      const { data, error } = await supabaseAdmin.storage.from('product-images').upload(name, file, { upsert: true });
-      if (error) { console.error('上传失败:', error); return null; }
-      const { data: urlData } = supabaseAdmin.storage.from('product-images').getPublicUrl(name);
-      return urlData.publicUrl;
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('bucket', 'product-images');
+      formData.append('name', name);
+      const res = await fetch('/api/admin/upload', { method: 'POST', body: formData });
+      const result = await res.json();
+      if (result.error) { console.error('Upload failed:', result.error); return null; }
+      return result.url;
     } catch (e) { console.error(e); return null; }
     finally { setUploading(false); }
   };
