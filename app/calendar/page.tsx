@@ -32,17 +32,17 @@ function CalendarGrid({ date, appointments, onPrev, onNext, today }: { date: Dat
           const appt = dayAppts.find(a => a.start_time?.substring(11,16) === time);
           return (
             <div key={time} className="flex items-stretch min-h-[52px]">
-              <div className="w-20 py-3 px-3 text-xs text-gray-400 font-medium border-r border-gray-100 flex-shrink-0">{time}</div>
+              <div className="w-20 py-3 px-3 text-sm text-gray-400 font-medium border-r border-gray-100 flex-shrink-0">{time}</div>
               <div className="flex-1 py-2 px-3">
                 {appt ? (
-                  <div className={`px-3 py-2 rounded-lg border-l-4 text-xs ${STATUS_COLORS[appt.status] || STATUS_COLORS.pending}`}>
+                  <div className={`px-3 py-2 rounded-lg border-l-4 text-sm ${STATUS_COLORS[appt.status] || STATUS_COLORS.pending}`}>
                     <div className="font-bold">{appt.service_name || appt.service_type || '服务'}</div>
                     <div className="opacity-75">{appt.customer_name || '客户'} · {appt.staff_name || '美容师'}</div>
                     <div className="opacity-60">{appt.start_time?.substring(11,16)} – {appt.end_time?.substring(11,16)}</div>
                     {appt.notes && <div className="opacity-60 mt-1">备注：{appt.notes}</div>}
                   </div>
                 ) : (
-                  <div className="h-8 flex items-center text-xs text-gray-300">空闲</div>
+                  <div className="h-8 flex items-center text-sm text-gray-300">空闲</div>
                 )}
               </div>
             </div>
@@ -135,7 +135,7 @@ export default function CalendarPage() {
             </div>
             <div className="grid grid-cols-7 bg-gray-50 border-b">
               {['日','一','二','三','四','五','六'].map(d => (
-                <div key={d} className="py-2 text-center text-xs font-semibold text-gray-500">{d}</div>
+                <div key={d} className="py-2 text-center text-sm font-semibold text-gray-500">{d}</div>
               ))}
             </div>
             <div className="grid grid-cols-7">
@@ -150,7 +150,7 @@ export default function CalendarPage() {
                     className={`min-h-[70px] border-r border-b border-gray-100 p-1.5 cursor-pointer ${isToday ? 'bg-[#c9a87c]/10' : ''} hover:bg-gray-50`}>
                     <div className={`w-7 h-7 flex items-center justify-center rounded-full text-sm font-medium mb-1 ${isToday ? 'bg-[#c9a87c] text-white' : 'text-gray-700'}`}>{day}</div>
                     {count > 0 && <div className="flex flex-wrap gap-1">{[...Array(Math.min(count,3))].map((_,i) => <div key={i} className="w-2 h-2 bg-[#c9a87c] rounded-full"></div>)}</div>}
-                    {count > 3 && <div className="text-xs text-gray-400 mt-0.5">+{count-3}</div>}
+                    {count > 3 && <div className="text-sm text-gray-400 mt-0.5">+{count-3}</div>}
                   </div>
                 );
               })}
@@ -167,7 +167,7 @@ export default function CalendarPage() {
         <h3 className="font-bold text-gray-800 mb-3">状态说明</h3>
         <div className="flex flex-wrap gap-4">
           {Object.entries(STATUS_COLORS).map(([status, cls]) => (
-            <div key={status} className={`px-3 py-1.5 rounded-full text-xs font-medium ${cls}`}>{STATUS_LABEL[status] || status}</div>
+            <div key={status} className={`px-3 py-1.5 rounded-full text-sm font-medium ${cls}`}>{STATUS_LABEL[status] || status}</div>
           ))}
         </div>
       </div>

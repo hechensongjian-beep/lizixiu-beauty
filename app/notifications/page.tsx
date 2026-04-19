@@ -188,38 +188,38 @@ export default function NotificationsPage() {
                     <div className="flex justify-between items-start">
                       <div>
                         <h3 className={`font-bold ${notif.read ? 'text-[#2a2a28]' : 'text-[#a88a5c]'}`}>{notif.title}</h3>
-                        <span className={`text-xs px-2 py-0.5 rounded-full mt-1 inline-block ${TYPE_CONFIG[notif.type]?.bg || ''} ${TYPE_CONFIG[notif.type]?.text || ''}`}>
+                        <span className={`text-sm px-2 py-0.5 rounded-full mt-1 inline-block ${TYPE_CONFIG[notif.type]?.bg || ''} ${TYPE_CONFIG[notif.type]?.text || ''}`}>
                           {TYPE_CONFIG[notif.type]?.label || '通知'}
                         </span>
                       </div>
                       <div className="flex items-center gap-2 flex-shrink-0 ml-2">
                         {!notif.read && <div className="w-2.5 h-2.5 bg-[#c9a87c] rounded-full"></div>}
-                        <span className="text-xs text-[#6b6b68] whitespace-nowrap">{formatRelativeTime(notif.time)}</span>
+                        <span className="text-sm text-[#6b6b68] whitespace-nowrap">{formatRelativeTime(notif.time)}</span>
                       </div>
                     </div>
                     <p className="text-[#6b6b68] text-sm mt-2 leading-relaxed">{notif.content}</p>
                     <div className="flex gap-3 mt-3">
                       {!notif.read && (
-                        <button onClick={() => markRead(notif.id)} className="text-xs text-[#c9a87c] font-medium hover:underline">
+                        <button onClick={() => markRead(notif.id)} className="text-sm text-[#c9a87c] font-medium hover:underline">
                           标为已读
                         </button>
                       )}
                       {notif.type === 'promotion' && !notif.read && (
-                        <Link href="/products" onClick={() => markRead(notif.id)} className="text-xs text-[#2d4a3e] font-medium hover:underline">
+                        <Link href="/products" onClick={() => markRead(notif.id)} className="text-sm text-[#2d4a3e] font-medium hover:underline">
                           查看商品
                         </Link>
                       )}
                       {notif.type === 'appointment' && (
-                        <Link href="/appointments" onClick={() => markRead(notif.id)} className="text-xs text-[#2d4a3e] font-medium hover:underline">
+                        <Link href="/appointments" onClick={() => markRead(notif.id)} className="text-sm text-[#2d4a3e] font-medium hover:underline">
                           查看预约
                         </Link>
                       )}
                       {notif.type === 'order' && (
-                        <Link href="/orders" onClick={() => markRead(notif.id)} className="text-xs text-[#2d4a3e] font-medium hover:underline">
+                        <Link href="/orders" onClick={() => markRead(notif.id)} className="text-sm text-[#2d4a3e] font-medium hover:underline">
                           查看订单
                         </Link>
                       )}
-                      <button onClick={() => deleteNotif(notif.id)} className="text-xs text-[#6b6b68] hover:text-red-500 ml-auto transition">
+                      <button onClick={() => deleteNotif(notif.id)} className="text-sm text-[#6b6b68] hover:text-red-500 ml-auto transition">
                         删除
                       </button>
                     </div>

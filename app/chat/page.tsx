@@ -210,12 +210,12 @@ export default function ChatPage() {
                   <div className="flex-1 min-w-0">
                     <div className="flex justify-between items-center">
                       <span className={`font-bold text-[#2a2a28] ${conv.unread > 0 ? 'text-[#a88a5c]' : ''}`}>{conv.customerName}</span>
-                      <span className="text-xs text-[#6b6b68]">{formatTime(conv.lastTime)}</span>
+                      <span className="text-sm text-[#6b6b68]">{formatTime(conv.lastTime)}</span>
                     </div>
                     <p className="text-sm text-[#6b6b68] truncate mt-1">{conv.lastMessage}</p>
                   </div>
                   {conv.unread > 0 && (
-                    <div className="w-6 h-6 bg-[#c9a87c] text-white text-xs font-bold rounded-full flex items-center justify-center flex-shrink-0">
+                    <div className="w-6 h-6 bg-[#c9a87c] text-white text-sm font-bold rounded-full flex items-center justify-center flex-shrink-0">
                       {conv.unread}
                     </div>
                   )}
@@ -234,7 +234,7 @@ export default function ChatPage() {
               </div>
               <div className="flex-1">
                 <div className="font-bold text-[#2a2a28]">{activeConv?.customerName}</div>
-                <div className="text-xs text-[#6b6b68]">{activeConv?.status === 'online' ? '在线' : '离线'}</div>
+                <div className="text-sm text-[#6b6b68]">{activeConv?.status === 'online' ? '在线' : '离线'}</div>
               </div>
               <div className="text-sm text-[#6b6b68]">
                 {messages.length} 条消息
@@ -247,8 +247,8 @@ export default function ChatPage() {
                 <div key={msg.id}>
                   {msg.sender === 'system' ? (
                     <div className="text-center">
-                      <div className="inline-block bg-[#e8d5b8]/50 text-[#6b6b68] text-xs px-4 py-1.5 rounded-full">{msg.content}</div>
-                      <div className="text-xs text-[#6b6b68] mt-1">{formatTime(msg.timestamp)}</div>
+                      <div className="inline-block bg-[#e8d5b8]/50 text-[#6b6b68] text-sm px-4 py-1.5 rounded-full">{msg.content}</div>
+                      <div className="text-sm text-[#6b6b68] mt-1">{formatTime(msg.timestamp)}</div>
                     </div>
                   ) : (
                     <div className={`flex items-end gap-3 ${msg.sender === 'merchant' ? 'flex-row-reverse' : ''}`}>
@@ -257,7 +257,7 @@ export default function ChatPage() {
                         <div className={`px-4 py-3 rounded-2xl text-sm ${msg.sender === 'merchant' ? 'bg-gradient-to-r from-[#c9a87c] to-[#e8d5b8] text-white rounded-br-sm' : 'bg-white border border-[#e8d5b8]/30 text-[#2a2a28] rounded-bl-sm'}`}>
                           {msg.content}
                         </div>
-                        <div className="text-xs text-[#6b6b68] mt-1 px-1">{msg.senderName} · {formatTime(msg.timestamp)}</div>
+                        <div className="text-sm text-[#6b6b68] mt-1 px-1">{msg.senderName} · {formatTime(msg.timestamp)}</div>
                       </div>
                     </div>
                   )}
@@ -285,7 +285,7 @@ export default function ChatPage() {
                   </button>
                 </div>
               </div>
-              <div className="flex justify-between mt-2 text-xs text-[#6b6b68]">
+              <div className="flex justify-between mt-2 text-sm text-[#6b6b68]">
                 <span>Enter 发送 · Shift+Enter 换行</span>
                 {autoReply && <span>自动回复已开启</span>}
               </div>

@@ -85,15 +85,15 @@ export default function ProfilePage() {
       <div className="grid grid-cols-3 gap-3 mb-8">
         <div className="bg-white rounded-2xl border p-5 text-center" style={{ borderColor: 'var(--primary-light)' }}>
           <div className="text-2xl font-bold" style={{ color: 'var(--foreground)' }}>{totalCount}</div>
-          <div className="text-xs mt-1" style={{ color: 'var(--foreground-muted)' }}>历史预约</div>
+          <div className="text-sm mt-1" style={{ color: 'var(--foreground-muted)' }}>历史预约</div>
         </div>
         <div className="bg-white rounded-2xl border p-5 text-center" style={{ borderColor: 'var(--primary-light)' }}>
           <div className="text-2xl font-bold text-amber-600">{upcomingCount}</div>
-          <div className="text-xs mt-1" style={{ color: 'var(--foreground-muted)' }}>待服务</div>
+          <div className="text-sm mt-1" style={{ color: 'var(--foreground-muted)' }}>待服务</div>
         </div>
         <div className="bg-white rounded-2xl border p-5 text-center" style={{ borderColor: 'var(--primary-light)' }}>
           <div className="text-2xl font-bold text-green-600">{completedCount}</div>
-          <div className="text-xs mt-1" style={{ color: 'var(--foreground-muted)' }}>已完成</div>
+          <div className="text-sm mt-1" style={{ color: 'var(--foreground-muted)' }}>已完成</div>
         </div>
       </div>
 
@@ -126,7 +126,7 @@ export default function ProfilePage() {
               <div key={item.label} className="flex items-center justify-between py-3 border-b last:border-0" style={{ borderColor: 'rgba(201,168,124,0.15)' }}>
                 <span className="text-sm" style={{ color: 'var(--foreground-muted)' }}>{item.label}</span>
                 {item.tag ? (
-                  <span className={`px-3 py-1 rounded-full text-xs font-medium text-white ${LEVEL_COLORS[item.value]}`}>
+                  <span className={`px-3 py-1 rounded-full text-sm font-medium text-white ${LEVEL_COLORS[item.value]}`}>
                     {item.value}
                   </span>
                 ) : (
@@ -209,16 +209,16 @@ export default function ProfilePage() {
                       <div className="font-medium mb-1" style={{ color: 'var(--foreground)' }}>
                         {apt.service_name || apt.notes?.split('|')[0]?.replace('项目:', '') || '美容服务'}
                       </div>
-                      <div className="text-xs" style={{ color: 'var(--foreground-muted)' }}>
+                      <div className="text-sm" style={{ color: 'var(--foreground-muted)' }}>
                         {apt.start_time ? apt.start_time.replace('T', ' ').slice(0, 16) : apt.appointment_date}
                       </div>
                     </div>
-                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${STATUS_STYLE[apt.status] || 'bg-gray-100 text-gray-500'}`}>
+                    <span className={`px-3 py-1 rounded-full text-sm font-medium ${STATUS_STYLE[apt.status] || 'bg-gray-100 text-gray-500'}`}>
                       {STATUS_LABEL[apt.status] || apt.status}
                     </span>
                   </div>
                   {apt.staff_name && (
-                    <div className="text-xs" style={{ color: 'var(--foreground-muted)' }}>
+                    <div className="text-sm" style={{ color: 'var(--foreground-muted)' }}>
                       美容师：{apt.staff_name}
                     </div>
                   )}

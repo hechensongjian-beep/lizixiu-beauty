@@ -173,29 +173,29 @@ export default function CustomersPage() {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">姓名 *</label>
+                <label className="block font-medium text-gray-700 mb-2">姓名 *</label>
                 <input type="text" value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
                   placeholder="客户姓名" className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#c9a87c]" required />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">电话</label>
+                <label className="block font-medium text-gray-700 mb-2">电话</label>
                 <input type="tel" value={form.phone} onChange={e => setForm(f => ({ ...f, phone: e.target.value }))}
                   placeholder="手机号码" className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#c9a87c]" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">邮箱</label>
+                <label className="block font-medium text-gray-700 mb-2">邮箱</label>
                 <input type="email" value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
                   placeholder="电子邮箱" className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#c9a87c]" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">会员等级</label>
+                <label className="block font-medium text-gray-700 mb-2">会员等级</label>
                 <select value={form.membership_level} onChange={e => setForm(f => ({ ...f, membership_level: e.target.value }))}
                   className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#c9a87c]">
                   {MEMBERSHIP_OPTIONS.map(m => <option key={m} value={m}>{m}</option>)}
                 </select>
               </div>
               <div className="md:col-span-2">
-                <label className="block text-sm font-medium text-gray-700 mb-2">备注</label>
+                <label className="block font-medium text-gray-700 mb-2">备注</label>
                 <textarea rows={2} value={form.notes} onChange={e => setForm(f => ({ ...f, notes: e.target.value }))}
                   placeholder="客户偏好、过敏史、特殊需求等..."
                   className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#c9a87c]" />
@@ -273,14 +273,14 @@ export default function CustomersPage() {
                       <tr key={c.id} className="border-t hover:bg-gray-50 transition">
                         <td className="py-4 px-6">
                           <div className="font-bold text-gray-900">{c.name}</div>
-                          {c.notes && <div className="text-xs text-gray-400 max-w-xs truncate">{c.notes}</div>}
+                          {c.notes && <div className="text-sm text-gray-400 max-w-xs truncate">{c.notes}</div>}
                         </td>
                         <td className="py-4 px-6">
                           <div className="text-gray-900">{c.phone || '-'}</div>
-                          <div className="text-xs text-gray-500">{c.email || '-'}</div>
+                          <div className="text-sm text-gray-500">{c.email || '-'}</div>
                         </td>
                         <td className="py-4 px-6">
-                          <span className={`px-3 py-1 rounded-full text-xs font-semibold ${MEMBERSHIP_STYLE[c.membership_level] || 'bg-gray-100 text-gray-600'}`}>
+                          <span className={`px-3 py-1 rounded-full text-sm font-semibold ${MEMBERSHIP_STYLE[c.membership_level] || 'bg-gray-100 text-gray-600'}`}>
                             {c.membership_level || '普通客户'}
                           </span>
                         </td>

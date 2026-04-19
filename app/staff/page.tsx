@@ -187,7 +187,7 @@ export default function StaffPage() {
           <h2 className="text-xl font-bold text-gray-900 mb-6">添加新员工</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">姓名 *</label>
+              <label className="block font-medium text-gray-700 mb-2">姓名 *</label>
               <input
                 type="text"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition"
@@ -197,7 +197,7 @@ export default function StaffPage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">角色 *</label>
+              <label className="block font-medium text-gray-700 mb-2">角色 *</label>
               <select
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition"
                 value={newStaff.role}
@@ -213,7 +213,7 @@ export default function StaffPage() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">手机号</label>
+              <label className="block font-medium text-gray-700 mb-2">手机号</label>
               <input
                 type="tel"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition"
@@ -223,7 +223,7 @@ export default function StaffPage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">邮箱</label>
+              <label className="block font-medium text-gray-700 mb-2">邮箱</label>
               <input
                 type="email"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition"
@@ -233,7 +233,7 @@ export default function StaffPage() {
               />
             </div>
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-2">专长领域</label>
+              <label className="block font-medium text-gray-700 mb-2">专长领域</label>
               <div className="flex flex-wrap gap-2 mb-2">
                 {newStaff.specialties.map((spec, idx) => (
                   <span key={idx} className="px-3 py-1 bg-[#faf8f5] text-purple-800 text-sm font-medium rounded-full flex items-center gap-1">
@@ -280,7 +280,7 @@ export default function StaffPage() {
               </div>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">工作经验（年）</label>
+              <label className="block font-medium text-gray-700 mb-2">工作经验（年）</label>
               <input
                 type="number"
                 min="0"
@@ -292,7 +292,7 @@ export default function StaffPage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">状态</label>
+              <label className="block font-medium text-gray-700 mb-2">状态</label>
               <div className="flex items-center space-x-4">
                 <label className="inline-flex items-center">
                   <input
@@ -341,7 +341,7 @@ export default function StaffPage() {
             <h2 className="text-xl font-bold text-gray-900 mb-6">编辑员工</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">姓名 *</label>
+                <label className="block font-medium text-gray-700 mb-2">姓名 *</label>
                 <input
                   type="text"
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition"
@@ -351,7 +351,7 @@ export default function StaffPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">角色 *</label>
+                <label className="block font-medium text-gray-700 mb-2">角色 *</label>
                 <select
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition"
                   value={editingStaff.role}
@@ -367,7 +367,7 @@ export default function StaffPage() {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">手机号</label>
+                <label className="block font-medium text-gray-700 mb-2">手机号</label>
                 <input
                   type="tel"
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition"
@@ -377,7 +377,7 @@ export default function StaffPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">邮箱</label>
+                <label className="block font-medium text-gray-700 mb-2">邮箱</label>
                 <input
                   type="email"
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition"
@@ -387,7 +387,7 @@ export default function StaffPage() {
                 />
               </div>
               <div className="md:col-span-2">
-                <label className="block text-sm font-medium text-gray-700 mb-2">专长领域</label>
+                <label className="block font-medium text-gray-700 mb-2">专长领域</label>
                 <div className="flex flex-wrap gap-2 mb-2">
                   {(editingStaff.specialties || []).map((spec, idx) => (
                     <span key={idx} className="px-3 py-1 bg-[#faf8f5] text-purple-800 text-sm font-medium rounded-full flex items-center gap-1">
@@ -443,7 +443,7 @@ export default function StaffPage() {
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">工作经验（年）</label>
+                <label className="block font-medium text-gray-700 mb-2">工作经验（年）</label>
                 <input
                   type="number"
                   min="0"
@@ -455,7 +455,7 @@ export default function StaffPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">状态</label>
+                <label className="block font-medium text-gray-700 mb-2">状态</label>
                 <div className="flex items-center space-x-4">
                   <label className="inline-flex items-center">
                     <input
@@ -583,7 +583,7 @@ export default function StaffPage() {
                     {(person.specialties || []).map((spec, idx) => (
                       <span
                         key={idx}
-                        className="px-3 py-1 bg-gray-100 text-gray-800 text-xs font-medium rounded-full"
+                        className="px-3 py-1 bg-gray-100 text-gray-800 text-sm font-medium rounded-full"
                       >
                         {spec}
                       </span>

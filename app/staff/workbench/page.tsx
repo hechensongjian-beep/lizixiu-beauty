@@ -230,24 +230,24 @@ export default function StaffWorkbenchPage() {
       {/* 统计卡片 */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
         <div className="bg-white rounded-2xl border border-[var(--primary-light)] p-5">
-          <p className="text-xs text-[var(--foreground-muted)] mb-1">今日预约</p>
+          <p className="text-sm text-[var(--foreground-muted)] mb-1">今日预约</p>
           <div className="text-3xl font-bold text-[var(--foreground)] mb-1">{dashboard?.today.count}</div>
-          <div className="text-xs text-green-600">
+          <div className="text-sm text-green-600">
             已完成 {dashboard?.today.appointments.filter((a: Appointment) => a.status === 'completed').length || 0} 单
           </div>
         </div>
         <div className="bg-white rounded-2xl border border-[var(--primary-light)] p-5">
-          <p className="text-xs text-[var(--foreground-muted)] mb-1">本周完成</p>
+          <p className="text-sm text-[var(--foreground-muted)] mb-1">本周完成</p>
           <div className="text-3xl font-bold text-[var(--primary)]">{dashboard?.week.completed}</div>
         </div>
         <div className="bg-white rounded-2xl border border-[var(--primary-light)] p-5">
-          <p className="text-xs text-[var(--foreground-muted)] mb-1">本周收入</p>
+          <p className="text-sm text-[var(--foreground-muted)] mb-1">本周收入</p>
           <div className="text-3xl font-bold text-green-600">
             {(dashboard?.week.earnings || 0).toLocaleString('zh-CN', { style: 'currency', currency: 'CNY', minimumFractionDigits: 0 })}
           </div>
         </div>
         <div className="bg-white rounded-2xl border border-[(--primary-light)] p-5">
-          <p className="text-xs text-[var(--foreground-muted)] mb-1">待服务</p>
+          <p className="text-sm text-[var(--foreground-muted)] mb-1">待服务</p>
           <div className="text-3xl font-bold text-amber-600">
             {(dashboard?.week.pending || 0) + (dashboard?.week.confirmed || 0)}
           </div>
@@ -260,7 +260,7 @@ export default function StaffWorkbenchPage() {
           <div className="bg-white rounded-2xl border border-[var(--primary-light)] p-6">
             <h2 className="text-base font-medium text-[var(--foreground)] mb-4 flex items-center justify-between">
               今日服务日程
-              <span className="text-xs text-[var(--foreground-muted)]">{dashboard?.today.appointments.length || 0} 个预约</span>
+              <span className="text-sm text-[var(--foreground-muted)]">{dashboard?.today.appointments.length || 0} 个预约</span>
             </h2>
 
             {dashboard?.today.appointments.length === 0 ? (
@@ -269,7 +269,7 @@ export default function StaffWorkbenchPage() {
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
                 </div>
                 <p className="text-[var(--foreground-muted)]">今日暂无预约安排</p>
-                <p className="text-xs text-[var(--foreground-muted)] mt-1 opacity-60">好好休息或联系商家</p>
+                <p className="text-sm text-[var(--foreground-muted)] mt-1 opacity-60">好好休息或联系商家</p>
               </div>
             ) : (
               <div className="space-y-3">
@@ -282,16 +282,16 @@ export default function StaffWorkbenchPage() {
                         <div className="flex-1">
                           <div className="flex items-center gap-2 mb-1">
                             <span className="font-bold text-[var(--foreground)] text-base">{fmtTime(apt.start_time)} - {fmtTime(apt.end_time)}</span>
-                            <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${sc.bg} ${sc.text}`}>{sc.label}</span>
+                            <span className={`px-2 py-0.5 rounded-full text-sm font-medium ${sc.bg} ${sc.text}`}>{sc.label}</span>
                           </div>
                           <div className="text-sm font-medium text-[var(--foreground)] mb-1">{apt.services?.name || '服务项目'}</div>
-                          <div className="flex items-center gap-3 text-xs text-[var(--foreground-muted)]">
+                          <div className="flex items-center gap-3 text-sm text-[var(--foreground-muted)]">
                             <span>{apt.customers?.name || '客户'}</span>
                             {apt.customers?.phone && <span>{apt.customers.phone}</span>}
                             <span>{duration}分钟</span>
                           </div>
                           {apt.notes && (
-                            <div className="mt-2 text-xs text-[var(--foreground-muted)] bg-[var(--primary-light)] rounded-lg p-2">{apt.notes}</div>
+                            <div className="mt-2 text-sm text-[var(--foreground-muted)] bg-[var(--primary-light)] rounded-lg p-2">{apt.notes}</div>
                           )}
                         </div>
                         <div className="flex flex-col gap-1 min-w-[90px]">
@@ -299,12 +299,12 @@ export default function StaffWorkbenchPage() {
                             <>
                               <button onClick={() => handleStatusChange(apt.id, 'confirmed')}
                                 disabled={updatingId === apt.id}
-                                className="px-2 py-1 bg-blue-100 text-blue-700 text-xs font-medium rounded-lg hover:bg-blue-200 disabled:opacity-50 transition">
+                                className="px-2 py-1 bg-blue-100 text-blue-700 text-sm font-medium rounded-lg hover:bg-blue-200 disabled:opacity-50 transition">
                                 {updatingId === apt.id ? '处理中...' : '确认'}
                               </button>
                               <button onClick={() => handleStatusChange(apt.id, 'cancelled')}
                                 disabled={updatingId === apt.id}
-                                className="px-2 py-1 bg-red-50 text-red-600 text-xs font-medium rounded-lg hover:bg-red-100 disabled:opacity-50 transition">
+                                className="px-2 py-1 bg-red-50 text-red-600 text-sm font-medium rounded-lg hover:bg-red-100 disabled:opacity-50 transition">
                                 取消
                               </button>
                             </>
@@ -312,12 +312,12 @@ export default function StaffWorkbenchPage() {
                           {apt.status === 'confirmed' && (
                             <button onClick={() => handleStatusChange(apt.id, 'completed')}
                               disabled={updatingId === apt.id}
-                              className="px-2 py-1 bg-green-100 text-green-700 text-xs font-medium rounded-lg hover:bg-green-200 disabled:opacity-50 transition">
+                              className="px-2 py-1 bg-green-100 text-green-700 text-sm font-medium rounded-lg hover:bg-green-200 disabled:opacity-50 transition">
                               {updatingId === apt.id ? '处理中...' : '完成'}
                             </button>
                           )}
                           {(apt.status === 'completed' || apt.status === 'cancelled') && (
-                            <span className="text-xs text-[var(--foreground-muted)] text-center">已{sc.label}</span>
+                            <span className="text-sm text-[var(--foreground-muted)] text-center">已{sc.label}</span>
                           )}
                         </div>
                       </div>
@@ -332,7 +332,7 @@ export default function StaffWorkbenchPage() {
           <div className="bg-white rounded-2xl border border-[var(--primary-light)] p-6">
             <h2 className="text-base font-medium text-[var(--foreground)] mb-4 flex items-center justify-between">
               近期待办
-              <span className="text-xs text-[var(--foreground-muted)]">未来7天</span>
+              <span className="text-sm text-[var(--foreground-muted)]">未来7天</span>
             </h2>
             {dashboard?.upcoming.length === 0 ? (
               <div className="text-center py-8">
@@ -344,10 +344,10 @@ export default function StaffWorkbenchPage() {
                   const sc = STATUS_COLORS[apt.status] || STATUS_COLORS.pending;
                   return (
                     <div key={apt.id} className="flex items-center gap-3 p-3 rounded-xl" style={{ background: 'var(--primary-light)' }}>
-                      <span className="text-xs font-medium text-[var(--foreground)] w-20 shrink-0">{apt.appointment_date?.substring(5)}</span>
+                      <span className="text-sm font-medium text-[var(--foreground)] w-20 shrink-0">{apt.appointment_date?.substring(5)}</span>
                       <span className="text-sm font-medium text-[var(--foreground)] flex-1">{apt.services?.name || '服务'}</span>
-                      <span className="text-xs text-[var(--foreground-muted)]">{apt.customers?.name || '客户'}</span>
-                      <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${sc.bg} ${sc.text}`}>{sc.label}</span>
+                      <span className="text-sm text-[var(--foreground-muted)]">{apt.customers?.name || '客户'}</span>
+                      <span className={`px-2 py-0.5 rounded-full text-sm font-medium ${sc.bg} ${sc.text}`}>{sc.label}</span>
                     </div>
                   );
                 })}
@@ -370,8 +370,8 @@ export default function StaffWorkbenchPage() {
                     <div className="w-full flex items-end justify-center" style={{ height: `${h}%`, minHeight: d.count > 0 ? '4px' : '0' }}>
                       <div className="w-full rounded-t-md" style={{ height: '100%', background: isToday ? 'var(--primary)' : '#e8d5b8' }}></div>
                     </div>
-                    <span className={`text-xs font-medium ${isToday ? 'text-[var(--primary)]' : 'text-[var(--foreground-muted)]'}`}>{d.dayName}</span>
-                    <span className={`text-xs font-bold ${isToday ? 'text-[var(--primary)]' : 'text-[var(--foreground-muted)]'}`}>{d.count}</span>
+                    <span className={`text-sm font-medium ${isToday ? 'text-[var(--primary)]' : 'text-[var(--foreground-muted)]'}`}>{d.dayName}</span>
+                    <span className={`text-sm font-bold ${isToday ? 'text-[var(--primary)]' : 'text-[var(--foreground-muted)]'}`}>{d.count}</span>
                   </div>
                 );
               })}
