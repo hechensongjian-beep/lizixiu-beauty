@@ -4,6 +4,8 @@ import "./globals.css";
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import { AuthProvider, useAuth } from "@/components/AuthProvider";
+import Footer from './components/Footer';
+import NotificationBadge from './components/NotificationBadge';
 
 type UserRole = 'guest' | 'customer' | 'merchant' | 'admin' | 'staff';
 
@@ -363,8 +365,6 @@ function NavContent() {
 }
 
 // 回到顶部按钮
-import Footer from './components/Footer';
-import NotificationBadge from './components/NotificationBadge';
 function ScrollToTop() {
   const [visible, setVisible] = useState(false);
   useEffect(() => {
