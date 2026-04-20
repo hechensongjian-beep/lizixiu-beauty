@@ -42,8 +42,10 @@ function fmtStaff(s) {
 }
 
 function fmtAppointment(a) {
-  const serviceName = a.service_name || a.notes?.match(/项目:([^|]+)/)?.[1]?.trim() || a.service_type || '';
-  const staffName = a.staff_name || a.notes?.match(/美容师:([^|]+)/)?.[1]?.trim() || '';
+  const serviceName =
+    a.services?.name || a.service_name || a.notes?.match(/项目:([^|]+)/)?.[1]?.trim() || a.service_type || '';
+  const staffName =
+    a.staff?.name || a.staff_name || a.notes?.match(/美容师:([^|]+)/)?.[1]?.trim() || '';
   return {
     id: a.id, service_id: a.service_id, staff_id: a.staff_id,
     start_time: a.start_time, end_time: a.end_time,
@@ -52,7 +54,8 @@ function fmtAppointment(a) {
     customer_phone: a.customer_phone || a.notes?.match(/电话:([^|\n]+)/)?.[1]?.trim() || '',
     notes: a.notes || '',
     service_name: serviceName, staff_name: staffName,
-    created_at: a.created_at,
+    service_price: a.services?.price || 0,
+    service_duration: a.services?.duration_minutes || 0,
   };
 }
 
@@ -187,7 +190,10 @@ export async function deleteService(id): Promise<any> {
 // ===== Appointments =====
 export async function getAppointments(): Promise<any> {
   try {
-    const { data, error } = await supabase.from('appointments').select('*').order('created_at', { ascending: false });
+    const { data, error } = await supabase
+      .from('appointments')
+      .select('*, staff:staff_id(name), services:service_id(name,price,duration_minutes)')
+      .order('start_time', { ascending: false });
     if (error) return { appointments: [] };
     return { appointments: data.map(fmtAppointment) };
   } catch { return { appointments: [] }; }
@@ -345,18 +351,22 @@ export async function updateStaffSchedule(id: string, patch: Record<string, any>
 export async function getStaffDashboard(staffId: string): Promise<any> {
   try {
     const today = new Date().toISOString().split('T')[0];
+    const tomorrow = new Date(Date.now() + 86400000).toISOString().split('T')[0];
+    const weekLater = new Date(Date.now() + 7 * 86400000).toISOString().split('T')[0];
     const { data: appointments } = await supabase.from('appointments')
-      .select('*').eq('staff_id', staffId).gte('start_time', today).lt('start_time', today + 'T23:59:59').order('start_time');
+      .select('*, services:service_id(name,price,duration_minutes)')
+      .eq('staff_id', staffId).gte('start_time', today).lt('start_time', tomorrow)
+      .order('start_time');
     const { data: allAppointments } = await supabase.from('appointments')
-      .select('*').eq('staff_id', staffId).gte('start_time', today + 'T00:00:00').lt('start_time', new Date(Date.now() + 7*86400000).toISOString().split('T')[0]);
+      .select('*').eq('staff_id', staffId).gte('start_time', today).lt('start_time', weekLater);
     const completed = (appointments || []).filter(a => a.status === 'completed');
-    const revenue = completed.reduce((s: number, a: any) => s + (a.total || 0), 0);
+    const revenue = 0; // appointments 表暂无金额字段
     return {
-      todayAppointments: appointments || [],
+      todayAppointments: (appointments || []).map(fmtAppointment),
       weeklyStats: {
         completedCount: completed.length,
         revenue,
-        pendingCount: (appointments || []).filter(a => a.status === 'pending' || a.status === 'confirmed').length,
+        pendingCount: (allAppointments || []).filter(a => a.status === 'pending' || a.status === 'confirmed').length,
       },
     };
   } catch { return { todayAppointments: [], weeklyStats: { completedCount: 0, revenue: 0, pendingCount: 0 } }; }
