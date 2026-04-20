@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import "./globals.css";
 import Link from "next/link";
@@ -360,6 +360,7 @@ function NavContent() {
 }
 
 // 回到顶部按钮
+import Footer from './components/Footer';
 function ScrollToTop() {
   const [visible, setVisible] = useState(false);
   useEffect(() => {
@@ -430,13 +431,7 @@ export default function RootLayout({
           <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             {children}
           </main>
-          <footer className="border-t border-[var(--primary-light)]/30 bg-[var(--background-secondary)] py-6 mt-8">
-            <div className="max-w-7xl mx-auto px-4 text-center">
-              <p className="text-sm text-[var(--foreground-muted)]">
-                丽姿秀美容工作室 · {new Date().getFullYear()}
-              </p>
-            </div>
-          </footer>
+          <Footer />
           {/* 回到顶部 */}
           <ScrollToTop />
           {/* Cookie提示 */}
