@@ -39,6 +39,7 @@ const MAIN_NAV: Record<UserRole, { href: string; label: string }[]> = {
 };
 
 const ADMIN_MENU: { href: string; label: string }[] = [
+  { href: '/admin/settings', label: '首页内容设置' },
   { href: '/admin/products', label: '商品管理' },
   { href: '/admin/services', label: '服务管理' },
   { href: '/admin/staff', label: '员工管理' },
@@ -276,7 +277,14 @@ function NavContent() {
                   )}
                 </div>
               ) : (
-                <Link href="/auth/login" className="btn-primary" style={{ fontSize: '1rem' }}>
+                <Link href="/auth/login"
+                  className="hidden sm:inline-flex items-center justify-center px-5 py-2 rounded-lg font-semibold text-white transition-all"
+                  style={{
+                    fontSize: '1rem',
+                    background: 'linear-gradient(135deg,#c9a87c 0%,#e8d5b8 100%)',
+                    boxShadow: '0 4px 15px rgba(201,168,124,0.3)',
+                  }}
+                >
                   登录
                 </Link>
               )}

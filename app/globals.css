@@ -241,6 +241,10 @@ a:hover {
   background: var(--gradient-gold);
   color: white;
   box-shadow: 0 4px 20px rgba(201,168,124,0.35);
+  border-radius: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
 }
 
 .btn-primary:hover {
