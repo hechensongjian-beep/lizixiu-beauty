@@ -201,10 +201,13 @@ function NavContent() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="text-[var(--foreground)] hover:text-[var(--primary)] px-5 py-3 font-medium transition-colors"
+                  className="relative text-[var(--foreground)] hover:text-[var(--primary)] px-5 py-3 font-medium transition-colors"
                   style={{ fontSize: '1.0625rem' }}
                 >
                   {item.label}
+                  {showAdminMenu && item.href === '/admin/orders' && (
+                    <NotificationBadge userId={user?.id} />
+                  )}
                 </Link>
               ))}
 
@@ -361,6 +364,7 @@ function NavContent() {
 
 // 回到顶部按钮
 import Footer from './components/Footer';
+import NotificationBadge from './components/NotificationBadge';
 function ScrollToTop() {
   const [visible, setVisible] = useState(false);
   useEffect(() => {

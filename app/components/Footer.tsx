@@ -7,15 +7,17 @@ export default function Footer() {
   const [settings, setSettings] = useState<any>(null);
 
   useEffect(() => {
-    supabase
-      .from('site_settings')
-      .select('*')
-      .eq('id', 1)
-      .single()
-      .then(({ data }) => {
+    async function loadSettings() {
+      try {
+        const { data } = await supabase
+          .from('site_settings')
+          .select('*')
+          .eq('id', 1)
+          .single();
         if (data) setSettings(data);
-      })
-      .catch(() => {});
+      } catch {}
+    }
+    loadSettings();
   }, []);
 
   return (

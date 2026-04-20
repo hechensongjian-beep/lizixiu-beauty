@@ -90,7 +90,7 @@ export default function HomePage() {
             className="w-full h-full object-cover"
             onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
           />
-          <div className="absolute inset-0" style={{ background: 'var(--gradient-hero)' }} />
+          <div className="absolute inset-0" style={{ background: 'var(--gradient-hero-warm)' }} />
         </div>
 
         <div className="relative max-w-7xl mx-auto px-8 py-24">
@@ -128,9 +128,9 @@ export default function HomePage() {
             <div className="grid grid-cols-2 gap-6">
               {[
                 { value: '500+', label: '忠实会员', icon: 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z', color: '#c9a87c' },
-                { value: '5年+', label: '行业深耕', icon: 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z', color: '#6b9e78' },
-                { value: '98%', label: '顾客好评', icon: 'M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z', color: '#f59e0b' },
-                { value: '100%', label: '天然成分', icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z', color: '#8b9ec9' },
+                { value: '5年+', label: '行业深耕', icon: 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z', color: '#a88a5c' },
+                { value: '98%', label: '顾客好评', icon: 'M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z', color: '#d4a5a5' },
+                { value: '100%', label: '天然成分', icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z', color: '#9caf88' },
               ].map((stat) => (
                 <div key={stat.label} className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center" style={{ border: '1px solid rgba(255,255,255,0.15)' }}>
                   <div className="w-12 h-12 rounded-xl mx-auto mb-4 flex items-center justify-center" style={{ background: stat.color + '33' }}>
