@@ -163,7 +163,7 @@ export default function AdminDashboardPage() {
                     <XAxis dataKey="date" tick={{ fontSize: 12 }} />
                     <YAxis tick={{ fontSize: 12 }} tickFormatter={v => `¥${v >= 1000 ? (v/1000).toFixed(0)+'k' : v}`} />
                     <Tooltip formatter={(v: any) => [`¥${v.toFixed(2)}`, '收入']} />
-                    <Bar dataKey="amount" fill="#ec4899" radius={[4,4,0,0]} />
+                    <Bar dataKey="amount" fill="#c9a87c" radius={[4,4,0,0]} />
                   </BarChart>
                 </ResponsiveContainer>
               ) : (
