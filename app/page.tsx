@@ -4,10 +4,30 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/components/AuthProvider';
 import { getProducts, getServices, getTestimonials } from '@/lib/api';
+import { supabase } from '@/lib/supabase';
 
 interface Product { id: string; name: string; price: number; imageColor: string; imageUrl?: string; category: string; description: string; stock: number; tags?: string[]; }
 interface Service { id: string; name: string; price: number; duration?: number; category?: string; description?: string; popularity?: number; }
 interface Testimonial { id: string; name: string; avatar?: string; service?: string; text: string; score: number; }
+interface SiteSettings {
+  hero_title: string;
+  hero_subtitle: string;
+  hero_desc: string;
+  business_hours: string;
+  business_tel: string;
+  business_addr: string;
+  notice_bar: string;
+}
+
+const DEFAULTS: SiteSettings = {
+  hero_title: '肌肤自然\n焕发新生',
+  hero_subtitle: '东方草本 · 现代美容科技',
+  hero_desc: '丽姿秀专注于东方草本美容理念，结合现代先进美容科技，为您提供专属定制的高端护理服务，让每位顾客都能感受到独特的美丽蜕变。',
+  business_hours: '周一至周日 09:00 - 21:00',
+  business_tel: '139-0000-0001',
+  business_addr: '上海市静安区南京西路1266号',
+  notice_bar: '',
+};
 
 function fmtCurrency(n: number) {
   return new Intl.NumberFormat('zh-CN', { style: 'currency', currency: 'CNY' }).format(n);
@@ -18,15 +38,32 @@ export default function HomePage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [services, setServices] = useState<Service[]>([]);
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
+  const [siteSettings, setSiteSettings] = useState<SiteSettings>(DEFAULTS);
   const [loading, setLoading] = useState(true);
   const isMerchant = role === 'merchant' || role === 'admin';
 
   useEffect(() => {
-    Promise.all([getProducts(), getServices(), getTestimonials()])
-      .then(([prod, svc, test]) => {
+    Promise.all([
+      getProducts(),
+      getServices(),
+      getTestimonials(),
+      supabase.from('site_settings').select('*').eq('id', 1).single()
+    ])
+      .then(([prod, svc, test, settings]) => {
         setProducts((prod?.products || []).slice(0, 6));
         setServices((svc?.services || []).slice(0, 6));
         setTestimonials(test?.testimonials || []);
+        if (settings.data && !settings.error) {
+          setSiteSettings({
+            hero_title: settings.data.hero_title || DEFAULTS.hero_title,
+            hero_subtitle: settings.data.hero_subtitle || DEFAULTS.hero_subtitle,
+            hero_desc: settings.data.hero_desc || DEFAULTS.hero_desc,
+            business_hours: settings.data.business_hours || DEFAULTS.business_hours,
+            business_tel: settings.data.business_tel || DEFAULTS.business_tel,
+            business_addr: settings.data.business_addr || DEFAULTS.business_addr,
+            notice_bar: settings.data.notice_bar || '',
+          });
+        }
       })
       .catch(() => {})
       .finally(() => setLoading(false));
@@ -34,6 +71,14 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen" style={{ background: 'var(--background)' }}>
+
+      {/* 公告栏 */}
+      {siteSettings.notice_bar && (
+        <div className="w-full py-2.5 px-4 text-center text-white text-sm font-medium"
+          style={{ background: 'var(--primary)', fontSize: '0.9375rem' }}>
+          {siteSettings.notice_bar}
+        </div>
+      )}
 
       {/* ===== HERO - 大气首屏 ===== */}
       <section className="relative overflow-hidden" style={{ minHeight: '700px' }}>
@@ -54,13 +99,15 @@ export default function HomePage() {
             <div>
               <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full text-sm font-medium text-white/90 mb-10" style={{ background: 'rgba(201,168,124,0.2)', border: '1px solid rgba(201,168,124,0.35)' }}>
                 <span className="w-2 h-2 rounded-full" style={{ background: '#c9a87c' }} />
-                东方草本 · 现代美容科技
+                {siteSettings.hero_subtitle}
               </div>
               <h1 className="text-6xl lg:text-7xl font-bold text-white leading-tight mb-8" style={{ fontFamily: "'Noto Serif SC', serif", letterSpacing: '0.02em' }}>
-                肌肤自然<br />焕发新生
+                {siteSettings.hero_title.split('\n').map((line, i) => (
+                  <span key={i}>{line}{i < siteSettings.hero_title.split('\n').length - 1 ? <br /> : ''}</span>
+                ))}
               </h1>
               <p className="text-xl text-white/75 mb-12 leading-relaxed max-w-xl" style={{ fontSize: '1.25rem' }}>
-                丽姿秀专注于东方草本美容理念，结合现代先进美容科技，为您提供专属定制的高端护理服务，让每位顾客都能感受到独特的美丽蜕变。
+                {siteSettings.hero_desc}
               </p>
               <div className="flex items-center gap-5 flex-wrap">
                 <Link href="/appointments"
@@ -108,7 +155,7 @@ export default function HomePage() {
               { icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z', label: '正品保障', desc: '全店正品，假一赔十' },
               { icon: 'M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z', label: '满500免运费', desc: '全场满500元包邮' },
               { icon: 'M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15', label: '7天无理由', desc: '不满意可退换' },
-              { icon: 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z', label: '营业时间', desc: '周一至周日 09:00-20:00' },
+              { icon: 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z', label: '营业时间', desc: siteSettings.business_hours },
             ].map((item) => (
               <div key={item.label} className="flex items-center gap-4 py-4 px-5 bg-white rounded-xl" style={{ border: '1px solid var(--primary-light)' }}>
                 <div className="w-11 h-11 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: 'var(--primary)', backgroundImage: 'linear-gradient(135deg, var(--primary), var(--primary-dark))' }}>
@@ -323,7 +370,7 @@ export default function HomePage() {
               style={{ background: 'var(--primary)', color: 'white', boxShadow: '0 8px 35px rgba(201,168,124,0.4)' }}>
               立即预约
             </Link>
-            <Link href="tel:+8613800138000"
+            <Link href={`tel:${siteSettings.business_tel.replace(/-/g, '')}`}
               className="btn-xl"
               style={{ background: 'rgba(255,255,255,0.15)', color: 'white', border: '2px solid rgba(255,255,255,0.3)' }}>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
