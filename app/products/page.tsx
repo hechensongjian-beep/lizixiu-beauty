@@ -27,6 +27,7 @@ export default function ProductsPage() {
   const [filter, setFilter] = useState<string>('all');
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const [addedId, setAddedId] = useState<string | null>(null);
   const [toast, setToast] = useState<string>('');
 
@@ -37,7 +38,7 @@ export default function ProductsPage() {
         setProducts(data?.products || []);
         setLoading(false);
       })
-      .catch(() => setLoading(false));
+      .catch(() => { setLoading(false); setError('加载失败，请刷新页面'); });
 
     const saved = localStorage.getItem(CART_KEY);
     if (saved) {
@@ -101,6 +102,24 @@ export default function ProductsPage() {
               <div className="h-12 bg-gray-200 rounded"></div>
             </div>
           ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="max-w-7xl mx-auto px-4 py-12">
+        <div className="text-center py-20">
+          <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-red-50 mb-6">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth="1.5">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="12" y1="8" x2="12" y2="12"/>
+              <line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+          </div>
+          <p className="text-red-600 text-lg mb-4">{error}</p>
+          <button onClick={() => window.location.reload()} className="px-6 py-3 bg-[#c9a87c] text-white rounded-xl hover:bg-[#a88a5c] transition">刷新页面</button>
         </div>
       </div>
     );
