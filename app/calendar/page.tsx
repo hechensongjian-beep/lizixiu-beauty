@@ -10,7 +10,7 @@ interface Appointment {
 }
 
 const TIMES = ['09:00','09:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30'];
-const STATUS_COLORS: Record<string, string> = { pending: 'bg-yellow-100 border-yellow-400 text-yellow-800', confirmed: 'bg-blue-100 border-blue-400 text-blue-800', completed: 'bg-green-100 border-green-400 text-green-800', cancelled: 'bg-gray-100 border-gray-300 text-gray-500' };
+const STATUS_COLORS: Record<string, string> = { pending: 'bg-yellow-100 border-yellow-400 text-yellow-800', confirmed: 'bg-[#c9a87c] border-[#c9a87c] text-white', completed: 'bg-green-100 border-green-400 text-green-800', cancelled: 'bg-gray-100 border-gray-300 text-gray-500' };
 const STATUS_LABEL: Record<string, string> = { pending: '待确认', confirmed: '已确认', completed: '已完成', cancelled: '已取消' };
 
 function IconWarning() { return <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>; }

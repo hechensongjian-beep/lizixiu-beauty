@@ -418,7 +418,7 @@ export default function RootLayout({
   return (
     <html lang="zh-CN" className="h-full">
       <head>
-        <title>丽姿秀 · 美容管理系统</title>
+        <title>丽姿秀 · 专业美容服务</title>
         <meta name="description" content="丽姿秀专业美容服务与电商平台。面部护理、身体SPA、美甲美睫，精选草本成分，现代美容科技。立即预约，享受专属美丽蜕变。" />
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />

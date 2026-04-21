@@ -55,7 +55,7 @@ const TIMES = [
 
 const STATUS_COLORS: Record<string, string> = {
   pending: 'bg-amber-100 border-amber-400 text-amber-900',
-  confirmed: 'bg-blue-100 border-blue-400 text-blue-900',
+  confirmed: 'bg-[#c9a87c] border-[#c9a87c] text-white',
   completed: 'bg-green-100 border-green-400 text-green-900',
   cancelled: 'bg-gray-100 border-gray-300 text-gray-500 line-through',
 };

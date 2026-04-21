@@ -24,7 +24,7 @@ const STATUS_LABEL: Record<string, string> = {
 
 const STATUS_STYLE: Record<string, string> = {
   pending: 'bg-amber-100 text-amber-700',
-  confirmed: 'bg-blue-100 text-blue-700',
+  confirmed: 'bg-[#c9a87c] text-white',
   completed: 'bg-green-100 text-green-700',
   cancelled: 'bg-gray-100 text-gray-500',
 };
