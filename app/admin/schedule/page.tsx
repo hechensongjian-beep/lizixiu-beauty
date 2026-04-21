@@ -415,10 +415,10 @@ export default function AdminSchedulePage() {
         <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6">
           {[
             { label: '员工数', value: data.summary.totalStaff, color: 'from-[#c9a87c] to-[#e8d5b8]', icon: '⏱' },
-            { label: '总预约', value: data.summary.totalAppointments, color: 'from-blue-400 to-blue-600', icon: '⏱' },
-            { label: '待确认', value: data.summary.pending, color: 'from-amber-400 to-amber-600', icon: '⏱' },
-            { label: '已确认', value: data.summary.confirmed, color: 'from-indigo-400 to-indigo-600', icon: '✓' },
-            { label: '已完成', value: data.summary.completed, color: 'from-green-400 to-green-600', icon: '⏱' },
+            { label: '总预约', value: data.summary.totalAppointments, color: 'from-[#8b7355] to-[#c9a87c]', icon: '' },
+            { label: '待确认', value: data.summary.pending, color: 'from-[#8b7355] to-[#c9a87c]', icon: '' },
+            { label: '已确认', value: data.summary.confirmed, color: 'from-[#2d4a3e] to-[#4a7c6f]', icon: '✓' },
+            { label: '已完成', value: data.summary.completed, color: 'from-[#2d4a3e] to-[#5a8c7f]', icon: '' },
           ].map(item => (
             <div key={item.label} className={`bg-gradient-to-br ${item.color} text-white rounded-xl p-4 shadow-sm`}>
               <div className="text-2xl mb-1">{item.icon}</div>

@@ -114,7 +114,7 @@ export default function CalendarPage() {
           <div className="text-3xl font-bold">{stats.pending}</div>
           <div className="text-sm opacity-80">待确认</div>
         </div>
-        <div className="bg-gradient-to-br from-blue-400 to-indigo-500 text-white rounded-2xl p-5 shadow">
+        <div className="bg-gradient-to-br from-[#2d4a3e] to-[#4a7c6f] text-white rounded-2xl p-5 shadow">
           <IconCheck />
           <div className="text-3xl font-bold">{stats.confirmed}</div>
           <div className="text-sm opacity-80">已确认</div>

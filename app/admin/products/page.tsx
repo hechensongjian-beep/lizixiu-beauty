@@ -16,9 +16,9 @@ interface Product {
 }
 
 const IMAGE_COLORS = [
-  'from-[#e8d5b8] to-[#c9a87c]','from-blue-200 to-cyan-300',
-  'from-amber-200 to-orange-300','from-[#c9a87c] to-[#e8d5b8]',
-  'from-green-200 to-emerald-300','from-red-200 to-[#e8d5b8]',
+  'from-[#e8d5b8] to-[#c9a87c]','from-[#c9a87c] to-[#a88a5c]',
+  'from-[#d4c4a8] to-[#b8956a]','from-[#2d4a3e] to-[#4a7c6f]',
+  'from-[#f5f0e8] to-[#e8d5b8]','from-[#8b7355] to-[#c9a87c]',
 ];
 
 export default function AdminProductsPage() {
