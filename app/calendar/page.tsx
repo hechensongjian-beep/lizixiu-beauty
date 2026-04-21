@@ -69,7 +69,8 @@ export default function CalendarPage() {
     finally { setLoading(false); }
   };
 
-  useEffect(() => { fetchAppointments(); }, []);
+  
+    useEffect(() => { document.title = '预约日历 - 丽姿秀'; fetchAppointments(); }, []);
 
   useEffect(() => {
     const monthStart = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).toISOString().split('T')[0];

@@ -86,7 +86,8 @@ export default function NotificationsPage() {
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [filter, setFilter] = useState<string>('all');
 
-  useEffect(() => {
+  
+    useEffect(() => { document.title = '我的通知 - 丽姿秀';
     setNotifications(loadNotifications());
   }, []);
 

@@ -76,7 +76,8 @@ export default function ChatPage() {
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
-  useEffect(() => {
+  
+    useEffect(() => { document.title = '在线咨询 - 丽姿秀';
     setConversations(loadConversations());
   }, []);
 

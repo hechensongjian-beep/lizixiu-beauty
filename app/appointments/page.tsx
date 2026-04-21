@@ -27,7 +27,8 @@ export default function AppointmentsPage() {
   const [error, setError] = useState('');
   const [appointments, setAppointments] = useState<Appointment[]>([]);
 
-  useEffect(() => {
+  
+    useEffect(() => { document.title = '在线预约 - 丽姿秀';
     Promise.all([
       getServices(),
       getStaff(),

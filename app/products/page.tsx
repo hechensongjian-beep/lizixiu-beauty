@@ -28,8 +28,10 @@ export default function ProductsPage() {
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
   const [addedId, setAddedId] = useState<string | null>(null);
+  const [toast, setToast] = useState<string>('');
 
   useEffect(() => {
+    document.title = '护肤产品商城 - 丽姿秀';
     getProducts()
       .then(data => {
         setProducts(data?.products || []);
@@ -55,6 +57,8 @@ export default function ProductsPage() {
     setCart(prev => ({ ...prev, [productId]: current + 1 }));
     setAddedId(productId);
     setTimeout(() => setAddedId(null), 1500);
+    setToast(product.name + ' 已加入购物车');
+    setTimeout(() => setToast(''), 2000);
   };
 
   const removeFromCart = (productId: string) => {

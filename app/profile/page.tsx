@@ -36,7 +36,8 @@ export default function ProfilePage() {
   const [loading, setLoading] = useState(true);
   const [tab, setTab] = useState<'info' | 'appointments'>('info');
 
-  useEffect(() => {
+  
+    useEffect(() => { document.title = '个人中心 - 丽姿秀';
     getAppointments()
       .then(result => setAppointments(result?.appointments || []))
       .catch(() => {})

@@ -15,7 +15,8 @@ export default function CartPage() {
   const [cart, setCart] = useState<Record<string, number>>({});
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+  
+    useEffect(() => { document.title = '购物车 - 丽姿秀';
     getProducts()
       .then(data => {
         if (data?.products) {

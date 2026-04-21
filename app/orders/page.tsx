@@ -33,7 +33,8 @@ export default function OrdersPage() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+  
+    useEffect(() => { document.title = '我的订单 - 丽姿秀';
     getOrders()
       .then(data => {
         setOrders(data?.orders || []);

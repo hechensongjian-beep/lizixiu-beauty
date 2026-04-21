@@ -34,7 +34,8 @@ export default function ServicesPage() {
   const [filter, setFilter] = useState('');
   const [search, setSearch] = useState('');
 
-  useEffect(() => {
+  
+    useEffect(() => { document.title = '美容服务项目 - 丽姿秀';
     getServices()
       .then(data => {
         if (data?.error) throw new Error(data.error);

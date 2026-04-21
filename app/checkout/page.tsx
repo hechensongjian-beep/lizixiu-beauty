@@ -45,7 +45,8 @@ export default function CheckoutPage() {
   const [submittingPayment, setSubmittingPayment] = useState(false);
   const [selectedChannel, setSelectedChannel] = useState<'wechat' | 'alipay'>('wechat');
 
-  useEffect(() => {
+  
+    useEffect(() => { document.title = '订单结算 - 丽姿秀';
     Promise.all([getProducts(), getPaymentSettings()]).then(([prodData, payData]) => {
       if (prodData?.products) {
         const m: Record<string, any> = {};
