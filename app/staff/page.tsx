@@ -17,6 +17,7 @@ interface Staff {
 }
 
 export default function StaffPage() {
+  useEffect(() => { document.title = '员工团队 - 丽姿秀'; }, []);
   const [staff, setStaff] = useState<Staff[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

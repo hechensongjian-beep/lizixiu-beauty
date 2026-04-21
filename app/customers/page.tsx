@@ -27,6 +27,7 @@ const MEMBERSHIP_STYLE: Record<string, string> = {
 };
 
 export default function CustomersPage() {
+  useEffect(() => { document.title = '客户管理 - 丽姿秀'; }, []);
   const router = useRouter();
   const { role } = useAuth();
 

@@ -1,6 +1,10 @@
+'use client';
+
 import Link from 'next/link';
+import { useEffect } from 'react';
 
 export default function AuthIndexPage() {
+  useEffect(() => { document.title = '账户登录 - 丽姿秀'; }, []);
   return (
     <div className="max-w-4xl mx-auto px-4 py-16">
       <div className="text-center mb-12">
