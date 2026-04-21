@@ -14,6 +14,7 @@ export default function CartPage() {
   const [products, setProducts] = useState<Record<string, Product>>({});
   const [cart, setCart] = useState<Record<string, number>>({});
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   
     useEffect(() => { document.title = '购物车 - 丽姿秀';
@@ -26,7 +27,7 @@ export default function CartPage() {
         }
         setLoading(false);
       })
-      .catch(() => setLoading(false));
+      .catch(() => { setLoading(false); setError('加载失败'); });
 
     const saved = localStorage.getItem('beauty-shop-cart');
     if (saved) { try { setCart(JSON.parse(saved)); } catch {} }
@@ -90,6 +91,11 @@ export default function CartPage() {
 
       {loading ? (
         <div className="flex justify-center py-20"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#c9a87c]"></div></div>
+      ) : error ? (
+        <div className="text-center py-20">
+          <p className="text-red-600 text-lg mb-4">{error}</p>
+          <button onClick={() => window.location.reload()} className="px-6 py-3 bg-[#c9a87c] text-white rounded-xl hover:bg-[#a88a5c] transition">刷新页面</button>
+        </div>
       ) : cartItems.length === 0 ? (
         <div className="bg-gradient-to-r from-[#faf8f5] to-[#f5f2ed] border border-gray-200 rounded-2xl p-16 text-center">
           <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#c0bdb8" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="mx-auto mb-6">
