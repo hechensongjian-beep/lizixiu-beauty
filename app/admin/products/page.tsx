@@ -17,7 +17,7 @@ interface Product {
 
 const IMAGE_COLORS = [
   'from-[#e8d5b8] to-[#c9a87c]','from-blue-200 to-cyan-300',
-  'from-amber-200 to-orange-300','from-purple-200 to-violet-300',
+  'from-amber-200 to-orange-300','from-[#c9a87c] to-[#e8d5b8]',
   'from-green-200 to-emerald-300','from-red-200 to-[#e8d5b8]',
 ];
 

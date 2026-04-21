@@ -111,7 +111,7 @@ function ReassignModal({
                 onClick={() => setTargetId(s.id)}
                 className={`w-full flex items-center gap-3 p-3 rounded-xl border-2 transition text-left ${
                   targetId === s.id
-                    ? 'border-purple-500 bg-[#faf8f5]'
+                    ? 'border-[#c9a87c] bg-[#faf8f5]'
                     : 'border-gray-200 hover:border-[#e8d5b8] hover:bg-[#faf8f5]/50'
                 }`}
               >
@@ -150,7 +150,7 @@ function ReassignModal({
           <button
             onClick={() => onConfirm(targetId)}
             disabled={targetId === appointment.staff_id}
-            className="flex-1 py-2.5 bg-[#a88a5c] text-white rounded-xl font-medium hover:bg-purple-700 disabled:opacity-40 disabled:cursor-not-allowed transition"
+            className="flex-1 py-2.5 bg-[#a88a5c] text-white rounded-xl font-medium hover:bg-[#2d4a3e] disabled:opacity-40 disabled:cursor-not-allowed transition"
           >
             确认调换
           </button>
@@ -374,7 +374,7 @@ export default function AdminSchedulePage() {
           <select
             value={filterStatus}
             onChange={e => setFilterStatus(e.target.value)}
-            className="text-sm border border-gray-200 rounded-lg px-3 py-1.5 text-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-300"
+            className="text-sm border border-gray-200 rounded-lg px-3 py-1.5 text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#c9a87c]"
           >
             <option value="all">全部状态</option>
             <option value="pending">待确认</option>
@@ -414,7 +414,7 @@ export default function AdminSchedulePage() {
       {data && (
         <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6">
           {[
-            { label: '员工数', value: data.summary.totalStaff, color: 'from-purple-400 to-purple-600', icon: '⏱' },
+            { label: '员工数', value: data.summary.totalStaff, color: 'from-[#c9a87c] to-[#e8d5b8]', icon: '⏱' },
             { label: '总预约', value: data.summary.totalAppointments, color: 'from-blue-400 to-blue-600', icon: '⏱' },
             { label: '待确认', value: data.summary.pending, color: 'from-amber-400 to-amber-600', icon: '⏱' },
             { label: '已确认', value: data.summary.confirmed, color: 'from-indigo-400 to-indigo-600', icon: '✓' },
