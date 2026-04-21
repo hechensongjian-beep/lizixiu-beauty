@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 
 
@@ -9,14 +10,21 @@ export default function AdminLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-    const [authorized, setAuthorized] = useState(false);
+  const router = useRouter();
+  const [authorized, setAuthorized] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // TODO: 启用正式登录验证（目前开发阶段免登录）
-    setAuthorized(true);
-    setLoading(false);
-  }, []);
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      const role = session?.user?.user_metadata?.role;
+      if (role === 'merchant' || role === 'admin') {
+        setAuthorized(true);
+      } else {
+        router.replace('/auth/login');
+      }
+      setLoading(false);
+    });
+  }, [router]);
 
   if (loading) {
     return (
@@ -103,7 +111,7 @@ export default function AdminLayout({
             </div>
             <div className="flex items-center">
               <button
-                onClick={() => { window.location.href = '/'; }}
+                onClick={() => router.push('/')}
                 className="ml-4 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition"
               >
                 退出商家后台

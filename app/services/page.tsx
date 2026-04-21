@@ -157,7 +157,7 @@ export default function ServicesPage() {
                         <p className="text-base text-gray-500 mb-2 line-clamp-2">{service.description}</p>
                       )}
                       <div className="flex items-center gap-4 text-sm" style={{color:'#9b9b98'}}>
-                        {service.duration > 0 && <span>⏱ {formatDuration(service.duration)}</span>}
+                        {service.duration > 0 && <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> {formatDuration(service.duration)}</span>}
                         {service.popularity && <span>{service.popularity} 热度</span>}
                       </div>
                     </div>

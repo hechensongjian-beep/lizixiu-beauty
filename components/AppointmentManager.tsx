@@ -526,7 +526,7 @@ export default function AppointmentManager() {
 
       <div className="mt-6 text-gray-500 text-sm flex items-center justify-between">
         <div>
-          💾 数据实时保存至云端数据库 · 🔄 支持多端同步 · 🔔 实时更新
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> 数据实时保存至云端数据库 · 🔄 支持多端同步 · 🔔 实时更新
         </div>
         <div>
           <button

@@ -36,12 +36,23 @@ export default function CartPage() {
     window.dispatchEvent(new Event('cart-updated'));
   }, [cart]);
 
+  const [stockWarnings, setStockWarnings] = useState<Record<string, boolean>>({});
+
   const updateQuantity = (productId: string, delta: number) => {
     setCart(prev => {
       const nc = { ...prev };
       const q = (nc[productId] || 0) + delta;
-      if (q <= 0) delete nc[productId];
-      else nc[productId] = q;
+      const product = products[productId];
+      if (q <= 0) { delete nc[productId]; }
+      else {
+        nc[productId] = q;
+        // 检查库存
+        if (product && q > product.stock) {
+          setStockWarnings(prev => ({ ...prev, [productId]: true }));
+        } else {
+          setStockWarnings(prev => { const nw = { ...prev }; delete nw[productId]; return nw; });
+        }
+      }
       return nc;
     });
   };
@@ -116,6 +127,12 @@ export default function CartPage() {
                           <h4 className="text-xl font-bold text-gray-900">{product.name}</h4>
                           <p className="text-base text-gray-600 mt-1">{product.description}</p>
                           <div className="mt-2 text-sm text-gray-500">分类：{product.category} · 库存：{product.stock} 件</div>
+                          {stockWarnings[product.id] && (
+                            <div className="mt-1 flex items-center gap-1 text-sm text-red-600 font-medium">
+                              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                              库存不足，当前仅剩 {product.stock} 件
+                            </div>
+                          )}
                         </div>
                         <div className="text-right ml-4">
                           <div className="text-2xl font-bold text-gray-900">{fmt(product.price)}</div>
