@@ -3,6 +3,7 @@
 
 
 import { useState, useEffect } from 'react';
+useEffect(() => { document.title = '服务项目管理 - 丽姿秀'; }, []);
 
 import Link from 'next/link';
 
