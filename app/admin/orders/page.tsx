@@ -1,6 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+
+useEffect(() => { document.title = '订单管理 - 丽姿秀'; }, []);
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/components/AuthProvider';
 import { getOrders, updateOrderStatus } from '@/lib/api';
