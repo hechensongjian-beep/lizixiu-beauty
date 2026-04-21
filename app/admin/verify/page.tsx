@@ -163,7 +163,7 @@ export default function PaymentVerifyPage() {
             { label: '待核验', value: summary.pending, color: 'from-[#c9a87c] to-[#b8956a]', icon: '⏱' },
             { label: '已通过', value: summary.approved, color: 'from-[#a88a5c] to-[#b8956a]', icon: '' },
             { label: '已拒绝', value: summary.rejected, color: 'from-red-400 to-[#c9a87c]', icon: '' },
-            { label: '已确认金额', value: fmt(summary.totalAmount), color: 'from-purple-400 to-indigo-500', icon: '' },
+            { label: '已确认金额', value: fmt(summary.totalAmount), color: 'from-[#2d4a3e] to-[#4a7c6f]', icon: '' },
           ].map(item => (
             <div key={item.label} className={`bg-gradient-to-br ${item.color} text-white rounded-xl p-4 shadow-sm`}>
               <div className="text-xl mb-1">{item.icon}</div>
@@ -328,7 +328,7 @@ export default function PaymentVerifyPage() {
                 onChange={e => setNote(e.target.value)}
                 placeholder={noteModal.action === 'approve' ? '如：已到账确认' : '如：金额不符/未到账'}
                 rows={3}
-                className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-purple-300 resize-none"
+                className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#c9a87c] resize-none"
               />
             </div>
             <div className="px-6 pb-6 flex gap-3">

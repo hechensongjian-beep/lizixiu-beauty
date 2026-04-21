@@ -20,7 +20,7 @@ interface Customer {
 const MEMBERSHIP_OPTIONS = ['普通客户', '银卡会员', '金卡会员', '钻石会员'];
 
 const MEMBERSHIP_STYLE: Record<string, string> = {
-  '钻石会员': 'bg-purple-100 text-purple-800',
+  '钻石会员': 'bg-[#2d4a3e] text-white',
   '金卡会员': 'bg-yellow-100 text-yellow-800',
   '银卡会员': 'bg-gray-200 text-gray-700',
   '普通客户': 'bg-gray-100 text-gray-600',
@@ -222,7 +222,7 @@ export default function CustomersPage() {
             {[
               { label: '客户总数', value: customers.length, color: 'from-[#c9a87c] to-[#e8d5b8]' },
               { label: '累计消费', value: fmt(totalSpent), color: 'from-[#c9a87c] to-[#e8d5b8]', small: true },
-              { label: '钻石会员', value: customers.filter(c => c.membership_level === '钻石会员').length, color: 'from-purple-400 to-purple-600' },
+              { label: '钻石会员', value: customers.filter(c => c.membership_level === '钻石会员').length, color: 'from-[#2d4a3e] to-[#4a7c6f]' },
               { label: '30天活跃', value: active30, color: 'from-green-400 to-green-600' },
             ].map(s => (
               <div key={s.label} className={`bg-gradient-to-br ${s.color} text-white rounded-2xl p-5 shadow`}>
