@@ -112,12 +112,12 @@ export default function AdminDashboardPage() {
   };
 
   const statCards = [
-    { label: '总收入', value: fmt(stats.totalRevenue), icon: '💰', color: 'from-[#c9a87c] to-[#e8d5b8]', sub: '历史累计' },
-    { label: '本月收入', value: fmt(stats.monthRevenue), icon: '📈', color: 'from-purple-500 to-indigo-500', sub: `本月 ${stats.monthOrders} 笔` },
-    { label: '总订单', value: `${stats.totalOrders} 笔`, icon: '📋', color: 'from-blue-500 to-cyan-500', sub: `待处理 ${stats.pendingOrders}` },
-    { label: '客户总数', value: `${stats.totalCustomers} 人`, icon: '👥', color: 'from-[#c9a87c] to-[#e8d5b8]', sub: '注册用户' },
-    { label: '商品总数', value: `${stats.totalProducts} 个`, icon: '📦', color: 'from-[#c9a87c] to-[#e8d5b8]', sub: `库存紧张 ${stats.lowStockProducts}` },
-    { label: '平均客单价', value: stats.totalOrders > 0 ? fmt(stats.totalRevenue / stats.totalOrders) : fmt(0), icon: '🎯', color: 'from-teal-500 to-cyan-500', sub: '每笔订单' },
+    { label: '总收入', value: fmt(stats.totalRevenue), color: 'from-[#c9a87c] to-[#e8d5b8]', sub: '历史累计', svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> },
+    { label: '本月收入', value: fmt(stats.monthRevenue), color: 'from-purple-500 to-indigo-500', sub: `本月 ${stats.monthOrders} 笔`, svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg> },
+    { label: '总订单', value: `${stats.totalOrders} 笔`, color: 'from-blue-500 to-cyan-500', sub: `待处理 ${stats.pendingOrders}`, svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> },
+    { label: '客户总数', value: `${stats.totalCustomers} 人`, color: 'from-[#c9a87c] to-[#e8d5b8]', sub: '注册用户', svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> },
+    { label: '商品总数', value: `${stats.totalProducts} 个`, color: 'from-[#c9a87c] to-[#e8d5b8]', sub: `库存紧张 ${stats.lowStockProducts}`, svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg> },
+    { label: '平均客单价', value: stats.totalOrders > 0 ? fmt(stats.totalRevenue / stats.totalOrders) : fmt(0), color: 'from-teal-500 to-cyan-500', sub: '每笔订单', svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> },
   ];
 
   return (
@@ -143,7 +143,7 @@ export default function AdminDashboardPage() {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
             {statCards.map(card => (
               <div key={card.label} className={`bg-gradient-to-br ${card.color} rounded-2xl p-5 text-white shadow-lg`}>
-                <div className="text-2xl mb-2">{card.icon}</div>
+                <div className="mb-2">{card.svg}</div>
                 <div className="text-sm font-medium opacity-80">{card.label}</div>
                 <div className="text-xl font-bold mt-1 truncate">{card.value}</div>
                 <div className="text-sm opacity-70 mt-1">{card.sub}</div>
@@ -292,14 +292,14 @@ export default function AdminDashboardPage() {
       {/* 快速入口 */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { href: '/admin/orders', emoji: '📋', label: '订单管理', color: 'from-[#c9a87c] to-[#e8d5b8]' },
-          { href: '/admin/products', emoji: '🛍️', label: '产品管理', color: 'from-[#c9a87c] to-[#e8d5b8]' },
-          { href: '/customers', emoji: '👥', label: '客户管理', color: 'from-[#c9a87c] to-[#e8d5b8]' },
-          { href: '/calendar', emoji: '📅', label: '预约日历', color: 'from-[#c9a87c] to-[#e8d5b8]' },
+          { href: '/admin/orders', label: '订单管理', color: 'from-[#c9a87c] to-[#e8d5b8]', svg: <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg> },
+          { href: '/admin/products', label: '产品管理', color: 'from-[#c9a87c] to-[#e8d5b8]', svg: <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> },
+          { href: '/customers', label: '客户管理', color: 'from-[#c9a87c] to-[#e8d5b8]', svg: <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> },
+          { href: '/calendar', label: '预约日历', color: 'from-[#c9a87c] to-[#e8d5b8]', svg: <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> },
         ].map(item => (
           <Link key={item.href} href={item.href}
             className={`bg-gradient-to-br ${item.color} text-white rounded-2xl p-6 text-center hover:shadow-lg transition`}>
-            <div className="text-3xl mb-2">{item.emoji}</div>
+            <div className="mb-3 flex justify-center">{item.svg}</div>
             <div className="font-bold">{item.label}</div>
           </Link>
         ))}

@@ -282,7 +282,7 @@ export default function AdminOrdersPage() {
             </div>
             <div className="flex-1">
               <h3 className="font-bold text-amber-800 text-lg mb-1">
-                ⚠️ 有 {timeoutOrders.length} 个订单超过24小时未处理
+                有 {timeoutOrders.length} 个订单超过24小时未处理
               </h3>
               <p className="text-amber-700 text-sm mb-3">
                 以下订单已超过24小时未确认付款，请尽快处理：
@@ -430,7 +430,7 @@ export default function AdminOrdersPage() {
                       </div>
                       {isTimeout && (
                         <span className="px-3 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-700">
-                          ⚠️ 超时未处理
+                          超时未处理
                         </span>
                       )}
                     </div>
@@ -517,7 +517,7 @@ export default function AdminOrdersPage() {
                         disabled={updating === order.id}
                         className="btn btn-primary"
                       >
-                        📦 确认发货
+                        确认发货
                       </button>
                     )}
                     {order.status === 'shipped' && (
@@ -562,7 +562,7 @@ export default function AdminOrdersPage() {
           onClick={fetchOrders}
           className="btn btn-primary"
         >
-          🔄 刷新订单
+          刷新订单
         </button>
       </div>
 

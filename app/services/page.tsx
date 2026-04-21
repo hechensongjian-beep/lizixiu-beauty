@@ -158,7 +158,7 @@ export default function ServicesPage() {
                       )}
                       <div className="flex items-center gap-4 text-sm" style={{color:'#9b9b98'}}>
                         {service.duration > 0 && <span>⏱ {formatDuration(service.duration)}</span>}
-                        {service.popularity && <span>🔥 {service.popularity}热度</span>}
+                        {service.popularity && <span>{service.popularity} 热度</span>}
                       </div>
                     </div>
                     <div className="text-right flex-shrink-0">
@@ -206,7 +206,7 @@ export default function ServicesPage() {
               )}
               {selectedService.popularity && (
                 <div className="flex items-center gap-2 text-sm text-gray-500">
-                  🔥 {selectedService.popularity}热度
+                  {selectedService.popularity} 热度
                 </div>
               )}
             </div>

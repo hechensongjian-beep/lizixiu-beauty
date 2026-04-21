@@ -212,13 +212,13 @@ export default function AdminProductsPage() {
         <>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
             {[
-              { label: '商品总数', value: products.length, icon: '📦', color: 'from-[#c9a87c] to-[#e8d5b8]' },
-              { label: '总库存', value: products.reduce((s,p)=>s+p.stock,0), icon: '📊', color: 'from-[#c9a87c] to-[#e8d5b8]' },
-              { label: '分类数', value: categories.length, icon: '🏷️', color: 'from-[#c9a87c] to-[#e8d5b8]' },
-              { label: '缺货商品', value: products.filter(p=>p.stock===0).length, icon: '⚠️', color: 'from-red-400 to-red-500' },
+              { label: '商品总数', value: products.length, color: 'from-[#c9a87c] to-[#e8d5b8]', svg: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg> },
+              { label: '总库存', value: products.reduce((s,p)=>s+p.stock,0), color: 'from-[#c9a87c] to-[#e8d5b8]', svg: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg> },
+              { label: '分类数', value: categories.length, color: 'from-[#c9a87c] to-[#e8d5b8]', svg: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg> },
+              { label: '缺货商品', value: products.filter(p=>p.stock===0).length, color: 'from-red-400 to-red-500', svg: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> },
             ].map(s => (
               <div key={s.label} className={`bg-gradient-to-br ${s.color} text-white rounded-2xl p-5 shadow`}>
-                <div className="text-2xl mb-1">{s.icon}</div>
+                <div className="mb-2">{s.svg}</div>
                 <div className="text-3xl font-bold">{s.value}</div>
                 <div className="text-sm opacity-80">{s.label}</div>
               </div>

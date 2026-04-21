@@ -427,7 +427,7 @@ export default function RootLayout({
         <meta property="og:description" content="东方草本 · 现代美容科技 · 专属定制服务" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>" />
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%23c9a87c'/><text x='50' y='68' font-size='50' text-anchor='middle' fill='white' font-family='serif'>丽</text></svg>" />
       </head>
       <body className="min-h-full" style={{ background: 'var(--background)' }}>
         <AuthProvider>
