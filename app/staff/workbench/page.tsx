@@ -9,13 +9,14 @@ import { getStaffDashboard, updateAppointmentStatus } from '@/lib/api';
 
 interface Appointment {
   id: string;
-  appointment_date: string;
   start_time: string;
   end_time: string;
   status: string;
   notes?: string;
-  customers?: { name: string; phone?: string };
+  customer_name?: string;
+  customer_phone?: string;
   services?: { name: string; price: number; duration_minutes: number };
+  staff?: { name: string };
 }
 
 interface DayStat {
@@ -246,7 +247,7 @@ export default function StaffWorkbenchPage() {
             {(dashboard?.week.earnings || 0).toLocaleString('zh-CN', { style: 'currency', currency: 'CNY', minimumFractionDigits: 0 })}
           </div>
         </div>
-        <div className="bg-white rounded-2xl border border-[(--primary-light)] p-5">
+        <div className="bg-white rounded-2xl border border-[var(--primary-light)] p-5">
           <p className="text-sm text-[var(--foreground-muted)] mb-1">待服务</p>
           <div className="text-3xl font-bold text-amber-600">
             {(dashboard?.week.pending || 0) + (dashboard?.week.confirmed || 0)}
@@ -286,8 +287,8 @@ export default function StaffWorkbenchPage() {
                           </div>
                           <div className="text-sm font-medium text-[var(--foreground)] mb-1">{apt.services?.name || '服务项目'}</div>
                           <div className="flex items-center gap-3 text-sm text-[var(--foreground-muted)]">
-                            <span>{apt.customers?.name || '客户'}</span>
-                            {apt.customers?.phone && <span>{apt.customers.phone}</span>}
+                            <span>{apt.customer_name || '客户'}</span>
+                            {apt.customer_phone && <span>{apt.customer_phone}</span>}
                             <span>{duration}分钟</span>
                           </div>
                           {apt.notes && (
@@ -344,9 +345,9 @@ export default function StaffWorkbenchPage() {
                   const sc = STATUS_COLORS[apt.status] || STATUS_COLORS.pending;
                   return (
                     <div key={apt.id} className="flex items-center gap-3 p-3 rounded-xl" style={{ background: 'var(--primary-light)' }}>
-                      <span className="text-sm font-medium text-[var(--foreground)] w-20 shrink-0">{apt.appointment_date?.substring(5)}</span>
+                      <span className="text-sm font-medium text-[var(--foreground)] w-20 shrink-0">{apt.start_time ? apt.start_time.substring(5, 10) : ''}</span>
                       <span className="text-sm font-medium text-[var(--foreground)] flex-1">{apt.services?.name || '服务'}</span>
-                      <span className="text-sm text-[var(--foreground-muted)]">{apt.customers?.name || '客户'}</span>
+                      <span className="text-sm text-[var(--foreground-muted)]">{apt.customer_name || '客户'}</span>
                       <span className={`px-2 py-0.5 rounded-full text-sm font-medium ${sc.bg} ${sc.text}`}>{sc.label}</span>
                     </div>
                   );

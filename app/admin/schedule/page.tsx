@@ -16,13 +16,13 @@ interface Staff {
 
 interface Appointment {
   id: string;
-  appointment_date: string;
   start_time: string;
   end_time: string;
   status: string;
   notes?: string;
   staff_id: string;
-  customers?: { name: string; phone?: string };
+  customer_name?: string;
+  customer_phone?: string;
   services?: { name: string; price: number; duration_minutes: number };
   staff?: { name: string };
 }
@@ -128,12 +128,12 @@ function ReassignModal({
               </button>
             ))}
           </div>
-          {appointment.customers && (
+          {appointment.customer_name && (
             <div className="mt-4 p-3 bg-gray-50 rounded-xl">
               <div className="text-sm text-gray-500 mb-1">客户信息</div>
-              <div className="font-medium text-gray-900">{appointment.customers.name}</div>
-              {appointment.customers.phone && (
-                <div className="text-sm text-gray-600">{appointment.customers.phone}</div>
+              <div className="font-medium text-gray-900">{appointment.customer_name}</div>
+              {appointment.customer_phone && (
+                <div className="text-sm text-gray-600">{appointment.customer_phone}</div>
               )}
             </div>
           )}
@@ -171,7 +171,7 @@ function WeekCell({
   onStaffClick: (staffId: string, date: string) => void;
 }) {
   const staffApts = appointments.filter(
-    a => a.appointment_date === date && a.staff_id === staffId
+    a => a.start_time?.startsWith(date) && a.staff_id === staffId
   );
   return (
     <div
@@ -508,10 +508,10 @@ export default function AdminSchedulePage() {
                           <button
                             onClick={() => setSelectedApt(apt)}
                             className={`w-full text-left px-2 py-1.5 rounded-lg border-l-3 ${color} hover:opacity-80 transition text-sm cursor-pointer`}
-                            title={`${apt.services?.name} · ${apt.customers?.name} · 点击调换`}
+                            title={`${apt.services?.name} · ${apt.customer_name || '客户'} · 点击调换`}
                           >
                             <div className="font-bold truncate">{apt.services?.name || '服务'}</div>
-                            <div className="opacity-75 truncate">{apt.customers?.name || '客户'}</div>
+                            <div className="opacity-75 truncate">{apt.customer_name || '客户'}</div>
                             <div className="opacity-60">{apt.start_time?.substring(11, 16)}~{apt.end_time?.substring(11, 16)}</div>
                           </button>
                         </div>
@@ -574,10 +574,10 @@ export default function AdminSchedulePage() {
                     </div>
                     {data.staff.map(s => {
                       const count = (data.appointments || []).filter(
-                        a => a.appointment_date === d && a.staff_id === s.id && a.status !== 'cancelled'
+                        a => a.start_time?.startsWith(d) && a.staff_id === s.id && a.status !== 'cancelled'
                       ).length;
                       const pendingCount = (data.appointments || []).filter(
-                        a => a.appointment_date === d && a.staff_id === s.id && a.status === 'pending'
+                        a => a.start_time?.startsWith(d) && a.staff_id === s.id && a.status === 'pending'
                       ).length;
                       return (
                         <div
