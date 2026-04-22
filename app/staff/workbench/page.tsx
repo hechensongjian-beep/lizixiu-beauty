@@ -300,7 +300,7 @@ export default function StaffWorkbenchPage() {
                             <>
                               <button onClick={() => handleStatusChange(apt.id, 'confirmed')}
                                 disabled={updatingId === apt.id}
-                                className="px-2 py-1 bg-blue-100 text-blue-700 text-sm font-medium rounded-lg hover:bg-blue-200 disabled:opacity-50 transition">
+                                className="px-2 py-1 bg-[#c9a87c]/20 text-[#8b7355] text-sm font-medium rounded-lg hover:bg-[#c9a87c]/30 disabled:opacity-50 transition">
                                 {updatingId === apt.id ? '处理中...' : '确认'}
                               </button>
                               <button onClick={() => handleStatusChange(apt.id, 'cancelled')}
@@ -381,7 +381,7 @@ export default function StaffWorkbenchPage() {
               {[
                 { label: '本周总预约', value: dashboard?.week.total },
                 { label: '已完成', value: dashboard?.week.completed, color: 'text-green-600' },
-                { label: '已确认', value: dashboard?.week.confirmed, color: 'text-blue-600' },
+                { label: '已确认', value: dashboard?.week.confirmed, color: 'text-[#c9a87c]' },
                 { label: '待确认', value: dashboard?.week.pending, color: 'text-amber-600' },
                 { label: '本周收入', value: `¥${(dashboard?.week.earnings || 0).toLocaleString('zh-CN')}`, color: 'text-green-700' },
               ].map(item => (

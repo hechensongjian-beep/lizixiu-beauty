@@ -11,7 +11,7 @@ import {
 } from 'recharts';
 import { getOrders, getProducts, getCustomers } from '@/lib/api';
 
-const COLORS = ['#ec4899', '#8b5cf6', '#f59e0b', '#10b981', '#3b82f6', '#ef4444'];
+const COLORS = ['#c9a87c', '#2d4a3e', '#8b7355', '#d4a574', '#5a8c7f', '#a88a5c'];
 
 export default function AdminDashboardPage() {
     useEffect(() => { document.title = '管理后台 - 丽姿秀'; }, []);
@@ -105,7 +105,7 @@ const { role } = useAuth();
   const fmt = (n: number) => new Intl.NumberFormat('zh-CN', { style: 'currency', currency: 'CNY' }).format(n);
 
   const statusColor: Record<string, string> = {
-    pending: 'bg-yellow-100 text-yellow-800', paid: 'bg-blue-100 text-blue-800',
+    pending: 'bg-yellow-100 text-yellow-800', paid: 'bg-[#c9a87c]/20 text-[#8b7355]',
     shipped: 'bg-[#c9a87c] text-white', delivered: 'bg-green-100 text-green-800',
     cancelled: 'bg-red-100 text-red-800',
   };
