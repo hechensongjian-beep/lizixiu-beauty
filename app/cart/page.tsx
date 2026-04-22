@@ -24,13 +24,29 @@ export default function CartPage() {
           const m: Record<string, Product> = {};
           data.products.forEach((p: Product) => { m[p.id] = p; });
           setProducts(m);
+          // 清理购物车中已删除的产品
+          const saved = localStorage.getItem('beauty-shop-cart');
+          if (saved) {
+            try {
+              const savedCart: Record<string, number> = JSON.parse(saved);
+              const validCart: Record<string, number> = {};
+              let hasInvalid = false;
+              for (const [id, qty] of Object.entries(savedCart)) {
+                if (m[id]) { validCart[id] = qty; }
+                else { hasInvalid = true; }
+              }
+              if (hasInvalid) {
+                setCart(validCart);
+                localStorage.setItem('beauty-shop-cart', JSON.stringify(validCart));
+              } else {
+                setCart(savedCart);
+              }
+            } catch { setCart({}); }
+          }
         }
         setLoading(false);
       })
       .catch(() => { setLoading(false); setError('加载失败'); });
-
-    const saved = localStorage.getItem('beauty-shop-cart');
-    if (saved) { try { setCart(JSON.parse(saved)); } catch {} }
   }, []);
 
   useEffect(() => {
