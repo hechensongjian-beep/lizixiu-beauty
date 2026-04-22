@@ -563,3 +563,12 @@ label {
 .rounded-elegant {
   border-radius: var(--radius-xl);
 }
+
+/* 图片加载失败时的统一处理 */
+img {
+  background: linear-gradient(135deg, #e8d5b8 0%, #c9a87c 100%);
+}
+
+img[src=""] {
+  display: none;
+}
