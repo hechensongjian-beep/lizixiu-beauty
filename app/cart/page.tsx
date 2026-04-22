@@ -120,7 +120,7 @@ export default function CartPage() {
                 {cartItems.map(({ product, qty }) => (
                   <div key={product.id} className="flex flex-col md:flex-row items-start md:items-center border-b border-gray-100 pb-6 last:border-0">
                     <div className={`w-24 h-24 bg-gradient-to-r ${product.imageColor} rounded-xl mb-4 md:mb-0 md:mr-6 flex items-center justify-center flex-shrink-0`}>
-                      {product.imageUrl ? <img src={product.imageUrl} alt={product.name} className="w-full h-full object-cover rounded-xl" /> : (
+                      {product.imageUrl ? <img src={product.imageUrl} alt={product.name} className="w-full h-full object-cover rounded-xl" loading="lazy" /> : (
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5" opacity="0.6">
                           <rect x="3" y="3" width="18" height="18" rx="2"/>
                           <circle cx="8.5" cy="8.5" r="1.5"/>

@@ -284,7 +284,7 @@ export default function HomePage() {
                   style={{ border: '1px solid var(--primary-light)', boxShadow: '0 4px 15px rgba(0,0,0,0.03)' }}>
                   <div className="relative h-60 overflow-hidden">
                     {prod.imageUrl ? (
-                      <img src={prod.imageUrl} alt={prod.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                      <img src={prod.imageUrl} alt={prod.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center text-white text-3xl font-bold" style={{ background: 'linear-gradient(135deg, var(--primary), var(--primary-light))' }}>
                         {prod.name.charAt(0)}

@@ -209,7 +209,7 @@ export default function ProductsPage() {
                 <div className={`w-full h-44 rounded-xl mb-5 flex items-center justify-center relative overflow-hidden ${product.imageUrl ? '' : 'bg-gradient-to-br from-[#e8d5b8] to-[#c9a87c]'}`}
                   onClick={e => { e.stopPropagation(); router.push(`/product?id=${product.id}`); }}>
                   {product.imageUrl ? (
-                    <img src={product.imageUrl} alt={product.name} className="w-full h-full object-cover rounded-xl" />
+                    <img src={product.imageUrl} alt={product.name} className="w-full h-full object-cover rounded-xl" loading="lazy" />
                   ) : (
                     <div className="text-center">
                       <div className="text-white text-5xl font-bold opacity-80 mb-2" style={{fontFamily:"'Noto Serif SC',serif"}}>{product.name.charAt(0)}</div>

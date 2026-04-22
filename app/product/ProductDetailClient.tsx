@@ -130,7 +130,7 @@ function ProductDetailInner() {
           <div>
             <div className={`rounded-2xl overflow-hidden relative ${!product.imageUrl ? 'bg-gradient-to-br from-[#e8d5b8] to-[#c9a87c]' : ''}`} style={{minHeight:'480px'}}>
               {product.imageUrl ? (
-                <img src={product.imageUrl} alt={product.name} className="w-full h-full object-cover" style={{minHeight:'480px'}} />
+                <img src={product.imageUrl} alt={product.name} className="w-full h-full object-cover" style={{minHeight:'480px'}} loading="lazy" />
               ) : (
                 <div className="w-full h-full flex flex-col items-center justify-center" style={{minHeight:'480px'}}>
                   <div className="text-white text-9xl font-bold opacity-80 mb-6" style={{fontFamily:"'Noto Serif SC',serif"}}>{product.name.charAt(0)}</div>
