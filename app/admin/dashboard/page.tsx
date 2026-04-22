@@ -217,7 +217,7 @@ const { role } = useAuth();
                   <XAxis type="number" />
                   <YAxis dataKey="name" type="category" width={80} tick={{ fontSize: 12 }} />
                   <Tooltip />
-                  <Bar dataKey="value" fill="#8b5cf6" radius={[0, 4, 4, 0]} />
+                  <Bar dataKey="value" fill="#c9a87c" radius={[0, 4, 4, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
