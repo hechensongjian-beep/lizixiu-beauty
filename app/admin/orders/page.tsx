@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 
-useEffect(() => { document.title = '订单管理 - 丽姿秀'; }, []);
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/components/AuthProvider';
 import { getOrders, updateOrderStatus } from '@/lib/api';
@@ -74,7 +73,9 @@ function ConfirmDialog({
 }
 
 export default function AdminOrdersPage() {
-  const { role } = useAuth();
+    useEffect(() => { document.title = '订单管理 - 丽姿秀'; }, []);
+
+const { role } = useAuth();
   const router = useRouter();
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);

@@ -3,7 +3,6 @@
 
 
 import { useState, useEffect } from 'react';
-useEffect(() => { document.title = '服务项目管理 - 丽姿秀'; }, []);
 
 import Link from 'next/link';
 
@@ -42,7 +41,9 @@ const CATEGORIES = ['面部护理', '身体护理', '美甲', '美睫', '脱毛'
 
 
 export default function AdminServicesPage() {
-  const { role } = useAuth();
+    useEffect(() => { document.title = '服务管理 - 丽姿秀'; }, []);
+
+const { role } = useAuth();
   const router = useRouter();
   if (role && role !== 'merchant' && role !== 'admin') {
     router.replace('/auth/login');

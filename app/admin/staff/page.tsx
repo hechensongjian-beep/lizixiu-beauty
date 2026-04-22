@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 
-useEffect(() => { document.title = '员工管理 - 丽姿秀'; }, []);
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
@@ -27,7 +26,9 @@ interface NewStaff {
 }
 
 export default function AdminStaffPage() {
-  const { role } = useAuth();
+    useEffect(() => { document.title = '员工管理 - 丽姿秀'; }, []);
+
+const { role } = useAuth();
   const router = useRouter();
   
   // 权限守卫

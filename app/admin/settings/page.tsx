@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 
-useEffect(() => { document.title = '站点设置 - 丽姿秀'; }, []);
 import { supabase } from '@/lib/supabase';
 import { useAuth } from '@/components/AuthProvider';
 import Link from 'next/link';
@@ -18,7 +17,9 @@ const DEFAULT_SETTINGS = {
 };
 
 export default function SiteSettingsPage() {
-  const { role, loading } = useAuth();
+    useEffect(() => { document.title = '站点设置 - 丽姿秀'; }, []);
+
+const { role, loading } = useAuth();
   const [settings, setSettings] = useState(DEFAULT_SETTINGS);
   const [saving, setSaving] = useState(false);
   const [msg, setMsg] = useState<{ type: 'success' | 'error'; text: string } | null>(null);

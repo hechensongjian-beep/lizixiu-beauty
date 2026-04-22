@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 
-useEffect(() => { document.title = '口碑管理 - 丽姿秀'; }, []);
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useAuth } from '@/components/AuthProvider';
@@ -20,7 +19,9 @@ interface Testimonial {
 }
 
 export default function TestimonialsPage() {
-  const router = useRouter();
+    useEffect(() => { document.title = '口碑管理 - 丽姿秀'; }, []);
+
+const router = useRouter();
   const { role } = useAuth();
 
   // Permission guard

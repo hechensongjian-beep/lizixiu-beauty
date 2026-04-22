@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useCallback } from 'react';
 
-useEffect(() => { document.title = '支付验证 - 丽姿秀'; }, []);
 import Link from 'next/link';
 import { useAuth } from '@/components/AuthProvider';
 import { useRouter } from 'next/navigation';
@@ -36,7 +35,9 @@ interface Summary {
 }
 
 export default function PaymentVerifyPage() {
-  const { role } = useAuth();
+    useEffect(() => { document.title = '支付验证 - 丽姿秀'; }, []);
+
+const { role } = useAuth();
   const router = useRouter();
   if (role && role !== 'merchant' && role !== 'admin') {
     router.replace('/auth/login');

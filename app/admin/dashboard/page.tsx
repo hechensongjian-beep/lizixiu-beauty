@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 
-useEffect(() => { document.title = '管理后台 - 丽姿秀'; }, []);
 import Link from 'next/link';
 import { useAuth } from '@/components/AuthProvider';
 import { useRouter } from 'next/navigation';
@@ -15,7 +14,9 @@ import { getOrders, getProducts, getCustomers } from '@/lib/api';
 const COLORS = ['#ec4899', '#8b5cf6', '#f59e0b', '#10b981', '#3b82f6', '#ef4444'];
 
 export default function AdminDashboardPage() {
-  const { role } = useAuth();
+    useEffect(() => { document.title = '管理后台 - 丽姿秀'; }, []);
+
+const { role } = useAuth();
   const router = useRouter();
   if (role && role !== 'merchant' && role !== 'admin') {
     router.replace('/auth/login');

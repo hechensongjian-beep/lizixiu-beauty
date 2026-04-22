@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef } from 'react';
 
-useEffect(() => { document.title = '产品管理 - 丽姿秀'; }, []);
 import Link from 'next/link';
 import { useAuth } from '@/components/AuthProvider';
 import { useRouter } from 'next/navigation';
@@ -22,7 +21,9 @@ const IMAGE_COLORS = [
 ];
 
 export default function AdminProductsPage() {
-  const { role } = useAuth();
+    useEffect(() => { document.title = '产品管理 - 丽姿秀'; }, []);
+
+const { role } = useAuth();
   const router = useRouter();
   if (role && role !== 'merchant' && role !== 'admin') {
     router.replace('/auth/login');
