@@ -28,7 +28,9 @@ export default function AppointmentsPage() {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
 
   
-    useEffect(() => { document.title = '在线预约 - 丽姿秀';
+    useEffect(() => { document.title = '在线预约 - 丽姿秀'; }, []);
+
+  useEffect(() => {
     Promise.all([
       getServices(),
       getStaff(),
@@ -71,9 +73,16 @@ export default function AppointmentsPage() {
     setError('');
     const totalDuration = getTotalDuration();
     const start = `${date}T${time}:00`;
-    const endH = parseInt(time.split(':')[0]) + Math.floor((parseInt(time.split(':')[1]) + totalDuration) / 60);
-    const endM = (parseInt(time.split(':')[1]) + totalDuration) % 60;
-    const end = `${date}T${String(endH).padStart(2,'0')}:${String(endM).padStart(2,'0')}:00`;
+    const startH = parseInt(time.split(':')[0]);
+    const startM = parseInt(time.split(':')[1]);
+    const totalMinutes = startH * 60 + startM + totalDuration;
+    const endH = Math.floor(totalMinutes / 60) % 24;
+    const endDayOffset = Math.floor(totalMinutes / 60 / 24);
+    const endM = totalMinutes % 60;
+    const endDate = new Date(date);
+    endDate.setDate(endDate.getDate() + endDayOffset);
+    const endDateStr = endDate.toISOString().split('T')[0];
+    const end = `${endDateStr}T${String(endH).padStart(2,'0')}:${String(endM).padStart(2,'0')}:00`;
     try {
       // Create one appointment for all selected services
       const result = await createAppointment({
