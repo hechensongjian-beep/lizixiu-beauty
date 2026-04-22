@@ -124,7 +124,7 @@ function ReassignModal({
                   <div className="text-sm text-gray-500">{s.role}</div>
                 </div>
                 {targetId === s.id && (
-                  <span className="ml-auto text-[#c9a87c] text-lg">✓</span>
+                  <svg className="ml-auto text-[#c9a87c]" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                 )}
               </button>
             ))}
@@ -390,9 +390,9 @@ const { role } = useAuth();
       <div className="flex items-center justify-between mb-6">
         <button
           onClick={() => view === 'day' ? navigateDay(-1) : navigateWeek(-1)}
-          className="w-10 h-10 rounded-xl bg-white border border-gray-200 flex items-center justify-center text-lg hover:bg-[#faf8f5] hover:border-[#c9a87c] transition"
+          className="w-10 h-10 rounded-xl bg-white border border-gray-200 flex items-center justify-center hover:bg-[#faf8f5] hover:border-[#c9a87c] transition"
         >
-          ←
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
         </button>
         <div className="text-center">
           <div className="text-xl font-bold text-gray-900">
@@ -405,9 +405,9 @@ const { role } = useAuth();
         </div>
         <button
           onClick={() => view === 'day' ? navigateDay(1) : navigateWeek(1)}
-          className="w-10 h-10 rounded-xl bg-white border border-gray-200 flex items-center justify-center text-lg hover:bg-[#faf8f5] hover:border-[#c9a87c] transition"
+          className="w-10 h-10 rounded-xl bg-white border border-gray-200 flex items-center justify-center hover:bg-[#faf8f5] hover:border-[#c9a87c] transition"
         >
-          →
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
         </button>
       </div>
 
@@ -415,14 +415,14 @@ const { role } = useAuth();
       {data && (
         <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6">
           {[
-            { label: '员工数', value: data.summary.totalStaff, color: 'from-[#c9a87c] to-[#e8d5b8]', icon: '⏱' },
-            { label: '总预约', value: data.summary.totalAppointments, color: 'from-[#8b7355] to-[#c9a87c]', icon: '' },
-            { label: '待确认', value: data.summary.pending, color: 'from-[#8b7355] to-[#c9a87c]', icon: '' },
-            { label: '已确认', value: data.summary.confirmed, color: 'from-[#2d4a3e] to-[#4a7c6f]', icon: '✓' },
-            { label: '已完成', value: data.summary.completed, color: 'from-[#2d4a3e] to-[#5a8c7f]', icon: '' },
+            { label: '员工数', value: data.summary.totalStaff, color: 'from-[#c9a87c] to-[#e8d5b8]', svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> },
+            { label: '总预约', value: data.summary.totalAppointments, color: 'from-[#8b7355] to-[#c9a87c]', svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> },
+            { label: '待确认', value: data.summary.pending, color: 'from-[#8b7355] to-[#c9a87c]', svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> },
+            { label: '已确认', value: data.summary.confirmed, color: 'from-[#2d4a3e] to-[#4a7c6f]', svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><polyline points="20 6 9 17 4 12"/></svg> },
+            { label: '已完成', value: data.summary.completed, color: 'from-[#2d4a3e] to-[#5a8c7f]', svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> },
           ].map(item => (
             <div key={item.label} className={`bg-gradient-to-br ${item.color} text-white rounded-xl p-4 shadow-sm`}>
-              <div className="text-2xl mb-1">{item.icon}</div>
+              <div className="mb-2 opacity-80">{item.svg}</div>
               <div className="text-3xl font-bold">{item.value}</div>
               <div className="text-sm opacity-80">{item.label}</div>
             </div>
@@ -442,7 +442,7 @@ const { role } = useAuth();
       {loading && (
         <div className="flex items-center justify-center py-20">
           <div className="text-center">
-            <div className="text-4xl animate-pulse mb-3">...</div>
+            <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[#c9a87c] mx-auto mb-4"></div>
             <p className="text-gray-500">加载排班数据中...</p>
           </div>
         </div>
@@ -453,7 +453,7 @@ const { role } = useAuth();
         <div className="overflow-x-auto">
           <div className="min-w-[800px]">
             {/* 表头：员工列 */}
-            <div className="grid gap-2 mb-2" style={{ gridTemplateColumns: '64px repeat(${data.staff.length}, minmax(160px, 1fr))' }}>
+            <div className="grid gap-2 mb-2" style={{ gridTemplateColumns: `64px repeat(${data.staff.length}, minmax(160px, 1fr))` }}>
               <div></div>
               {data.staff.map(s => (
                 <div key={s.id} className="bg-white border border-gray-200 rounded-xl p-3 text-center shadow-sm">
