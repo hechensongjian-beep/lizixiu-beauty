@@ -110,23 +110,23 @@ function Dropdown({ label, items, isOpen, onToggle, onClose }: {
     <div className="relative" ref={ref}>
       <button
         onClick={onToggle}
-        className="flex items-center gap-1.5 text-[var(--foreground)] hover:text-[var(--primary)] px-5 py-3 font-medium transition-colors"
-        style={{ fontSize: '1.0625rem' }}
+        className="flex items-center gap-1 text-[var(--foreground)] hover:text-[var(--primary)] px-4 py-2 font-medium transition-colors"
+        style={{ fontSize: '0.875rem', letterSpacing: '0.03em' }}
       >
         {label}
-        <svg className="w-4 h-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ transform: isOpen ? 'rotate(180deg)' : undefined }}>
+        <svg className="w-3.5 h-3.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ transform: isOpen ? 'rotate(180deg)' : undefined }}>
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
         </svg>
       </button>
       {isOpen && (
-        <div className="absolute left-0 mt-2 w-52 bg-white rounded-xl shadow-lg border border-[var(--primary-light)]/30 py-2 z-[60]">
+        <div className="absolute left-0 mt-1.5 w-48 bg-white rounded-lg shadow-lg border border-[var(--primary-light)]/30 py-1.5 z-[60]">
           {items.map(item => (
             <Link
               key={item.href}
               href={item.href}
               onClick={onClose}
-              className="block px-5 py-3 text-[var(--foreground)] hover:bg-[var(--background-secondary)] hover:text-[var(--primary)] transition-colors"
-              style={{ fontSize: '1rem' }}
+              className="block px-4 py-2.5 text-[var(--foreground)] hover:bg-[var(--background-secondary)] hover:text-[var(--primary)] transition-colors"
+              style={{ fontSize: '0.8125rem' }}
             >
               {item.label}
             </Link>
@@ -182,29 +182,29 @@ function NavContent() {
 
   return (
     <>
-      <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-[var(--primary-light)]/30">
+      <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm" style={{ borderBottom: '1px solid rgba(201,168,124,0.15)' }}>
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
-          <div className="flex items-center justify-between" style={{ height: '72px' }}>
+          <div className="flex items-center justify-between" style={{ height: '60px' }}>
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-3 group">
-              <span className="text-3xl font-semibold tracking-wide" style={{ fontFamily: 'var(--font-serif)', fontSize: '1.75rem' }}>
+            <Link href="/" className="flex items-center gap-2.5 group">
+              <span className="font-semibold tracking-wide" style={{ fontFamily: 'var(--font-serif)', fontSize: '1.375rem', color: 'var(--foreground)' }}>
                 丽姿秀
               </span>
               {loading ? null : (
-                <span className="text-sm text-[var(--foreground-muted)] hidden md:inline" style={{ fontSize: '0.9375rem' }}>
+                <span className="hidden md:inline" style={{ color: 'var(--foreground-muted)', fontSize: '0.75rem' }}>
                   · {ROLE_LABELS[role]}
                 </span>
               )}
             </Link>
 
-            {/* 桌面端导航 - 大字体 */}
-            <div className="hidden lg:flex items-center gap-2">
+            {/* 桌面端导航 - 精致字体 */}
+            <div className="hidden lg:flex items-center gap-1">
               {mainNav.map(item => (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="relative text-[var(--foreground)] hover:text-[var(--primary)] px-5 py-3 font-medium transition-colors"
-                  style={{ fontSize: '1.0625rem' }}
+                  className="relative text-[var(--foreground)] hover:text-[var(--primary)] px-4 py-2 font-medium transition-colors"
+                  style={{ fontSize: '0.875rem', letterSpacing: '0.03em' }}
                 >
                   {item.label}
                   {showAdminMenu && item.href === '/admin/orders' && (
@@ -233,18 +233,18 @@ function NavContent() {
             </div>
 
             {/* 右侧 */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2.5">
               {loading ? (
-                <div className="w-5 h-5 border-2 border-[var(--primary)] border-t-transparent rounded-full animate-spin" />
+                <div className="w-4 h-4 border-2 border-[var(--primary)] border-t-transparent rounded-full animate-spin" />
               ) : (
-                <Link href="/cart" className="relative p-2 rounded-lg transition-colors hover:bg-[var(--background-secondary)]" aria-label="购物车">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--foreground)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <Link href="/cart" className="relative p-1.5 rounded-md transition-colors hover:bg-[var(--background-secondary)]" aria-label="购物车">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--foreground)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                     <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
                     <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
                   </svg>
                   {cartCount > 0 && (
-                    <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full text-white text-xs font-bold flex items-center justify-center"
-                      style={{ background: 'var(--primary)', minWidth: '20px', minHeight: '20px', padding: '0 4px' }}>
+                    <span className="absolute -top-0.5 -right-0.5 rounded-full text-white font-bold flex items-center justify-center"
+                      style={{ background: 'var(--primary)', minWidth: '16px', minHeight: '16px', fontSize: '0.625rem', padding: '0 3px' }}>
                       {cartCount > 99 ? '99+' : cartCount}
                     </span>
                   )}
@@ -254,28 +254,28 @@ function NavContent() {
                 <div className="relative">
                   <button
                     onClick={() => { setUserMenuOpen(!userMenuOpen); setAdminMenuOpen(false); setMyMenuOpen(false); }}
-                    className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-[var(--accent)] hover:text-[var(--accent-light)] transition-colors"
+                    className="flex items-center gap-1.5 px-2 py-1 font-medium text-[var(--accent)] hover:text-[var(--accent-light)] transition-colors"
                   >
-                    <div className="w-7 h-7 rounded-full bg-[var(--primary)] flex items-center justify-center text-white text-xs font-medium">
+                    <div className="w-6 h-6 rounded-full bg-[var(--primary)] flex items-center justify-center text-white font-medium" style={{ fontSize: '0.6875rem' }}>
                       {user?.email?.[0]?.toUpperCase() || 'U'}
                     </div>
-                    <span className="hidden sm:inline" style={{ fontSize: '1rem' }}>{user?.email?.split('@')[0]}</span>
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <span className="hidden sm:inline" style={{ fontSize: '0.8125rem' }}>{user?.email?.split('@')[0]}</span>
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
                     </svg>
                   </button>
                   {userMenuOpen && (
-                    <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-lg border border-[var(--primary-light)]/30 py-2 z-50">
-                      <div className="px-5 py-3 border-b border-gray-100">
-                        <div className="text-sm text-[var(--foreground-muted)]" style={{ fontSize: '0.875rem' }}>已登录</div>
-                        <div className="font-medium truncate" style={{ fontSize: '1rem' }}>{user?.email}</div>
+                    <div className="absolute right-0 mt-1.5 w-52 bg-white rounded-lg shadow-lg border border-[var(--primary-light)]/30 py-1.5 z-50">
+                      <div className="px-4 py-2.5 border-b border-gray-100">
+                        <div style={{ color: 'var(--foreground-muted)', fontSize: '0.75rem' }}>已登录</div>
+                        <div className="font-medium truncate" style={{ fontSize: '0.8125rem' }}>{user?.email}</div>
                       </div>
                       <Link href="/profile" onClick={closeAll}
-                        className="block px-5 py-3 text-[var(--foreground)] hover:bg-[var(--background-secondary)]" style={{ fontSize: '1rem' }}>
+                        className="block px-4 py-2.5 text-[var(--foreground)] hover:bg-[var(--background-secondary)]" style={{ fontSize: '0.8125rem' }}>
                         个人设置
                       </Link>
                       <button onClick={() => { signOut(); closeAll(); }}
-                        className="w-full text-left px-5 py-3 text-red-500 hover:bg-red-50" style={{ fontSize: '1rem' }}>
+                        className="w-full text-left px-4 py-2.5 text-red-500 hover:bg-red-50" style={{ fontSize: '0.8125rem' }}>
                         退出登录
                       </button>
                     </div>
@@ -283,11 +283,12 @@ function NavContent() {
                 </div>
               ) : (
                 <Link href="/auth/login"
-                  className="hidden sm:inline-flex items-center justify-center px-5 py-2 rounded-lg font-semibold text-white transition-all"
+                  className="hidden sm:inline-flex items-center justify-center px-4 py-1.5 rounded-md font-medium text-white transition-all"
                   style={{
-                    fontSize: '1rem',
-                    background: 'linear-gradient(135deg,#c9a87c 0%,#e8d5b8 100%)',
-                    boxShadow: '0 4px 15px rgba(201,168,124,0.3)',
+                    fontSize: '0.8125rem',
+                    letterSpacing: '0.03em',
+                    background: 'linear-gradient(135deg,#c9a87c 0%,#b8976a 100%)',
+                    boxShadow: '0 2px 10px rgba(201,168,124,0.25)',
                   }}
                 >
                   登录
@@ -296,10 +297,10 @@ function NavContent() {
 
               {/* 移动端菜单按钮 */}
               <button
-                className="lg:hidden p-2 text-[var(--foreground)] hover:text-[var(--primary)] transition-colors"
+                className="lg:hidden p-1.5 text-[var(--foreground)] hover:text-[var(--primary)] transition-colors"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
                     d={mobileMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
                 </svg>
@@ -311,43 +312,43 @@ function NavContent() {
         {/* 移动端菜单 */}
         {mobileMenuOpen && (
           <div className="lg:hidden bg-white border-t border-[var(--primary-light)]/30 shadow-lg max-h-[70vh] overflow-y-auto">
-            <div className="px-4 py-2 space-y-1">
+            <div className="px-4 py-2 space-y-0.5">
               {mainNav.map(item => (
                 <Link key={item.href} href={item.href} onClick={closeAll}
-                  className="block py-3 px-4 text-[var(--foreground)] hover:bg-[var(--background-secondary)] rounded-lg transition-colors">
+                  className="block py-2.5 px-4 text-[var(--foreground)] hover:bg-[var(--background-secondary)] rounded-md transition-colors" style={{ fontSize: '0.875rem' }}>
                   {item.label}
                 </Link>
               ))}
 
               {showAdminMenu && (
                 <>
-                  <div className="py-2 px-4 text-xs text-[var(--foreground-muted)] font-medium">— 管理 —</div>
+                  <div className="py-1.5 px-4 text-[var(--foreground-muted)] font-medium" style={{ fontSize: '0.75rem' }}>— 管理 —</div>
                   {ADMIN_MENU.map(item => (
                     <Link key={item.href} href={item.href} onClick={closeAll}
-                      className="block py-3 px-4 pl-6 text-[var(--foreground)] hover:bg-[var(--background-secondary)] rounded-lg transition-colors">
+                      className="block py-2.5 px-4 pl-6 text-[var(--foreground)] hover:bg-[var(--background-secondary)] rounded-md transition-colors" style={{ fontSize: '0.875rem' }}>
                       {item.label}
                     </Link>
                   ))}
                 </>
               )}
 
-              <div className="py-2 px-4 text-xs text-[var(--foreground-muted)] font-medium">— 我的 —</div>
+              <div className="py-1.5 px-4 text-[var(--foreground-muted)] font-medium" style={{ fontSize: '0.75rem' }}>— 我的 —</div>
               {myMenu.map(item => (
                 <Link key={item.href} href={item.href} onClick={closeAll}
-                  className="block py-3 px-4 pl-6 text-[var(--foreground)] hover:bg-[var(--background-secondary)] rounded-lg transition-colors">
+                  className="block py-2.5 px-4 pl-6 text-[var(--foreground)] hover:bg-[var(--background-secondary)] rounded-md transition-colors" style={{ fontSize: '0.875rem' }}>
                   {item.label}
                 </Link>
               ))}
 
               {!loading && !showUserMenu && (
                 <Link href="/auth/login" onClick={closeAll}
-                  className="block py-3 px-4 text-[var(--primary)] font-medium">
+                  className="block py-2.5 px-4 text-[var(--primary)] font-medium" style={{ fontSize: '0.875rem' }}>
                   登录 / 注册
                 </Link>
               )}
               {showUserMenu && (
                 <button onClick={() => { signOut(); closeAll(); }}
-                  className="w-full text-left py-3 px-4 text-red-500">
+                  className="w-full text-left py-2.5 px-4 text-red-500" style={{ fontSize: '0.875rem' }}>
                   退出登录
                 </button>
               )}
@@ -375,10 +376,10 @@ function ScrollToTop() {
   if (!visible) return null;
   return (
     <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-      className="fixed bottom-20 right-6 w-11 h-11 rounded-full bg-white border shadow-lg flex items-center justify-center z-40 transition-all hover:-translate-y-1 hover:shadow-xl"
-      style={{ borderColor: 'rgba(201,168,124,0.3)', boxShadow: '0 4px 20px rgba(0,0,0,0.1)' }}
+      className="fixed bottom-16 right-6 w-9 h-9 rounded-full bg-white border shadow-md flex items-center justify-center z-40 transition-all hover:-translate-y-0.5 hover:shadow-lg"
+      style={{ borderColor: 'rgba(201,168,124,0.2)' }}
       aria-label="回到顶部">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c9a87c" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#c9a87c" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
         <polyline points="18 15 12 9 6 15"/>
       </svg>
     </button>
@@ -394,15 +395,15 @@ function CookieNotice() {
   const accept = () => { localStorage.setItem('cookie_accepted', '1'); setShow(false); };
   if (!show) return null;
   return (
-    <div className="fixed bottom-20 left-4 right-4 md:left-auto md:right-6 md:max-w-sm z-50"
-      style={{ bottom: '80px' }}>
-      <div className="bg-white rounded-2xl p-5 shadow-2xl border" style={{ borderColor: 'rgba(201,168,124,0.3)', boxShadow: '0 8px 40px rgba(0,0,0,0.15)' }}>
-        <p className="text-sm mb-3" style={{ color: 'var(--foreground-muted)' }}>
+    <div className="fixed left-4 right-4 md:left-auto md:right-6 md:max-w-xs z-50"
+      style={{ bottom: '72px' }}>
+      <div className="bg-white rounded-lg p-4 shadow-xl border" style={{ borderColor: 'rgba(201,168,124,0.2)' }}>
+        <p className="mb-2.5" style={{ color: 'var(--foreground-muted)', fontSize: '0.75rem', lineHeight: '1.5' }}>
           我们使用 Cookie 来改善您的浏览体验。访问我们的网站即表示您同意我们的使用条款。
         </p>
         <button onClick={accept}
-          className="w-full py-2.5 rounded-xl text-white text-sm font-semibold transition hover:opacity-90"
-          style={{ background: 'var(--primary)', boxShadow: '0 4px 15px rgba(201,168,124,0.3)' }}>
+          className="w-full py-2 rounded-md text-white font-medium transition hover:opacity-90"
+          style={{ background: 'var(--primary)', fontSize: '0.75rem' }}>
           我知道了
         </button>
       </div>
