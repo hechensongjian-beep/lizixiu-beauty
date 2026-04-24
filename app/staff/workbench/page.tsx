@@ -232,24 +232,24 @@ export default function StaffWorkbenchPage() {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
         <div className="bg-white rounded-2xl border border-[var(--primary-light)] p-5">
           <p className="text-sm text-[var(--foreground-muted)] mb-1">今日预约</p>
-          <div className="text-3xl font-bold text-[var(--foreground)] mb-1">{dashboard?.today.count}</div>
+          <div className="text-xl font-bold text-[var(--foreground)] mb-1">{dashboard?.today.count}</div>
           <div className="text-sm text-green-600">
             已完成 {dashboard?.today.appointments.filter((a: Appointment) => a.status === 'completed').length || 0} 单
           </div>
         </div>
         <div className="bg-white rounded-2xl border border-[var(--primary-light)] p-5">
           <p className="text-sm text-[var(--foreground-muted)] mb-1">本周完成</p>
-          <div className="text-3xl font-bold text-[var(--primary)]">{dashboard?.week.completed}</div>
+          <div className="text-xl font-bold text-[var(--primary)]">{dashboard?.week.completed}</div>
         </div>
         <div className="bg-white rounded-2xl border border-[var(--primary-light)] p-5">
           <p className="text-sm text-[var(--foreground-muted)] mb-1">本周收入</p>
-          <div className="text-3xl font-bold text-green-600">
+          <div className="text-xl font-bold text-green-600">
             {(dashboard?.week.earnings || 0).toLocaleString('zh-CN', { style: 'currency', currency: 'CNY', minimumFractionDigits: 0 })}
           </div>
         </div>
         <div className="bg-white rounded-2xl border border-[var(--primary-light)] p-5">
           <p className="text-sm text-[var(--foreground-muted)] mb-1">待服务</p>
-          <div className="text-3xl font-bold text-amber-600">
+          <div className="text-xl font-bold text-amber-600">
             {(dashboard?.week.pending || 0) + (dashboard?.week.confirmed || 0)}
           </div>
         </div>

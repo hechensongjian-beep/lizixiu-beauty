@@ -39,8 +39,8 @@ export default function ForgotPasswordPage() {
   if (success) {
     return (
       <div className="max-w-md mx-auto px-4 py-12 text-center">
-        <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-green-100 to-emerald-100 rounded-2xl mb-6">
-          <div className="text-3xl"></div>
+        <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-r from-green-100 to-emerald-100 rounded-2xl mb-6">
+          <div className="text-xl"></div>
         </div>
         <h1 className="text-2xl font-bold text-gray-900 mb-4">邮件已发送！</h1>
         <p className="text-gray-700 mb-6">
@@ -70,8 +70,8 @@ export default function ForgotPasswordPage() {
   return (
     <div className="max-w-md mx-auto px-4 py-12">
       <div className="text-center mb-10">
-        <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-blue-100 to-cyan-100 rounded-2xl mb-6">
-          <div className="text-3xl"></div>
+        <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-r from-blue-100 to-cyan-100 rounded-2xl mb-6">
+          <div className="text-xl"></div>
         </div>
         <h1 className="text-2xl font-bold text-gray-900 mb-3">重置密码</h1>
         <p className="text-gray-600">

@@ -99,7 +99,7 @@ export default function CalendarPage() {
     <div className="max-w-7xl mx-auto px-4 py-10">
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">预约日历</h1>
+          <h1 className="text-xl font-bold text-gray-900">预约日历</h1>
           <p className="text-gray-500 mt-1">查看和管理所有预约</p>
         </div>
         <div className="flex gap-3">
@@ -111,17 +111,17 @@ export default function CalendarPage() {
       <div className="grid grid-cols-3 gap-4 mb-8">
         <div className="bg-gradient-to-br from-yellow-400 to-amber-500 text-white rounded-2xl p-5 shadow">
           <IconWarning />
-          <div className="text-3xl font-bold">{stats.pending}</div>
+          <div className="text-xl font-bold">{stats.pending}</div>
           <div className="text-sm opacity-80">待确认</div>
         </div>
         <div className="bg-gradient-to-br from-[#2d4a3e] to-[#4a7c6f] text-white rounded-2xl p-5 shadow">
           <IconCheck />
-          <div className="text-3xl font-bold">{stats.confirmed}</div>
+          <div className="text-xl font-bold">{stats.confirmed}</div>
           <div className="text-sm opacity-80">已确认</div>
         </div>
         <div className="bg-gradient-to-br from-green-400 to-emerald-500 text-white rounded-2xl p-5 shadow">
           <IconDone />
-          <div className="text-3xl font-bold">{stats.completed}</div>
+          <div className="text-xl font-bold">{stats.completed}</div>
           <div className="text-sm opacity-80">已完成</div>
         </div>
       </div>

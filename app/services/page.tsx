@@ -5,14 +5,8 @@ import { useState, useEffect } from 'react';
 import { getServices } from '@/lib/api';
 
 interface Service {
-  id: string;
-  name: string;
-  category: string;
-  duration: number;
-  price: number;
-  description: string;
-  popularity: number;
-  is_active: boolean;
+  id: string; name: string; category: string; duration: number; price: number;
+  description: string; popularity: number; is_active: boolean;
 }
 
 function formatCurrency(amount: number): string {
@@ -34,8 +28,8 @@ export default function ServicesPage() {
   const [filter, setFilter] = useState('');
   const [search, setSearch] = useState('');
 
-  
-    useEffect(() => { document.title = '美容服务项目 - 丽姿秀';
+  useEffect(() => {
+    document.title = '美容服务项目 - 丽姿秀';
     getServices()
       .then(data => {
         if (data?.error) throw new Error(data.error);
@@ -54,48 +48,42 @@ export default function ServicesPage() {
   });
 
   if (loading) return (
-    <div className="max-w-4xl mx-auto px-4 py-12">
-      <div className="h-10 w-48 rounded-lg animate-pulse bg-gray-200 mb-8 mx-auto"></div>
-      <div className="space-y-4">
-        {[1,2,3].map(i => <div key={i} className="bg-white rounded-2xl p-6 animate-pulse"><div className="h-5 bg-gray-200 rounded w-1/3 mb-3"></div><div className="h-4 bg-gray-100 rounded w-full mb-2"></div><div className="h-4 bg-gray-100 rounded w-1/2"></div></div>)}
+    <div className="max-w-4xl mx-auto px-4 py-10">
+      <div className="h-7 w-40 bg-gray-100 rounded-lg mb-8 mx-auto animate-pulse"></div>
+      <div className="space-y-3">
+        {[1,2,3].map(i => <div key={i} className="bg-white rounded-xl p-5 animate-pulse" style={{ border: '1px solid var(--primary-light)' }}><div className="h-4 bg-gray-100 rounded w-1/3 mb-3"></div><div className="h-3 bg-gray-50 rounded w-full mb-2"></div><div className="h-3 bg-gray-50 rounded w-1/2"></div></div>)}
       </div>
     </div>
   );
 
   if (error) return (
     <div className="max-w-4xl mx-auto px-4 py-16 text-center">
-      <p className="text-red-500 text-lg">{error}</p>
+      <p style={{ color: '#ef4444', fontSize: '0.9375rem' }}>{error}</p>
     </div>
   );
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-12">
-      {/* 页面顶部 */}
+    <div className="max-w-4xl mx-auto px-4 py-10">
+      {/* 页面头部 */}
       <div className="text-center mb-10">
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-5" style={{background:'linear-gradient(135deg, #c9a87c22 0%, #e8d5b822 100%)'}}>
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c9a87c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-          </svg>
-        </div>
-        <h1 className="text-3xl font-bold text-gray-900 mb-3" style={{fontFamily:"'Noto Serif SC',serif"}}>服务项目</h1>
-        <p className="text-gray-500">专业美容服务，预约即刻享受</p>
+        <div className="tracking-widest mb-2 uppercase" style={{ color: 'var(--primary)', fontSize: '0.75rem', letterSpacing: '0.15em' }}>Services</div>
+        <h1 style={{ fontFamily: "'Noto Serif SC', serif", color: 'var(--foreground)', fontSize: '1.75rem' }}>专业美容服务</h1>
       </div>
 
       {/* 搜索框 */}
-      <div className="mb-8">
-        <div className="relative max-w-md mx-auto">
-          <svg className="absolute left-4 top-1/2 -translate-y-1/2" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9b9b98" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <div className="mb-6">
+        <div className="relative max-w-sm mx-auto">
+          <svg className="absolute left-3.5 top-1/2 -translate-y-1/2" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--foreground-light)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
           </svg>
           <input type="text" placeholder="搜索服务..." value={search} onChange={e => setSearch(e.target.value)}
-            className="w-full pl-11 pr-4 py-3 rounded-xl border-2 text-sm outline-none transition"
-            style={{borderColor:'rgba(201,168,124,0.3)',background:'white',color:'#2a2a28'}}
-            onFocus={e => (e.target.style.borderColor = '#c9a87c')}
-            onBlur={e => (e.target.style.borderColor = 'rgba(201,168,124,0.3)')}
-          />
+            className="w-full pl-10 pr-4 py-2.5 rounded-lg border outline-none transition"
+            style={{ borderColor: 'var(--primary-light)', background: 'white', color: 'var(--foreground)', fontSize: '0.8125rem' }}
+            onFocus={e => (e.target.style.borderColor = 'var(--primary)')}
+            onBlur={e => (e.target.style.borderColor = 'var(--primary-light)')} />
           {search && (
-            <button onClick={() => setSearch('')} className="absolute right-4 top-1/2 -translate-y-1/2" style={{color:'#9b9b98'}}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            <button onClick={() => setSearch('')} className="absolute right-3.5 top-1/2 -translate-y-1/2" style={{ color: 'var(--foreground-light)' }}>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
             </button>
           )}
         </div>
@@ -105,10 +93,10 @@ export default function ServicesPage() {
       <div className="flex flex-wrap justify-center gap-2 mb-8">
         {categories.map(cat => (
           <button key={cat} onClick={() => setFilter(cat === '全部' ? '' : cat)}
-            className="px-5 py-2.5 rounded-full font-medium transition"
+            className="px-4 py-1.5 rounded-full font-medium transition"
             style={(!filter && cat === '全部') || filter === cat
-              ? {background:'linear-gradient(135deg, #c9a87c, #b8956a)',color:'white',boxShadow:'0 2px 8px rgba(201,168,124,0.3)',fontSize:'1rem'}
-              : {background:'white',border:'1.5px solid #e8e4df',color:'#6b6b68',fontSize:'1rem'}}>
+              ? { background: 'var(--primary)', color: 'white', fontSize: '0.8125rem', boxShadow: '0 2px 8px rgba(201,168,124,0.25)' }
+              : { background: 'white', border: '1px solid var(--primary-light)', color: 'var(--foreground-muted)', fontSize: '0.8125rem' }}>
             {cat}
           </button>
         ))}
@@ -116,57 +104,56 @@ export default function ServicesPage() {
 
       {/* 服务列表 */}
       {filtered.length === 0 ? (
-        <div className="text-center py-20" style={{color:'#9b9b98'}}>
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="mx-auto mb-4 opacity-40">
+        <div className="text-center py-16" style={{ color: 'var(--foreground-muted)' }}>
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" className="mx-auto mb-3 opacity-30">
             <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
           </svg>
-          <p className="text-xl mb-2">{(search || filter) ? '未找到相关服务' : '暂无服务项目'}</p>
-          <p className="text-sm">{(search || filter) ? '试试其他关键词或分类' : '商家正在准备中，敬请期待'}</p>
+          <p className="mb-1" style={{ fontSize: '0.9375rem' }}>{(search || filter) ? '未找到相关服务' : '暂无服务项目'}</p>
+          <p style={{ fontSize: '0.8125rem' }}>{(search || filter) ? '试试其他关键词或分类' : '商家正在准备中，敬请期待'}</p>
           {(search || filter) && (
-            <button onClick={() => { setSearch(''); setFilter(''); }} className="mt-4 px-6 py-2 rounded-lg text-sm font-medium text-white" style={{background:'var(--primary)'}}>
-              清除筛选
-            </button>
+            <button onClick={() => { setSearch(''); setFilter(''); }} className="mt-3 px-4 py-1.5 rounded-md text-white" style={{ background: 'var(--primary)', fontSize: '0.8125rem' }}>清除筛选</button>
           )}
         </div>
       ) : (
-        <div className="space-y-4 mb-16">
+        <div className="space-y-3 mb-16">
           {filtered.map(service => (
             <div key={service.id}
-              className="bg-white rounded-2xl p-6 cursor-pointer transition-all hover:-translate-y-0.5 hover:shadow-md"
-              style={{border:'1px solid rgba(201,168,124,0.15)',boxShadow:'0 2px 8px rgba(0,0,0,0.03)'}}
+              className="bg-white rounded-xl p-5 cursor-pointer transition-all hover:shadow-md"
+              style={{ border: '1px solid var(--primary-light)', boxShadow: '0 1px 4px rgba(0,0,0,0.03)' }}
               onClick={() => setSelectedService(service)}>
-              <div className="flex items-start gap-4">
-                {/* 头像 */}
-                <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-white text-xl font-bold flex-shrink-0"
-                  style={{background:'linear-gradient(135deg, #c9a87c, #e8d5b8)'}}>
+              <div className="flex items-center gap-4">
+                {/* 图标 */}
+                <div className="w-11 h-11 rounded-lg flex items-center justify-center text-white font-bold flex-shrink-0"
+                  style={{ background: 'linear-gradient(135deg, var(--primary), var(--primary-light))', fontSize: '1rem' }}>
                   {service.name?.charAt(0) || 'S'}
                 </div>
                 {/* 内容 */}
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-start justify-between gap-2">
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 flex-wrap mb-2">
-                        <h3 className="font-bold text-xl" style={{color:'#2a2a28'}}>{service.name}</h3>
-                        {service.category && (
-                          <span className="text-sm px-2.5 py-1 rounded-full" style={{background:'rgba(201,168,124,0.1)',color:'#a88a5c'}}>{service.category}</span>
-                        )}
-                        {service.popularity && service.popularity > 80 && (
-                          <span className="text-sm px-2.5 py-1 rounded-full bg-red-50 text-red-500 font-medium">热门</span>
-                        )}
-                      </div>
-                      {service.description && (
-                        <p className="text-base text-gray-500 mb-2 line-clamp-2">{service.description}</p>
-                      )}
-                      <div className="flex items-center gap-4 text-sm" style={{color:'#9b9b98'}}>
-                        {service.duration > 0 && <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> {formatDuration(service.duration)}</span>}
-                        {service.popularity && <span>{service.popularity} 热度</span>}
-                      </div>
-                    </div>
-                    <div className="text-right flex-shrink-0">
-                      <div className="text-2xl font-bold" style={{color:'#a88a5c'}}>{formatCurrency(service.price)}</div>
-                      <div className="mt-2 px-4 py-2 rounded-lg text-sm font-medium text-white inline-block" style={{background:'var(--primary)'}}>查看详情</div>
-                    </div>
+                  <div className="flex items-center gap-2 flex-wrap mb-1">
+                    <h3 className="font-bold" style={{ color: 'var(--foreground)', fontSize: '0.9375rem' }}>{service.name}</h3>
+                    {service.category && (
+                      <span className="px-2 py-0.5 rounded-full" style={{ background: 'var(--primary-ultra-light)', color: 'var(--primary-dark)', fontSize: '0.6875rem' }}>{service.category}</span>
+                    )}
+                    {service.popularity && service.popularity > 80 && (
+                      <span className="px-2 py-0.5 rounded-full" style={{ background: '#fef2f2', color: '#e05c5c', fontSize: '0.6875rem' }}>热门</span>
+                    )}
                   </div>
+                  {service.description && (
+                    <p className="line-clamp-1 mb-1" style={{ color: 'var(--foreground-muted)', fontSize: '0.75rem' }}>{service.description}</p>
+                  )}
+                  <div className="flex items-center gap-3" style={{ color: 'var(--foreground-light)', fontSize: '0.6875rem' }}>
+                    {service.duration > 0 && (
+                      <span className="flex items-center gap-1">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        {formatDuration(service.duration)}
+                      </span>
+                    )}
+                  </div>
+                </div>
+                {/* 价格+操作 */}
+                <div className="text-right flex-shrink-0">
+                  <div className="font-bold" style={{ color: 'var(--primary)', fontSize: '1.0625rem' }}>{formatCurrency(service.price)}</div>
+                  <div className="mt-1.5 px-3 py-1 rounded-md text-white inline-block" style={{ background: 'var(--primary)', fontSize: '0.6875rem' }}>查看详情</div>
                 </div>
               </div>
             </div>
@@ -178,48 +165,43 @@ export default function ServicesPage() {
       {selectedService && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4" onClick={() => setSelectedService(null)}>
           <div className="absolute inset-0 bg-black/40"></div>
-          <div className="relative bg-white rounded-3xl p-8 w-full max-w-md shadow-2xl"
-            style={{maxHeight:'85vh',overflowY:'auto',border:'1px solid rgba(201,168,124,0.2)'}}
+          <div className="relative bg-white rounded-xl p-6 w-full max-w-md shadow-xl"
+            style={{ maxHeight: '85vh', overflowY: 'auto', border: '1px solid var(--primary-light)' }}
             onClick={e => e.stopPropagation()}>
             {/* 关闭 */}
             <button onClick={() => setSelectedService(null)}
-              className="absolute top-5 right-5 w-8 h-8 rounded-full flex items-center justify-center text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              className="absolute top-4 right-4 w-7 h-7 rounded-full flex items-center justify-center transition" style={{ color: 'var(--foreground-muted)' }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
             </button>
-            {/* 头像 */}
-            <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-white text-2xl font-bold mb-5"
-              style={{background:'linear-gradient(135deg, #c9a87c, #e8d5b8)'}}>
+            {/* 图标 */}
+            <div className="w-12 h-12 rounded-lg flex items-center justify-center text-white font-bold mb-4"
+              style={{ background: 'linear-gradient(135deg, var(--primary), var(--primary-light))', fontSize: '1.25rem' }}>
               {selectedService.name?.charAt(0) || 'S'}
             </div>
-            <h2 className="text-2xl font-bold mb-2" style={{fontFamily:"'Noto Serif SC',serif",color:'#2a2a28'}}>{selectedService.name}</h2>
+            <h2 className="font-bold mb-1.5" style={{ fontFamily: "'Noto Serif SC', serif", color: 'var(--foreground)', fontSize: '1.25rem' }}>{selectedService.name}</h2>
             {selectedService.category && (
-              <span className="text-xs px-2.5 py-1 rounded-full inline-block mb-4" style={{background:'rgba(201,168,124,0.1)',color:'#a88a5c'}}>{selectedService.category}</span>
+              <span className="px-2 py-0.5 rounded-full inline-block mb-3" style={{ background: 'var(--primary-ultra-light)', color: 'var(--primary-dark)', fontSize: '0.6875rem' }}>{selectedService.category}</span>
             )}
             {selectedService.description && (
-              <p className="text-sm text-gray-500 leading-relaxed mb-6">{selectedService.description}</p>
+              <p className="leading-relaxed mb-5" style={{ color: 'var(--foreground-muted)', fontSize: '0.8125rem' }}>{selectedService.description}</p>
             )}
-            <div className="flex items-center gap-6 mb-6">
+            <div className="flex items-center gap-4 mb-5">
               {selectedService.duration > 0 && (
-                <div className="flex items-center gap-2 text-sm text-gray-500">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <div className="flex items-center gap-1.5" style={{ color: 'var(--foreground-muted)', fontSize: '0.8125rem' }}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                   {formatDuration(selectedService.duration)}
                 </div>
               )}
-              {selectedService.popularity && (
-                <div className="flex items-center gap-2 text-sm text-gray-500">
-                  {selectedService.popularity} 热度
-                </div>
-              )}
             </div>
-            <div className="flex items-center justify-between pt-5 border-t" style={{borderColor:'rgba(201,168,124,0.15)'}}>
+            <div className="flex items-center justify-between pt-4" style={{ borderTop: '1px solid var(--primary-light)' }}>
               <div>
-                <div className="text-xs text-gray-400 mb-1">服务价格</div>
-                <div className="text-2xl font-bold" style={{color:'#a88a5c'}}>{formatCurrency(selectedService.price)}</div>
+                <div className="mb-0.5" style={{ color: 'var(--foreground-light)', fontSize: '0.6875rem' }}>服务价格</div>
+                <div className="font-bold" style={{ color: 'var(--primary)', fontSize: '1.25rem' }}>{formatCurrency(selectedService.price)}</div>
               </div>
               <Link href={`/appointments?service=${selectedService.id}`}
                 onClick={() => setSelectedService(null)}
-                className="px-8 py-3 rounded-xl text-white font-semibold text-sm shadow-md transition-all hover:shadow-lg"
-                style={{background:'linear-gradient(135deg, #c9a87c, #b8956a)',boxShadow:'0 4px 15px rgba(201,168,124,0.35)'}}>
+                className="px-6 py-2.5 rounded-md text-white font-medium transition"
+                style={{ background: 'var(--primary)', fontSize: '0.8125rem', boxShadow: '0 2px 10px rgba(201,168,124,0.25)' }}>
                 立即预约
               </Link>
             </div>

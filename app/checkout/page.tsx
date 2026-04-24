@@ -177,10 +177,10 @@ export default function CheckoutPage() {
   if (cart.length === 0 && !orderCreated) {
     return (
       <div className="max-w-4xl mx-auto px-4 py-16 text-center">
-        <div className="w-20 h-20 mx-auto mb-6 rounded-2xl flex items-center justify-center" style={{"background":'linear-gradient(135deg,#c9a87c22 0%,#e8d5b822 100%)'}}>
+        <div className="w-14 h-14 mx-auto mb-6 rounded-2xl flex items-center justify-center" style={{"background":'linear-gradient(135deg,#c9a87c22 0%,#e8d5b822 100%)'}}>
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a87c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
         </div>
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">购物车是空的</h1>
+        <h1 className="text-xl font-bold text-gray-900 mb-4">购物车是空的</h1>
         <p className="text-gray-600 mb-8">您还没有添加任何商品，无法结算。</p>
         <Link href="/products" className="inline-block px-8 py-3 font-bold rounded-lg text-white transition" style={{"background":'linear-gradient(135deg,#c9a87c 0%,#e8d5b8 100%)',"boxShadow":'0 4px 15px rgba(201,168,124,0.3)'}}>
           返回产品商店
@@ -198,10 +198,10 @@ export default function CheckoutPage() {
     return (
       <div className="max-w-2xl mx-auto px-4 py-12">
         <div className="text-center mb-10">
-          <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl mb-6" style={{"background":'linear-gradient(135deg,#c9a87c22 0%,#e8d5b822 100%)'}}>
+          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-6" style={{"background":'linear-gradient(135deg,#c9a87c22 0%,#e8d5b822 100%)'}}>
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#a88a5c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
           </div>
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">订单已创建</h1>
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">订单已创建</h1>
           <p className="text-gray-600">订单号：<span className="font-mono font-bold text-gray-900">{currentOrder.id}</span></p>
           <p className="text-2xl font-bold mt-4" style={{color:'#a88a5c'}}>应付金额：{fmt(total)}</p>
         </div>
@@ -235,7 +235,7 @@ export default function CheckoutPage() {
             </div>
           ) : (
             <div className="text-center py-8 bg-gray-50 rounded-xl mb-6">
-              <div className="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center" style={{"background":'#faf8f5'}}>
+              <div className="w-12 h-12 mx-auto mb-4 rounded-full flex items-center justify-center" style={{"background":'#faf8f5'}}>
                 <IconClock className="text-gray-400" />
               </div>
               <p className="text-gray-600">商家暂未设置收款码</p>
@@ -261,7 +261,7 @@ export default function CheckoutPage() {
 
         {paymentSubmitted ? (
           <div className="text-center py-6">
-            <div className="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center" style={{"background":'linear-gradient(135deg,#c9a87c22 0%,#e8d5b822 100%)'}}>
+            <div className="w-12 h-12 mx-auto mb-4 rounded-full flex items-center justify-center" style={{"background":'linear-gradient(135deg,#c9a87c22 0%,#e8d5b822 100%)'}}>
               <IconCheck className="text-[#c9a87c]" />
             </div>
             <h2 className="text-2xl font-bold mb-3" style={{color:'#2d4a3e'}}>支付已提交</h2>
@@ -333,13 +333,13 @@ export default function CheckoutPage() {
         </div>
       )}
       <div className="text-center mb-12">
-        <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl mb-6" style={{"background":'linear-gradient(135deg,#c9a87c22 0%,#e8d5b822 100%)'}}>
+        <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-6" style={{"background":'linear-gradient(135deg,#c9a87c22 0%,#e8d5b822 100%)'}}>
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#a88a5c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
             <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
             <line x1="1" y1="10" x2="23" y2="10"/>
           </svg>
         </div>
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">结算</h1>
+        <h1 className="text-2xl font-bold text-gray-900 mb-4">结算</h1>
         <p className="text-gray-600">请填写收货信息，确认订单无误后提交。</p>
       </div>
 

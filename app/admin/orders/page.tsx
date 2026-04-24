@@ -266,7 +266,7 @@ const { role } = useAuth();
     <div className="max-w-7xl mx-auto px-4 py-8">
       {/* 标题 */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2" style={{ color: 'var(--foreground)', fontFamily: 'var(--font-serif)' }}>
+        <h1 className="text-xl font-bold mb-2" style={{ color: 'var(--foreground)', fontFamily: 'var(--font-serif)' }}>
           订单管理
         </h1>
         <p className="text-base" style={{ color: 'var(--foreground-muted)' }}>
@@ -393,7 +393,7 @@ const { role } = useAuth();
         </div>
       ) : filteredOrders.length === 0 ? (
         <div className="text-center py-16 bg-white rounded-xl border" style={{ borderColor: 'var(--primary-light)' }}>
-          <div className="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center" style={{ background: 'var(--background-secondary)' }}>
+          <div className="w-12 h-12 mx-auto mb-4 rounded-full flex items-center justify-center" style={{ background: 'var(--background-secondary)' }}>
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--foreground-muted)" strokeWidth="1.5">
               <path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
             </svg>

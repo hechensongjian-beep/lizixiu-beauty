@@ -10,7 +10,7 @@ export default function NotFound() {
           404
         </div>
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-20 h-20 rounded-full flex items-center justify-center" style={{ background: 'var(--primary)', backgroundImage: 'linear-gradient(135deg, var(--primary), var(--primary-dark))' }}>
+          <div className="w-14 h-14 rounded-full flex items-center justify-center" style={{ background: 'var(--primary)', backgroundImage: 'linear-gradient(135deg, var(--primary), var(--primary-dark))' }}>
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="11" cy="11" r="8"/>
               <line x1="21" y1="21" x2="16.65" y2="16.65"/>

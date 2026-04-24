@@ -76,10 +76,10 @@ export default function LoginPage() {
   return (
     <div className="max-w-md mx-auto px-4 py-12">
       <div className="text-center mb-10">
-        <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl mb-6" style={{"background":'linear-gradient(135deg,#c9a87c22 0%,#e8d5b822 100%)'}}>
+        <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-6" style={{"background":'linear-gradient(135deg,#c9a87c22 0%,#e8d5b822 100%)'}}>
           <IconLock />
         </div>
-        <h1 className="text-3xl font-bold text-gray-900 mb-3">登录账号</h1>
+        <h1 className="text-xl font-bold text-gray-900 mb-3">登录账号</h1>
         <p className="text-gray-600">使用邮箱密码登录，管理您的预约或店铺</p>
       </div>
 

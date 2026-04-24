@@ -157,10 +157,10 @@ export default function StaffPage() {
     <div className="max-w-6xl mx-auto px-4 py-12">
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8">
         <div className="mb-6 md:mb-0">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-[#e8d5b8] to-[#f5ede0] rounded-2xl mb-4">
-            <div className="text-3xl">‍</div>
+          <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-r from-[#e8d5b8] to-[#f5ede0] rounded-2xl mb-4">
+            <div className="text-xl">‍</div>
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">员工管理</h1>
+          <h1 className="text-xl font-bold text-gray-900 mb-2">员工管理</h1>
           <p className="text-gray-600">
             管理员工信息、排班、绩效、提成，实现高效团队协作与人力资源优化。
           </p>
@@ -550,7 +550,7 @@ export default function StaffPage() {
         </div>
       ) : staff.length === 0 ? (
         <div className="bg-gradient-to-r from-[#faf8f5] to-[#f5f0e8] border border-[#e8d5b8] rounded-2xl p-12 text-center">
-          <div className="text-5xl mb-6"></div>
+          <div className="text-xl mb-6"></div>
           <h3 className="text-2xl font-semibold text-gray-800 mb-3">暂无员工数据</h3>
           <p className="text-gray-700 max-w-md mx-auto mb-6">
             您尚未添加任何员工。点击“添加员工”按钮开始建立您的团队。
@@ -628,26 +628,26 @@ export default function StaffPage() {
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
               <div className="bg-white rounded-xl p-6 border border-[#c9a87c] shadow-sm">
                 <div className="text-2xl mb-2"></div>
-                <div className="text-3xl font-bold text-gray-900">{staff.length}</div>
+                <div className="text-xl font-bold text-gray-900">{staff.length}</div>
                 <div className="text-sm text-gray-600">员工总数</div>
               </div>
               <div className="bg-white rounded-xl p-6 border border-[#c9a87c] shadow-sm">
                 <div className="text-2xl mb-2"></div>
-                <div className="text-3xl font-bold text-gray-900">
+                <div className="text-xl font-bold text-gray-900">
                   {(staff.reduce((sum, s) => sum + (s.experience_years || 0), 0) / staff.length).toFixed(1)}
                 </div>
                 <div className="text-sm text-gray-600">平均经验（年）</div>
               </div>
               <div className="bg-white rounded-xl p-6 border border-[#c9a87c] shadow-sm">
                 <div className="text-2xl mb-2 font-bold text-[#c9a87c]">ok</div>
-                <div className="text-3xl font-bold text-gray-900">
+                <div className="text-xl font-bold text-gray-900">
                   {staff.filter(s => s.is_active ?? true).length}
                 </div>
                 <div className="text-sm text-gray-600">在职员工</div>
               </div>
               <div className="bg-white rounded-xl p-6 border border-[#c9a87c] shadow-sm">
                 <div className="text-2xl mb-2"></div>
-                <div className="text-3xl font-bold text-gray-900">
+                <div className="text-xl font-bold text-gray-900">
                   {Array.from(new Set(staff.flatMap(s => s.specialties))).length}
                 </div>
                 <div className="text-sm text-gray-600">专长技能数</div>

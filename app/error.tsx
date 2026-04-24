@@ -9,7 +9,7 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
 
   return (
     <div className="min-h-[60vh] flex flex-col items-center justify-center text-center px-6 py-20">
-      <div className="w-20 h-20 rounded-full flex items-center justify-center mb-6" style={{ background: 'linear-gradient(135deg, #c9a87c22 0%, #e8d5b822 100%)' }}>
+      <div className="w-14 h-14 rounded-full flex items-center justify-center mb-6" style={{ background: 'linear-gradient(135deg, #c9a87c22 0%, #e8d5b822 100%)' }}>
         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#a88a5c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
           <circle cx="12" cy="12" r="10"/>
           <line x1="12" y1="8" x2="12" y2="12"/>

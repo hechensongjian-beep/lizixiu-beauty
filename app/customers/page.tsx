@@ -143,7 +143,7 @@ export default function CustomersPage() {
       {/* 头部 */}
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">客户管理</h1>
+          <h1 className="text-xl font-bold text-gray-900">客户管理</h1>
           <p className="text-gray-500 mt-1">客户档案 · 会员等级 · 消费记录</p>
         </div>
         <button onClick={openAdd}
@@ -226,7 +226,7 @@ export default function CustomersPage() {
               { label: '30天活跃', value: active30, color: 'from-green-400 to-green-600' },
             ].map(s => (
               <div key={s.label} className={`bg-gradient-to-br ${s.color} text-white rounded-2xl p-5 shadow`}>
-                <div className={`text-3xl font-bold ${s.small ? 'text-base' : ''}`}>{s.value}</div>
+                <div className={`text-xl font-bold ${s.small ? 'text-base' : ''}`}>{s.value}</div>
                 <div className="text-sm opacity-80 mt-1">{s.label}</div>
               </div>
             ))}
@@ -251,7 +251,7 @@ export default function CustomersPage() {
               </div>
             ) : filtered.length === 0 ? (
               <div className="p-16 text-center text-gray-400">
-                <div className="text-5xl mb-4 font-bold text-gray-300">-</div>
+                <div className="text-xl mb-4 font-bold text-gray-300">-</div>
                 <p className="text-xl">{search ? '未找到匹配的客户' : '暂无客户数据'}</p>
                 {!search && (
                   <button onClick={openAdd} className="mt-6 px-8 py-3 bg-[#c9a87c] text-white rounded-xl font-bold hover:opacity-90">

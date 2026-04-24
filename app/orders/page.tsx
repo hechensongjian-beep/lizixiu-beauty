@@ -103,10 +103,10 @@ export default function OrdersPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 py-12">
       <div className="text-center mb-12">
-        <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-[#c9a87c]/10 to-[#e8d5b8]/10 rounded-2xl mb-6">
-          <div className="text-3xl"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#a88a5c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
+        <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-r from-[#c9a87c]/10 to-[#e8d5b8]/10 rounded-2xl mb-6">
+          <div className="text-xl"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#a88a5c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
         </div>
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">我的订单</h1>
+        <h1 className="text-2xl font-bold text-gray-900 mb-4">我的订单</h1>
         <p className="text-gray-600 max-w-2xl mx-auto">
           查看您的所有订单记录与状态。
         </p>

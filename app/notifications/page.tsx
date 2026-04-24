@@ -131,7 +131,7 @@ export default function NotificationsPage() {
             <Icons.bell />
           </div>
           <div>
-            <h1 className="text-3xl font-serif font-bold text-[#2a2a28]">消息通知</h1>
+            <h1 className="text-xl font-serif font-bold text-[#2a2a28]">消息通知</h1>
             <p className="text-[#6b6b68] mt-1">
               {unreadCount > 0 ? <span className="text-[#c9a87c] font-bold">{unreadCount} 条未读</span> : '暂无未读消息'}
             </p>
@@ -164,7 +164,7 @@ export default function NotificationsPage() {
       {/* 通知列表 */}
       {filtered.length === 0 ? (
         <div className="text-center py-20 bg-white rounded-2xl shadow border border-[#e8d5b8]/30">
-          <div className="w-20 h-20 mx-auto mb-4 bg-[#f5f2ed] rounded-full flex items-center justify-center">
+          <div className="w-14 h-14 mx-auto mb-4 bg-[#f5f2ed] rounded-full flex items-center justify-center">
             <Icons.bell />
           </div>
           <h3 className="text-2xl font-serif font-bold text-[#2a2a28] mb-3">{filter === 'all' ? '暂无通知' : `暂无${TYPE_CONFIG[filter]?.label || ''}通知`}</h3>

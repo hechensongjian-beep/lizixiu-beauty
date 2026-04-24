@@ -423,7 +423,7 @@ const { role } = useAuth();
           ].map(item => (
             <div key={item.label} className={`bg-gradient-to-br ${item.color} text-white rounded-xl p-4 shadow-sm`}>
               <div className="mb-2 opacity-80">{item.svg}</div>
-              <div className="text-3xl font-bold">{item.value}</div>
+              <div className="text-xl font-bold">{item.value}</div>
               <div className="text-sm opacity-80">{item.label}</div>
             </div>
           ))}

@@ -160,7 +160,7 @@ export default function ChatPage() {
     <div className="max-w-6xl mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h1 className="text-3xl font-serif font-bold text-[#2a2a28]">客服中心</h1>
+          <h1 className="text-xl font-serif font-bold text-[#2a2a28]">客服中心</h1>
           <p className="text-[#6b6b68] mt-1">实时处理客户咨询</p>
         </div>
         <div className="flex items-center gap-3">
@@ -191,7 +191,7 @@ export default function ChatPage() {
             <div className="flex-1 overflow-y-auto">
               {filtered.length === 0 ? (
                 <div className="text-center py-20 text-[#6b6b68]">
-                  <div className="w-16 h-16 mx-auto mb-4 bg-[#f5f2ed] rounded-full flex items-center justify-center">
+                  <div className="w-12 h-12 mx-auto mb-4 bg-[#f5f2ed] rounded-full flex items-center justify-center">
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c0bdb8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
                     </svg>

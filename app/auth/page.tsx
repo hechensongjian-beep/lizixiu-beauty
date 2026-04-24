@@ -8,10 +8,10 @@ export default function AuthIndexPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-16">
       <div className="text-center mb-12">
-        <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-r from-[#e8d5b8] to-[#c9a87c] rounded-3xl mb-8">
-          <div className="text-5xl"></div>
+        <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-r from-[#e8d5b8] to-[#c9a87c] rounded-xl mb-8">
+          <div className="text-xl"></div>
         </div>
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">欢迎来到丽姿秀</h1>
+        <h1 className="text-2xl font-bold text-gray-900 mb-4">欢迎来到丽姿秀</h1>
         <p className="text-gray-600 text-lg max-w-2xl mx-auto">
           无论您是寻找美丽服务的客户，还是管理预约的商家，这里都有您需要的工具。
         </p>
@@ -19,7 +19,7 @@ export default function AuthIndexPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
         <div className="bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-lg transition">
-          <div className="text-4xl mb-6">‍</div>
+          <div className="text-2xl mb-6">‍</div>
           <h2 className="text-2xl font-bold text-gray-900 mb-4">我是客户</h2>
           <p className="text-gray-700 mb-6">
             查找附近的美容服务，在线预约您心仪的项目，管理您的预约记录，接收贴心提醒。
@@ -55,7 +55,7 @@ export default function AuthIndexPage() {
         </div>
 
         <div className="bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-lg transition">
-          <div className="text-4xl mb-6"></div>
+          <div className="text-2xl mb-6"></div>
           <h2 className="text-2xl font-bold text-gray-900 mb-4">我是商家</h2>
           <p className="text-gray-700 mb-6">
             管理您的店铺预约、员工排班、服务项目，通过数据分析优化经营，提升客户满意度。

@@ -127,7 +127,7 @@ const { role } = useAuth();
     <div className="max-w-7xl mx-auto px-4 py-10">
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">数据面板</h1>
+          <h1 className="text-xl font-bold text-gray-900">数据面板</h1>
           <p className="text-gray-500 mt-1">实时掌握店铺运营数据</p>
         </div>
         <button onClick={fetchDashboardData} disabled={loading}

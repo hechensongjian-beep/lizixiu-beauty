@@ -72,7 +72,7 @@ export default function ProfilePage() {
     <div className="max-w-4xl mx-auto px-4 py-10">
       {/* 头部 */}
       <div className="text-center mb-10">
-        <div className="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center" style={{ background: 'var(--primary-light)' }}>
+        <div className="w-12 h-12 rounded-full mx-auto mb-4 flex items-center justify-center" style={{ background: 'var(--primary-light)' }}>
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="1.5">
             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
             <circle cx="12" cy="7" r="4"/>
@@ -170,7 +170,7 @@ export default function ProfilePage() {
           {/* 退出登录 */}
           {user && (
             <button onClick={handleSignOut}
-              className="w-full py-4 rounded-2xl border-2 font-semibold text-sm transition hover:bg-red-50 hover:border-red-300"
+              className="w-full py-3 rounded-xl border-2 font-semibold text-sm transition hover:bg-red-50 hover:border-red-300"
               style={{ borderColor: '#fca5a5', color: '#dc2626' }}>
               退出登录
             </button>

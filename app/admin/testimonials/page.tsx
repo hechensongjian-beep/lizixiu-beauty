@@ -79,7 +79,7 @@ const router = useRouter();
     <div className="max-w-6xl mx-auto px-4 py-12">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">口碑评价管理</h1>
+          <h1 className="text-xl font-bold text-gray-900 mb-2">口碑评价管理</h1>
           <p className="text-gray-600">管理首页展示的用户评价</p>
         </div>
         <div className="flex gap-3">

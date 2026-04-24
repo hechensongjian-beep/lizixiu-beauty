@@ -78,7 +78,7 @@ export default function RegisterPage() {
   if (success) {
     return (
       <div className="max-w-md mx-auto px-4 py-12 text-center">
-        <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-green-100 to-emerald-100 rounded-2xl mb-6">
+        <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-r from-green-100 to-emerald-100 rounded-2xl mb-6">
           <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="20 6 9 17 4 12"/>
           </svg>
@@ -107,7 +107,7 @@ export default function RegisterPage() {
   return (
     <div className="max-w-md mx-auto px-4 py-12">
       <div className="text-center mb-10">
-        <div className="inline-flex items-center justify-center w-20 h-20 bg-[#e8d5b8] rounded-2xl mb-6">
+        <div className="inline-flex items-center justify-center w-14 h-14 bg-[#e8d5b8] rounded-2xl mb-6">
           <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#a88a5c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
             <circle cx="12" cy="7" r="4"/>

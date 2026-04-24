@@ -83,7 +83,7 @@ export default function AddToCartButton({ product }: { product: Product }) {
       </div>
 
       <div className="flex gap-3">
-        <button onClick={addToCart} className="flex-1 py-4 rounded-2xl font-bold text-lg text-white transition-all"
+        <button onClick={addToCart} className="flex-1 py-3 rounded-xl font-bold text-lg text-white transition-all"
           style={{background: added ? '#2d4a3e' : 'linear-gradient(135deg, #c9a87c 0%, #e8d5b8 100%)', boxShadow: added ? 'none' : '0 8px 25px rgba(201,168,124,0.3)'}}>
           <span className="flex items-center justify-center gap-2">
             {added ? (
@@ -93,7 +93,7 @@ export default function AddToCartButton({ product }: { product: Product }) {
             )}
           </span>
         </button>
-        <Link href="/cart" className="px-8 py-4 rounded-2xl font-bold text-lg transition-all hover:opacity-90"
+        <Link href="/cart" className="px-8 py-3 rounded-xl font-bold text-lg transition-all hover:opacity-90"
           style={{background:'#2d4a3e',color:'white',boxShadow:'0 8px 25px rgba(45,74,62,0.2)'}}>
           立即结算
         </Link>

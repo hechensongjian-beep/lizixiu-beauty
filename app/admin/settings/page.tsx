@@ -95,7 +95,7 @@ const { role, loading } = useAuth();
   return (
     <div className="max-w-3xl mx-auto px-4 py-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-[var(--foreground)]" style={{ fontFamily: 'var(--font-serif)' }}>
+        <h1 className="text-xl font-bold text-[var(--foreground)]" style={{ fontFamily: 'var(--font-serif)' }}>
           首页内容设置
         </h1>
         <p className="text-[var(--foreground-muted)] mt-2" style={{ fontSize: '1.0625rem' }}>

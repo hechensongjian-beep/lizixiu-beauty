@@ -95,13 +95,13 @@ export default function CartPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 py-12">
       <div className="text-center mb-12">
-        <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl mb-6" style={{"background":'linear-gradient(135deg,#c9a87c22 0%,#e8d5b822 100%)'}}>
+        <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-6" style={{"background":'linear-gradient(135deg,#c9a87c22 0%,#e8d5b822 100%)'}}>
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#a88a5c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
             <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
             <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
           </svg>
         </div>
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">购物车</h1>
+        <h1 className="text-2xl font-bold text-gray-900 mb-4">购物车</h1>
         <p className="text-gray-600">请核对您的商品，确认无误后进行结算。</p>
       </div>
 

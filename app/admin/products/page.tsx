@@ -119,7 +119,7 @@ const { role } = useAuth();
       {/* 头部 */}
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">产品管理</h1>
+          <h1 className="text-xl font-bold text-gray-900">产品管理</h1>
           <p className="text-gray-500 mt-1">管理商品 · 上传图片 · 更新库存</p>
         </div>
         <button onClick={openAdd} className="px-6 py-3 bg-gradient-to-r from-[#c9a87c] to-[#e8d5b8] text-white font-bold rounded-xl hover:opacity-90 transition shadow-lg">
@@ -222,7 +222,7 @@ const { role } = useAuth();
             ].map(s => (
               <div key={s.label} className={`bg-gradient-to-br ${s.color} text-white rounded-2xl p-5 shadow`}>
                 <div className="mb-2">{s.svg}</div>
-                <div className="text-3xl font-bold">{s.value}</div>
+                <div className="text-xl font-bold">{s.value}</div>
                 <div className="text-sm opacity-80">{s.label}</div>
               </div>
             ))}
@@ -233,7 +233,7 @@ const { role } = useAuth();
             {loading ? (
               <div className="p-20 text-center"><div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[#c9a87c] mx-auto"></div></div>
             ) : products.length === 0 ? (
-              <div className="p-20 text-center text-gray-400"><div className="text-5xl mb-4"></div><p className="text-xl">暂无商品，点击右上角添加</p></div>
+              <div className="p-20 text-center text-gray-400"><div className="text-xl mb-4"></div><p className="text-xl">暂无商品，点击右上角添加</p></div>
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full">
