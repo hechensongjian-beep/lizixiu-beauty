@@ -27,10 +27,10 @@
    丽姿秀专属配色 - 高奢精致风格
    ======================================== */
 :root {
-  /* 背景 - 温暖奶油色 */
-  --background: #faf8f5;
-  --background-secondary: #f5f2ed;
-  --background-card: #ffffff;
+  /* 背景 - 高奢深暖灰 */
+  --background: #1a1a18;
+  --background-secondary: #222220;
+  --background-card: #1e1e1c;
   
   /* 主色 - 香槟金 */
   --primary: #c9a87c;
@@ -42,13 +42,13 @@
   --accent: #2d4a3e;
   --accent-light: #3d6252;
   
-  /* 文字 - 暖炭灰 */
-  --foreground: #2a2a28;
-  --foreground-muted: #6b6b68;
-  --foreground-light: #9a9a97;
+  /* 文字 - 温暖米白 */
+  --foreground: #f0ede8;
+  --foreground-muted: #9a9a92;
+  --foreground-light: #6a6a65;
   
   /* 辅助色 */
-  --rose: #d4a5a5;
+  --rose: #c49393;
   --sage: #9caf88;
   --ivory: #fffff0;
   
@@ -65,11 +65,11 @@
   --radius-xl: 1rem;
   --radius-2xl: 1.25rem;
   
-  /* 阴影 - 更细腻 */
-  --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
-  --shadow-md: 0 2px 8px rgba(0,0,0,0.05);
-  --shadow-lg: 0 4px 20px rgba(0,0,0,0.06);
-  --shadow-xl: 0 8px 40px rgba(0,0,0,0.08);
+  /* 阴影 - 暗色适配 */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md: 0 2px 12px rgba(0,0,0,0.35);
+  --shadow-lg: 0 4px 24px rgba(0,0,0,0.4);
+  --shadow-xl: 0 8px 48px rgba(0,0,0,0.5);
 }
 
 @theme inline {
@@ -589,7 +589,7 @@ label {
 
 /* 图片加载失败时的统一处理 */
 img {
-  background: linear-gradient(135deg, #e8d5b8 0%, #c9a87c 100%);
+  background: transparent;
 }
 
 img[src=""] {
