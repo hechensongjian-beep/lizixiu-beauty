@@ -122,7 +122,7 @@ export default function CartPage() {
           </svg>
           <h3 style={{ fontFamily: "'Noto Serif SC', serif", fontSize: '1.375rem', fontWeight: 400, color: 'var(--foreground)', marginBottom: '1rem' }}>购物车是空的</h3>
           <p className="text-gray-600 max-w-md mx-auto mb-8">您还没有添加任何商品。去产品商店逛逛吧！</p>
-          <Link href="/products" className="inline-flex items-center px-5 py-2.5 font-medium rounded-md text-white transition" style={{"background":'linear-gradient(135deg,#c9a87c 0%,#e8d5b8 100%)',"boxShadow":'0 4px 15px rgba(201,168,124,0.3)'}}>去产品商店</Link>
+          <Link href="/products" className="inline-flex items-center px-5 py-2.5 font-medium rounded-md text-white transition" style={{"background":'#a88a5c',"boxShadow":'0 4px 15px rgba(168,138,92,0.35)'}}>去产品商店</Link>
         </div>
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
@@ -220,7 +220,7 @@ export default function CartPage() {
                   </div>
                 </div>
               )}
-              <Link href="/checkout" onClick={() => localStorage.setItem('beauty-delivery-method', deliveryMethod)} className="block w-full mt-8 py-4 text-center font-medium rounded-md text-white transition" style={{"background":'linear-gradient(135deg,#c9a87c 0%,#e8d5b8 100%)',"boxShadow":'0 4px 15px rgba(201,168,124,0.3)'}}>去结算</Link>
+              <Link href="/checkout" onClick={() => localStorage.setItem('beauty-delivery-method', deliveryMethod)} className="block w-full mt-8 py-4 text-center font-medium rounded-md text-white transition" style={{"background":'#a88a5c',"boxShadow":'0 4px 15px rgba(168,138,92,0.35)'}}>去结算</Link>
               <div className="mt-8 pt-8 border-t border-gray-200 space-y-3">
                 <div className="flex items-center gap-2 text-sm text-gray-600">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>

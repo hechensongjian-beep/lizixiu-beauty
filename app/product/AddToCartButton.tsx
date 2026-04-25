@@ -84,7 +84,7 @@ export default function AddToCartButton({ product }: { product: Product }) {
 
       <div className="flex gap-3">
         <button onClick={addToCart} className="flex-1 py-3 rounded-xl font-bold text-lg text-white transition-all"
-          style={{background: added ? '#2d4a3e' : 'linear-gradient(135deg, #c9a87c 0%, #e8d5b8 100%)', boxShadow: added ? 'none' : '0 8px 25px rgba(201,168,124,0.3)'}}>
+          style={{background: added ? '#2d4a3e' : '#a88a5c', boxShadow: added ? 'none' : '0 8px 25px rgba(168,138,92,0.35)'}}>
           <span className="flex items-center justify-center gap-2">
             {added ? (
               <><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 已加入购物车</>
@@ -106,7 +106,7 @@ export default function AddToCartButton({ product }: { product: Product }) {
             <Link href="/cart" className="text-sm font-medium" style={{color:'#a88a5c'}}>去结算 →</Link>
           </div>
           <div className="text-2xl font-bold mb-3" style={{color:'#2a2a28'}}>¥{cartTotal.toFixed(2)}</div>
-          <Link href="/cart" className="block w-full py-3 text-center rounded-xl font-bold text-sm text-white transition" style={{background:'linear-gradient(135deg, #c9a87c 0%, #e8d5b8 100%)'}}>去结算</Link>
+          <Link href="/cart" className="block w-full py-3 text-center rounded-xl font-bold text-sm text-white transition" style={{background:'#a88a5c'}}>去结算</Link>
         </div>
       )}
     </>

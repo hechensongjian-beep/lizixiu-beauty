@@ -111,11 +111,11 @@ export default function ProductsPage() {
       {/* 搜索框 */}
       <div className="mb-6">
         <div className="relative max-w-sm mx-auto">
-          <svg className="absolute left-3.5 top-1/2 -translate-y-1/2" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--foreground-light)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg className="absolute left-4 top-1/2 -translate-y-1/2" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--foreground-muted)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
           </svg>
           <input type="text" placeholder="搜索产品..." value={search} onChange={e => setSearch(e.target.value)}
-            className="w-full pl-10 pr-4 py-2.5 rounded-lg border outline-none transition"
+            className="w-full pl-12 pr-4 py-2.5 rounded-lg border outline-none transition"
             style={{ borderColor: 'var(--primary-light)', background: 'white', color: 'var(--foreground)', fontSize: '0.8125rem' }}
             onFocus={e => (e.target.style.borderColor = 'var(--primary)')}
             onBlur={e => (e.target.style.borderColor = 'var(--primary-light)')} />
@@ -239,7 +239,7 @@ export default function ProductsPage() {
       <div className="rounded-xl p-6 text-center mb-10" style={{ background: 'var(--accent)' }}>
         <h3 className="text-white mb-2" style={{ fontFamily: "'Noto Serif SC', serif", fontSize: '1.25rem' }}>限时优惠</h3>
         <p className="text-white/70 mb-4" style={{ fontSize: '0.8125rem' }}>全场满 500 元免运费，新用户首单立减 30 元</p>
-        <Link href="/cart" className="inline-block px-6 py-2 rounded-md font-medium transition" style={{ background: 'white', color: 'var(--accent)', fontSize: '0.8125rem' }}>
+        <Link href="/cart" className="inline-block px-6 py-2 rounded-md font-medium transition" style={{ background: 'var(--accent)', color: 'white', fontSize: '0.8125rem' }}>
           去购物车结算 →
         </Link>
       </div>
@@ -254,7 +254,7 @@ export default function ProductsPage() {
           <div className="font-bold mb-2" style={{ color: 'var(--foreground)', fontSize: '1.0625rem' }}>¥{getCartTotal().toFixed(2)}</div>
           <div className="flex gap-2">
             <button onClick={() => setCart({})} className="flex-1 py-2 rounded-md transition" style={{ border: '1px solid var(--primary-light)', color: 'var(--foreground-muted)', fontSize: '0.75rem' }}>清空</button>
-            <Link href="/cart" className="flex-1 py-2 text-center rounded-md text-white" style={{ background: 'var(--primary)', fontSize: '0.75rem' }}>去结算</Link>
+            <Link href="/cart" className="flex-1 py-2 text-center rounded-md text-white" style={{ background: 'var(--primary-dark)', fontSize: '0.75rem' }}>去结算</Link>
           </div>
         </div>
       )}

@@ -229,7 +229,7 @@ CREATE POLICY "Allow all" ON site_settings FOR ALL USING (true);`}
 
         <button type="submit" disabled={saving}
           className="w-full py-4 rounded-xl font-bold text-white text-lg transition-all disabled:opacity-50"
-          style={{ background: 'linear-gradient(135deg,#c9a87c 0%,#e8d5b8 100%)', boxShadow: '0 4px 15px rgba(201,168,124,0.3)' }}>
+          style={{ background: '#a88a5c', boxShadow: '0 4px 15px rgba(168,138,92,0.35)' }}>
           {saving ? '保存中...' : '保存设置'}
         </button>
       </form>

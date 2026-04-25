@@ -81,35 +81,6 @@ function ProductImage({ product, size = 220 }: { product: Product; size?: number
   );
 }
 
-// 装饰性：渐变色块（模拟高奢氛围图）
-function GoldArtPanel() {
-  return (
-    <div
-      style={{
-        position: 'absolute',
-        right: '-2rem',
-        top: '50%',
-        transform: 'translateY(-50%)',
-        width: '40%',
-        maxWidth: '420px',
-        aspectRatio: '3/4',
-        borderRadius: 'var(--radius-2xl)',
-        overflow: 'hidden',
-        opacity: 0.85,
-      }}
-    >
-      {/* 多层金色渐变艺术纹理 */}
-      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(160deg, #f5edd8 0%, #e8d5b8 25%, #c9a87c 50%, #b8936a 70%, #a07850 100%)' }} />
-      <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 30% 40%, rgba(255,255,255,0.4) 0%, transparent 60%)' }} />
-      <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 70% 70%, rgba(180,130,60,0.5) 0%, transparent 50%)' }} />
-      {/* 装饰线条 */}
-      <div style={{ position: 'absolute', inset: 0, backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 18px, rgba(255,255,255,0.08) 18px, rgba(255,255,255,0.08) 19px), repeating-linear-gradient(90deg, transparent, transparent 18px, rgba(255,255,255,0.05) 18px, rgba(255,255,255,0.05) 19px)' }} />
-      {/* 金色光晕 */}
-      <div style={{ position: 'absolute', top: '10%', left: '10%', width: '60%', height: '60%', background: 'radial-gradient(circle, rgba(255,240,200,0.6) 0%, transparent 70%)', borderRadius: '50%' }} />
-    </div>
-  );
-}
-
 // 装饰竖线
 function GoldVerticalBar({ height = 40 }: { height?: number }) {
   return (
@@ -329,9 +300,6 @@ export default function HomePage() {
             )}
           </div>
         </div>
-
-        {/* 右侧：金色渐变艺术纹理 */}
-        <GoldArtPanel />
 
         {/* 底部渐变遮罩 */}
         <div
