@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 import { supabase } from '@/lib/supabase';
@@ -22,32 +22,32 @@ export default function RegisterPage() {
     setError(null);
 
     if (!email || !password || !phone || !confirmPassword) {
-      setError('请填写所有必填字段');
+      setError('璇峰～鍐欐墍鏈夊繀濉瓧娈?);
       setLoading(false);
       return;
     }
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
-      setError('邮箱格式不正确');
+      setError('閭鏍煎紡涓嶆纭?);
       setLoading(false);
       return;
     }
     if (password.length < 6) {
-      setError('密码至少6位');
+      setError('瀵嗙爜鑷冲皯6浣?);
       setLoading(false);
       return;
     }
     if (password !== confirmPassword) {
-      setError('两次密码输入不一致');
+      setError('涓ゆ瀵嗙爜杈撳叆涓嶄竴鑷?);
       setLoading(false);
       return;
     }
     if (!/^[0-9]{11}$/.test(phone)) {
-      setError('手机号必须是11位数字');
+      setError('鎵嬫満鍙峰繀椤绘槸11浣嶆暟瀛?);
       setLoading(false);
       return;
     }
     if (!agreed) {
-      setError('请先阅读并同意服务条款');
+      setError('璇峰厛闃呰骞跺悓鎰忔湇鍔℃潯娆?);
       setLoading(false);
       return;
     }
@@ -59,7 +59,7 @@ export default function RegisterPage() {
         options: {
           data: {
             phone,
-            role: 'customer', // 强制客户角色，不允许注册商家
+            role: 'customer', // 寮哄埗瀹㈡埛瑙掕壊锛屼笉鍏佽娉ㄥ唽鍟嗗
           },
         },
       });
@@ -68,7 +68,7 @@ export default function RegisterPage() {
 
       setSuccess(true);
     } catch (err: any) {
-      setError(err.message || '注册失败，请重试');
+      setError(err.message || '娉ㄥ唽澶辫触锛岃閲嶈瘯');
       console.error(err);
     } finally {
       setLoading(false);
@@ -83,21 +83,19 @@ export default function RegisterPage() {
             <polyline points="20 6 9 17 4 12"/>
           </svg>
         </div>
-        <h1 className="text-2xl font-bold text-gray-900 mb-4">注册成功！</h1>
+        <h1 className="font-bold mb-2">娉ㄥ唽鎴愬姛锛?/h1>
         <p className="text-gray-700 mb-2">
-          我们已向 <strong>{email}</strong> 发送了一封验证邮件。
-        </p>
+          鎴戜滑宸插悜 <strong>{email}</strong> 鍙戦€佷簡涓€灏侀獙璇侀偖浠躲€?        </p>
         <p className="text-gray-600 text-sm mb-8">
-          请点击邮件中的链接验证邮箱，然后即可登录。
-        </p>
+          璇风偣鍑婚偖浠朵腑鐨勯摼鎺ラ獙璇侀偖绠憋紝鐒跺悗鍗冲彲鐧诲綍銆?        </p>
         <div className="space-y-4">
           <button onClick={() => router.push('/auth/login')}
             className="block w-full px-6 py-3 bg-gradient-to-r from-[#c9a87c] to-[#e8d5b8] text-white font-semibold rounded-lg hover:opacity-90 transition">
-            前往登录
+            鍓嶅線鐧诲綍
           </button>
           <Link href="/"
             className="block px-6 py-3 border border-gray-300 text-gray-800 font-semibold rounded-lg hover:bg-gray-50 transition">
-            返回首页
+            杩斿洖棣栭〉
           </Link>
         </div>
       </div>
@@ -113,57 +111,56 @@ export default function RegisterPage() {
             <circle cx="12" cy="7" r="4"/>
           </svg>
         </div>
-        <h1 className="text-2xl font-bold text-gray-900 mb-3">创建账号</h1>
+        <h1 className="font-bold mb-2">鍒涘缓璐﹀彿</h1>
         <p className="text-gray-600">
-          注册后即可预约美容服务、查看订单
-        </p>
+          娉ㄥ唽鍚庡嵆鍙绾︾編瀹规湇鍔°€佹煡鐪嬭鍗?        </p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label className="block font-medium text-gray-800 mb-2">邮箱地址 *</label>
+          <label className="block font-medium text-gray-800 mb-2">閭鍦板潃 *</label>
           <input type="email" required
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c9a87c]"
-            placeholder="用于登录和接收通知"
+            placeholder="鐢ㄤ簬鐧诲綍鍜屾帴鏀堕€氱煡"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             disabled={loading} />
         </div>
 
         <div>
-          <label className="block font-medium text-gray-800 mb-2">设置密码 *</label>
+          <label className="block font-medium text-gray-800 mb-2">璁剧疆瀵嗙爜 *</label>
           <input type="password" required
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c9a87c]"
-            placeholder="至少6位字符"
+            placeholder="鑷冲皯6浣嶅瓧绗?
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             disabled={loading} />
         </div>
 
         <div>
-          <label className="block font-medium text-gray-800 mb-2">确认密码 *</label>
+          <label className="block font-medium text-gray-800 mb-2">纭瀵嗙爜 *</label>
           <input type="password" required
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c9a87c]"
-            placeholder="再次输入密码"
+            placeholder="鍐嶆杈撳叆瀵嗙爜"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             disabled={loading} />
         </div>
 
         <div>
-          <label className="block font-medium text-gray-800 mb-2">手机号 *</label>
+          <label className="block font-medium text-gray-800 mb-2">鎵嬫満鍙?*</label>
           <input type="tel" required
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c9a87c]"
-            placeholder="11位数字，仅用于联系"
+            placeholder="11浣嶆暟瀛楋紝浠呯敤浜庤仈绯?
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             disabled={loading} />
-          <p className="mt-1 text-sm text-gray-500">我们不会公开您的手机号</p>
+          <p className="mt-1 text-sm text-gray-500">鎴戜滑涓嶄細鍏紑鎮ㄧ殑鎵嬫満鍙?/p>
         </div>
 
         {error && (
           <div className="p-4 bg-red-50 border border-red-200 text-red-700 rounded-lg">
-            <p className="font-semibold text-sm">注册失败</p>
+            <p className="font-semibold text-sm">娉ㄥ唽澶辫触</p>
             <p className="text-sm mt-1">{error}</p>
           </div>
         )}
@@ -173,7 +170,7 @@ export default function RegisterPage() {
             <input type="checkbox" checked={agreed} onChange={(e) => setAgreed(e.target.checked)}
               className="mt-1 flex-shrink-0" />
             <span className="text-sm text-gray-700">
-              我已阅读并同意 <a href="#" className="text-[#a88a5c] hover:underline">服务条款</a> 与 <a href="#" className="text-[#a88a5c] hover:underline">隐私政策</a>
+              鎴戝凡闃呰骞跺悓鎰?<a href="#" className="text-[#a88a5c] hover:underline">鏈嶅姟鏉℃</a> 涓?<a href="#" className="text-[#a88a5c] hover:underline">闅愮鏀跨瓥</a>
             </span>
           </label>
         </div>
@@ -186,16 +183,16 @@ export default function RegisterPage() {
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
               </svg>
-              注册中...
+              娉ㄥ唽涓?..
             </span>
-          ) : '立即注册'}
+          ) : '绔嬪嵆娉ㄥ唽'}
         </button>
       </form>
 
       <div className="mt-8 text-center text-gray-600">
-        已有账号？{' '}
+        宸叉湁璐﹀彿锛焮' '}
         <Link href="/auth/login" className="text-[#a88a5c] font-semibold hover:underline">
-          直接登录
+          鐩存帴鐧诲綍
         </Link>
       </div>
     </div>

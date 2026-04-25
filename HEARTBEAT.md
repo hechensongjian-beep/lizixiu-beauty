@@ -1,46 +1,100 @@
-# HEARTBEAT.md - 2026-04-17
+# HEARTBEAT.md - 2026-04-25 更新
 
-## ✅ 核心架构重构完成（15:21-15:44）
+## 当前版本
+- **https://lizixiu-beauty.pages.dev**（Cloudflare Pages 自动部署）
+- GitHub: latest commit ✅ (高奢精致风格改造)
 
-### 🔴 本次重磅修复
+## 最新修复（2026-04-25）
 
-| # | 文件 | 问题 | 修复 |
-|---|------|------|------|
-| 1 | layout.tsx | 假角色（localStorage 可切换） | 替换为 AuthProvider，基于真实 Supabase Auth |
-| 2 | app/auth/register | 注册可选商家（安全漏洞） | 移除角色选择，强制 `role: 'customer'` |
-| 3 | app/auth/staff-login | 密码存 localStorage，假登录 | 重写为真实 Supabase Auth，检查 profiles 表 |
-| 4 | app/staff/workbench | useRole 改 useAuth | 路由守卫改为 useAuth |
-| 5 | 6个页面 | RoleProvider 假角色 | 统一改用 useAuth |
-| 6 | AuthProvider.tsx | 缺 'admin' 类型 | 已补充 |
-| 7 | RoleProvider.tsx | 旧假角色系统 | 已删除 |
+### 全站高奢精致风格改造
+1. ✅ **全局字体统一缩小**
+   - body基准: 18px → 15px
+   - h1: 56px → 40px
+   - h2: 40px → 28px
+   - 全站去除 text-4xl/text-3xl 大量使用
+   - 导航栏高度60px(原72px)，字体0.875rem
 
-### 构建部署
-- ✅ 32页构建成功
-- ✅ 部署 https://6083ef5f.lizixiu-beauty.pages.dev
-- ✅ GitHub commit `86fdfd3`（生产别名：https://production.lizixiu-beauty.pages.dev）
+2. ✅ **首页全面重写** (commit f5d20e3)
+   - Hero区去除数据卡，改为品牌意境+标签
+   - 修复"立即预约"按钮图标文字对齐
+   - 服务/产品卡片精致化
+   - CTA区深绿背景+金色渐变
 
-## 已部署地址
-- **https://6083ef5f.lizixiu-beauty.pages.dev**（最新，2026-04-17 15:44）
-- https://production.lizixiu-beauty.pages.dev（主站别名）
+3. ✅ **全站页面字体精调**
+   - products/page.tsx - 产品列表页精致化
+   - services/page.tsx - 服务页精致化
+   - product/ProductDetailClient.tsx - 产品详情页精致化
+   - appointments/page.tsx - 预约页字体精调
+   - cart/page.tsx - 购物车字体精调
+   - checkout/page.tsx - 结算页字体精调
+   - orders/page.tsx - 订单页字体精调
+   - auth/*.tsx - 登录注册页字体精调
+   - admin/*.tsx - 管理端页面字体精调
+   - 32+文件全局字体统一缩小
 
-## ✅ 架构重构结果
-- 角色系统由 Supabase Auth session 驱动，不再可任意切换
-- 注册强制 customer 角色，无法注册商家账号
-- 员工登录走真实 Auth，检查 profiles 表 role='staff'
-- 导航自动适配真实角色（无假切换下拉框）
+4. ✅ **导航栏精简** (commit f5d20e3)
+   - 高度60px，字体0.875rem
+   - 下拉菜单更精致
 
-## ⚠️ 待用户操作
-- [ ] 商家账号：在 Supabase → Authentication 创建 admin 用户，profiles 表设置 role='merchant'/'admin'
-- [ ] 收款码上传 /admin/payment
-- [ ] 产品图片上传 /admin/products
+## 商家登录
+- 账号：`merchant@lizixiu.com` / `780607`
+- 后台入口：右上角下拉菜单 → 管理
 
-## 🔴 仍需处理
-- [ ] 员工账号创建（需商家后台支持，或手动在 profiles 表创建）
-- [ ] admin/payment supabaseAdmin 改 api.ts（Service Key）
-- [ ] 路由守卫（middleware 或 AuthGuard 组件）
+## 测试账号
+- 客户：`customer@demo.com` / `demo123456`
 
-## P2/P3 待做
-- [ ] 首页灵动岛风格完善
-- [ ] 员工独立账号系统（商家后台创建员工）
-- [ ] 产品详情页 /products/[id]
-- [ ] 未登录提示优化
+## Cloudflare Pages Functions
+| 路由 | 用途 |
+|------|------|
+| `/api/admin/testimonials` | 口碑增删改 |
+| `/api/admin/upload` | 文件上传 |
+| `/api/admin/create-staff` | 创建员工 |
+| `/api/admin/update-user-password` | 修改密码 |
+
+## 数据库表
+- ✅ site_settings（首页内容配置，已有默认数据）
+- ✅ testimonials（口碑管理）
+- ✅ staff（员工管理）
+- ✅ products（产品）
+- ✅ services（服务项目）
+- ✅ orders（订单）
+- ✅ appointments（预约）
+- ✅ payment_settings（支付设置）
+
+## 🔴 老板醒来后需要手动处理
+
+### 1. 上传收款码
+- 登录商家后台 `/admin/payment`
+- 上传支付宝收款码（微信已上传）
+
+### 2. 上传产品图片
+- `/admin/products` - 为产品添加真实图片
+
+### 3. 检查网站功能
+- 测试完整购物流程（浏览→加购→结算→下单）
+- 测试预约流程
+- 测试员工账号登录
+
+## 已完成的功能
+- [x] 预约管理系统
+- [x] 电商商城（产品展示、购物车、结算）
+- [x] 商家后台（订单管理、产品管理、服务管理、员工管理）
+- [x] 员工端登录
+- [x] 收款码支付
+- [x] 首页动态内容（site_settings）
+- [x] 订单超时提醒
+- [x] 商家通知角标
+- [x] 订单确认收款/完成订单
+- [x] 全站 SVG 图标化（无 emoji）
+- [x] 高奢精致风格改造（全站字体缩小+界面精调）
+
+## P2 待完善
+- [ ] SEO metadata（需要逐页拆分 Server/Client 组件）
+- [ ] 图片懒加载优化（产品/服务列表）
+- [ ] 页面加载性能优化
+- [ ] lib/api.ts TypeScript 清理
+
+## P3 待迭代
+- [ ] 订单邮件通知（需 SMTP 配置）
+- [ ] 微信客服接入（需企业微信/公众号配置）
+- [ ] 预约短信提醒

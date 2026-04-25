@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
@@ -17,17 +17,17 @@ interface Customer {
   created_at?: string;
 }
 
-const MEMBERSHIP_OPTIONS = ['普通客户', '银卡会员', '金卡会员', '钻石会员'];
+const MEMBERSHIP_OPTIONS = ['鏅€氬鎴?, '閾跺崱浼氬憳', '閲戝崱浼氬憳', '閽荤煶浼氬憳'];
 
 const MEMBERSHIP_STYLE: Record<string, string> = {
-  '钻石会员': 'bg-[#2d4a3e] text-white',
-  '金卡会员': 'bg-yellow-100 text-yellow-800',
-  '银卡会员': 'bg-gray-200 text-gray-700',
-  '普通客户': 'bg-gray-100 text-gray-600',
+  '閽荤煶浼氬憳': 'bg-[#2d4a3e] text-white',
+  '閲戝崱浼氬憳': 'bg-yellow-100 text-yellow-800',
+  '閾跺崱浼氬憳': 'bg-gray-200 text-gray-700',
+  '鏅€氬鎴?: 'bg-gray-100 text-gray-600',
 };
 
 export default function CustomersPage() {
-  useEffect(() => { document.title = '客户管理 - 丽姿秀'; }, []);
+  useEffect(() => { document.title = '瀹㈡埛绠＄悊 - 涓藉Э绉€'; }, []);
   const router = useRouter();
   const { role } = useAuth();
 
@@ -47,7 +47,7 @@ export default function CustomersPage() {
   const [tab, setTab] = useState<'list' | 'add' | 'edit'>('list');
   const [editing, setEditing] = useState<Customer | null>(null);
   const [saving, setSaving] = useState(false);
-  const [form, setForm] = useState({ name: '', phone: '', email: '', membership_level: '普通客户', notes: '' });
+  const [form, setForm] = useState({ name: '', phone: '', email: '', membership_level: '鏅€氬鎴?, notes: '' });
   const [search, setSearch] = useState('');
 
   const fetchCustomers = async () => {
@@ -57,7 +57,7 @@ export default function CustomersPage() {
       if (result?.error) throw new Error(result.error);
       setCustomers(result?.customers || []);
     } catch (err: any) {
-      setError(err.message || '加载失败');
+      setError(err.message || '鍔犺浇澶辫触');
     } finally {
       setLoading(false);
     }
@@ -67,7 +67,7 @@ export default function CustomersPage() {
 
   const openAdd = () => {
     setEditing(null);
-    setForm({ name: '', phone: '', email: '', membership_level: '普通客户', notes: '' });
+    setForm({ name: '', phone: '', email: '', membership_level: '鏅€氬鎴?, notes: '' });
     setTab('add');
   };
 
@@ -79,12 +79,11 @@ export default function CustomersPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.name) { alert('请填写客户姓名'); return; }
+    if (!form.name) { alert('璇峰～鍐欏鎴峰鍚?); return; }
     setSaving(true);
     try {
-      // 直接用 Supabase REST API（和现有产品管理一样的方式）
-      const supabase = (window as any).__SUPABASE_CLIENT__;
-      if (!supabase) { alert('数据源不可用，请刷新页面'); return; }
+      // 鐩存帴鐢?Supabase REST API锛堝拰鐜版湁浜у搧绠＄悊涓€鏍风殑鏂瑰紡锛?      const supabase = (window as any).__SUPABASE_CLIENT__;
+      if (!supabase) { alert('鏁版嵁婧愪笉鍙敤锛岃鍒锋柊椤甸潰'); return; }
 
       if (editing) {
         const { error } = await supabase.from('customers').update({
@@ -92,7 +91,7 @@ export default function CustomersPage() {
           membership_level: form.membership_level, notes: form.notes,
         }).eq('id', editing.id);
         if (error) throw error;
-        alert('更新成功');
+        alert('鏇存柊鎴愬姛');
       } else {
         const { error } = await supabase.from('customers').insert({
           name: form.name, phone: form.phone, email: form.email,
@@ -100,27 +99,27 @@ export default function CustomersPage() {
           total_spent: 0, last_visit: new Date().toISOString().split('T')[0],
         });
         if (error) throw error;
-        alert('添加成功');
+        alert('娣诲姞鎴愬姛');
       }
       fetchCustomers();
       setTab('list');
     } catch (err: any) {
-      alert('保存失败: ' + (err.message || '未知错误'));
+      alert('淇濆瓨澶辫触: ' + (err.message || '鏈煡閿欒'));
     } finally {
       setSaving(false);
     }
   };
 
   const handleDelete = async (c: Customer) => {
-    if (!confirm(`确定删除客户"${c.name}"吗？`)) return;
+    if (!confirm(`纭畾鍒犻櫎瀹㈡埛"${c.name}"鍚楋紵`)) return;
     try {
       const supabase = (window as any).__SUPABASE_CLIENT__;
-      if (!supabase) { alert('数据源不可用'); return; }
+      if (!supabase) { alert('鏁版嵁婧愪笉鍙敤'); return; }
       const { error } = await supabase.from('customers').delete().eq('id', c.id);
       if (error) throw error;
-      alert('删除成功');
+      alert('鍒犻櫎鎴愬姛');
       fetchCustomers();
-    } catch { alert('删除失败'); }
+    } catch { alert('鍒犻櫎澶辫触'); }
   };
 
   const fmt = (n: number) => new Intl.NumberFormat('zh-CN', { style: 'currency', currency: 'CNY' }).format(n);
@@ -140,90 +139,90 @@ export default function CustomersPage() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-10">
-      {/* 头部 */}
+      {/* 澶撮儴 */}
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-xl font-bold text-gray-900">客户管理</h1>
-          <p className="text-gray-500 mt-1">客户档案 · 会员等级 · 消费记录</p>
+          <h1 className="text-xl font-bold text-gray-900">瀹㈡埛绠＄悊</h1>
+          <p className="text-gray-500 mt-1">瀹㈡埛妗ｆ 路 浼氬憳绛夌骇 路 娑堣垂璁板綍</p>
         </div>
         <button onClick={openAdd}
           className="px-6 py-3 bg-gradient-to-r from-[#c9a87c] to-[#e8d5b8] text-white font-bold rounded-xl hover:opacity-90 transition shadow-lg">
-          + 添加客户
+          + 娣诲姞瀹㈡埛
         </button>
       </div>
 
-      {/* 标签切换 */}
+      {/* 鏍囩鍒囨崲 */}
       <div className="flex gap-3 mb-8">
         <button onClick={() => setTab('list')}
           className={`px-5 py-2 rounded-full font-medium transition ${tab==='list'?'bg-[#c9a87c] text-white shadow':'bg-white border text-gray-700 hover:bg-gray-50'}`}>
-          客户列表
+          瀹㈡埛鍒楄〃
         </button>
         <button onClick={() => { openAdd(); setTab('add'); }}
           className={`px-5 py-2 rounded-full font-medium transition ${tab==='add'?'bg-[#c9a87c] text-white shadow':'bg-white border text-gray-700 hover:bg-gray-50'}`}>
-          添加客户
+          娣诲姞瀹㈡埛
         </button>
         {tab === 'edit' && (
-          <span className="px-5 py-2 bg-blue-100 text-blue-700 rounded-full font-medium">编辑客户</span>
+          <span className="px-5 py-2 bg-blue-100 text-blue-700 rounded-full font-medium">缂栬緫瀹㈡埛</span>
         )}
       </div>
 
-      {/* 添加/编辑表单 */}
+      {/* 娣诲姞/缂栬緫琛ㄥ崟 */}
       {(tab === 'add' || tab === 'edit') && (
         <div className="bg-white rounded-2xl shadow-lg p-8 mb-8">
-          <h2 className="text-xl font-bold text-gray-900 mb-6">{editing ? '编辑客户' : '添加新客户'}</h2>
+          <h2 className="text-xl font-bold text-gray-900 mb-6">{editing ? '缂栬緫瀹㈡埛' : '娣诲姞鏂板鎴?}</h2>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block font-medium text-gray-700 mb-2">姓名 *</label>
+                <label className="block font-medium text-gray-700 mb-2">濮撳悕 *</label>
                 <input type="text" value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
-                  placeholder="客户姓名" className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#c9a87c]" required />
+                  placeholder="瀹㈡埛濮撳悕" className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#c9a87c]" required />
               </div>
               <div>
-                <label className="block font-medium text-gray-700 mb-2">电话</label>
+                <label className="block font-medium text-gray-700 mb-2">鐢佃瘽</label>
                 <input type="tel" value={form.phone} onChange={e => setForm(f => ({ ...f, phone: e.target.value }))}
-                  placeholder="手机号码" className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#c9a87c]" />
+                  placeholder="鎵嬫満鍙风爜" className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#c9a87c]" />
               </div>
               <div>
-                <label className="block font-medium text-gray-700 mb-2">邮箱</label>
+                <label className="block font-medium text-gray-700 mb-2">閭</label>
                 <input type="email" value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
-                  placeholder="电子邮箱" className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#c9a87c]" />
+                  placeholder="鐢靛瓙閭" className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#c9a87c]" />
               </div>
               <div>
-                <label className="block font-medium text-gray-700 mb-2">会员等级</label>
+                <label className="block font-medium text-gray-700 mb-2">浼氬憳绛夌骇</label>
                 <select value={form.membership_level} onChange={e => setForm(f => ({ ...f, membership_level: e.target.value }))}
                   className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#c9a87c]">
                   {MEMBERSHIP_OPTIONS.map(m => <option key={m} value={m}>{m}</option>)}
                 </select>
               </div>
               <div className="md:col-span-2">
-                <label className="block font-medium text-gray-700 mb-2">备注</label>
+                <label className="block font-medium text-gray-700 mb-2">澶囨敞</label>
                 <textarea rows={2} value={form.notes} onChange={e => setForm(f => ({ ...f, notes: e.target.value }))}
-                  placeholder="客户偏好、过敏史、特殊需求等..."
+                  placeholder="瀹㈡埛鍋忓ソ銆佽繃鏁忓彶銆佺壒娈婇渶姹傜瓑..."
                   className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#c9a87c]" />
               </div>
             </div>
             <div className="flex gap-4 pt-4 border-t">
               <button type="button" onClick={() => setTab('list')}
-                className="px-6 py-3 border rounded-xl font-bold text-gray-700 hover:bg-gray-50">取消</button>
+                className="px-6 py-3 border rounded-xl font-bold text-gray-700 hover:bg-gray-50">鍙栨秷</button>
               <button type="submit" disabled={saving}
                 className="px-8 py-3 bg-gradient-to-r from-[#c9a87c] to-[#e8d5b8] text-white rounded-xl font-bold hover:opacity-90 shadow disabled:opacity-50">
-                {saving ? '保存中...' : (editing ? '保存更改' : '确认添加')}
+                {saving ? '淇濆瓨涓?..' : (editing ? '淇濆瓨鏇存敼' : '纭娣诲姞')}
               </button>
             </div>
           </form>
         </div>
       )}
 
-      {/* 客户列表 */}
+      {/* 瀹㈡埛鍒楄〃 */}
       {tab === 'list' && (
         <>
-          {/* 统计卡片 */}
+          {/* 缁熻鍗＄墖 */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
             {[
-              { label: '客户总数', value: customers.length, color: 'from-[#c9a87c] to-[#e8d5b8]' },
-              { label: '累计消费', value: fmt(totalSpent), color: 'from-[#c9a87c] to-[#e8d5b8]', small: true },
-              { label: '钻石会员', value: customers.filter(c => c.membership_level === '钻石会员').length, color: 'from-[#2d4a3e] to-[#4a7c6f]' },
-              { label: '30天活跃', value: active30, color: 'from-green-400 to-green-600' },
+              { label: '瀹㈡埛鎬绘暟', value: customers.length, color: 'from-[#c9a87c] to-[#e8d5b8]' },
+              { label: '绱娑堣垂', value: fmt(totalSpent), color: 'from-[#c9a87c] to-[#e8d5b8]', small: true },
+              { label: '閽荤煶浼氬憳', value: customers.filter(c => c.membership_level === '閽荤煶浼氬憳').length, color: 'from-[#2d4a3e] to-[#4a7c6f]' },
+              { label: '30澶╂椿璺?, value: active30, color: 'from-green-400 to-green-600' },
             ].map(s => (
               <div key={s.label} className={`bg-gradient-to-br ${s.color} text-white rounded-2xl p-5 shadow`}>
                 <div className={`text-xl font-bold ${s.small ? 'text-base' : ''}`}>{s.value}</div>
@@ -232,31 +231,30 @@ export default function CustomersPage() {
             ))}
           </div>
 
-          {/* 搜索 */}
+          {/* 鎼滅储 */}
           <div className="mb-4">
             <input type="text" value={search} onChange={e => setSearch(e.target.value)}
-              placeholder="搜索客户姓名、电话、邮箱..."
+              placeholder="鎼滅储瀹㈡埛濮撳悕銆佺數璇濄€侀偖绠?.."
               className="w-full max-w-md px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#c9a87c]" />
           </div>
 
-          {/* 表格 */}
+          {/* 琛ㄦ牸 */}
           <div className="bg-white rounded-2xl shadow overflow-hidden">
             {loading ? (
               <div className="p-20 text-center"><div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[#c9a87c] mx-auto"></div></div>
             ) : error ? (
               <div className="p-12 text-center">
-                <div className="text-red-500 mb-4 font-bold text-xl">!</div>
+                <div className="text-red-500 mb-4 font-bold">!</div>
                 <p className="text-red-600 mb-4">{error}</p>
-                <button onClick={fetchCustomers} className="px-6 py-2 bg-red-100 text-red-700 rounded-lg font-medium hover:bg-red-200">重试</button>
+                <button onClick={fetchCustomers} className="px-6 py-2 bg-red-100 text-red-700 rounded-lg font-medium hover:bg-red-200">閲嶈瘯</button>
               </div>
             ) : filtered.length === 0 ? (
               <div className="p-16 text-center text-gray-400">
                 <div className="text-xl mb-4 font-bold text-gray-300">-</div>
-                <p className="text-xl">{search ? '未找到匹配的客户' : '暂无客户数据'}</p>
+                <p className="text-xl">{search ? '鏈壘鍒板尮閰嶇殑瀹㈡埛' : '鏆傛棤瀹㈡埛鏁版嵁'}</p>
                 {!search && (
                   <button onClick={openAdd} className="mt-6 px-8 py-3 bg-[#c9a87c] text-white rounded-xl font-bold hover:opacity-90">
-                    + 添加第一个客户
-                  </button>
+                    + 娣诲姞绗竴涓鎴?                  </button>
                 )}
               </div>
             ) : (
@@ -264,7 +262,7 @@ export default function CustomersPage() {
                 <table className="w-full">
                   <thead className="bg-gray-50 border-b">
                     <tr>
-                      {['姓名', '联系方式', '会员等级', '累计消费', '最近到店', '操作'].map(col => (
+                      {['濮撳悕', '鑱旂郴鏂瑰紡', '浼氬憳绛夌骇', '绱娑堣垂', '鏈€杩戝埌搴?, '鎿嶄綔'].map(col => (
                         <th key={col} className="text-left py-4 px-6 font-semibold text-gray-700">{col}</th>
                       ))}
                     </tr>
@@ -282,7 +280,7 @@ export default function CustomersPage() {
                         </td>
                         <td className="py-4 px-6">
                           <span className={`px-3 py-1 rounded-full text-sm font-semibold ${MEMBERSHIP_STYLE[c.membership_level] || 'bg-gray-100 text-gray-600'}`}>
-                            {c.membership_level || '普通客户'}
+                            {c.membership_level || '鏅€氬鎴?}
                           </span>
                         </td>
                         <td className="py-4 px-6 font-bold text-[#a88a5c]">{fmt(c.total_spent)}</td>
@@ -290,9 +288,9 @@ export default function CustomersPage() {
                         <td className="py-4 px-6">
                           <div className="flex gap-2">
                             <button onClick={() => openEdit(c)}
-                              className="px-3 py-1.5 bg-blue-50 text-blue-600 rounded-lg text-sm font-medium hover:bg-blue-100">编辑</button>
+                              className="px-3 py-1.5 bg-blue-50 text-blue-600 rounded-lg text-sm font-medium hover:bg-blue-100">缂栬緫</button>
                             <button onClick={() => handleDelete(c)}
-                              className="px-3 py-1.5 bg-red-50 text-red-600 rounded-lg text-sm font-medium hover:bg-red-100">删除</button>
+                              className="px-3 py-1.5 bg-red-50 text-red-600 rounded-lg text-sm font-medium hover:bg-red-100">鍒犻櫎</button>
                           </div>
                         </td>
                       </tr>

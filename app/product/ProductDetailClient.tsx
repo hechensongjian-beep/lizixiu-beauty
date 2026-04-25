@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
@@ -65,23 +65,23 @@ function ProductDetailInner() {
         <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
           <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
         </svg>
-        <h1 className="font-bold mt-4 mb-2" style={{ color: 'var(--foreground)', fontFamily: "'Noto Serif SC', serif", fontSize: '1.5rem' }}>商品不存在</h1>
-        <p style={{ color: 'var(--foreground-muted)', fontSize: '0.875rem' }}>该商品可能已下架或链接有误</p>
-        <a href="/products" className="mt-6 px-6 py-2 rounded-md text-white font-medium transition" style={{ background: 'var(--primary)', fontSize: '0.8125rem' }}>返回产品列表</a>
+        <h1 className="font-bold mt-4 mb-2" style={{ color: 'var(--foreground)', fontFamily: "'Noto Serif SC', serif", fontSize: '1.5rem' }}>鍟嗗搧涓嶅瓨鍦?/h1>
+        <p style={{ color: 'var(--foreground-muted)', fontSize: '0.875rem' }}>璇ュ晢鍝佸彲鑳藉凡涓嬫灦鎴栭摼鎺ユ湁璇?/p>
+        <a href="/products" className="mt-6 px-6 py-2 rounded-md text-white font-medium transition" style={{ background: 'var(--primary)', fontSize: '0.8125rem' }}>杩斿洖浜у搧鍒楄〃</a>
       </div>
     );
   }
 
   return (
     <div style={{ background: 'var(--background)' }}>
-      {/* 顶部导航 */}
+      {/* 椤堕儴瀵艰埅 */}
       <div className="bg-white sticky top-0 z-20" style={{ borderBottom: '1px solid var(--primary-light)' }}>
         <div className="max-w-6xl mx-auto px-4 h-12 flex items-center justify-between">
           <Link href="/products" className="flex items-center gap-1.5 font-medium transition" style={{ color: 'var(--primary)', fontSize: '0.8125rem' }}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
             </svg>
-            产品列表
+            浜у搧鍒楄〃
           </Link>
           <Link href="/cart" className="relative font-medium transition" style={{ color: 'var(--primary)' }}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -93,31 +93,31 @@ function ProductDetailInner() {
       </div>
 
       <div className="max-w-6xl mx-auto px-4 py-8">
-        {/* 面包屑 */}
+        {/* 闈㈠寘灞?*/}
         <div className="flex items-center gap-1.5 mb-6" style={{ color: 'var(--foreground-light)', fontSize: '0.75rem' }}>
-          <Link href="/" className="hover:underline">首页</Link>
+          <Link href="/" className="hover:underline">棣栭〉</Link>
           <span>/</span>
-          <Link href="/products" className="hover:underline">产品</Link>
+          <Link href="/products" className="hover:underline">浜у搧</Link>
           <span>/</span>
           <span style={{ color: 'var(--foreground)' }}>{product.name}</span>
         </div>
 
-        {/* 主内容 */}
+        {/* 涓诲唴瀹?*/}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-14">
-          {/* 左侧图片 */}
+          {/* 宸︿晶鍥剧墖 */}
           <div>
             <div className={`rounded-xl overflow-hidden relative ${!product.imageUrl ? '' : ''}`} style={{ minHeight: '420px', background: product.imageUrl ? 'white' : 'linear-gradient(135deg, var(--primary-light), var(--primary))' }}>
               {product.imageUrl ? (
                 <img src={product.imageUrl} alt={product.name} className="w-full h-full object-cover" style={{ minHeight: '420px' }} loading="lazy" />
               ) : (
                 <div className="w-full h-full flex flex-col items-center justify-center" style={{ minHeight: '420px' }}>
-                  <span className="text-white font-bold opacity-80" style={{ fontFamily: "'Noto Serif SC', serif", fontSize: '4rem' }}>{product.name.charAt(0)}</span>
+                  <span className="text-white font-bold opacity-80" style={{ fontFamily: "'Noto Serif SC', serif", fontSize: '2rem' }}>{product.name.charAt(0)}</span>
                   <span className="text-white mt-2 opacity-70" style={{ fontSize: '0.875rem' }}>{product.name}</span>
                 </div>
               )}
               {product.stock === 0 && (
                 <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                  <span className="text-white font-medium px-5 py-2 rounded-md" style={{ background: 'rgba(0,0,0,0.3)', fontSize: '0.875rem' }}>已售罄</span>
+                  <span className="text-white font-medium px-5 py-2 rounded-md" style={{ background: 'rgba(0,0,0,0.3)', fontSize: '0.875rem' }}>宸插敭缃?/span>
                 </div>
               )}
               {product.originalPrice && product.originalPrice > product.price && (
@@ -127,12 +127,12 @@ function ProductDetailInner() {
               )}
             </div>
 
-            {/* 服务承诺 */}
+            {/* 鏈嶅姟鎵胯 */}
             <div className="mt-4 grid grid-cols-3 gap-2">
               {[
-                { icon: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z', text: '正品保障' },
-                { icon: 'M1 3h15v13H1zM16 8l4 3-4 3', text: '满500免运费' },
-                { icon: 'M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z', text: '7天无理由' },
+                { icon: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z', text: '姝ｅ搧淇濋殰' },
+                { icon: 'M1 3h15v13H1zM16 8l4 3-4 3', text: '婊?00鍏嶈繍璐? },
+                { icon: 'M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z', text: '7澶╂棤鐞嗙敱' },
               ].map(item => (
                 <div key={item.text} className="flex flex-col items-center gap-1 py-2.5 rounded-lg bg-white" style={{ border: '1px solid var(--primary-light)' }}>
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--primary-dark)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -144,7 +144,7 @@ function ProductDetailInner() {
             </div>
           </div>
 
-          {/* 右侧信息 */}
+          {/* 鍙充晶淇℃伅 */}
           <div className="flex flex-col">
             <div className="flex items-center gap-2 mb-3">
               <span className="px-2.5 py-0.5 rounded-full" style={{ background: 'var(--primary-ultra-light)', color: 'var(--primary-dark)', fontSize: '0.6875rem' }}>
@@ -158,7 +158,7 @@ function ProductDetailInner() {
             <h1 className="font-bold mb-2" style={{ color: 'var(--foreground)', fontFamily: "'Noto Serif SC', serif", fontSize: '1.5rem' }}>{product.name}</h1>
             <p className="mb-5 leading-relaxed" style={{ color: 'var(--foreground-muted)', fontSize: '0.8125rem' }}>{product.description}</p>
 
-            {/* 价格 */}
+            {/* 浠锋牸 */}
             <div className="p-4 rounded-lg mb-5" style={{ background: 'var(--primary-ultra-light)', border: '1px solid var(--primary-light)' }}>
               <div className="flex items-end gap-2 mb-1">
                 <span className="font-bold" style={{ color: 'var(--primary)', fontSize: '1.5rem' }}>{fmt(product.price)}</span>
@@ -167,22 +167,22 @@ function ProductDetailInner() {
                 )}
               </div>
               <div className="flex items-center gap-3" style={{ color: 'var(--foreground-muted)', fontSize: '0.75rem' }}>
-                <span>{product.stock > 0 ? `库存 ${product.stock} 件` : '已售罄'}</span>
+                <span>{product.stock > 0 ? `搴撳瓨 ${product.stock} 浠禶 : '宸插敭缃?}</span>
                 {product.stock > 0 && product.stock <= 5 && (
-                  <span style={{ color: '#e05c5c', fontWeight: 500 }}>仅剩 {product.stock} 件</span>
+                  <span style={{ color: '#e05c5c', fontWeight: 500 }}>浠呭墿 {product.stock} 浠?/span>
                 )}
               </div>
             </div>
 
-            {/* 配送说明 */}
+            {/* 閰嶉€佽鏄?*/}
             <div className="mb-6 space-y-1.5" style={{ color: 'var(--foreground-muted)', fontSize: '0.75rem' }}>
               <div className="flex items-center gap-2">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-                <span>快递配送：满 500 元免运费，不足收 15 元</span>
+                <span>蹇€掗厤閫侊細婊?500 鍏冨厤杩愯垂锛屼笉瓒虫敹 15 鍏?/span>
               </div>
               <div className="flex items-center gap-2">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg>
-                <span>到店自取：免费，请提前预约</span>
+                <span>鍒板簵鑷彇锛氬厤璐癸紝璇锋彁鍓嶉绾?/span>
               </div>
             </div>
 
@@ -190,12 +190,12 @@ function ProductDetailInner() {
           </div>
         </div>
 
-        {/* 搭配服务推荐 */}
+        {/* 鎼厤鏈嶅姟鎺ㄨ崘 */}
         {services.length > 0 && (
           <div className="pt-8 mb-8" style={{ borderTop: '1px solid var(--primary-light)' }}>
             <div className="flex items-center gap-2 mb-5">
               <div className="w-0.5 h-4 rounded-full" style={{ background: 'var(--primary)' }}></div>
-              <h2 className="font-bold" style={{ color: 'var(--foreground)', fontFamily: "'Noto Serif SC', serif", fontSize: '1rem' }}>搭配服务推荐</h2>
+              <h2 className="font-bold" style={{ color: 'var(--foreground)', fontFamily: "'Noto Serif SC', serif", fontSize: '1rem' }}>鎼厤鏈嶅姟鎺ㄨ崘</h2>
             </div>
             <div className="space-y-2">
               {services.map(svc => (
@@ -208,12 +208,12 @@ function ProductDetailInner() {
                     </div>
                     <div>
                       <div className="font-medium" style={{ color: 'var(--foreground)', fontSize: '0.8125rem' }}>{svc.name}</div>
-                      {svc.duration && <div style={{ color: 'var(--foreground-light)', fontSize: '0.6875rem' }}>{svc.duration} 分钟</div>}
+                      {svc.duration && <div style={{ color: 'var(--foreground-light)', fontSize: '0.6875rem' }}>{svc.duration} 鍒嗛挓</div>}
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="font-bold" style={{ color: 'var(--primary)', fontSize: '0.875rem' }}>{fmt(svc.price)}</span>
-                    <span className="px-2.5 py-1 rounded-full text-white" style={{ background: 'var(--primary)', fontSize: '0.625rem' }}>预约</span>
+                    <span className="px-2.5 py-1 rounded-full text-white" style={{ background: 'var(--primary)', fontSize: '0.625rem' }}>棰勭害</span>
                   </div>
                 </Link>
               ))}
@@ -221,10 +221,10 @@ function ProductDetailInner() {
           </div>
         )}
 
-        {/* 相关推荐 */}
+        {/* 鐩稿叧鎺ㄨ崘 */}
         {related.length > 0 && (
           <div className="pt-8" style={{ borderTop: '1px solid var(--primary-light)' }}>
-            <h2 className="font-bold mb-6" style={{ color: 'var(--foreground)', fontFamily: "'Noto Serif SC', serif", fontSize: '1.125rem' }}>同类推荐</h2>
+            <h2 className="font-bold mb-6" style={{ color: 'var(--foreground)', fontFamily: "'Noto Serif SC', serif", fontSize: '1.125rem' }}>鍚岀被鎺ㄨ崘</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {related.map(p => (
                 <Link key={p.id} href={`/product?id=${p.id}`}
@@ -257,7 +257,7 @@ export default function ProductDetailClient() {
       <div className="flex items-center justify-center py-20" style={{ background: 'var(--background)' }}>
         <div className="text-center">
           <div className="w-10 h-10 rounded-full border-2 animate-spin mx-auto mb-3" style={{ borderColor: 'var(--primary)', borderTopColor: 'transparent' }}></div>
-          <p style={{ color: 'var(--foreground-muted)', fontSize: '0.8125rem' }}>加载中...</p>
+          <p style={{ color: 'var(--foreground-muted)', fontSize: '0.8125rem' }}>鍔犺浇涓?..</p>
         </div>
       </div>
     }>
