@@ -180,9 +180,9 @@ export default function CheckoutPage() {
         <div className="w-14 h-14 mx-auto mb-6 rounded-2xl flex items-center justify-center" style={{"background":'linear-gradient(135deg,#c9a87c22 0%,#e8d5b822 100%)'}}>
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a87c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
         </div>
-        <h1 className="text-xl font-bold text-gray-900 mb-4">购物车是空的</h1>
+        <h1 className="font-bold mb-4">购物车是空的</h1>
         <p className="text-gray-600 mb-8">您还没有添加任何商品，无法结算。</p>
-        <Link href="/products" className="inline-block px-8 py-3 font-bold rounded-lg text-white transition" style={{"background":'linear-gradient(135deg,#c9a87c 0%,#e8d5b8 100%)',"boxShadow":'0 4px 15px rgba(201,168,124,0.3)'}}>
+        <Link href="/products" className="inline-block px-5 py-2 font-medium rounded-md text-white transition" style={{"background":'linear-gradient(135deg,#c9a87c 0%,#e8d5b8 100%)',"boxShadow":'0 4px 15px rgba(201,168,124,0.3)'}}>
           返回产品商店
         </Link>
       </div>
@@ -201,13 +201,13 @@ export default function CheckoutPage() {
           <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-6" style={{"background":'linear-gradient(135deg,#c9a87c22 0%,#e8d5b822 100%)'}}>
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#a88a5c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">订单已创建</h1>
+          <h1 className="font-bold mb-4">订单已创建</h1>
           <p className="text-gray-600">订单号：<span className="font-mono font-bold text-gray-900">{currentOrder.id}</span></p>
           <p className="text-2xl font-bold mt-4" style={{color:'#a88a5c'}}>应付金额：{fmt(total)}</p>
         </div>
 
-        <div className="bg-white border border-gray-200 rounded-2xl p-8 mb-8">
-          <h2 className="text-xl font-bold text-gray-900 mb-6 text-center">
+        <div className="bg-white border border-gray-200 rounded-xl p-5 mb-8">
+          <h2 className="font-bold mb-6 text-center">
             {hasQr ? '请使用以下方式扫码支付' : '请使用微信/支付宝转账至商家账户'}
           </h2>
 
@@ -239,7 +239,7 @@ export default function CheckoutPage() {
                 <IconClock className="text-gray-400" />
               </div>
               <p className="text-gray-600">商家暂未设置收款码</p>
-              <p className="text-base text-gray-500 mt-2">请联系商家获取支付方式</p>
+              <p className="text-sm text-gray-500 mt-2">请联系商家获取支付方式</p>
             </div>
           )}
 
@@ -250,7 +250,7 @@ export default function CheckoutPage() {
               {countdown === 0 && <span className="ml-2 text-red-600 font-bold">（已超时）</span>}
             </div>
           </div>
-          <div className="mt-6 bg-gray-50 rounded-xl p-4 text-base text-gray-700 space-y-2">
+          <div className="mt-6 bg-gray-50 rounded-xl p-4 text-sm text-gray-700 space-y-2">
             <p><strong>商家：</strong>{paymentInfo.merchantName}</p>
             <p><strong>收货人：</strong>{form.customerName}，{form.customerPhone}</p>
             {deliveryMethod !== 'pickup' && <p><strong>收货地址：</strong>{form.shippingAddress}</p>}
@@ -266,7 +266,7 @@ export default function CheckoutPage() {
             </div>
             <h2 className="text-2xl font-bold mb-3" style={{color:'#2d4a3e'}}>支付已提交</h2>
             <p className="text-gray-600 mb-4">商家将在 24 小时内核实到账信息并确认订单</p>
-            <Link href="/orders" className="inline-block px-8 py-3 font-bold rounded-lg text-white transition" style={{"background":'#2d4a3e'}}>
+            <Link href="/orders" className="inline-block px-5 py-2 font-medium rounded-md text-white transition" style={{"background":'#2d4a3e'}}>
               查看我的订单
             </Link>
           </div>
@@ -274,7 +274,7 @@ export default function CheckoutPage() {
             <div className="text-center">
               {hasWechat && hasAlipay && (
                 <div className="mb-6 p-4 bg-gray-50 rounded-xl">
-                  <p className="text-base text-gray-600 mb-3">请选择支付方式：</p>
+                  <p className="text-sm text-gray-600 mb-3">请选择支付方式：</p>
                   <div className="flex justify-center gap-4">
                     <label className={`flex items-center gap-2 cursor-pointer px-6 py-3 rounded-xl border-2 transition ${selectedChannel === 'wechat' ? 'border-green-500 bg-green-50' : 'border-gray-200 hover:border-green-300'}`}>
                       <input type="radio" name="pchannel" value="wechat" checked={selectedChannel === 'wechat'} onChange={() => setSelectedChannel('wechat')} className="hidden" />
@@ -307,12 +307,12 @@ export default function CheckoutPage() {
                 finally { setSubmittingPayment(false); }
               }}
               disabled={submittingPayment || !hasQr}
-              className="px-10 py-3 font-bold text-lg rounded-lg text-white transition disabled:opacity-50"
+              className="px-10 py-2.5 font-medium rounded-lg text-white transition disabled:opacity-50"
               style={{"background":'linear-gradient(135deg,#2d4a3e 0%,#3d6252 100%)'}}
             >
               {submittingPayment ? '提交中...' : '我已扫码支付，提交凭证'}
             </button>
-            {!hasQr && <p className="text-base text-gray-500 mt-2">商家暂未配置收款码，请联系商家获取支付方式</p>}
+            {!hasQr && <p className="text-sm text-gray-500 mt-2">商家暂未配置收款码，请联系商家获取支付方式</p>}
             <div className="mt-4"><Link href="/orders" className="text-gray-500 hover:text-gray-700 text-sm">查看我的订单</Link></div>
           </div>
         )}
@@ -327,7 +327,7 @@ export default function CheckoutPage() {
         <div className="mb-8 rounded-2xl p-6 text-center" style={{"background":'linear-gradient(135deg,#c9a87c22 0%,#e8d5b822 100%)',"border":'1px solid rgba(201,168,124,0.3)'}}>
           <p className="text-gray-700 font-medium mb-3">您当前以访客身份操作，填写下方信息可直接下单</p>
           <div className="flex items-center justify-center gap-3 flex-wrap">
-            <Link href="/auth/login" className="px-6 py-2 text-white font-bold rounded-xl transition" style={{"background":'linear-gradient(135deg,#c9a87c 0%,#e8d5b8 100%)'}}>登录/注册</Link>
+            <Link href="/auth/login" className="px-4 py-1.5 text-white font-medium rounded-md transition" style={{"background":'linear-gradient(135deg,#c9a87c 0%,#e8d5b8 100%)'}}>登录/注册</Link>
             <span className="text-gray-400 text-base">登录后可保存订单记录、享受更多服务</span>
           </div>
         </div>
@@ -339,14 +339,14 @@ export default function CheckoutPage() {
             <line x1="1" y1="10" x2="23" y2="10"/>
           </svg>
         </div>
-        <h1 className="text-2xl font-bold text-gray-900 mb-4">结算</h1>
+        <h1 className="font-bold mb-4">结算</h1>
         <p className="text-gray-600">请填写收货信息，确认订单无误后提交。</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
         <div className="lg:col-span-2">
-          <div className="bg-white border border-gray-200 rounded-2xl p-8 mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">配送与收货</h2>
+          <div className="bg-white border border-gray-200 rounded-xl p-5 mb-8">
+            <h2 className="font-bold mb-6">配送与收货</h2>
 
             {/* 配送方式 */}
             <div className="mb-8">
@@ -367,22 +367,22 @@ export default function CheckoutPage() {
             </div>
 
             {/* 收货信息 */}
-            <h3 className="text-lg font-bold text-gray-900 mb-4">收货信息</h3>
+            <h3 className="font-bold text-gray-900 mb-4">收货信息</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-gray-800 font-medium mb-2">姓名 *</label>
                 <input type="text" name="customerName" value={form.customerName} onChange={handleChange} required placeholder="收货人姓名"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c9a87c]" />
+                  className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c9a87c]" />
               </div>
               <div>
                 <label className="block text-gray-800 font-medium mb-2">手机号 *</label>
                 <input type="tel" name="customerPhone" value={form.customerPhone} onChange={handleChange} required placeholder="手机号码"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c9a87c]" />
+                  className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c9a87c]" />
               </div>
               <div className="md:col-span-2">
                 <label className="block text-gray-800 font-medium mb-2">电子邮箱</label>
                 <input type="email" name="customerEmail" value={form.customerEmail} onChange={handleChange} placeholder="选填"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c9a87c]" />
+                  className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c9a87c]" />
               </div>
               {deliveryMethod !== 'pickup' && (
                 <div className="md:col-span-2 relative">
@@ -390,7 +390,7 @@ export default function CheckoutPage() {
                   <input type="text" name="shippingAddress" value={form.shippingAddress} onChange={handleChange} required
                     placeholder="详细收货地址" onFocus={() => savedAddresses.length > 0 && setShowSavedAddresses(true)}
                     onBlur={() => setTimeout(() => setShowSavedAddresses(false), 200)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c9a87c]" />
+                    className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c9a87c]" />
                   {showSavedAddresses && savedAddresses.length > 0 && (
                     <div className="absolute z-10 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-40 overflow-auto">
                       {savedAddresses.map((addr, i) => (
@@ -416,11 +416,11 @@ export default function CheckoutPage() {
             )}
             {error && <div className="mt-6 p-4 bg-red-50 border border-red-200 text-red-700 rounded-lg">{error}</div>}
             <div className="mt-8 flex justify-between items-center">
-              <Link href="/cart" className="flex items-center px-6 py-3 border-2 border-gray-300 text-gray-800 font-bold rounded-lg hover:bg-gray-50 transition">
+              <Link href="/cart" className="flex items-center px-6 py-3 border-2 border-gray-300 text-gray-800 font-medium rounded-md hover:bg-gray-50 transition">
                 <IconArrowLeft className="mr-1" /> 返回购物车
               </Link>
               <button onClick={handleSubmitOrder} disabled={submitting}
-                className="px-10 py-3 font-bold text-lg rounded-lg text-white transition disabled:opacity-50"
+                className="px-10 py-2.5 font-medium rounded-lg text-white transition disabled:opacity-50"
                 style={{"background":'linear-gradient(135deg,#c9a87c 0%,#e8d5b8 100%)',"boxShadow":'0 4px 15px rgba(201,168,124,0.3)'}}>
                 {submitting ? '提交中...' : '提交订单'}
               </button>
@@ -428,14 +428,14 @@ export default function CheckoutPage() {
           </div>
         </div>
         <div className="lg:col-span-1">
-          <div className="sticky top-24 bg-white border border-gray-200 rounded-2xl p-8 shadow-lg">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">订单摘要</h2>
+          <div className="sticky top-24 bg-white border border-gray-200 rounded-xl p-5 shadow-lg">
+            <h2 className="font-bold mb-6">订单摘要</h2>
             <div className="space-y-4 mb-8">
               {resolvedCart.map(item => (
                 <div key={item.productId} className="flex justify-between items-center border-b border-gray-100 pb-4">
                   <div>
                     <div className="font-medium text-gray-900">{item.name}</div>
-                    <div className="text-base text-gray-600">{item.quantity} x {fmt(item.price)}</div>
+                    <div className="text-sm text-gray-600">{item.quantity} x {fmt(item.price)}</div>
                   </div>
                   <div className="font-bold">{fmt(item.price * item.quantity)}</div>
                 </div>
@@ -444,12 +444,12 @@ export default function CheckoutPage() {
               <div className="flex justify-between"><span className="text-gray-700">运费</span><span className={`font-medium ${shipping === 0 ? 'text-green-600' : ''}`}>{shipping === 0 ? '免费' : fmt(shipping)}</span></div>
               <div className="flex justify-between"><span className="text-gray-700">配送方式</span><span className="font-medium">{deliveryMethod === 'express' ? '快递' : deliveryMethod === 'pickup' ? '到店自取' : '送货上门'}</span></div>
               <div className="border-t border-gray-200 pt-4">
-                <div className="flex justify-between text-xl font-bold text-gray-900"><span>总计</span><span>{fmt(total)}</span></div>
+                <div className="flex justify-between font-bold"><span>总计</span><span>{fmt(total)}</span></div>
               </div>
             </div>
             <div className="border-t border-gray-200 pt-6 space-y-3">
-              <div className="flex items-center gap-2 text-base text-gray-600"><IconShield className="text-gray-500" /><span>SSL 加密支付</span></div>
-              <div className="flex items-center gap-2 text-base text-gray-600"><IconReturn className="text-gray-500" /><span>7 天无忧退换</span></div>
+              <div className="flex items-center gap-2 text-sm text-gray-600"><IconShield className="text-gray-500" /><span>SSL 加密支付</span></div>
+              <div className="flex items-center gap-2 text-sm text-gray-600"><IconReturn className="text-gray-500" /><span>7 天无忧退换</span></div>
               {(paymentInfo.wechatQr || paymentInfo.alipayQr) && (
                 <div className="flex items-center gap-2 text-base mt-2" style={{color:'#2d8a5e'}}>
                   <IconCheck className="text-[#2d8a5e]" />
