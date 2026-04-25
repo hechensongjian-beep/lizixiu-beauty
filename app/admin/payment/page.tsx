@@ -160,7 +160,7 @@ const { role } = useAuth();
               </div>
             )}
             <label className={`inline-flex items-center gap-2 px-6 py-3 text-white font-bold rounded-xl cursor-pointer transition ${uploading === 'wechat' ? 'opacity-50' : ''}`}
-              style={{"background":'linear-gradient(135deg,#2d8a5e 0%,#4caf50 100%)'}}>
+              style={{"background":'#2d8a5e'}}>
               <IconUpload />
               {uploading === 'wechat' ? '上传中...' : '上传微信收款码'}
               <input type="file" accept="image/*" className="hidden"
@@ -195,7 +195,7 @@ const { role } = useAuth();
               </div>
             )}
             <label className={`inline-flex items-center gap-2 px-6 py-3 text-white font-bold rounded-xl cursor-pointer transition ${uploading === 'alipay' ? 'opacity-50' : ''}`}
-              style={{"background":'linear-gradient(135deg,#1677ff 0%,#4096ff 100%)'}}>
+              style={{"background":'#1677ff'}}>
               <IconUpload />
               {uploading === 'alipay' ? '上传中...' : '上传支付宝收款码'}
               <input type="file" accept="image/*" className="hidden"
@@ -208,7 +208,7 @@ const { role } = useAuth();
         <div className="flex items-center gap-4 pt-4 border-t border-gray-100">
           <button onClick={handleSave} disabled={saving}
             className="flex items-center gap-2 px-10 py-3 text-white font-bold text-lg rounded-xl transition disabled:opacity-50"
-            style={{"background":'linear-gradient(135deg,#c9a87c 0%,#e8d5b8 100%)',"boxShadow":'0 4px 15px rgba(201,168,124,0.3)'}}>
+            style={{"background":'#a88a5c',"boxShadow":'0 4px 15px rgba(201,168,124,0.3)'}}>
             <IconSave />
             {saving ? '保存中...' : '保存设置'}
           </button>

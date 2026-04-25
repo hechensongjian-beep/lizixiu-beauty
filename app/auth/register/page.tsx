@@ -42,7 +42,7 @@ export default function RegisterPage() {
     return (
       <div className="max-w-md mx-auto px-4 py-12 text-center">
         <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-6"
-          style={{background:'linear-gradient(135deg,var(--primary-light) 0%,var(--primary-ultra-light) 100%)'}}>
+          style={{background:'rgba(201,168,124,0.15)'}}>
           <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="20 6 9 17 4 12"/>
           </svg>
@@ -57,7 +57,7 @@ export default function RegisterPage() {
         <div style={{display:'flex',flexDirection:'column',gap:'1rem'}}>
           <button onClick={() => router.push('/auth/login')}
             className="w-full px-6 py-3 text-white font-semibold rounded-lg transition"
-            style={{background:'linear-gradient(135deg,var(--primary) 0%,var(--primary-dark) 100%)',boxShadow:'0 4px 15px rgba(201,168,124,0.3)'}}>
+            style={{background:'#a88a5c',boxShadow:'0 4px 15px rgba(201,168,124,0.3)'}}>
             前往登录
           </button>
           <Link href="/"
@@ -74,7 +74,7 @@ export default function RegisterPage() {
     <div className="max-w-md mx-auto px-4 py-12">
       <div className="text-center mb-10">
         <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-6"
-          style={{background:'linear-gradient(135deg,var(--primary-light) 0%,var(--primary-ultra-light) 100%)'}}>
+          style={{background:'rgba(201,168,124,0.15)'}}>
           <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
           </svg>
@@ -133,7 +133,7 @@ export default function RegisterPage() {
 
         <button type="submit" disabled={loading}
           className="w-full px-6 py-3 text-white font-semibold rounded-lg transition disabled:opacity-50"
-          style={{background:'linear-gradient(135deg,var(--primary) 0%,var(--primary-dark) 100%)',fontSize:'1rem',boxShadow:'0 4px 15px rgba(201,168,124,0.3)'}}>
+          style={{background:'#a88a5c',fontSize:'1rem',boxShadow:'0 4px 15px rgba(201,168,124,0.3)'}}>
           {loading ? '注册中...' : '立即注册'}
         </button>
       </form>

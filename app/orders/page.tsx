@@ -148,7 +148,7 @@ export default function OrdersPage() {
             登录后即可查看您的所有订单记录
           </p>
           <div className="flex items-center justify-center gap-3 flex-wrap">
-            <Link href="/auth/login" className="px-8 py-3 rounded-full text-white font-bold text-sm" style={{background:'linear-gradient(135deg, #c9a87c, #b8956a)',boxShadow:'0 4px 16px rgba(201,168,124,0.3)'}}>
+            <Link href="/auth/login" className="px-8 py-3 rounded-full text-white font-bold text-sm" style={{background:'#a88a5c',boxShadow:'0 4px 16px rgba(168,138,92,0.4)'}}>
               登录 / 注册
             </Link>
             <Link href="/products" className="px-8 py-3 rounded-full font-bold text-sm" style={{border:'1px solid #e8d5b8',color:'#a88a5c'}}>

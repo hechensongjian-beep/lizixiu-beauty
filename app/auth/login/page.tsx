@@ -56,7 +56,7 @@ export default function LoginPage() {
     <div className="max-w-md mx-auto px-4 py-12">
       <div className="text-center mb-10">
         <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-6"
-          style={{background:"linear-gradient(135deg,var(--primary-light) 0%,var(--primary-ultra-light) 100%)"}}>
+          style={{background:"rgba(201,168,124,0.15)"}}>
           <IconLock />
         </div>
         <h1 style={{fontFamily:"var(--font-serif)",fontSize:"1.5rem",fontWeight:400,color:"var(--foreground)",marginBottom:"0.75rem"}}>登录账号</h1>
@@ -119,7 +119,7 @@ export default function LoginPage() {
         )}
         <button type="submit" disabled={loading}
           className="w-full py-3 font-bold rounded-lg text-white transition disabled:opacity-50"
-          style={{background:"linear-gradient(135deg,var(--primary) 0%,var(--primary-dark) 100%)",fontSize:"1rem",boxShadow:"0 4px 15px rgba(201,168,124,0.3)"}}>
+          style={{background:"#a88a5c",fontSize:"1rem",boxShadow:"0 4px 15px rgba(201,168,124,0.3)"}}>
           {loading ? "登录中..." : "登录"}
         </button>
       </form>

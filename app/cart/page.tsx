@@ -166,7 +166,7 @@ export default function CartPage() {
                         <div className="flex items-center">
                           <button onClick={() => updateQuantity(product.id, -1)} className="w-8 h-8 bg-gray-100 text-gray-800 font-medium rounded-md hover:bg-gray-200 transition">-</button>
                           <div className="mx-4 font-bold">{qty} 件</div>
-                          <button onClick={() => updateQuantity(product.id, 1)} className="w-8 h-8 font-medium rounded-md text-white transition" style={{"background":'linear-gradient(135deg,#c9a87c 0%,#e8d5b8 100%)'}}>+</button>
+                          <button onClick={() => updateQuantity(product.id, 1)} className="w-8 h-8 font-medium rounded-md text-white transition bg-[#a88a5c] hover:bg-[#967a57]">+</button>
                           <button onClick={() => removeItem(product.id)} className="ml-6 px-4 py-2 bg-red-50 text-red-700 font-medium rounded-lg hover:bg-red-100 transition">删除</button>
                         </div>
                         <div className="font-bold">{fmt(product.price * qty)}</div>

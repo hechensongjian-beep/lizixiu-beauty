@@ -256,7 +256,7 @@ const { role } = useAuth();
 
             className="flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-white text-sm transition shadow-sm"
 
-            style={{background:'linear-gradient(135deg, #c9a87c 0%, #e8d5b8 100%)',boxShadow:'0 4px 12px rgba(201,168,124,0.3)'}}>
+            style={{background:'#a88a5c',boxShadow:'0 4px 12px rgba(201,168,124,0.3)'}}>
 
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 5v14M5 12h14"/></svg>
 
@@ -308,7 +308,7 @@ const { role } = useAuth();
 
                     {svc.pinned && (
 
-                      <div className="px-4 py-2 text-sm font-bold text-white flex items-center gap-1" style={{background:'linear-gradient(135deg, #c9a87c 0%, #e8d5b8 100%)'}}>
+                      <div className="px-4 py-2 text-sm font-bold text-white flex items-center gap-1" style={{background:'#a88a5c'}}>
 
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
 
@@ -560,7 +560,7 @@ const { role } = useAuth();
 
                     className="flex-1 py-3 rounded-xl font-bold text-white transition shadow-sm"
 
-                    style={{background: saving ? '#c0bdb8' : 'linear-gradient(135deg, #c9a87c 0%, #e8d5b8 100%)', boxShadow: saving ? 'none' : '0 4px 12px rgba(201,168,124,0.3)'}}>
+                    style={{background: saving ? '#c0bdb8' : '#a88a5c', boxShadow: saving ? 'none' : '0 4px 12px rgba(201,168,124,0.3)'}}>
 
                     {saving ? '保存中...' : '保存'}
 
