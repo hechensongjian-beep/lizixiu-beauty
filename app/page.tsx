@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/components/AuthProvider';
-import { getProducts, getServices, getTestimonials } from '@/lib/api';
+import { getProducts, getServices, getTestimonials, getPromotions } from '@/lib/api';
 import { supabase } from '@/lib/supabase';
 
 interface Product { id: string; name: string; price: number; imageColor: string; imageUrl?: string; category: string; description: string; stock: number; tags?: string[]; }
@@ -33,11 +33,24 @@ function fmtCurrency(n: number) {
   return new Intl.NumberFormat('zh-CN', { style: 'currency', currency: 'CNY' }).format(n);
 }
 
+interface Promotion {
+    id: string;
+    title: string;
+    description?: string;
+    discount_type: 'percentage' | 'fixed';
+    discount_value: number;
+    start_date: string;
+    end_date: string;
+    is_active: boolean;
+    applicable_to: 'all' | 'products' | 'services';
+  }
+
 export default function HomePage() {
   const { role } = useAuth();
   const [products, setProducts] = useState<Product[]>([]);
   const [services, setServices] = useState<Service[]>([]);
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
+  const [promotions, setPromotions] = useState<Promotion[]>([]);
   const [siteSettings, setSiteSettings] = useState<SiteSettings>(DEFAULTS);
   const [loading, setLoading] = useState(true);
   const isMerchant = role === 'merchant' || role === 'admin';
@@ -47,12 +60,14 @@ export default function HomePage() {
       getProducts(),
       getServices(),
       getTestimonials(),
+      getPromotions(),
       supabase.from('site_settings').select('*').eq('id', 1).single()
     ])
-      .then(([prod, svc, test, settings]) => {
+      .then(([prod, svc, test, promo, settings]) => {
         setProducts((prod?.products || []).slice(0, 4));
         setServices((svc?.services || []).slice(0, 4));
         setTestimonials(test?.testimonials || []);
+        setPromotions(promo?.promotions || []);
         if (settings.data && !settings.error) {
           setSiteSettings({
             hero_title: settings.data.hero_title || DEFAULTS.hero_title,
@@ -172,6 +187,53 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ===== 促销活动横幅 ===== */}
+      {promotions.length > 0 && (
+        <section className="py-10" style={{ background: 'var(--background)' }}>
+          <div className="max-w-6xl mx-auto px-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {promotions.slice(0, 2).map((promo) => (
+                <div
+                  key={promo.id}
+                  className="relative overflow-hidden p-6 transition-all hover:-translate-y-0.5"
+                  style={{
+                    background: 'linear-gradient(135deg, #1a1a1a 0%, #2a2a28 100%)',
+                    borderRadius: '0.75rem',
+                  }}
+                >
+                  <div className="absolute top-0 right-0 w-24 h-24" style={{
+                    background: 'radial-gradient(circle at top right, rgba(201,168,124,0.15) 0%, transparent 70%)',
+                  }} />
+                  <div className="relative">
+                    <div className="mb-2" style={{ color: 'var(--primary)', fontSize: '0.6875rem', letterSpacing: '0.2em', fontWeight: 500 }}>
+                      PROMOTION
+                    </div>
+                    <h3 className="mb-2" style={{ fontFamily: "'Noto Serif SC', serif", color: '#f5f5f5', fontSize: '1.25rem', fontWeight: 400 }}>
+                      {promo.title}
+                    </h3>
+                    {promo.description && (
+                      <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.8125rem', lineHeight: 1.6, marginBottom: '1rem' }}>
+                        {promo.description}
+                      </p>
+                    )}
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5" style={{
+                      background: 'var(--primary)',
+                      borderRadius: '0.375rem',
+                    }}>
+                      <span style={{ color: '#1a1a1a', fontSize: '0.875rem', fontWeight: 600 }}>
+                        {promo.discount_type === 'percentage'
+                          ? `${promo.discount_value}% OFF`
+                          : `立减 ¥${promo.discount_value}`}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ===== 品牌承诺 - 简洁横排 ===== */}
       <section className="py-16" style={{ background: 'var(--background)' }}>

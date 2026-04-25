@@ -42,6 +42,7 @@ const MAIN_NAV: Record<UserRole, { href: string; label: string }[]> = {
 
 const ADMIN_MENU: { href: string; label: string }[] = [
   { href: '/admin/settings', label: '首页内容设置' },
+  { href: '/admin/promotions', label: '促销活动' },
   { href: '/admin/products', label: '商品管理' },
   { href: '/admin/services', label: '服务管理' },
   { href: '/admin/staff', label: '员工管理' },

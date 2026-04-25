@@ -4,10 +4,17 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '@/components/AuthProvider';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { getProducts, createOrder, createPaymentVerification, getPaymentSettings } from '@/lib/api';
+import { getProducts, createOrder, createPaymentVerification, getPaymentSettings, getPromotions, applyDiscount } from '@/lib/api';
 
 interface CartItem { productId: string; name: string; price: number; quantity: number; }
 interface PaymentInfo { wechatQr: string; alipayQr: string; merchantName: string; }
+interface Promotion {
+  id: string;
+  title: string;
+  discount_type: 'percentage' | 'fixed';
+  discount_value: number;
+  applicable_to: string;
+}
 
 function IconShield({ className }: { className?: string }) {
   return <svg className={className} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>;
@@ -44,10 +51,12 @@ export default function CheckoutPage() {
   const [countdown, setCountdown] = useState(30 * 60); // 30 minutes in seconds
   const [submittingPayment, setSubmittingPayment] = useState(false);
   const [selectedChannel, setSelectedChannel] = useState<'wechat' | 'alipay'>('wechat');
+  const [promotions, setPromotions] = useState<Promotion[]>([]);
+  const [appliedPromotion, setAppliedPromotion] = useState<Promotion | null>(null);
 
   
     useEffect(() => { document.title = '订单结算 - 丽姿秀';
-    Promise.all([getProducts(), getPaymentSettings()]).then(([prodData, payData]) => {
+    Promise.all([getProducts(), getPaymentSettings(), getPromotions()]).then(([prodData, payData, promoData]) => {
       if (prodData?.products) {
         const m: Record<string, any> = {};
         prodData.products.forEach((p: any) => { m[p.id] = p; });
@@ -59,6 +68,11 @@ export default function CheckoutPage() {
         setPaymentInfo({ wechatQr: wq, alipayQr: aq, merchantName: payData.merchantName || payData.merchant_name || '丽姿秀' });
         if (wq && !aq) setSelectedChannel('wechat');
         else if (aq && !wq) setSelectedChannel('alipay');
+      }
+      if (promoData?.promotions?.length > 0) {
+        setPromotions(promoData.promotions);
+        const productPromo = promoData.promotions.find((p: Promotion) => p.applicable_to === 'all' || p.applicable_to === 'products');
+        if (productPromo) setAppliedPromotion(productPromo);
       }
       setLoading(false);
     }).catch(() => setLoading(false));
@@ -120,7 +134,8 @@ export default function CheckoutPage() {
   const subtotal = resolvedCart.reduce((s, i) => s + i.price * i.quantity, 0);
   const freeDeliveryThreshold = 500;
   const shipping = deliveryMethod === 'pickup' || deliveryMethod === 'delivery' ? 0 : (subtotal >= freeDeliveryThreshold ? 0 : 15);
-  const total = subtotal + shipping;
+  const discountAmount = appliedPromotion ? subtotal - applyDiscount(subtotal, appliedPromotion) : 0;
+  const total = subtotal - discountAmount + shipping;
   const fmt = (n: number) => new Intl.NumberFormat('zh-CN', { style: 'currency', currency: 'CNY' }).format(n);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -441,6 +456,12 @@ export default function CheckoutPage() {
                 </div>
               ))}
               <div className="flex justify-between pt-4"><span className="text-gray-700">商品小计</span><span className="font-medium">{fmt(subtotal)}</span></div>
+              {appliedPromotion && discountAmount > 0 && (
+                <div className="flex justify-between">
+                  <span className="text-red-500">活动优惠 ({appliedPromotion.title})</span>
+                  <span className="font-medium text-red-500">-{fmt(discountAmount)}</span>
+                </div>
+              )}
               <div className="flex justify-between"><span className="text-gray-700">运费</span><span className={`font-medium ${shipping === 0 ? 'text-green-600' : ''}`}>{shipping === 0 ? '免费' : fmt(shipping)}</span></div>
               <div className="flex justify-between"><span className="text-gray-700">配送方式</span><span className="font-medium">{deliveryMethod === 'express' ? '快递' : deliveryMethod === 'pickup' ? '到店自取' : '送货上门'}</span></div>
               <div className="border-t border-gray-200 pt-4">

@@ -453,3 +453,92 @@ export async function deleteTestimonial(id: string): Promise<any> {
     return { success: true };
   } catch (e) { return { error: String(e) }; }
 }
+
+// ===== Promotions 促销活动 =====
+export async function getPromotions(): Promise<any> {
+  try {
+    const { data, error } = await supabase
+      .from('promotions')
+      .select('*')
+      .eq('is_active', true)
+      .gte('end_date', new Date().toISOString())
+      .lte('start_date', new Date().toISOString())
+      .order('created_at', { ascending: false });
+    if (error) return { promotions: [], error: error.message };
+    return { promotions: data || [] };
+  } catch { return { promotions: [] }; }
+}
+
+export async function getAllPromotions(): Promise<any> {
+  try {
+    const { data, error } = await supabase
+      .from('promotions')
+      .select('*')
+      .order('created_at', { ascending: false });
+    if (error) return { promotions: [], error: error.message };
+    return { promotions: data || [] };
+  } catch { return { promotions: [] }; }
+}
+
+export async function createPromotion(payload: {
+  title: string;
+  description?: string;
+  discount_type: 'percentage' | 'fixed';
+  discount_value: number;
+  start_date: string;
+  end_date: string;
+  applicable_to?: 'all' | 'products' | 'services';
+}): Promise<any> {
+  try {
+    const { data, error } = await supabase
+      .from('promotions')
+      .insert({
+        ...payload,
+        applicable_to: payload.applicable_to || 'all',
+        is_active: true,
+      })
+      .select()
+      .single();
+    if (error) return { error: error.message };
+    return { promotion: data };
+  } catch (e) { return { error: String(e) }; }
+}
+
+export async function updatePromotion(id: string, payload: Partial<{
+  title: string;
+  description: string;
+  discount_type: 'percentage' | 'fixed';
+  discount_value: number;
+  start_date: string;
+  end_date: string;
+  is_active: boolean;
+  applicable_to: 'all' | 'products' | 'services';
+}>): Promise<any> {
+  try {
+    const { data, error } = await supabase
+      .from('promotions')
+      .update({ ...payload, updated_at: new Date().toISOString() })
+      .eq('id', id)
+      .select()
+      .single();
+    if (error) return { error: error.message };
+    return { promotion: data };
+  } catch (e) { return { error: String(e) }; }
+}
+
+export async function deletePromotion(id: string): Promise<any> {
+  try {
+    const { error } = await supabase.from('promotions').delete().eq('id', id);
+    if (error) return { error: error.message };
+    return { success: true };
+  } catch (e) { return { error: String(e) }; }
+}
+
+export function applyDiscount(originalPrice: number, promotion: any): number {
+  if (!promotion || !promotion.discount_value) return originalPrice;
+  if (promotion.discount_type === 'percentage') {
+    return originalPrice * (1 - promotion.discount_value / 100);
+  } else {
+    return Math.max(0, originalPrice - promotion.discount_value);
+  }
+}
