@@ -160,7 +160,7 @@ export default function HomePage() {
   return (
     <div style={{ background: 'var(--background)', minHeight: '100vh' }}>
 
-      {/* ======== Hero区：杂志编辑风，左文字右意境 ======== */}
+      {/* ======== Hero区：左文字右意境 ======== */}
       <section
         style={{
           position: 'relative',
@@ -173,6 +173,100 @@ export default function HomePage() {
           paddingBottom: '4rem',
         }}
       >
+        {/* 右侧：精致几何装饰区 */}
+        <div
+          aria-hidden="true"
+          className="hidden lg:flex"
+          style={{
+            position: 'absolute',
+            right: 0,
+            top: 0,
+            width: '42%',
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            pointerEvents: 'none',
+            zIndex: 1,
+          }}
+        >
+          {/* 外层装饰圆 */}
+          <div style={{ position: 'relative', width: '420px', height: '420px' }}>
+            {/* 最外圈：大圆环 */}
+            <div style={{
+              position: 'absolute',
+              inset: 0,
+              borderRadius: '50%',
+              border: '1px solid rgba(201,168,124,0.12)',
+            }} />
+            {/* 中圈：金色圆环 */}
+            <div style={{
+              position: 'absolute',
+              inset: '40px',
+              borderRadius: '50%',
+              border: '1px solid rgba(201,168,124,0.25)',
+            }} />
+            {/* 内圈：主金色圆 */}
+            <div style={{
+              position: 'absolute',
+              inset: '80px',
+              borderRadius: '50%',
+              border: '1px solid rgba(201,168,124,0.4)',
+            }} />
+            {/* 中心填充区 */}
+            <div style={{
+              position: 'absolute',
+              inset: '110px',
+              borderRadius: '50%',
+              background: 'radial-gradient(circle at 35% 35%, rgba(201,168,124,0.06) 0%, rgba(201,168,124,0.02) 60%, transparent 100%)',
+            }} />
+            {/* 水平装饰线 */}
+            <div style={{
+              position: 'absolute',
+              top: '50%',
+              left: '-60px',
+              right: '-60px',
+              height: '1px',
+              background: 'linear-gradient(90deg, transparent 0%, rgba(201,168,124,0.2) 20%, rgba(201,168,124,0.35) 50%, rgba(201,168,124,0.2) 80%, transparent 100%)',
+              transform: 'translateY(-50%)',
+            }} />
+            {/* 垂直装饰线 */}
+            <div style={{
+              position: 'absolute',
+              left: '50%',
+              top: '-60px',
+              bottom: '-60px',
+              width: '1px',
+              background: 'linear-gradient(180deg, transparent 0%, rgba(201,168,124,0.2) 20%, rgba(201,168,124,0.35) 50%, rgba(201,168,124,0.2) 80%, transparent 100%)',
+              transform: 'translateX(-50%)',
+            }} />
+            {/* 顶部圆点装饰 */}
+            <div style={{
+              position: 'absolute',
+              top: 'calc(50% - 160px)',
+              left: '50%',
+              width: '6px',
+              height: '6px',
+              borderRadius: '50%',
+              background: 'var(--primary)',
+              transform: 'translate(-50%, -50%)',
+              opacity: 0.5,
+            }} />
+            {/* 底部圆点装饰 */}
+            <div style={{
+              position: 'absolute',
+              bottom: 'calc(50% - 160px)',
+              left: '50%',
+              width: '6px',
+              height: '6px',
+              borderRadius: '50%',
+              background: 'var(--primary)',
+              transform: 'translate(-50%, 50%)',
+              opacity: 0.5,
+            }} />
+          </div>
+        </div>
+
         {/* 左侧：内容区 */}
         <div style={{ maxWidth: '72rem', margin: '0 auto', padding: '0 1.5rem', width: '100%', position: 'relative', zIndex: 2 }}>
           <div style={{ maxWidth: '580px' }}>
@@ -232,13 +326,13 @@ export default function HomePage() {
                   alignItems: 'center',
                   gap: '0.5rem',
                   padding: '0.875rem 2.25rem',
-                  background: 'var(--primary)',
+                  background: 'var(--accent)',
                   color: '#fff',
                   borderRadius: 'var(--radius-lg)',
                   fontSize: '1rem',
                   fontWeight: 500,
                   letterSpacing: '0.04em',
-                  boxShadow: '0 4px 24px rgba(201,168,124,0.35)',
+                  boxShadow: '0 4px 24px rgba(45,74,62,0.25)',
                   transition: 'all 0.2s',
                   textDecoration: 'none',
                 }}
@@ -259,8 +353,8 @@ export default function HomePage() {
                   gap: '0.5rem',
                   padding: '0.875rem 2.25rem',
                   background: 'transparent',
-                  color: 'var(--primary-dark)',
-                  border: '1px solid var(--primary)',
+                  color: 'var(--accent)',
+                  border: '1px solid var(--accent)',
                   borderRadius: 'var(--radius-lg)',
                   fontSize: '1rem',
                   fontWeight: 500,
