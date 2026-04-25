@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
@@ -13,11 +13,11 @@ interface Staff {
   specialties?: string[];
   experience_years?: number;
   is_active?: boolean;
-  avatar_color?: string; // 鐢ㄤ簬澶村儚鑳屾櫙
+  avatar_color?: string; // 用于头像背景
 }
 
 export default function StaffPage() {
-  useEffect(() => { document.title = '鍛樺伐鍥㈤槦 - 涓藉Э绉€'; }, []);
+  useEffect(() => { document.title = '员工团队 - 丽姿秀'; }, []);
   const [staff, setStaff] = useState<Staff[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -25,7 +25,7 @@ export default function StaffPage() {
   const [showAddForm, setShowAddForm] = useState(false);
   const [newStaff, setNewStaff] = useState({
     name: '',
-    role: '缇庡甯?,
+    role: '美容师',
     phone: '',
     email: '',
     specialties: [] as string[],
@@ -43,7 +43,7 @@ export default function StaffPage() {
       if (result?.error) throw new Error(result.error);
       setStaff(result?.staff || []);
     } catch (err: any) {
-      setError(err.message || '鍔犺浇澶辫触');
+      setError(err.message || '加载失败');
       console.error(err);
     } finally {
       setLoading(false);
@@ -51,7 +51,7 @@ export default function StaffPage() {
   };
 
   const handleDeleteStaff = async (id: string) => {
-    if (!confirm('纭畾鍒犻櫎姝ゅ憳宸ュ悧锛熷垹闄ゅ悗涓嶅彲鎭㈠銆?)) {
+    if (!confirm('确定删除此员工吗？删除后不可恢复。')) {
       return;
     }
     setDeletingId(id);
@@ -60,7 +60,7 @@ export default function StaffPage() {
       if (result.error) throw new Error(result.error);
       setStaff(prev => prev.filter(s => s.id !== id));
     } catch (err: any) {
-      alert(`鍒犻櫎澶辫触: ${err.message}`);
+      alert(`删除失败: ${err.message}`);
       console.error(err);
     } finally {
       setDeletingId(null);
@@ -69,11 +69,11 @@ export default function StaffPage() {
 
   const handleAddStaff = async () => {
     if (!newStaff.name.trim()) {
-      alert('璇疯緭鍏ュ憳宸ュ鍚?);
+      alert('请输入员工姓名');
       return;
     }
     if (!newStaff.role.trim()) {
-      alert('璇疯緭鍏ュ憳宸ヨ鑹?);
+      alert('请输入员工角色');
       return;
     }
     setSubmitting(true);
@@ -83,7 +83,7 @@ export default function StaffPage() {
       if (result.staff) setStaff(prev => [result.staff, ...prev]);
       setNewStaff({
         name: '',
-        role: '缇庡甯?,
+        role: '美容师',
         phone: '',
         email: '',
         specialties: [],
@@ -91,9 +91,9 @@ export default function StaffPage() {
         is_active: true,
       });
       setShowAddForm(false);
-      alert('娣诲姞鎴愬姛锛?);
+      alert('添加成功！');
     } catch (err: any) {
-      alert(`娣诲姞澶辫触: ${err.message}`);
+      alert(`添加失败: ${err.message}`);
       console.error(err);
     } finally {
       setSubmitting(false);
@@ -103,11 +103,11 @@ export default function StaffPage() {
   const handleEditStaff = async () => {
     if (!editingStaff) return;
     if (!editingStaff.name.trim()) {
-      alert('璇疯緭鍏ュ憳宸ュ鍚?);
+      alert('请输入员工姓名');
       return;
     }
     if (!editingStaff.role.trim()) {
-      alert('璇疯緭鍏ュ憳宸ヨ鑹?);
+      alert('请输入员工角色');
       return;
     }
     setSubmitting(true);
@@ -124,9 +124,9 @@ export default function StaffPage() {
       if (result.error) throw new Error(result.error);
       setStaff(prev => prev.map(s => s.id === editingStaff.id ? { ...s, ...editingStaff } : s));
       setEditingStaff(null);
-      alert('鏇存柊鎴愬姛锛?);
+      alert('更新成功！');
     } catch (err: any) {
-      alert(`鏇存柊澶辫触: ${err.message}`);
+      alert(`更新失败: ${err.message}`);
       console.error(err);
     } finally {
       setSubmitting(false);
@@ -158,62 +158,63 @@ export default function StaffPage() {
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8">
         <div className="mb-6 md:mb-0">
           <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-r from-[#e8d5b8] to-[#f5ede0] rounded-2xl mb-4">
-            <div className="text-xl">鈥?/div>
+            <div className="text-xl">‍</div>
           </div>
-          <h1 className="text-xl font-bold text-gray-900 mb-2">鍛樺伐绠＄悊</h1>
+          <h1 className="text-xl font-bold text-gray-900 mb-2">员工管理</h1>
           <p className="text-gray-600">
-            绠＄悊鍛樺伐淇℃伅銆佹帓鐝€佺哗鏁堛€佹彁鎴愶紝瀹炵幇楂樻晥鍥㈤槦鍗忎綔涓庝汉鍔涜祫婧愪紭鍖栥€?          </p>
+            管理员工信息、排班、绩效、提成，实现高效团队协作与人力资源优化。
+          </p>
         </div>
         <div className="flex gap-3">
           <button
             onClick={() => fetchStaff()}
             className="px-4 py-2 bg-gray-100 text-gray-800 font-medium rounded-lg hover:bg-gray-200 transition"
           >
-            鍒锋柊
+            刷新
           </button>
           <button
             className="px-6 py-3 bg-gradient-to-r from-[#c9a87c] to-[#e8d5b8] text-white font-semibold rounded-lg hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
             onClick={() => setShowAddForm(true)}
             disabled={submitting}
           >
-            {submitting ? '鎻愪氦涓?..' : '+ 娣诲姞鍛樺伐'}
+            {submitting ? '提交中...' : '+ 添加员工'}
           </button>
         </div>
       </div>
 
-      {/* 娣诲姞鍛樺伐琛ㄥ崟 */}
+      {/* 添加员工表单 */}
       {showAddForm && (
         <div className="bg-white border border-gray-300 rounded-2xl p-8 mb-8 shadow-sm">
-          <h2 className="text-xl font-bold text-gray-900 mb-6">娣诲姞鏂板憳宸?/h2>
+          <h2 className="text-xl font-bold text-gray-900 mb-6">添加新员工</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block font-medium text-gray-700 mb-2">濮撳悕 *</label>
+              <label className="block font-medium text-gray-700 mb-2">姓名 *</label>
               <input
                 type="text"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9a87c] focus:border-[#c9a87c] outline-none transition"
-                placeholder="渚嬪锛氬紶鏅撶編"
+                placeholder="例如：张晓美"
                 value={newStaff.name}
                 onChange={(e) => setNewStaff({ ...newStaff, name: e.target.value })}
               />
             </div>
             <div>
-              <label className="block font-medium text-gray-700 mb-2">瑙掕壊 *</label>
+              <label className="block font-medium text-gray-700 mb-2">角色 *</label>
               <select
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9a87c] focus:border-[#c9a87c] outline-none transition"
                 value={newStaff.role}
                 onChange={(e) => setNewStaff({ ...newStaff, role: e.target.value })}
               >
-                <option value="缇庡甯?>缇庡甯?/option>
-                <option value="缇庣敳甯?>缇庣敳甯?/option>
-                <option value="缇庡彂甯?>缇庡彂甯?/option>
-                <option value="搴楅暱">搴楅暱</option>
-                <option value="鍓嶅彴">鍓嶅彴</option>
-                <option value="椤鹃棶">椤鹃棶</option>
-                <option value="鍏朵粬">鍏朵粬</option>
+                <option value="美容师">美容师</option>
+                <option value="美甲师">美甲师</option>
+                <option value="美发师">美发师</option>
+                <option value="店长">店长</option>
+                <option value="前台">前台</option>
+                <option value="顾问">顾问</option>
+                <option value="其他">其他</option>
               </select>
             </div>
             <div>
-              <label className="block font-medium text-gray-700 mb-2">鎵嬫満鍙?/label>
+              <label className="block font-medium text-gray-700 mb-2">手机号</label>
               <input
                 type="tel"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9a87c] focus:border-[#c9a87c] outline-none transition"
@@ -223,7 +224,7 @@ export default function StaffPage() {
               />
             </div>
             <div>
-              <label className="block font-medium text-gray-700 mb-2">閭</label>
+              <label className="block font-medium text-gray-700 mb-2">邮箱</label>
               <input
                 type="email"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9a87c] focus:border-[#c9a87c] outline-none transition"
@@ -233,7 +234,7 @@ export default function StaffPage() {
               />
             </div>
             <div className="md:col-span-2">
-              <label className="block font-medium text-gray-700 mb-2">涓撻暱棰嗗煙</label>
+              <label className="block font-medium text-gray-700 mb-2">专长领域</label>
               <div className="flex flex-wrap gap-2 mb-2">
                 {newStaff.specialties.map((spec, idx) => (
                   <span key={idx} className="px-3 py-1 bg-[#faf8f5] text-[#2d4a3e] text-sm font-medium rounded-full flex items-center gap-1">
@@ -243,7 +244,7 @@ export default function StaffPage() {
                       className="text-[#2d4a3e] hover:text-[#1a332a]"
                       onClick={() => setNewStaff({ ...newStaff, specialties: newStaff.specialties.filter((_, i) => i !== idx) })}
                     >
-                      脳
+                      ×
                     </button>
                   </span>
                 ))}
@@ -252,7 +253,7 @@ export default function StaffPage() {
                 <input
                   type="text"
                   className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9a87c] focus:border-[#c9a87c] outline-none transition"
-                  placeholder="杈撳叆涓撻暱鍚庢寜鍥炶溅娣诲姞"
+                  placeholder="输入专长后按回车添加"
                   value={specialtyInput}
                   onChange={(e) => setSpecialtyInput(e.target.value)}
                   onKeyDown={(e) => {
@@ -275,12 +276,12 @@ export default function StaffPage() {
                     }
                   }}
                 >
-                  娣诲姞
+                  添加
                 </button>
               </div>
             </div>
             <div>
-              <label className="block font-medium text-gray-700 mb-2">宸ヤ綔缁忛獙锛堝勾锛?/label>
+              <label className="block font-medium text-gray-700 mb-2">工作经验（年）</label>
               <input
                 type="number"
                 min="0"
@@ -292,7 +293,7 @@ export default function StaffPage() {
               />
             </div>
             <div>
-              <label className="block font-medium text-gray-700 mb-2">鐘舵€?/label>
+              <label className="block font-medium text-gray-700 mb-2">状态</label>
               <div className="flex items-center space-x-4">
                 <label className="inline-flex items-center">
                   <input
@@ -301,7 +302,7 @@ export default function StaffPage() {
                     checked={newStaff.is_active}
                     onChange={() => setNewStaff({ ...newStaff, is_active: true })}
                   />
-                  <span className="ml-2 text-gray-700">鍦ㄨ亴</span>
+                  <span className="ml-2 text-gray-700">在职</span>
                 </label>
                 <label className="inline-flex items-center">
                   <input
@@ -310,7 +311,7 @@ export default function StaffPage() {
                     checked={!newStaff.is_active}
                     onChange={() => setNewStaff({ ...newStaff, is_active: false })}
                   />
-                  <span className="ml-2 text-gray-700">绂昏亴</span>
+                  <span className="ml-2 text-gray-700">离职</span>
                 </label>
               </div>
             </div>
@@ -321,53 +322,53 @@ export default function StaffPage() {
               onClick={() => setShowAddForm(false)}
               disabled={submitting}
             >
-              鍙栨秷
+              取消
             </button>
             <button
               className="px-8 py-3 bg-gradient-to-r from-[#c9a87c] to-[#e8d5b8] text-white font-semibold rounded-lg hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
               onClick={handleAddStaff}
               disabled={submitting}
             >
-              {submitting ? '鎻愪氦涓?..' : '纭娣诲姞'}
+              {submitting ? '提交中...' : '确认添加'}
             </button>
           </div>
         </div>
       )}
 
-      {/* 缂栬緫鍛樺伐琛ㄥ崟 */}
+      {/* 编辑员工表单 */}
       {editingStaff && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl p-8 w-full max-w-4xl max-h-[90vh] overflow-y-auto">
-            <h2 className="text-xl font-bold text-gray-900 mb-6">缂栬緫鍛樺伐</h2>
+            <h2 className="text-xl font-bold text-gray-900 mb-6">编辑员工</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block font-medium text-gray-700 mb-2">濮撳悕 *</label>
+                <label className="block font-medium text-gray-700 mb-2">姓名 *</label>
                 <input
                   type="text"
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9a87c] focus:border-[#c9a87c] outline-none transition"
-                  placeholder="渚嬪锛氬紶鏅撶編"
+                  placeholder="例如：张晓美"
                   value={editingStaff.name}
                   onChange={(e) => setEditingStaff({ ...editingStaff, name: e.target.value })}
                 />
               </div>
               <div>
-                <label className="block font-medium text-gray-700 mb-2">瑙掕壊 *</label>
+                <label className="block font-medium text-gray-700 mb-2">角色 *</label>
                 <select
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9a87c] focus:border-[#c9a87c] outline-none transition"
                   value={editingStaff.role}
                   onChange={(e) => setEditingStaff({ ...editingStaff, role: e.target.value })}
                 >
-                  <option value="缇庡甯?>缇庡甯?/option>
-                  <option value="缇庣敳甯?>缇庣敳甯?/option>
-                  <option value="缇庡彂甯?>缇庡彂甯?/option>
-                  <option value="搴楅暱">搴楅暱</option>
-                  <option value="鍓嶅彴">鍓嶅彴</option>
-                  <option value="椤鹃棶">椤鹃棶</option>
-                  <option value="鍏朵粬">鍏朵粬</option>
+                  <option value="美容师">美容师</option>
+                  <option value="美甲师">美甲师</option>
+                  <option value="美发师">美发师</option>
+                  <option value="店长">店长</option>
+                  <option value="前台">前台</option>
+                  <option value="顾问">顾问</option>
+                  <option value="其他">其他</option>
                 </select>
               </div>
               <div>
-                <label className="block font-medium text-gray-700 mb-2">鎵嬫満鍙?/label>
+                <label className="block font-medium text-gray-700 mb-2">手机号</label>
                 <input
                   type="tel"
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9a87c] focus:border-[#c9a87c] outline-none transition"
@@ -377,7 +378,7 @@ export default function StaffPage() {
                 />
               </div>
               <div>
-                <label className="block font-medium text-gray-700 mb-2">閭</label>
+                <label className="block font-medium text-gray-700 mb-2">邮箱</label>
                 <input
                   type="email"
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9a87c] focus:border-[#c9a87c] outline-none transition"
@@ -387,7 +388,7 @@ export default function StaffPage() {
                 />
               </div>
               <div className="md:col-span-2">
-                <label className="block font-medium text-gray-700 mb-2">涓撻暱棰嗗煙</label>
+                <label className="block font-medium text-gray-700 mb-2">专长领域</label>
                 <div className="flex flex-wrap gap-2 mb-2">
                   {(editingStaff.specialties || []).map((spec, idx) => (
                     <span key={idx} className="px-3 py-1 bg-[#faf8f5] text-[#2d4a3e] text-sm font-medium rounded-full flex items-center gap-1">
@@ -400,7 +401,7 @@ export default function StaffPage() {
                           specialties: (editingStaff.specialties || []).filter((_, i) => i !== idx)
                         })}
                       >
-                        脳
+                        ×
                       </button>
                     </span>
                   ))}
@@ -409,7 +410,7 @@ export default function StaffPage() {
                   <input
                     type="text"
                     className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#c9a87c] focus:border-[#c9a87c] outline-none transition"
-                    placeholder="杈撳叆涓撻暱鍚庢寜鍥炶溅娣诲姞"
+                    placeholder="输入专长后按回车添加"
                     value={specialtyInput}
                     onChange={(e) => setSpecialtyInput(e.target.value)}
                     onKeyDown={(e) => {
@@ -438,12 +439,12 @@ export default function StaffPage() {
                       }
                     }}
                   >
-                    娣诲姞
+                    添加
                   </button>
                 </div>
               </div>
               <div>
-                <label className="block font-medium text-gray-700 mb-2">宸ヤ綔缁忛獙锛堝勾锛?/label>
+                <label className="block font-medium text-gray-700 mb-2">工作经验（年）</label>
                 <input
                   type="number"
                   min="0"
@@ -455,7 +456,7 @@ export default function StaffPage() {
                 />
               </div>
               <div>
-                <label className="block font-medium text-gray-700 mb-2">鐘舵€?/label>
+                <label className="block font-medium text-gray-700 mb-2">状态</label>
                 <div className="flex items-center space-x-4">
                   <label className="inline-flex items-center">
                     <input
@@ -464,7 +465,7 @@ export default function StaffPage() {
                       checked={editingStaff.is_active ?? true}
                       onChange={() => setEditingStaff({ ...editingStaff, is_active: true })}
                     />
-                    <span className="ml-2 text-gray-700">鍦ㄨ亴</span>
+                    <span className="ml-2 text-gray-700">在职</span>
                   </label>
                   <label className="inline-flex items-center">
                     <input
@@ -473,7 +474,7 @@ export default function StaffPage() {
                       checked={!(editingStaff.is_active ?? true)}
                       onChange={() => setEditingStaff({ ...editingStaff, is_active: false })}
                     />
-                    <span className="ml-2 text-gray-700">绂昏亴</span>
+                    <span className="ml-2 text-gray-700">离职</span>
                   </label>
                 </div>
               </div>
@@ -484,14 +485,14 @@ export default function StaffPage() {
                 onClick={() => setEditingStaff(null)}
                 disabled={submitting}
               >
-                鍙栨秷
+                取消
               </button>
               <button
                 className="px-8 py-3 bg-gradient-to-r from-[#c9a87c] to-[#e8d5b8] text-white font-semibold rounded-lg hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
                 onClick={handleEditStaff}
                 disabled={submitting}
               >
-                {submitting ? '鏇存柊涓?..' : '纭鏇存柊'}
+                {submitting ? '更新中...' : '确认更新'}
               </button>
             </div>
           </div>
@@ -500,9 +501,9 @@ export default function StaffPage() {
 
       {loading ? (
         <div className="animate-pulse space-y-8">
-          {/* 鏍囬楠ㄦ灦 */}
+          {/* 标题骨架 */}
           <div className="h-10 w-64 bg-gray-300 rounded-xl"></div>
-          {/* 鍛樺伐鍗＄墖缃戞牸楠ㄦ灦 */}
+          {/* 员工卡片网格骨架 */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[1, 2, 3, 4].map((i) => (
               <div key={i} className="bg-white border border-gray-200 rounded-2xl p-6">
@@ -520,7 +521,7 @@ export default function StaffPage() {
               </div>
             ))}
           </div>
-          {/* 缁熻鍗＄墖楠ㄦ灦 */}
+          {/* 统计卡片骨架 */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             {[1, 2, 3, 4].map((i) => (
               <div key={i} className="bg-white rounded-xl p-6 border border-[#c9a87c] shadow-sm">
@@ -536,7 +537,7 @@ export default function StaffPage() {
           <div className="flex items-center">
             <div className="text-red-600 text-xl mr-3 font-bold">!</div>
             <div>
-              <h3 className="font-semibold text-red-800">鍔犺浇澶辫触</h3>
+              <h3 className="font-semibold text-red-800">加载失败</h3>
               <p className="text-red-700 mt-1">{error}</p>
             </div>
           </div>
@@ -544,21 +545,22 @@ export default function StaffPage() {
             onClick={fetchStaff}
             className="mt-4 px-4 py-2 bg-red-100 text-red-800 font-medium rounded-lg hover:bg-red-200 transition"
           >
-            閲嶈瘯
+            重试
           </button>
         </div>
       ) : staff.length === 0 ? (
         <div className="bg-gradient-to-r from-[#faf8f5] to-[#f5f0e8] border border-[#e8d5b8] rounded-2xl p-12 text-center">
           <div className="text-xl mb-6"></div>
-          <h3 className="font-semibold mb-2">鏆傛棤鍛樺伐鏁版嵁</h3>
+          <h3 className="text-2xl font-semibold text-gray-800 mb-3">暂无员工数据</h3>
           <p className="text-gray-700 max-w-md mx-auto mb-6">
-            鎮ㄥ皻鏈坊鍔犱换浣曞憳宸ャ€傜偣鍑烩€滄坊鍔犲憳宸モ€濇寜閽紑濮嬪缓绔嬫偍鐨勫洟闃熴€?          </p>
+            您尚未添加任何员工。点击“添加员工”按钮开始建立您的团队。
+          </p>
           <button
             className="px-8 py-3 bg-gradient-to-r from-[#c9a87c] to-[#e8d5b8] text-white font-semibold rounded-lg hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
             onClick={() => setShowAddForm(true)}
             disabled={submitting}
           >
-            {submitting ? '鎻愪氦涓?..' : '+ 娣诲姞绗竴涓憳宸?}
+            {submitting ? '提交中...' : '+ 添加第一个员工'}
           </button>
         </div>
       ) : (
@@ -577,7 +579,7 @@ export default function StaffPage() {
                 <h3 className="text-xl font-bold text-gray-900 mb-1">{person.name}</h3>
                 <p className="text-gray-600 mb-4">{person.role}</p>
                 <div className="mb-4">
-                  <div className="text-sm text-gray-500 mb-2">涓撻暱棰嗗煙</div>
+                  <div className="text-sm text-gray-500 mb-2">专长领域</div>
                   <div className="flex flex-wrap justify-center gap-2">
                     {(person.specialties || []).map((spec, idx) => (
                       <span
@@ -591,13 +593,13 @@ export default function StaffPage() {
                 </div>
                 <div className="text-sm text-gray-700 mb-4">
                   <div className="flex justify-between">
-                    <span>缁忛獙:</span>
-                    <span className="font-medium">{person.experience_years || 0} 骞?/span>
+                    <span>经验:</span>
+                    <span className="font-medium">{person.experience_years || 0} 年</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>鐘舵€?</span>
+                    <span>状态:</span>
                     <span className={`font-medium ${(person.is_active ?? true) ? 'text-green-600' : 'text-gray-500'}`}>
-                      {(person.is_active ?? true) ? '鍦ㄨ亴' : '绂昏亴'}
+                      {(person.is_active ?? true) ? '在职' : '离职'}
                     </span>
                   </div>
                 </div>
@@ -607,14 +609,14 @@ export default function StaffPage() {
                     onClick={() => setEditingStaff(person)}
                     disabled={submitting}
                   >
-                    缂栬緫
+                    编辑
                   </button>
                   <button
                     className="px-4 py-2 bg-red-50 text-red-700 font-medium rounded-lg hover:bg-red-100 transition text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                     onClick={() => handleDeleteStaff(person.id)}
                     disabled={deletingId === person.id}
                   >
-                    {deletingId === person.id ? '鍒犻櫎涓?..' : '鍒犻櫎'}
+                    {deletingId === person.id ? '删除中...' : '删除'}
                   </button>
                 </div>
               </div>
@@ -622,33 +624,33 @@ export default function StaffPage() {
           </div>
 
           <div className="bg-gradient-to-r from-[#faf8f5] to-[#f5f0e8] border border-[#e8d5b8] rounded-2xl p-8 mb-12">
-            <h2 className="text-xl font-semibold text-gray-800 mb-4">鍥㈤槦鎬昏</h2>
+            <h2 className="text-xl font-semibold text-gray-800 mb-4">团队总览</h2>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
               <div className="bg-white rounded-xl p-6 border border-[#c9a87c] shadow-sm">
                 <div className="text-2xl mb-2"></div>
                 <div className="text-xl font-bold text-gray-900">{staff.length}</div>
-                <div className="text-sm text-gray-600">鍛樺伐鎬绘暟</div>
+                <div className="text-sm text-gray-600">员工总数</div>
               </div>
               <div className="bg-white rounded-xl p-6 border border-[#c9a87c] shadow-sm">
                 <div className="text-2xl mb-2"></div>
                 <div className="text-xl font-bold text-gray-900">
                   {(staff.reduce((sum, s) => sum + (s.experience_years || 0), 0) / staff.length).toFixed(1)}
                 </div>
-                <div className="text-sm text-gray-600">骞冲潎缁忛獙锛堝勾锛?/div>
+                <div className="text-sm text-gray-600">平均经验（年）</div>
               </div>
               <div className="bg-white rounded-xl p-6 border border-[#c9a87c] shadow-sm">
                 <div className="text-2xl mb-2 font-bold text-[#c9a87c]">ok</div>
                 <div className="text-xl font-bold text-gray-900">
                   {staff.filter(s => s.is_active ?? true).length}
                 </div>
-                <div className="text-sm text-gray-600">鍦ㄨ亴鍛樺伐</div>
+                <div className="text-sm text-gray-600">在职员工</div>
               </div>
               <div className="bg-white rounded-xl p-6 border border-[#c9a87c] shadow-sm">
                 <div className="text-2xl mb-2"></div>
                 <div className="text-xl font-bold text-gray-900">
                   {Array.from(new Set(staff.flatMap(s => s.specialties))).length}
                 </div>
-                <div className="text-sm text-gray-600">涓撻暱鎶€鑳芥暟</div>
+                <div className="text-sm text-gray-600">专长技能数</div>
               </div>
             </div>
           </div>
@@ -660,7 +662,8 @@ export default function StaffPage() {
           href="/"
           className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-[#c9a87c] to-[#b8956a] text-white font-semibold rounded-lg hover:opacity-90 transition"
         >
-          鈫?杩斿洖浠〃鏉?        </Link>
+          ← 返回仪表板
+        </Link>
       </div>
     </div>
   );

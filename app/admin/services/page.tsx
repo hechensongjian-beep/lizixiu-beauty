@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 
 
@@ -36,12 +36,12 @@ interface Service {
 
 
 
-const CATEGORIES = ['闈㈤儴鎶ょ悊', '韬綋鎶ょ悊', '缇庣敳', '缇庣潾', '鑴辨瘺', '鍏朵粬'];
+const CATEGORIES = ['面部护理', '身体护理', '美甲', '美睫', '脱毛', '其他'];
 
 
 
 export default function AdminServicesPage() {
-    useEffect(() => { document.title = '鏈嶅姟绠＄悊 - 涓藉Э绉€'; }, []);
+    useEffect(() => { document.title = '服务管理 - 丽姿秀'; }, []);
 
 const { role } = useAuth();
   const router = useRouter();
@@ -51,7 +51,7 @@ const { role } = useAuth();
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center">
           <div className="w-8 h-8 border-2 border-[#c9a87c] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-sm text-gray-500">姝ｅ湪妫€鏌ユ潈闄?..</p>
+          <p className="text-sm text-gray-500">正在检查权限...</p>
         </div>
       </div>
     );
@@ -68,7 +68,7 @@ const { role } = useAuth();
 
   // Form state
 
-  const [form, setForm] = useState({ name: '', description: '', price: '', duration: '', category: '闈㈤儴鎶ょ悊', pinned: false, featured: false });
+  const [form, setForm] = useState({ name: '', description: '', price: '', duration: '', category: '面部护理', pinned: false, featured: false });
 
   const [saving, setSaving] = useState(false);
 
@@ -104,7 +104,7 @@ const { role } = useAuth();
 
     e.preventDefault();
 
-    if (!form.name || !form.price || !form.duration) { setMsg('璇峰～鍐欏繀濉」'); return; }
+    if (!form.name || !form.price || !form.duration) { setMsg('请填写必填项'); return; }
 
     setSaving(true);
 
@@ -146,17 +146,17 @@ const { role } = useAuth();
 
       if (res?.error) {
 
-        setMsg('淇濆瓨澶辫触: ' + res.error);
+        setMsg('保存失败: ' + res.error);
 
       } else {
 
-        setMsg(id ? '鏇存柊鎴愬姛锛? : '娣诲姞鎴愬姛锛?);
+        setMsg(id ? '更新成功！' : '添加成功！');
 
         setTimeout(() => {
 
           setMsg(''); setTab('list'); setEditId(null);
 
-          setForm({ name: '', description: '', price: '', duration: '', category: '闈㈤儴鎶ょ悊', pinned: false, featured: false });
+          setForm({ name: '', description: '', price: '', duration: '', category: '面部护理', pinned: false, featured: false });
 
           loadServices();
 
@@ -164,7 +164,7 @@ const { role } = useAuth();
 
       }
 
-    } catch (e: any) { setMsg('缃戠粶閿欒: ' + e.message); }
+    } catch (e: any) { setMsg('网络错误: ' + e.message); }
 
     setSaving(false);
 
@@ -174,17 +174,17 @@ const { role } = useAuth();
 
   const handleDelete = async (id: string) => {
 
-    if (!confirm('纭鍒犻櫎璇ラ」鐩紵')) return;
+    if (!confirm('确认删除该项目？')) return;
 
     try {
 
       const res = await deleteService(id);
 
-      if (res?.error) { setMsg('鍒犻櫎澶辫触: ' + res.error); }
+      if (res?.error) { setMsg('删除失败: ' + res.error); }
 
-      else { setMsg('宸插垹闄?); loadServices(); }
+      else { setMsg('已删除'); loadServices(); }
 
-    } catch { setMsg('鍒犻櫎澶辫触'); }
+    } catch { setMsg('删除失败'); }
 
     setTimeout(() => setMsg(''), 2000);
 
@@ -212,7 +212,7 @@ const { role } = useAuth();
 
   const startEdit = (svc: Service) => {
 
-    setForm({ name: svc.name, description: svc.description || '', price: String(svc.price), duration: String(svc.duration || 60), category: svc.category || '闈㈤儴鎶ょ悊', pinned: svc.pinned || false, featured: svc.featured || false });
+    setForm({ name: svc.name, description: svc.description || '', price: String(svc.price), duration: String(svc.duration || 60), category: svc.category || '面部护理', pinned: svc.pinned || false, featured: svc.featured || false });
 
     setEditId(svc.id);
 
@@ -248,11 +248,11 @@ const { role } = useAuth();
 
             </Link>
 
-            <h1 className="text-xl font-bold" style={{fontFamily:"'Noto Serif SC',serif",color:'#2a2a28'}}>鏈嶅姟椤圭洰绠＄悊</h1>
+            <h1 className="text-xl font-bold" style={{fontFamily:"'Noto Serif SC',serif",color:'#2a2a28'}}>服务项目管理</h1>
 
           </div>
 
-          <button onClick={() => { setTab('add'); setEditId(null); setForm({ name: '', description: '', price: '', duration: '', category: '闈㈤儴鎶ょ悊', pinned: false, featured: false }); }}
+          <button onClick={() => { setTab('add'); setEditId(null); setForm({ name: '', description: '', price: '', duration: '', category: '面部护理', pinned: false, featured: false }); }}
 
             className="flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-white text-sm transition shadow-sm"
 
@@ -260,7 +260,7 @@ const { role } = useAuth();
 
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 5v14M5 12h14"/></svg>
 
-            娣诲姞椤圭洰
+            添加项目
 
           </button>
 
@@ -274,7 +274,7 @@ const { role } = useAuth();
 
         {msg && (
 
-          <div className={`mb-6 p-4 rounded-xl text-sm ${msg.includes('澶辫触') || msg.includes('閿欒') ? 'bg-red-50 text-red-700 border border-red-200' : 'bg-green-50 text-green-700 border border-green-200'}`}>
+          <div className={`mb-6 p-4 rounded-xl text-sm ${msg.includes('失败') || msg.includes('错误') ? 'bg-red-50 text-red-700 border border-red-200' : 'bg-green-50 text-green-700 border border-green-200'}`}>
 
             {msg}
 
@@ -304,7 +304,7 @@ const { role } = useAuth();
 
                   <div key={svc.id} className="bg-white rounded-2xl overflow-hidden" style={{boxShadow:'0 4px 20px rgba(0,0,0,0.04)',border:'1px solid rgba(201,168,124,0.12)'}}>
 
-                    {/* 缃《鏍囩 */}
+                    {/* 置顶标签 */}
 
                     {svc.pinned && (
 
@@ -312,7 +312,7 @@ const { role } = useAuth();
 
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
 
-                        缃《鎺ㄨ崘
+                        置顶推荐
 
                       </div>
 
@@ -328,17 +328,17 @@ const { role } = useAuth();
 
                             {svc.featured && (
 
-                              <span className="px-2 py-0.5 rounded-full text-sm font-bold text-green-700" style={{background:'#ecfdf5',border:'1px solid #a7f3d0'}}>浜烘皵鐜?/span>
+                              <span className="px-2 py-0.5 rounded-full text-sm font-bold text-green-700" style={{background:'#ecfdf5',border:'1px solid #a7f3d0'}}>人气王</span>
 
                             )}
 
-                            <span className="text-sm px-2 py-0.5 rounded-full" style={{background:'#f5f2ed',color:'#6b6b68'}}>{svc.category || '鍏朵粬'}</span>
+                            <span className="text-sm px-2 py-0.5 rounded-full" style={{background:'#f5f2ed',color:'#6b6b68'}}>{svc.category || '其他'}</span>
 
                           </div>
 
                           <h3 className="text-lg font-bold" style={{color:'#2a2a28'}}>{svc.name}</h3>
 
-                          <p className="text-sm mt-1" style={{color:'#6b6b68'}}>{svc.description || '鏆傛棤鎻忚堪'}</p>
+                          <p className="text-sm mt-1" style={{color:'#6b6b68'}}>{svc.description || '暂无描述'}</p>
 
                         </div>
 
@@ -350,7 +350,7 @@ const { role } = useAuth();
 
                           <span className="text-2xl font-bold" style={{color:'#a88a5c'}}>{fmt(svc.price)}</span>
 
-                          <span className="text-sm ml-1" style={{color:'#9b9b98'}}>/ {svc.duration || 60}鍒嗛挓</span>
+                          <span className="text-sm ml-1" style={{color:'#9b9b98'}}>/ {svc.duration || 60}分钟</span>
 
                         </div>
 
@@ -364,7 +364,7 @@ const { role } = useAuth();
 
                           style={svc.pinned ? {background:'#2d4a3e',border:'none'} : {border:'1.5px solid #e8e4df',color:'#6b6b68'}}>
 
-                          {svc.pinned ? '鍙栨秷缃《' : '缃《'}
+                          {svc.pinned ? '取消置顶' : '置顶'}
 
                         </button>
 
@@ -374,7 +374,7 @@ const { role } = useAuth();
 
                           style={svc.featured ? {background:'#dc2626',border:'none'} : {border:'1.5px solid #e8e4df',color:'#6b6b68'}}>
 
-                          {svc.featured ? '浜烘皵鐜? : '鏍囦汉姘?}
+                          {svc.featured ? '人气王' : '标人气'}
 
                         </button>
 
@@ -382,7 +382,7 @@ const { role } = useAuth();
 
                           className="flex-1 py-2 rounded-lg text-sm font-bold border transition hover:bg-gray-50" style={{border:'1.5px solid #e8e4df',color:'#6b6b68'}}>
 
-                          缂栬緫
+                          编辑
 
                         </button>
 
@@ -416,11 +416,11 @@ const { role } = useAuth();
 
           <div className="max-w-2xl mx-auto">
 
-            <div className="bg-white rounded-xl p-5" style={{boxShadow:'0 4px 20px rgba(0,0,0,0.04)',border:'1px solid rgba(201,168,124,0.12)'}}>
+            <div className="bg-white rounded-2xl p-8" style={{boxShadow:'0 4px 20px rgba(0,0,0,0.04)',border:'1px solid rgba(201,168,124,0.12)'}}>
 
-              <h2 className="font-bold mb-4" style={{fontFamily:"'Noto Serif SC',serif",color:'#2a2a28'}}>
+              <h2 className="text-2xl font-bold mb-6" style={{fontFamily:"'Noto Serif SC',serif",color:'#2a2a28'}}>
 
-                {tab === 'edit' ? '缂栬緫鏈嶅姟椤圭洰' : '娣诲姞鏂版湇鍔￠」鐩?}
+                {tab === 'edit' ? '编辑服务项目' : '添加新服务项目'}
 
               </h2>
 
@@ -430,9 +430,9 @@ const { role } = useAuth();
 
                   <div className="md:col-span-2">
 
-                    <label className="block font-medium mb-2" style={{color:'#2a2a28'}}>椤圭洰鍚嶇О *</label>
+                    <label className="block font-medium mb-2" style={{color:'#2a2a28'}}>项目名称 *</label>
 
-                    <input type="text" value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} required placeholder="渚嬪锛氭繁灞傛竻娲佹姢鐞?
+                    <input type="text" value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} required placeholder="例如：深层清洁护理"
 
                       className="w-full px-4 py-3 rounded-xl outline-none transition" style={{border:'1.5px solid #e8e4df',background:'white'}}
 
@@ -444,7 +444,7 @@ const { role } = useAuth();
 
                   <div>
 
-                    <label className="block font-medium mb-2" style={{color:'#2a2a28'}}>浠锋牸 (鍏? *</label>
+                    <label className="block font-medium mb-2" style={{color:'#2a2a28'}}>价格 (元) *</label>
 
                     <input type="number" value={form.price} onChange={e => setForm(f => ({ ...f, price: e.target.value }))} required min="0" step="0.01" placeholder="199"
 
@@ -458,7 +458,7 @@ const { role } = useAuth();
 
                   <div>
 
-                    <label className="block font-medium mb-2" style={{color:'#2a2a28'}}>鏈嶅姟鏃堕暱 (鍒嗛挓) *</label>
+                    <label className="block font-medium mb-2" style={{color:'#2a2a28'}}>服务时长 (分钟) *</label>
 
                     <input type="number" value={form.duration} onChange={e => setForm(f => ({ ...f, duration: e.target.value }))} required min="1" placeholder="60"
 
@@ -472,7 +472,7 @@ const { role } = useAuth();
 
                   <div className="md:col-span-2">
 
-                    <label className="block font-medium mb-2" style={{color:'#2a2a28'}}>椤圭洰鍒嗙被</label>
+                    <label className="block font-medium mb-2" style={{color:'#2a2a28'}}>项目分类</label>
 
                     <select value={form.category} onChange={e => setForm(f => ({ ...f, category: e.target.value }))}
 
@@ -490,9 +490,9 @@ const { role } = useAuth();
 
                   <div className="md:col-span-2">
 
-                    <label className="block font-medium mb-2" style={{color:'#2a2a28'}}>椤圭洰浠嬬粛</label>
+                    <label className="block font-medium mb-2" style={{color:'#2a2a28'}}>项目介绍</label>
 
-                    <textarea value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))} rows={3} placeholder="璇︾粏浠嬬粛..."
+                    <textarea value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))} rows={3} placeholder="详细介绍..."
 
                       className="w-full px-4 py-3 rounded-xl outline-none transition resize-none" style={{border:'1.5px solid #e8e4df',background:'white'}}
 
@@ -504,7 +504,7 @@ const { role } = useAuth();
 
                   <div className="md:col-span-2">
 
-                    <label className="block font-medium mb-3" style={{color:'#2a2a28'}}>鐗规畩鏍囪</label>
+                    <label className="block font-medium mb-3" style={{color:'#2a2a28'}}>特殊标记</label>
 
                     <div className="flex gap-4">
 
@@ -516,9 +516,9 @@ const { role } = useAuth();
 
                         <div>
 
-                          <div className="font-bold text-sm" style={{color:'#2a2a28'}}>缃《鎺ㄨ崘</div>
+                          <div className="font-bold text-sm" style={{color:'#2a2a28'}}>置顶推荐</div>
 
-                          <div className="text-sm" style={{color:'#9b9b98'}}>鍦ㄦ湇鍔″垪琛ㄩ《閮ㄦ樉绀?/div>
+                          <div className="text-sm" style={{color:'#9b9b98'}}>在服务列表顶部显示</div>
 
                         </div>
 
@@ -532,9 +532,9 @@ const { role } = useAuth();
 
                         <div>
 
-                          <div className="font-bold text-sm" style={{color:'#2a2a28'}}>浜烘皵鐜嬫爣绛?/div>
+                          <div className="font-bold text-sm" style={{color:'#2a2a28'}}>人气王标签</div>
 
-                          <div className="text-sm" style={{color:'#9b9b98'}}>鏄剧ず"浜烘皵鐜?寰界珷</div>
+                          <div className="text-sm" style={{color:'#9b9b98'}}>显示"人气王"徽章</div>
 
                         </div>
 
@@ -552,7 +552,7 @@ const { role } = useAuth();
 
                     className="flex-1 py-3 rounded-xl font-bold border transition hover:bg-gray-50" style={{border:'1.5px solid #e8e4df',color:'#6b6b68'}}>
 
-                    鍙栨秷
+                    取消
 
                   </button>
 
@@ -562,7 +562,7 @@ const { role } = useAuth();
 
                     style={{background: saving ? '#c0bdb8' : 'linear-gradient(135deg, #c9a87c 0%, #e8d5b8 100%)', boxShadow: saving ? 'none' : '0 4px 12px rgba(201,168,124,0.3)'}}>
 
-                    {saving ? '淇濆瓨涓?..' : '淇濆瓨'}
+                    {saving ? '保存中...' : '保存'}
 
                   </button>
 

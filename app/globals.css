@@ -103,9 +103,9 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
-  font-size: 0.9375rem;  /* 15px 基准 - 优雅不臃肿 */
-  line-height: 1.7;
-  letter-spacing: 0.01em;
+  font-size: 1rem;  /* 16px 基准 */
+  line-height: 1.75;
+  letter-spacing: 0.02em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -122,12 +122,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  font-size: 2.5rem;     /* 40px - 大气但不夸张 */
-  font-weight: 700;
+  font-size: 2.25rem;     /* 36px - 优雅精致 */
+  font-weight: 400;
 }
 
 h2 {
-  font-size: 1.75rem;    /* 28px */
+  font-size: 1.5rem;    /* 24px */
+  font-weight: 400;
 }
 
 h3 {
@@ -150,8 +151,8 @@ h6 {
    段落与文字
    ======================================== */
 p {
-  font-size: 0.9375rem;  /* 15px */
-  line-height: 1.7;
+  font-size: 1rem;  /* 16px */
+  line-height: 1.75;
   margin-bottom: 0.75rem;
 }
 

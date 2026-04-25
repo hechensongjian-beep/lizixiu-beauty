@@ -182,12 +182,12 @@ function NavContent() {
 
   return (
     <>
-      <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm" style={{ borderBottom: '1px solid rgba(201,168,124,0.15)' }}>
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
-          <div className="flex items-center justify-between" style={{ height: '60px' }}>
+      <nav className="sticky top-0 z-50 bg-white/98 backdrop-blur-sm" style={{ borderBottom: '1px solid rgba(0,0,0,0.06)' }}>
+        <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-10">
+          <div className="flex items-center justify-between" style={{ height: '64px' }}>
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2.5 group">
-              <span className="font-semibold tracking-wide" style={{ fontFamily: 'var(--font-serif)', fontSize: '1.375rem', color: 'var(--foreground)' }}>
+              <span className="tracking-wide" style={{ fontFamily: 'var(--font-serif)', fontSize: '1.25rem', fontWeight: 400, color: 'var(--foreground)' }}>
                 丽姿秀
               </span>
               {loading ? null : (
