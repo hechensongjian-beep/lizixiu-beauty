@@ -197,7 +197,7 @@ export default function CheckoutPage() {
         </div>
         <h1 className="font-bold mb-4">购物车是空的</h1>
         <p className="text-gray-600 mb-8">您还没有添加任何商品，无法结算。</p>
-        <Link href="/products" className="inline-block px-5 py-2 font-medium rounded-md text-white transition" style={{"background":'#a88a5c',"boxShadow":'0 4px 15px rgba(168,138,92,0.35)'}}>
+        <Link href="/products" className="inline-block px-5 py-2 font-medium rounded-md text-white transition hover:opacity-85" style={{background:'var(--primary)',boxShadow:'0 4px 15px rgba(201,168,124,0.35)'}}>
           返回产品商店
         </Link>
       </div>
@@ -323,7 +323,7 @@ export default function CheckoutPage() {
               }}
               disabled={submittingPayment || !hasQr}
               className="px-10 py-2.5 font-medium rounded-lg text-white transition disabled:opacity-50"
-              style={{"background":'#2d4a3e'}}
+              style={{background:'var(--accent)'}}
             >
               {submittingPayment ? '提交中...' : '我已扫码支付，提交凭证'}
             </button>
@@ -342,7 +342,7 @@ export default function CheckoutPage() {
         <div className="mb-8 rounded-2xl p-6 text-center" style={{"background":'linear-gradient(135deg,#c9a87c22 0%,#e8d5b822 100%)',"border":'1px solid rgba(201,168,124,0.3)'}}>
           <p className="text-gray-700 font-medium mb-3">您当前以访客身份操作，填写下方信息可直接下单</p>
           <div className="flex items-center justify-center gap-3 flex-wrap">
-            <Link href="/auth/login" className="px-4 py-1.5 text-white font-medium rounded-md transition" style={{"background":'#a88a5c'}}>登录/注册</Link>
+            <Link href="/auth/login" className="px-4 py-1.5 text-white font-medium rounded-md transition hover:opacity-85" style={{background:'var(--primary)'}}>登录/注册</Link>
             <span className="text-gray-400 text-base">登录后可保存订单记录、享受更多服务</span>
           </div>
         </div>
@@ -436,7 +436,7 @@ export default function CheckoutPage() {
               </Link>
               <button onClick={handleSubmitOrder} disabled={submitting}
                 className="px-10 py-2.5 font-medium rounded-lg text-white transition disabled:opacity-50"
-                style={{"background":'#a88a5c',"boxShadow":'0 4px 15px rgba(168,138,92,0.35)'}}>
+                style={{background:'var(--accent)',boxShadow:'0 4px 15px rgba(45,74,62,0.2)'}}>
                 {submitting ? '提交中...' : '提交订单'}
               </button>
             </div>
