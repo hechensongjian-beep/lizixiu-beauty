@@ -79,7 +79,7 @@ export default function LoginPage() {
             className="px-4 py-5 rounded-xl transition disabled:opacity-50 text-center"
             style={{border:"1px solid rgba(201,168,124,0.2)",background:"var(--background-card)"}}>
             <div className="w-10 h-10 mx-auto mb-2 rounded-full flex items-center justify-center" style={{background:"var(--accent)"}}>
-              <IconStore style={{color:"white"}} />
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
             </div>
             <div style={{fontWeight:500,color:"var(--foreground)",fontSize:"0.875rem"}}>商家演示</div>
             <div style={{fontSize:"0.875rem",color:"var(--foreground-muted)"}}>体验后台管理</div>
