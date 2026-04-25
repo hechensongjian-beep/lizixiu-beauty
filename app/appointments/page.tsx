@@ -115,7 +115,7 @@ export default function AppointmentsPage() {
               <path d="M20 6L9 17l-5-5"/>
             </svg>
           </div>
-          <h1 className="text-3xl font-bold mb-3" style={{fontFamily:"'Noto Serif SC',serif",color:'#2a2a28'}}>预约成功</h1>
+          <h1 className="text-2xl font-semibold mb-3" style={{fontFamily:"'Noto Serif SC',serif",color:'#2a2a28'}}>预约成功</h1>
           <p className="mb-8" style={{color:'#6b6b68'}}>我们将尽快确认您的预约，请保持手机畅通</p>
           <div className="rounded-xl p-5 mb-8 text-left" style={{background:'#faf8f5',border:'1px solid rgba(201,168,124,0.15)'}}>
             <div className="flex justify-between py-3" style={{borderBottom:'1px solid rgba(201,168,124,0.1)'}}>
@@ -169,7 +169,7 @@ export default function AppointmentsPage() {
             <line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
           </svg>
         </div>
-        <h1 className="text-4xl font-bold mb-3" style={{fontFamily:"'Noto Serif SC',serif",color:'#2a2a28'}}>在线预约</h1>
+        <h1 className="text-3xl font-medium mb-3" style={{fontFamily:"'Noto Serif SC',serif",color:'#2a2a28'}}>在线预约</h1>
         <p style={{color:'#6b6b68'}}>选择服务、时间和美容师，快速完成预约</p>
       </div>
 
