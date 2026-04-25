@@ -256,7 +256,7 @@ const { role } = useAuth();
 
             className="flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-white text-sm transition shadow-sm"
 
-            style={{background:'#a88a5c',boxShadow:'0 4px 12px rgba(201,168,124,0.3)'}}>
+            style={{background:'var(--accent)',boxShadow:'0 4px 12px rgba(45,74,62,0.2)'}}>
 
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 5v14M5 12h14"/></svg>
 
@@ -560,7 +560,7 @@ const { role } = useAuth();
 
                     className="flex-1 py-3 rounded-xl font-bold text-white transition shadow-sm"
 
-                    style={{background: saving ? '#c0bdb8' : '#a88a5c', boxShadow: saving ? 'none' : '0 4px 12px rgba(201,168,124,0.3)'}}>
+                    style={{background: saving ? '#c0bdb8' : 'var(--accent)', boxShadow: saving ? 'none' : '0 4px 12px rgba(45,74,62,0.2)'}}>
 
                     {saving ? '保存中...' : '保存'}
 

@@ -144,7 +144,7 @@ export default function AppointmentsPage() {
               返回首页
             </Link>
             <button onClick={()=>{setBooked(false);setDate('');setTime('');setNotes('');setSelectedServices(services.length > 0 ? [services[0].id] : []);}} 
-              className="flex-1 py-3 rounded-xl font-bold text-white" style={{background:'#a88a5c'}}>
+              className="flex-1 py-3 rounded-xl font-bold text-white" style={{background:'var(--accent)',boxShadow:'0 4px 15px rgba(45,74,62,0.2)'}}>
               再约一个
             </button>
           </div>
@@ -302,8 +302,8 @@ export default function AppointmentsPage() {
         <button type="submit" disabled={submitting || !date || !time || selectedServices.length === 0}
           className="w-full py-3 rounded-xl font-medium text-white transition shadow-lg"
           style={{
-            background: (submitting || !date || !time || selectedServices.length === 0) ? '#c0bdb8' : '#a88a5c',
-            boxShadow: (submitting || !date || !time || selectedServices.length === 0) ? 'none' : '0 8px 25px rgba(201,168,124,0.35)',
+            background: (submitting || !date || !time || selectedServices.length === 0) ? '#c0bdb8' : 'var(--accent)',
+            boxShadow: (submitting || !date || !time || selectedServices.length === 0) ? 'none' : '0 8px 25px rgba(45,74,62,0.2)',
           }}>
           {submitting ? '提交中...' : `确认预约${selectedServices.length > 0 ? ' · ' + fmt(getTotalPrice()) : ''}`}
         </button>
