@@ -101,7 +101,7 @@ export default function CartPage() {
             <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
           </svg>
         </div>
-        <h1 className="font-bold mb-4">购物车</h1>
+        <h1 className="mb-4" style={{ fontFamily: "'Noto Serif SC', serif", fontSize: '1.75rem', fontWeight: 400, color: 'var(--foreground)' }}>购物车</h1>
         <p className="text-gray-600">请核对您的商品，确认无误后进行结算。</p>
       </div>
 
@@ -120,7 +120,7 @@ export default function CartPage() {
             <line x1="9" y1="9" x2="9.01" y2="9"/>
             <line x1="15" y1="9" x2="15.01" y2="9"/>
           </svg>
-          <h3 className="text-2xl font-bold text-gray-800 mb-4">购物车是空的</h3>
+          <h3 style={{ fontFamily: "'Noto Serif SC', serif", fontSize: '1.375rem', fontWeight: 400, color: 'var(--foreground)', marginBottom: '1rem' }}>购物车是空的</h3>
           <p className="text-gray-600 max-w-md mx-auto mb-8">您还没有添加任何商品。去产品商店逛逛吧！</p>
           <Link href="/products" className="inline-flex items-center px-5 py-2.5 font-medium rounded-md text-white transition" style={{"background":'linear-gradient(135deg,#c9a87c 0%,#e8d5b8 100%)',"boxShadow":'0 4px 15px rgba(201,168,124,0.3)'}}>去产品商店</Link>
         </div>
