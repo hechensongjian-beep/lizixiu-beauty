@@ -531,7 +531,7 @@ export default function HomePage() {
               {products.map(product => (
                 <Link
                   key={product.id}
-                  href={`/products/${product.id}`}
+                  href={`/product?id=${product.id}`}
                   style={{
                     display: 'block',
                     background: 'var(--background-card)',
