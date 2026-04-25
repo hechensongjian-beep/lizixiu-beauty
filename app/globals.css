@@ -1,36 +1,35 @@
 @import "tailwindcss";
 
 /* ========================================
-   丽姿秀美容院 - 高奢精致网页版设计规范
+   丽姿秀美容院 - 暖调亮色高奢设计规范
+   日系精致风格：象牙白底 + 大量留白 + 金色点缀
    ======================================== */
 
-/* 字体变量 - 优先使用系统字体，确保清晰度 */
+/* 字体变量 */
 :root {
   --font-sans: 'PingFang SC', 'Microsoft YaHei', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-serif: 'Noto Serif SC', 'Songti SC', 'STSong', serif;
   
-  /* 优雅字体基准 - 高奢感精调 */
+  /* 字体大小 - 优雅舒适 */
   --text-xs: 0.75rem;     /* 12px */
   --text-sm: 0.8125rem;   /* 13px */
-  --text-base: 0.9375rem; /* 15px */
-  --text-lg: 1.0625rem;   /* 17px */
+  --text-base: 1rem;      /* 16px */
+  --text-lg: 1.125rem;    /* 18px */
   --text-xl: 1.25rem;     /* 20px */
   --text-2xl: 1.5rem;     /* 24px */
   --text-3xl: 1.875rem;   /* 30px */
   --text-4xl: 2.25rem;    /* 36px */
-  --text-5xl: 3rem;       /* 48px */
-  --text-6xl: 3.75rem;    /* 60px */
 }
 
-
 /* ========================================
-   丽姿秀专属配色 - 高奢精致风格
+   丽姿秀专属配色 - 暖调亮色高奢
    ======================================== */
 :root {
-  /* 背景 - 高奢深暖灰 */
-  --background: #1a1a18;
-  --background-secondary: #222220;
-  --background-card: #1e1e1c;
+  /* 背景 - 暖白象牙色系 */
+  --background: #faf8f3;           /* 象牙白 - 全局背景 */
+  --background-secondary: #f5f2eb; /* 暖奶油 - 次级背景 */
+  --background-card: #ffffff;      /* 纯白 - 卡片背景 */
+  --background-hero: #111110;      /* 深墨色 - Hero区专用 */
   
   /* 主色 - 香槟金 */
   --primary: #c9a87c;
@@ -42,10 +41,11 @@
   --accent: #2d4a3e;
   --accent-light: #3d6252;
   
-  /* 文字 - 温暖米白 */
-  --foreground: #f0ede8;
-  --foreground-muted: #9a9a92;
-  --foreground-light: #6a6a65;
+  /* 文字 - 暖调深色 */
+  --foreground: #2d2926;           /* 暖黑 - 主文字 */
+  --foreground-muted: #7a7572;     /* 暖灰 - 次要文字 */
+  --foreground-light: #a8a4a0;     /* 浅暖灰 - 辅助文字 */
+  --foreground-hero: #f0ede8;      /* 暖白 - Hero区文字 */
   
   /* 辅助色 */
   --rose: #c49393;
@@ -54,22 +54,22 @@
   
   /* 渐变 */
   --gradient-gold: linear-gradient(135deg, #c9a87c 0%, #e8d5b8 100%);
-  --gradient-rose: linear-gradient(135deg, #d4a5a5 0%, #f0d9d9 100%);
-  --gradient-hero: linear-gradient(135deg, rgba(45,74,62,0.85) 0%, rgba(92,82,68,0.85) 50%, rgba(122,98,75,0.85) 100%);
-  --gradient-hero-warm: linear-gradient(135deg, rgba(45,74,62,0.9) 0%, rgba(107,88,71,0.85) 50%, rgba(201,168,124,0.75) 100%);
+  --gradient-hero: linear-gradient(180deg, rgba(17,17,16,0.95) 0%, rgba(17,17,16,0.85) 100%);
+  --gradient-warm: linear-gradient(135deg, #faf8f3 0%, #f5f2eb 100%);
   
-  /* 圆角 - 更精致 */
+  /* 圆角 */
   --radius-sm: 0.375rem;
   --radius-md: 0.5rem;
   --radius-lg: 0.75rem;
   --radius-xl: 1rem;
   --radius-2xl: 1.25rem;
   
-  /* 阴影 - 暗色适配 */
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
-  --shadow-md: 0 2px 12px rgba(0,0,0,0.35);
-  --shadow-lg: 0 4px 24px rgba(0,0,0,0.4);
-  --shadow-xl: 0 8px 48px rgba(0,0,0,0.5);
+  /* 阴影 - 暖调适配 */
+  --shadow-sm: 0 1px 3px rgba(45,41,38,0.08);
+  --shadow-md: 0 2px 12px rgba(45,41,38,0.1);
+  --shadow-lg: 0 4px 24px rgba(45,41,38,0.12);
+  --shadow-xl: 0 8px 48px rgba(45,41,38,0.15);
+  --shadow-gold: 0 2px 12px rgba(201,168,124,0.2);
 }
 
 @theme inline {
@@ -88,7 +88,7 @@
 }
 
 /* ========================================
-   全局样式 - 高奢精致
+   全局样式
    ======================================== */
 * {
   box-sizing: border-box;
@@ -103,7 +103,7 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
-  font-size: 1rem;  /* 16px 基准 */
+  font-size: 1rem;
   line-height: 1.75;
   letter-spacing: 0.02em;
   -webkit-font-smoothing: antialiased;
@@ -111,7 +111,7 @@ body {
 }
 
 /* ========================================
-   标题样式 - 优雅精致，大小适度
+   标题样式 - 衬线优雅
    ======================================== */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-serif);
@@ -122,77 +122,77 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  font-size: 2.25rem;     /* 36px - 优雅精致 */
+  font-size: 2.25rem;     /* 36px */
   font-weight: 400;
 }
 
 h2 {
-  font-size: 1.5rem;    /* 24px */
+  font-size: 1.5rem;      /* 24px */
   font-weight: 400;
 }
 
 h3 {
-  font-size: 1.375rem;   /* 22px */
+  font-size: 1.375rem;    /* 22px */
 }
 
 h4 {
-  font-size: 1.125rem;   /* 18px */
+  font-size: 1.125rem;    /* 18px */
 }
 
 h5 {
-  font-size: 1rem;       /* 16px */
+  font-size: 1rem;        /* 16px */
 }
 
 h6 {
-  font-size: 0.9375rem;  /* 15px */
+  font-size: 0.9375rem;   /* 15px */
 }
 
 /* ========================================
    段落与文字
    ======================================== */
 p {
-  font-size: 1rem;  /* 16px */
+  font-size: 1rem;
   line-height: 1.75;
   margin-bottom: 0.75rem;
 }
 
 .text-display {
-  font-size: 3rem;       /* 48px */
+  font-size: 3rem;
   font-weight: 700;
   font-family: var(--font-serif);
   line-height: 1.2;
 }
 
 .text-hero {
-  font-size: 2.5rem;     /* 40px */
+  font-size: 2.5rem;
   font-weight: 700;
   font-family: var(--font-serif);
   line-height: 1.25;
 }
 
 .text-section-title {
-  font-size: 1.75rem;    /* 28px */
+  font-size: 1.75rem;
   font-weight: 600;
   font-family: var(--font-serif);
 }
 
 .text-card-title {
-  font-size: 1.125rem;   /* 18px */
+  font-size: 1.125rem;
   font-weight: 600;
 }
 
 .text-body {
-  font-size: 0.9375rem;  /* 15px */
+  font-size: 0.9375rem;
   line-height: 1.7;
 }
 
 .text-body-sm {
-  font-size: 0.8125rem;  /* 13px */
+  font-size: 0.8125rem;
   line-height: 1.6;
 }
 
 .text-caption {
-  font-size: 0.8125rem;  /* 13px */
+  font-size: 0.8125rem;
   color: var(--foreground-muted);
 }
 
@@ -210,7 +210,7 @@ a:hover {
 }
 
 /* ========================================
-   按钮样式 - 精致优雅
+   按钮样式 - 金色系
    ======================================== */
 .btn {
   display: inline-flex;
@@ -218,7 +218,7 @@ a:hover {
   justify-content: center;
   gap: 0.5rem;
   padding: 0.625rem 1.5rem;
-  font-size: 0.875rem;    /* 14px */
+  font-size: 0.875rem;
   font-weight: 500;
   border-radius: var(--radius-md);
   transition: all 0.3s ease;
@@ -230,21 +230,22 @@ a:hover {
 
 .btn-lg {
   padding: 0.75rem 1.75rem;
-  font-size: 0.9375rem;  /* 15px */
+  font-size: 0.9375rem;
   border-radius: var(--radius-lg);
 }
 
 .btn-xl {
   padding: 0.875rem 2rem;
-  font-size: 0.9375rem;  /* 15px */
+  font-size: 0.9375rem;
   border-radius: var(--radius-lg);
   letter-spacing: 0.05em;
 }
 
+/* 主按钮 - 实心金底白字 */
 .btn-primary {
   background: var(--gradient-gold);
   color: white;
-  box-shadow: 0 2px 12px rgba(201,168,124,0.3);
+  box-shadow: var(--shadow-gold);
   border-radius: var(--radius-md);
   padding: 0.625rem 1.5rem;
   font-weight: 500;
@@ -262,18 +263,19 @@ a:hover {
 
 .btn-primary:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 20px rgba(201,168,124,0.4);
+  box-shadow: 0 4px 20px rgba(201,168,124,0.35);
   color: white;
 }
 
+/* 次级按钮 - 金边透明 */
 .btn-secondary {
   background: transparent;
-  color: var(--accent);
-  border: 1.5px solid var(--accent);
+  color: var(--primary);
+  border: 1.5px solid var(--primary);
 }
 
 .btn-secondary:hover {
-  background: var(--accent);
+  background: var(--primary);
   color: white;
 }
 
@@ -286,6 +288,33 @@ a:hover {
 .btn-outline:hover {
   background: var(--primary);
   color: white;
+}
+
+/* Hero区按钮 - 暖白底金边 */
+.btn-hero-primary {
+  background: var(--primary);
+  color: white;
+  border: none;
+  box-shadow: var(--shadow-gold);
+}
+
+.btn-hero-primary:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(201,168,124,0.4);
+}
+
+.btn-hero-secondary {
+  background: rgba(255,255,255,0.1);
+  color: var(--foreground-hero);
+  border: 1.5px solid var(--primary);
+  backdrop-filter: blur(4px);
+}
+
+.btn-hero-secondary:hover {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
 }
 
 .btn-success {
@@ -367,27 +396,44 @@ a:hover {
 }
 
 /* ========================================
-   卡片样式 - 精致优雅
+   卡片样式 - 纯白金边
    ======================================== */
 .card {
-  background: white;
+  background: var(--background-card);
   border-radius: var(--radius-xl);
   padding: 1.5rem;
   box-shadow: var(--shadow-md);
-  border: 1px solid var(--primary-light);
+  border: 1px solid rgba(201,168,124,0.15);
   transition: all 0.35s ease;
 }
 
 .card:hover {
   box-shadow: var(--shadow-lg);
   transform: translateY(-2px);
+  border-color: rgba(201,168,124,0.3);
 }
 
 .card-flat {
-  background: white;
+  background: var(--background-card);
   border-radius: var(--radius-xl);
   padding: 1.5rem;
-  border: 1px solid var(--primary-light);
+  border: 1px solid rgba(201,168,124,0.15);
+}
+
+/* 产品卡片专用 */
+.card-product {
+  background: var(--background-card);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(201,168,124,0.12);
+  transition: all 0.35s ease;
+}
+
+.card-product:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-3px);
+  border-color: var(--primary);
 }
 
 /* ========================================
@@ -397,8 +443,8 @@ input, textarea, select {
   font-size: 0.875rem;
   padding: 0.625rem 0.875rem;
   border-radius: var(--radius-md);
-  border: 1px solid var(--primary-light);
-  background: white;
+  border: 1px solid rgba(201,168,124,0.3);
+  background: var(--background-card);
   color: var(--foreground);
   transition: all 0.25s ease;
 }
@@ -443,7 +489,7 @@ label {
    ======================================== */
 .divider {
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--primary-light), transparent);
+  background: linear-gradient(90deg, transparent, rgba(201,168,124,0.3), transparent);
   margin: 1.5rem 0;
 }
 
@@ -464,7 +510,7 @@ label {
 }
 
 /* ========================================
-   装饰线 - 高奢品牌常用
+   装饰线 - 日系精致
    ======================================== */
 .ornament-line {
   display: flex;
@@ -524,7 +570,7 @@ label {
 }
 
 .animate-shimmer {
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background: linear-gradient(90deg, #f5f2eb 25%, #faf8f3 50%, #f5f2eb 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
 }
@@ -587,11 +633,37 @@ label {
   border-radius: var(--radius-xl);
 }
 
-/* 图片加载失败时的统一处理 */
+/* 图片处理 */
 img {
   background: transparent;
 }
 
 img[src=""] {
   display: none;
+}
+
+/* Hero区专用样式 */
+.hero-section {
+  background: var(--background-hero);
+  color: var(--foreground-hero);
+}
+
+/* 金色装饰边框 */
+.gold-border {
+  border: 1px solid var(--primary);
+}
+
+.gold-border-light {
+  border: 1px solid rgba(201,168,124,0.2);
+}
+
+/* 首字母占位符 */
+.initial-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary-ultra-light) 100%);
+  color: var(--primary-dark);
+  font-family: var(--font-serif);
+  font-weight: 600;
 }

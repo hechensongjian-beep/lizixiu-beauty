@@ -183,12 +183,13 @@ function NavContent() {
 
   return (
     <>
-      <nav className="sticky top-0 z-50 bg-white/98 backdrop-blur-sm" style={{ borderBottom: '1px solid rgba(0,0,0,0.06)' }}>
+      {/* 导航栏 - 暖白背景金色品牌 */}
+      <nav className="sticky top-0 z-50" style={{ background: 'var(--background)', borderBottom: '1px solid rgba(201,168,124,0.15)' }}>
         <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-10">
           <div className="flex items-center justify-between" style={{ height: '64px' }}>
-            {/* Logo */}
+            {/* Logo - 金色品牌字 */}
             <Link href="/" className="flex items-center gap-2.5 group">
-              <span className="tracking-wide" style={{ fontFamily: 'var(--font-serif)', fontSize: '1.25rem', fontWeight: 400, color: 'var(--foreground)' }}>
+              <span className="tracking-wide" style={{ fontFamily: 'var(--font-serif)', fontSize: '1.375rem', fontWeight: 400, color: 'var(--primary)' }}>
                 丽姿秀
               </span>
               {loading ? null : (
@@ -198,7 +199,7 @@ function NavContent() {
               )}
             </Link>
 
-            {/* 桌面端导航 - 精致字体 */}
+            {/* 桌面端导航 */}
             <div className="hidden lg:flex items-center gap-1">
               {mainNav.map(item => (
                 <Link
@@ -301,7 +302,7 @@ function NavContent() {
                 className="lg:hidden p-1.5 text-[var(--foreground)] hover:text-[var(--primary)] transition-colors"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               >
-                <svg className="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
                     d={mobileMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
                 </svg>

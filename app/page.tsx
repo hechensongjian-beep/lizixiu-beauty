@@ -45,106 +45,52 @@ interface Promotion {
   applicable_to: 'all' | 'products' | 'services';
 }
 
-// 全站统一主按钮：实心金色
-function GoldBtn({ href, children }: { href: string; children: React.ReactNode }) {
+// 首字母占位组件
+function InitialAvatar({ name, size = 48 }: { name: string; size?: number }) {
+  const initial = name?.charAt(0)?.toUpperCase() || 'U';
   return (
-    <Link href={href}
-      className="group inline-flex items-center justify-center gap-2.5 transition-all duration-300"
-      style={{
-        background: 'var(--primary)',
-        padding: '0.875rem 2rem',
-        border: '1px solid var(--primary)',
-        color: '#1a1a1a',
-        fontSize: '0.9375rem',
-        fontWeight: 500,
-        letterSpacing: '0.08em',
-      }}>
-      {children}
-    </Link>
+    <div
+      className="initial-placeholder"
+      style={{ width: size, height: size, fontSize: size * 0.4, borderRadius: '50%' }}
+    >
+      {initial}
+    </div>
   );
 }
 
-// 全站统一次级按钮：描边金
-function GhostBtn({ href, children }: { href: string; children: React.ReactNode }) {
-  return (
-    <Link href={href}
-      className="group inline-flex items-center justify-center gap-2 transition-all duration-300"
-      style={{
-        background: 'transparent',
-        padding: '0.875rem 2rem',
-        border: '1px solid rgba(201,168,124,0.3)',
-        color: 'rgba(201,168,124,0.75)',
-        fontSize: '0.9375rem',
-        fontWeight: 400,
-        letterSpacing: '0.05em',
-      }}>
-      {children}
-    </Link>
-  );
-}
-
-// 智能图片组件：自动融合暗色背景
-function BlendImg({ src, alt, imgClass, imgStyle }: {
-  src?: string;
-  alt: string;
-  imgClass?: string;
-  imgStyle?: React.CSSProperties;
-}) {
-  const [err, setErr] = useState(false);
-  const [ok, setOk] = useState(false);
-
-  if (!src || err) {
+// 产品图片组件 - 带优雅回退
+function ProductImage({ product, size = 200 }: { product: Product; size?: number }) {
+  const [imgError, setImgError] = useState(false);
+  
+  if (imgError || !product.imageUrl) {
+    // 无图片时显示优雅的首字母占位
     return (
-      <div style={{
-        background: 'linear-gradient(160deg, #252320 0%, #1c1a18 50%, #252320 100%)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}>
-        <span style={{
-          fontFamily: "'Noto Serif SC', serif",
-          color: 'rgba(201,168,124,0.35)',
-          fontSize: '2.25rem',
-          fontWeight: 300,
-          letterSpacing: '0.1em',
-          userSelect: 'none',
-        }}>
-          {alt.charAt(0)}
-        </span>
+      <div
+        className="initial-placeholder"
+        style={{
+          width: '100%',
+          height: size,
+          fontSize: size * 0.25,
+          borderRadius: 'var(--radius-lg)',
+        }}
+      >
+        {product.name.charAt(0)}
       </div>
     );
   }
-
+  
   return (
-    <>
-      <img
-        src={src}
-        alt={alt}
-        className={imgClass}
-        style={{ ...imgStyle, opacity: ok ? 1 : 0, transition: 'opacity 0.4s ease' }}
-        onLoad={() => setOk(true)}
-        onError={() => setErr(true)}
-      />
-      {!ok && (
-        <div style={{
-          position: 'absolute',
-          inset: 0,
-          background: 'linear-gradient(160deg, #252320 0%, #1c1a18 50%, #252320 100%)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}>
-          <span style={{
-            fontFamily: "'Noto Serif SC', serif",
-            color: 'rgba(201,168,124,0.35)',
-            fontSize: '2.25rem',
-            fontWeight: 300,
-          }}>
-            {alt.charAt(0)}
-          </span>
-        </div>
-      )}
-    </>
+    <img
+      src={product.imageUrl}
+      alt={product.name}
+      onError={() => setImgError(true)}
+      style={{
+        width: '100%',
+        height: size,
+        objectFit: 'cover',
+        borderRadius: 'var(--radius-lg)',
+      }}
+    />
   );
 }
 
@@ -154,144 +100,468 @@ export default function HomePage() {
   const [services, setServices] = useState<Service[]>([]);
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [promotions, setPromotions] = useState<Promotion[]>([]);
-  const [siteSettings, setSiteSettings] = useState<SiteSettings>(DEFAULTS);
+  const [settings, setSettings] = useState<SiteSettings>(DEFAULTS);
   const [loading, setLoading] = useState(true);
-  const isMerchant = role === 'merchant' || role === 'admin';
 
   useEffect(() => {
-    Promise.all([
-      getProducts(),
-      getServices(),
-      getTestimonials(),
-      getPromotions(),
-      supabase.from('site_settings').select('*').eq('id', 1).single()
-    ])
-      .then(([prod, svc, test, promo, settings]) => {
-        setProducts((prod?.products || []).slice(0, 4));
-        setServices((svc?.services || []).slice(0, 4));
-        setTestimonials(test?.testimonials || []);
-        setPromotions(promo?.promotions || []);
-        if (settings.data && !settings.error) {
-          setSiteSettings({
-            hero_title: settings.data.hero_title || DEFAULTS.hero_title,
-            hero_subtitle: settings.data.hero_subtitle || DEFAULTS.hero_subtitle,
-            hero_desc: settings.data.hero_desc || DEFAULTS.hero_desc,
-            business_hours: settings.data.business_hours || DEFAULTS.business_hours,
-            business_tel: settings.data.business_tel || DEFAULTS.business_tel,
-            business_addr: settings.data.business_addr || DEFAULTS.business_addr,
-            notice_bar: settings.data.notice_bar || '',
-          });
-        }
-      })
-      .catch(() => {})
-      .finally(() => setLoading(false));
+    (async () => {
+      try {
+        const [pData, sData, tData, promData] = await Promise.all([
+          getProducts(),
+          getServices(),
+          getTestimonials(),
+          getPromotions(),
+        ]);
+        setProducts(pData.slice(0, 6));
+        setServices(sData.slice(0, 6));
+        setTestimonials(tData.slice(0, 3));
+        setPromotions(promData.filter((p: Promotion) => p.is_active));
+      } catch (e) {
+        console.error('加载失败', e);
+      }
+      
+      try {
+        const { data } = await supabase.from('site_settings').select('*').limit(1).single();
+        if (data) setSettings({ ...DEFAULTS, ...data });
+      } catch {}
+      
+      setLoading(false);
+    })();
   }, []);
 
+  const heroTitle = settings.hero_title.replace(/\\n/g, '\n').split('\n');
+  const activePromo = promotions[0];
+
   return (
-    <div className="min-h-screen" style={{ background: '#1a1a18' }}>
-
-      {/* 公告栏 */}
-      {siteSettings.notice_bar && (
-        <div className="w-full py-2.5 px-4 text-center font-medium tracking-widest"
-          style={{ background: 'var(--accent)', color: 'var(--primary)', fontSize: '0.8125rem' }}>
-          {siteSettings.notice_bar}
-        </div>
-      )}
-
-      {/* ===== HERO — 深色意境 ===== */}
-      <section className="relative overflow-hidden" style={{ minHeight: '90vh', background: 'linear-gradient(165deg, #111110 0%, #1e1d1b 45%, #171614 100%)' }}>
-        {/* 微妙金色光晕 */}
-        <div className="absolute top-0 right-0 w-96 h-96 pointer-events-none"
-          style={{ background: 'radial-gradient(circle, rgba(201,168,124,0.06) 0%, transparent 70%)' }} />
-        <div className="absolute bottom-0 left-1/4 w-80 h-80 pointer-events-none"
-          style={{ background: 'radial-gradient(circle, rgba(201,168,124,0.04) 0%, transparent 70%)' }} />
-        {/* 装饰线条 */}
-        <div className="absolute top-24 left-12 w-px h-40" style={{ background: 'linear-gradient(to bottom, transparent, rgba(201,168,124,0.25), transparent)' }} />
-        <div className="absolute top-24 left-12 w-40 h-px" style={{ background: 'linear-gradient(to right, transparent, rgba(201,168,124,0.25), transparent)' }} />
-        <div className="absolute bottom-20 right-16 w-px h-32" style={{ background: 'linear-gradient(to bottom, transparent, rgba(201,168,124,0.15), transparent)' }} />
-        <div className="absolute bottom-20 right-16 w-32 h-px" style={{ background: 'linear-gradient(to right, transparent, rgba(201,168,124,0.15), transparent)' }} />
-
-        <div className="relative max-w-6xl mx-auto px-8 flex flex-col justify-center" style={{ minHeight: '90vh' }}>
-          <div className="mb-10" style={{ color: 'rgba(201,168,124,0.55)', fontSize: '0.6875rem', letterSpacing: '0.28em', fontWeight: 500 }}>
-            {siteSettings.hero_subtitle}
-          </div>
-
-          <h1 className="mb-8 max-w-3xl"
+    <div style={{ background: 'var(--background)' }}>
+      {/* ==================== Hero区 - 深墨色高奢 ==================== */}
+      <section
+        className="relative overflow-hidden"
+        style={{
+          background: 'linear-gradient(180deg, #111110 0%, #1a1918 100%)',
+          minHeight: '70vh',
+          paddingTop: '4rem',
+          paddingBottom: '5rem',
+        }}
+      >
+        {/* 金色装饰线 */}
+        <div
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: '50%',
+            transform: 'translateX(-50%)',
+            width: '1px',
+            height: '60px',
+            background: 'linear-gradient(180deg, transparent, var(--primary), transparent)',
+          }}
+        />
+        
+        {/* Unsplash氛围背景图 */}
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            backgroundImage: 'url(https://images.unsplash.com/photo-1560756555555-ba600a4975a0?w=1920&q=80)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            opacity: 0.15,
+          }}
+        />
+        
+        <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
+          {/* 副标题 - 金色小字 */}
+          <p
             style={{
-              fontFamily: "'Noto Serif SC', serif",
-              fontSize: 'clamp(2.75rem, 6.5vw, 4.5rem)',
-              fontWeight: 300,
-              color: '#f0ede8',
-              letterSpacing: '0.03em',
+              color: 'var(--primary)',
+              fontSize: '0.8125rem',
+              letterSpacing: '0.2em',
+              marginBottom: '1.5rem',
+              fontWeight: 500,
+            }}
+          >
+            {settings.hero_subtitle}
+          </p>
+          
+          {/* 主标题 - 衬线大字 */}
+          <h1
+            style={{
+              fontFamily: 'var(--font-serif)',
+              fontSize: 'clamp(2.25rem, 6vw, 3.5rem)',
+              fontWeight: 400,
+              color: 'var(--foreground-hero)',
               lineHeight: 1.25,
-            }}>
-            {siteSettings.hero_title.split('\n').map((line, i) => (
-              <span key={i}>{line}{i < siteSettings.hero_title.split('\n').length - 1 && <br />}</span>
+              marginBottom: '1.5rem',
+              letterSpacing: '0.02em',
+            }}
+          >
+            {heroTitle.map((line, i) => (
+              <span key={i} className="block">{line}</span>
             ))}
           </h1>
-
-          <div className="flex items-center gap-4 mb-8">
-            <div className="w-16 h-px" style={{ background: 'var(--primary)' }} />
-            <div style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--primary)', opacity: 0.6 }} />
-          </div>
-
-          <p className="max-w-xl mb-14"
-            style={{ color: 'rgba(240,237,232,0.4)', fontSize: '1rem', lineHeight: 2, letterSpacing: '0.02em' }}>
-            {siteSettings.hero_desc}
+          
+          {/* 描述 */}
+          <p
+            style={{
+              color: 'rgba(240,237,232,0.7)',
+              fontSize: '1rem',
+              maxWidth: '480px',
+              margin: '0 auto 2.5rem',
+              lineHeight: 1.8,
+            }}
+          >
+            {settings.hero_desc}
           </p>
-
-          <div className="flex items-center gap-4 flex-wrap">
-            <GoldBtn href="/appointments">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="3" y="4" width="18" height="18" rx="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" />
+          
+          {/* 按钮 - 金色主按钮 + 金边次按钮 */}
+          <div className="flex flex-wrap justify-center gap-4">
+            <Link
+              href="/appointments"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all"
+              style={{
+                background: 'var(--primary)',
+                color: 'white',
+                fontSize: '0.9375rem',
+                letterSpacing: '0.05em',
+                boxShadow: '0 4px 20px rgba(201,168,124,0.3)',
+              }}
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
               </svg>
               立即预约
-            </GoldBtn>
-            <GhostBtn href="/services">
+            </Link>
+            <Link
+              href="/services"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all"
+              style={{
+                background: 'transparent',
+                color: 'var(--primary)',
+                border: '1.5px solid var(--primary)',
+                fontSize: '0.9375rem',
+                letterSpacing: '0.05em',
+              }}
+            >
               浏览服务
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
               </svg>
-            </GhostBtn>
+            </Link>
           </div>
-
-          <div className="absolute bottom-10 left-8 right-8 flex items-center justify-between max-w-6xl mx-auto">
-            <div className="flex items-center gap-6" style={{ color: 'rgba(240,237,232,0.3)', fontSize: '0.75rem', letterSpacing: '0.05em' }}>
-              <span>{siteSettings.business_hours}</span>
-              <span style={{ color: 'rgba(240,237,232,0.12)' }}>|</span>
-              <span>{siteSettings.business_tel}</span>
+          
+          {/* 促销活动提示 */}
+          {activePromo && (
+            <div
+              className="mt-8 inline-flex items-center gap-2 px-4 py-2 rounded-full"
+              style={{
+                background: 'rgba(201,168,124,0.15)',
+                border: '1px solid rgba(201,168,124,0.3)',
+              }}
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+              </svg>
+              <span style={{ color: 'var(--primary)', fontSize: '0.8125rem' }}>
+                {activePromo.title} · {activePromo.discount_type === 'percentage' ? `${activePromo.discount_value}% OFF` : `立减¥${activePromo.discount_value}`}
+              </span>
             </div>
+          )}
+        </div>
+        
+        {/* 底部金色装饰线 */}
+        <div
+          style={{
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            right: 0,
+            height: '1px',
+            background: 'linear-gradient(90deg, transparent, rgba(201,168,124,0.3), transparent)',
+          }}
+        />
+      </section>
+
+      {/* ==================== 品牌承诺 - 暖白背景 ==================== */}
+      <section className="py-16" style={{ background: 'var(--background)' }}>
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <p style={{ color: 'var(--primary)', fontSize: '0.75rem', letterSpacing: '0.2em', marginBottom: '0.75rem' }}>
+              BRAND PROMISE
+            </p>
+            <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.75rem', fontWeight: 400, color: 'var(--foreground)' }}>
+              为什么选择丽姿秀
+            </h2>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              { icon: '🌿', title: '东方草本', desc: '甄选天然草本精华，温和养护每一寸肌肤' },
+              { icon: '✨', title: '现代科技', desc: '结合先进美容仪器，精准高效护理' },
+              { icon: '💝', title: '专属定制', desc: '一对一诊断方案，量身打造护理计划' },
+            ].map((item, i) => (
+              <div key={i} className="text-center">
+                <div
+                  className="inline-flex items-center justify-center mb-4"
+                  style={{
+                    width: 56,
+                    height: 56,
+                    borderRadius: '50%',
+                    background: 'linear-gradient(135deg, var(--primary-light) 0%, var(--primary-ultra-light) 100%)',
+                    fontSize: '1.5rem',
+                  }}
+                >
+                  {item.icon}
+                </div>
+                <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.125rem', marginBottom: '0.5rem', color: 'var(--foreground)' }}>
+                  {item.title}
+                </h3>
+                <p style={{ color: 'var(--foreground-muted)', fontSize: '0.875rem', lineHeight: 1.7 }}>
+                  {item.desc}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ===== 促销活动 ===== */}
-      {promotions.length > 0 && (
-        <section style={{ background: '#1a1a18', padding: '3rem 0' }}>
-          <div className="max-w-6xl mx-auto px-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {promotions.slice(0, 2).map((promo) => (
-                <div key={promo.id}
-                  className="relative overflow-hidden p-7 transition-all duration-300 hover:-translate-y-0.5"
-                  style={{ background: 'linear-gradient(135deg, #1e1e1c 0%, #262420 100%)', borderRadius: '0.75rem', border: '1px solid rgba(201,168,124,0.12)' }}>
-                  <div className="absolute top-0 right-0 w-28 h-28"
-                    style={{ background: 'radial-gradient(circle at top right, rgba(201,168,124,0.1) 0%, transparent 70%)' }} />
-                  <div className="relative">
-                    <div className="mb-3" style={{ color: 'var(--primary)', fontSize: '0.6875rem', letterSpacing: '0.25em', fontWeight: 500 }}>PROMOTION</div>
-                    <h3 style={{ fontFamily: "'Noto Serif SC', serif", color: '#f0ede8', fontSize: '1.375rem', fontWeight: 400, marginBottom: '0.5rem' }}>
-                      {promo.title}
+      {/* ==================== 服务项目 - 暖白背景纯白卡片 ==================== */}
+      <section className="py-16" style={{ background: 'var(--background-secondary)' }}>
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="flex items-center justify-between mb-10">
+            <div>
+              <p style={{ color: 'var(--primary)', fontSize: '0.75rem', letterSpacing: '0.2em', marginBottom: '0.5rem' }}>
+                SERVICES
+              </p>
+              <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.75rem', fontWeight: 400, color: 'var(--foreground)' }}>
+                专业服务
+              </h2>
+            </div>
+            <Link
+              href="/services"
+              className="inline-flex items-center gap-1.5 text-[var(--primary)] hover:text-[var(--primary-dark)] transition-colors"
+              style={{ fontSize: '0.875rem' }}
+            >
+              查看全部
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </Link>
+          </div>
+          
+          {loading ? (
+            <div className="text-center py-12" style={{ color: 'var(--foreground-muted)' }}>加载中...</div>
+          ) : (
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {services.map(service => (
+                <Link
+                  key={service.id}
+                  href="/appointments"
+                  className="card-product group"
+                >
+                  {/* 服务卡片 - 纯白底金边 */}
+                  <div className="p-6">
+                    {/* 分类标签 */}
+                    {service.category && (
+                      <span
+                        className="inline-block mb-3 px-2.5 py-1 rounded"
+                        style={{
+                          background: 'rgba(201,168,124,0.1)',
+                          color: 'var(--primary-dark)',
+                          fontSize: '0.6875rem',
+                          letterSpacing: '0.05em',
+                        }}
+                      >
+                        {service.category}
+                      </span>
+                    )}
+                    
+                    <h3
+                      className="mb-2 group-hover:text-[var(--primary)] transition-colors"
+                      style={{ fontFamily: 'var(--font-serif)', fontSize: '1.125rem', color: 'var(--foreground)' }}
+                    >
+                      {service.name}
                     </h3>
-                    {promo.description && (
-                      <p style={{ color: 'rgba(240,237,232,0.45)', fontSize: '0.8125rem', lineHeight: 1.7, marginBottom: '1.25rem' }}>
-                        {promo.description}
+                    
+                    {service.description && (
+                      <p
+                        className="mb-4 line-clamp-2"
+                        style={{ color: 'var(--foreground-muted)', fontSize: '0.8125rem', lineHeight: 1.6 }}
+                      >
+                        {service.description}
                       </p>
                     )}
-                    <span className="inline-flex px-4 py-2"
-                      style={{ background: 'var(--primary)', color: '#1a1a1a', fontSize: '0.875rem', fontWeight: 600, borderRadius: '0.25rem', letterSpacing: '0.05em' }}>
-                      {promo.discount_type === 'percentage'
-                        ? `${promo.discount_value}% OFF`
-                        : `立减 ¥${promo.discount_value}`}
+                    
+                    <div className="flex items-center justify-between">
+                      <span style={{ color: 'var(--primary)', fontSize: '1rem', fontWeight: 600 }}>
+                        {fmtCurrency(service.price)}
+                      </span>
+                      {service.duration && (
+                        <span style={{ color: 'var(--foreground-light)', fontSize: '0.75rem' }}>
+                          {service.duration}分钟
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                  
+                  {/* 底部金色装饰线 */}
+                  <div
+                    className="h-px w-0 group-hover:w-full transition-all duration-300"
+                    style={{ background: 'var(--primary)' }}
+                  />
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* ==================== 精选产品 - 暖白背景纯白卡片 ==================== */}
+      <section className="py-16" style={{ background: 'var(--background)' }}>
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="flex items-center justify-between mb-10">
+            <div>
+              <p style={{ color: 'var(--primary)', fontSize: '0.75rem', letterSpacing: '0.2em', marginBottom: '0.5rem' }}>
+                PRODUCTS
+              </p>
+              <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.75rem', fontWeight: 400, color: 'var(--foreground)' }}>
+                精选产品
+              </h2>
+            </div>
+            <Link
+              href="/products"
+              className="inline-flex items-center gap-1.5 text-[var(--primary)] hover:text-[var(--primary-dark)] transition-colors"
+              style={{ fontSize: '0.875rem' }}
+            >
+              查看全部
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </Link>
+          </div>
+          
+          {loading ? (
+            <div className="text-center py-12" style={{ color: 'var(--foreground-muted)' }}>加载中...</div>
+          ) : (
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {products.map(product => (
+                <Link
+                  key={product.id}
+                  href={`/products/${product.id}`}
+                  className="card-product group"
+                >
+                  {/* 产品图片区 */}
+                  <div className="p-4">
+                    <ProductImage product={product} size={180} />
+                  </div>
+                  
+                  {/* 产品信息 */}
+                  <div className="px-5 pb-5">
+                    {/* 分类标签 */}
+                    <span
+                      className="inline-block mb-2 px-2 py-0.5 rounded"
+                      style={{
+                        background: 'rgba(201,168,124,0.1)',
+                        color: 'var(--primary-dark)',
+                        fontSize: '0.6875rem',
+                        letterSpacing: '0.05em',
+                      }}
+                    >
+                      {product.category}
                     </span>
+                    
+                    <h3
+                      className="mb-1.5 group-hover:text-[var(--primary)] transition-colors"
+                      style={{ fontFamily: 'var(--font-serif)', fontSize: '1rem', color: 'var(--foreground)' }}
+                    >
+                      {product.name}
+                    </h3>
+                    
+                    <p
+                      className="mb-3 line-clamp-2"
+                      style={{ color: 'var(--foreground-muted)', fontSize: '0.75rem', lineHeight: 1.6 }}
+                    >
+                      {product.description}
+                    </p>
+                    
+                    <div className="flex items-center justify-between">
+                      <span style={{ color: 'var(--primary)', fontSize: '1rem', fontWeight: 600 }}>
+                        {fmtCurrency(product.price)}
+                      </span>
+                      {product.stock <= 5 && product.stock > 0 && (
+                        <span style={{ color: '#c49393', fontSize: '0.6875rem' }}>
+                          仅剩{product.stock}件
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* ==================== 客户口碑 - 暖白背景 ==================== */}
+      {testimonials.length > 0 && (
+        <section className="py-16" style={{ background: 'var(--background-secondary)' }}>
+          <div className="max-w-5xl mx-auto px-6">
+            <div className="text-center mb-12">
+              <p style={{ color: 'var(--primary)', fontSize: '0.75rem', letterSpacing: '0.2em', marginBottom: '0.75rem' }}>
+                TESTIMONIALS
+              </p>
+              <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.75rem', fontWeight: 400, color: 'var(--foreground)' }}>
+                客户心声
+              </h2>
+            </div>
+            
+            <div className="grid md:grid-cols-3 gap-6">
+              {testimonials.map(t => (
+                <div
+                  key={t.id}
+                  className="p-6 rounded-xl"
+                  style={{
+                    background: 'var(--background-card)',
+                    border: '1px solid rgba(201,168,124,0.12)',
+                  }}
+                >
+                  {/* 评分 */}
+                  <div className="flex gap-0.5 mb-4">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <svg
+                        key={i}
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill={i < t.score ? 'var(--primary)' : 'none'}
+                        stroke="var(--primary)"
+                        strokeWidth="2"
+                      >
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                      </svg>
+                    ))}
+                  </div>
+                  
+                  {/* 评价内容 */}
+                  <p
+                    className="mb-4"
+                    style={{ color: 'var(--foreground)', fontSize: '0.875rem', lineHeight: 1.7, fontStyle: 'italic' }}
+                  >
+                    "{t.text}"
+                  </p>
+                  
+                  {/* 客户信息 */}
+                  <div className="flex items-center gap-3">
+                    <InitialAvatar name={t.name} size={36} />
+                    <div>
+                      <div style={{ color: 'var(--foreground)', fontSize: '0.8125rem', fontWeight: 500 }}>
+                        {t.name}
+                      </div>
+                      {t.service && (
+                        <div style={{ color: 'var(--foreground-muted)', fontSize: '0.6875rem' }}>
+                          {t.service}
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
               ))}
@@ -300,228 +570,79 @@ export default function HomePage() {
         </section>
       )}
 
-      {/* ===== 品牌承诺 ===== */}
-      <section style={{ background: '#1a1a18', padding: '3rem 0', borderTop: '1px solid rgba(201,168,124,0.06)' }}>
-        <div className="max-w-5xl mx-auto px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {[
-              { label: '正品保障', icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z' },
-              { label: '满500包运', icon: 'M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z' },
-              { label: '7天无理由', icon: 'M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15' },
-              { label: '随时预约', icon: 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z' },
-            ].map((item) => (
-              <div key={item.label} className="text-center">
-                <div className="w-12 h-12 mx-auto mb-3 flex items-center justify-center"
-                  style={{ border: '1px solid rgba(201,168,124,0.25)', borderRadius: '50%' }}>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d={item.icon} />
-                  </svg>
-                </div>
-                <div style={{ color: 'rgba(240,237,232,0.6)', fontSize: '0.875rem', fontWeight: 500 }}>{item.label}</div>
+      {/* ==================== 联系我们 - 暖白背景 ==================== */}
+      <section className="py-16" style={{ background: 'var(--background)' }}>
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="text-center mb-10">
+            <p style={{ color: 'var(--primary)', fontSize: '0.75rem', letterSpacing: '0.2em', marginBottom: '0.75rem' }}>
+              CONTACT
+            </p>
+            <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.75rem', fontWeight: 400, color: 'var(--foreground)' }}>
+              联系我们
+            </h2>
+          </div>
+          
+          <div
+            className="max-w-xl mx-auto p-8 rounded-2xl text-center"
+            style={{
+              background: 'var(--background-card)',
+              border: '1px solid rgba(201,168,124,0.15)',
+              boxShadow: 'var(--shadow-md)',
+            }}
+          >
+            {/* 装饰线 */}
+            <div
+              className="mb-6"
+              style={{
+                height: '1px',
+                background: 'linear-gradient(90deg, transparent, var(--primary), transparent)',
+              }}
+            />
+            
+            <div className="space-y-4">
+              <div className="flex items-center justify-center gap-3">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+                </svg>
+                <span style={{ color: 'var(--foreground)', fontSize: '0.9375rem' }}>
+                  {settings.business_hours}
+                </span>
               </div>
-            ))}
+              
+              <div className="flex items-center justify-center gap-3">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.45L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.45-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                </svg>
+                <a
+                  href={`tel:${settings.business_tel.replace(/-/g, '')}`}
+                  style={{ color: 'var(--primary)', fontSize: '0.9375rem' }}
+                  className="hover:underline"
+                >
+                  {settings.business_tel}
+                </a>
+              </div>
+              
+              <div className="flex items-center justify-center gap-3">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+                </svg>
+                <span style={{ color: 'var(--foreground-muted)', fontSize: '0.875rem' }}>
+                  {settings.business_addr}
+                </span>
+              </div>
+            </div>
+            
+            {/* 装饰线 */}
+            <div
+              className="mt-6"
+              style={{
+                height: '1px',
+                background: 'linear-gradient(90deg, transparent, var(--primary), transparent)',
+              }}
+            />
           </div>
         </div>
       </section>
-
-      {/* ===== 服务项目 ===== */}
-      <section style={{ background: '#222220', padding: '5rem 0' }}>
-        <div className="max-w-6xl mx-auto px-8">
-          <div className="text-center mb-14">
-            <div className="mb-3" style={{ color: 'var(--primary)', fontSize: '0.6875rem', letterSpacing: '0.28em', fontWeight: 500 }}>SERVICES</div>
-            <h2 style={{ fontFamily: "'Noto Serif SC', serif", color: '#f0ede8', fontSize: 'clamp(1.5rem, 3vw, 2rem)', fontWeight: 400, marginBottom: '1rem' }}>
-              精选服务项目
-            </h2>
-            <div className="w-12 h-px mx-auto" style={{ background: 'var(--primary)', opacity: 0.4 }} />
-          </div>
-
-          {loading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-              {[1,2,3,4].map(i => (
-                <div key={i} className="animate-pulse rounded-lg"
-                  style={{ background: 'rgba(255,255,255,0.04)', minHeight: '160px', borderRadius: '0.75rem' }} />
-              ))}
-            </div>
-          ) : services.length === 0 ? (
-            <div className="text-center py-20" style={{ color: 'rgba(240,237,232,0.3)', fontSize: '0.9375rem' }}>
-              商家正在准备中，敬请期待
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-              {services.map((svc) => (
-                <Link key={svc.id} href={`/services?id=${svc.id}`}
-                  className="group block p-6 transition-all duration-300"
-                  style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(201,168,124,0.08)', borderRadius: '0.75rem' }}>
-                  <h3 style={{ fontFamily: "'Noto Serif SC', serif", color: '#f0ede8', fontSize: '1.0625rem', fontWeight: 500, marginBottom: '0.5rem' }}>
-                    {svc.name}
-                  </h3>
-                  {svc.description && (
-                    <p className="mb-4 line-clamp-2" style={{ color: 'rgba(240,237,232,0.4)', fontSize: '0.8125rem', lineHeight: 1.7 }}>
-                      {svc.description}
-                    </p>
-                  )}
-                  <div className="flex items-center justify-between mt-auto pt-3" style={{ borderTop: '1px solid rgba(201,168,124,0.08)' }}>
-                    <span style={{ color: 'var(--primary)', fontSize: '1rem', fontWeight: 500 }}>{fmtCurrency(svc.price)}</span>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                      <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
-                    </svg>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          )}
-
-          <div className="text-center mt-10">
-            <GhostBtn href="/services">
-              查看全部服务
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="9 18 15 12 9 6" />
-              </svg>
-            </GhostBtn>
-          </div>
-        </div>
-      </section>
-
-      {/* ===== 产品展示 ===== */}
-      <section style={{ background: '#1a1a18', padding: '5rem 0' }}>
-        <div className="max-w-6xl mx-auto px-8">
-          <div className="text-center mb-14">
-            <div className="mb-3" style={{ color: 'var(--primary)', fontSize: '0.6875rem', letterSpacing: '0.28em', fontWeight: 500 }}>PRODUCTS</div>
-            <h2 style={{ fontFamily: "'Noto Serif SC', serif", color: '#f0ede8', fontSize: 'clamp(1.5rem, 3vw, 2rem)', fontWeight: 400, marginBottom: '1rem' }}>
-              精选护肤产品
-            </h2>
-            <div className="w-12 h-px mx-auto" style={{ background: 'var(--primary)', opacity: 0.4 }} />
-          </div>
-
-          {loading ? (
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
-              {[1,2,3,4].map(i => (
-                <div key={i} className="animate-pulse rounded-lg" style={{ background: 'rgba(255,255,255,0.04)', minHeight: '280px', borderRadius: '0.75rem' }} />
-              ))}
-            </div>
-          ) : products.length === 0 ? (
-            <div className="text-center py-20" style={{ color: 'rgba(240,237,232,0.3)', fontSize: '0.9375rem' }}>
-              商家正在准备中，敬请期待
-            </div>
-          ) : (
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
-              {products.map((prod) => (
-                <Link key={prod.id} href={`/products?id=${prod.id}`} className="group block">
-                  {/* 图片区：深色底 + 渐变叠层，让任何图片都与背景融为一体 */}
-                  <div className="aspect-[3/4] mb-4 rounded-lg overflow-hidden relative"
-                    style={{ background: '#1e1d1b', border: '1px solid rgba(201,168,124,0.06)' }}>
-                    {/* 渐变叠层：图片底部自动融入背景 */}
-                    <div className="absolute inset-0 z-10 pointer-events-none"
-                      style={{ background: 'linear-gradient(to top, #1a1a18 0%, rgba(26,26,24,0.5) 35%, transparent 55%)' }}
-                    />
-                    {/* 图片 */}
-                    <BlendImg
-                      src={prod.imageUrl}
-                      alt={prod.name}
-                      imgClass="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      imgStyle={{ zIndex: 1 }}
-                    />
-                    {/* 品牌首字（始终可见，作为视觉锚点） */}
-                    <div className="absolute bottom-4 left-4 z-20">
-                      <span style={{
-                        fontFamily: "'Noto Serif SC', serif",
-                        color: 'var(--primary)',
-                        fontSize: '1.375rem',
-                        fontWeight: 300,
-                        letterSpacing: '0.1em',
-                        textShadow: '0 2px 12px rgba(0,0,0,0.7)',
-                      }}>
-                        {prod.name.charAt(0)}
-                      </span>
-                    </div>
-                  </div>
-                  {/* 信息 */}
-                  <h3 style={{ color: '#f0ede8', fontSize: '0.9375rem', fontWeight: 500, marginBottom: '0.375rem' }}>
-                    {prod.name}
-                  </h3>
-                  <p style={{ color: 'var(--primary)', fontSize: '1rem', fontWeight: 500 }}>
-                    {fmtCurrency(prod.price)}
-                  </p>
-                </Link>
-              ))}
-            </div>
-          )}
-
-          <div className="text-center mt-10">
-            <GhostBtn href="/products">
-              查看全部产品
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="9 18 15 12 9 6" />
-              </svg>
-            </GhostBtn>
-          </div>
-        </div>
-      </section>
-
-      {/* ===== 用户评价 ===== */}
-      <section style={{ background: '#222220', padding: '5rem 0' }}>
-        <div className="max-w-4xl mx-auto px-8">
-          {testimonials.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-              {testimonials.slice(0, 3).map((r) => (
-                <div key={r.id} className="p-6"
-                  style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(201,168,124,0.06)', borderRadius: '0.75rem' }}>
-                  <div className="flex gap-1 mb-4">
-                    {Array.from({ length: r.score || 5 }).map((_, i) => (
-                      <svg key={i} width="11" height="11" viewBox="0 0 24 24" fill="var(--primary)">
-                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                      </svg>
-                    ))}
-                  </div>
-                  <p className="mb-5" style={{ color: 'rgba(240,237,232,0.65)', fontSize: '0.9375rem', lineHeight: 1.9, fontStyle: 'italic' }}>
-                    "{r.text}"
-                  </p>
-                  <div style={{ color: 'rgba(240,237,232,0.3)', fontSize: '0.75rem', letterSpacing: '0.05em' }}>
-                    — {r.name}
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="text-center">
-              <p style={{ fontFamily: "'Noto Serif SC', serif", color: '#f0ede8', fontSize: 'clamp(1.125rem, 2.5vw, 1.5rem)', fontWeight: 400, lineHeight: 2 }}>
-                "每次护理都让我感觉焕然一新，<br />技师非常专业细致。"
-              </p>
-              <div style={{ color: 'rgba(240,237,232,0.3)', fontSize: '0.75rem', marginTop: '1rem' }}>— 王女士，上海静安</div>
-            </div>
-          )}
-        </div>
-      </section>
-
-      {/* ===== CTA ===== */}
-      <section className="relative py-28 overflow-hidden" style={{ background: 'linear-gradient(165deg, #111110 0%, #1a1918 100%)' }}>
-        <div className="absolute top-0 right-0 w-96 h-96 pointer-events-none"
-          style={{ background: 'radial-gradient(circle, rgba(201,168,124,0.05) 0%, transparent 65%)' }} />
-        <div className="absolute bottom-0 left-0 w-80 h-80 pointer-events-none"
-          style={{ background: 'radial-gradient(circle, rgba(201,168,124,0.03) 0%, transparent 65%)' }} />
-        <div className="absolute top-8 left-10 w-px h-20" style={{ background: 'linear-gradient(to bottom, transparent, rgba(201,168,124,0.2), transparent)' }} />
-        <div className="absolute bottom-8 right-10 w-px h-20" style={{ background: 'linear-gradient(to bottom, transparent, rgba(201,168,124,0.15), transparent)' }} />
-
-        <div className="relative max-w-3xl mx-auto px-8 text-center">
-          <div className="mb-4" style={{ color: 'rgba(201,168,124,0.5)', fontSize: '0.6875rem', letterSpacing: '0.28em' }}>
-            BEGIN YOUR JOURNEY
-          </div>
-          <h2 style={{ fontFamily: "'Noto Serif SC', serif", color: '#f0ede8', fontSize: 'clamp(1.5rem, 3vw, 2.25rem)', fontWeight: 400, marginBottom: '1rem' }}>
-            开启您的美丽之旅
-          </h2>
-          <div className="w-12 h-px mx-auto mb-8" style={{ background: 'var(--primary)', opacity: 0.5 }} />
-          <p className="mb-12" style={{ color: 'rgba(240,237,232,0.4)', fontSize: '1rem', lineHeight: 1.9 }}>
-            预约专属护理服务，体验丽姿秀带来的蜕变
-          </p>
-          <GoldBtn href="/appointments">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-              <rect x="3" y="4" width="18" height="18" rx="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" />
-            </svg>
-            立即预约
-          </GoldBtn>
-        </div>
-      </section>
-
     </div>
   );
 }
