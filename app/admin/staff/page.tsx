@@ -166,7 +166,7 @@ const { role } = useAuth();
       <div className="flex items-center justify-between">
         <div>
           <Link href="/admin/dashboard" className="text-sm text-[var(--foreground-muted)] hover:text-[var(--primary)] mb-1 inline-block">← 返回后台</Link>
-          <h1 className="text-2xl text-[var(--foreground)]" style={{ fontFamily: 'var(--font-serif)' }}>员工管理</h1>
+          <h1 className="text-xl text-[var(--foreground)]" style={{ fontFamily: 'var(--font-serif)' }}>员工管理</h1>
           <p className="text-sm text-[var(--foreground-muted)] mt-1">添加员工账号，设置登录密码（Supabase Auth）</p>
         </div>
         <button
