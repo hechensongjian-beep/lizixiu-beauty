@@ -84,7 +84,7 @@ const router = useRouter();
         </div>
         <div className="flex gap-3">
           <button onClick={fetchData} className="px-4 py-2 bg-gray-100 text-gray-800 rounded-lg hover:bg-gray-200">刷新</button>
-          <button onClick={() => setShowAdd(true)} className="px-6 py-3 bg-gradient-to-r from-[#c9a87c] to-[#b8956a] text-white font-semibold rounded-lg">+ 添加评价</button>
+          <button onClick={() => setShowAdd(true)} className="px-6 py-3 bg-[#2d4a3e] text-white font-semibold rounded-lg">+ 添加评价</button>
         </div>
       </div>
 
@@ -103,7 +103,7 @@ const router = useRouter();
           </div>
           <div className="flex justify-end gap-3 mt-6">
             <button onClick={() => setShowAdd(false)} className="px-6 py-2 bg-gray-100 rounded-lg">取消</button>
-            <button onClick={handleAdd} disabled={submitting} className="px-6 py-2 bg-[#c9a87c] text-white rounded-lg disabled:opacity-50">{submitting ? '提交中...' : '确认添加'}</button>
+            <button onClick={handleAdd} disabled={submitting} className="px-6 py-2 bg-[#2d4a3e] text-white rounded-lg disabled:opacity-50">{submitting ? '提交中...' : '确认添加'}</button>
           </div>
         </div>
       )}
@@ -128,7 +128,7 @@ const router = useRouter();
             </div>
             <div className="flex justify-end gap-3 mt-6">
               <button onClick={() => setEditing(null)} className="px-6 py-2 bg-gray-100 rounded-lg">取消</button>
-              <button onClick={handleUpdate} disabled={submitting} className="px-6 py-2 bg-[#c9a87c] text-white rounded-lg disabled:opacity-50">{submitting ? '更新中...' : '保存'}</button>
+              <button onClick={handleUpdate} disabled={submitting} className="px-6 py-2 bg-[#2d4a3e] text-white rounded-lg disabled:opacity-50">{submitting ? '更新中...' : '保存'}</button>
             </div>
           </div>
         </div>
