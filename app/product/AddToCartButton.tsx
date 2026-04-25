@@ -89,14 +89,14 @@ export default function AddToCartButton({ product }: { product: Product }) {
         <div className="flex items-center rounded-xl overflow-hidden" style={{border:'1.5px solid rgba(201,168,124,0.3)'}}>
           <button onClick={() => changeQty(-1)} className="w-11 h-11 flex items-center justify-center text-lg font-bold transition hover:bg-gray-100" style={{color:'#2a2a28',background:'white'}} disabled={qty <= 1}>−</button>
           <div className="w-16 h-11 flex items-center justify-center font-bold text-lg" style={{color:'#2a2a28',background:'white'}}>{qty}</div>
-          <button onClick={() => changeQty(1)} className="w-11 h-11 flex items-center justify-center text-lg font-bold transition hover:bg-gray-100" style={{color:'#a88a5c',background:'white'}} disabled={qty >= product.stock}>+</button>
+          <button onClick={() => changeQty(1)} className="w-11 h-11 flex items-center justify-center text-lg font-bold transition hover:bg-gray-100" style={{color:'var(--primary)',background:'white'}} disabled={qty >= product.stock}>+</button>
         </div>
         <span className="text-sm" style={{color:'#9b9b98'}}>共 {product.stock} 件</span>
       </div>
 
       <div className="flex gap-3">
         <button onClick={addToCart} className="flex-1 py-3 rounded-xl font-bold text-lg text-white transition-all"
-          style={{background: added ? '#2d4a3e' : '#a88a5c', boxShadow: added ? 'none' : '0 8px 25px rgba(168,138,92,0.35)'}}>
+          style={{background: added ? 'var(--accent)' : 'var(--primary)', boxShadow: added ? 'none' : '0 8px 25px rgba(201,168,124,0.35)'}}>
           <span className="flex items-center justify-center gap-2">
             {added ? (
               <><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 已加入购物车</>
@@ -106,7 +106,7 @@ export default function AddToCartButton({ product }: { product: Product }) {
           </span>
         </button>
         <Link href="/cart" className="px-8 py-3 rounded-xl font-bold text-lg transition-all hover:opacity-90"
-          style={{background:'#2d4a3e',color:'white',boxShadow:'0 8px 25px rgba(45,74,62,0.2)'}}>
+          style={{background:'var(--accent)',color:'white',boxShadow:'0 8px 25px rgba(45,74,62,0.2)'}}>
           立即结算
         </Link>
       </div>
@@ -120,7 +120,7 @@ export default function AddToCartButton({ product }: { product: Product }) {
           </div>
           <div className="text-2xl font-bold mb-3" style={{color:'#2a2a28'}}>¥{(cartTotal + product.price * (cart[product.id] || 0) - product.price * (cart[product.id] || 0)).toFixed(2)}</div>
           <div className="text-sm text-center mb-3" style={{color:'#9b9b98'}}>共 {cartCount} 件商品</div>
-          <Link href="/cart" className="block w-full py-3 text-center rounded-xl font-bold text-sm text-white transition" style={{background:'#a88a5c'}}>去结算</Link>
+          <Link href="/cart" className="block w-full py-3 text-center rounded-xl font-bold text-sm text-white transition hover:opacity-85" style={{background:'var(--accent)'}}>去结算</Link>
         </div>
       )}
     </>

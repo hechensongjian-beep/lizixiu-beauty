@@ -120,7 +120,7 @@ export default function CartPage() {
       ) : error ? (
         <div className="text-center py-20">
           <p className="text-red-600 text-lg mb-4">{error}</p>
-          <button onClick={() => window.location.reload()} className="px-6 py-3 bg-[#c9a87c] text-white rounded-xl hover:bg-[#a88a5c] transition">刷新页面</button>
+          <button onClick={() => window.location.reload()} className="px-6 py-3 text-white rounded-xl transition hover:opacity-85" style={{background:'var(--primary)'}}>刷新页面</button>
         </div>
       ) : cartItems.length === 0 ? (
         <div className="bg-gradient-to-r from-[#faf8f5] to-[#f5f2ed] border border-gray-200 rounded-xl p-10 text-center">
@@ -132,7 +132,7 @@ export default function CartPage() {
           </svg>
           <h3 style={{ fontFamily: "'Noto Serif SC', serif", fontSize: '1.375rem', fontWeight: 400, color: 'var(--foreground)', marginBottom: '1rem' }}>购物车是空的</h3>
           <p className="text-gray-600 max-w-md mx-auto mb-8">您还没有添加任何商品。去产品商店逛逛吧！</p>
-          <Link href="/products" className="inline-flex items-center px-5 py-2.5 font-medium rounded-md text-white transition" style={{"background":'#a88a5c',"boxShadow":'0 4px 15px rgba(168,138,92,0.35)'}}>去产品商店</Link>
+          <Link href="/products" className="inline-flex items-center px-5 py-2.5 font-medium rounded-md text-white transition hover:opacity-85" style={{background:'var(--primary)',boxShadow:'0 4px 15px rgba(201,168,124,0.35)'}}>去产品商店</Link>
         </div>
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
@@ -176,7 +176,7 @@ export default function CartPage() {
                         <div className="flex items-center">
                           <button onClick={() => updateQuantity(product.id, -1)} className="w-8 h-8 bg-gray-100 text-gray-800 font-medium rounded-md hover:bg-gray-200 transition">-</button>
                           <div className="mx-4 font-bold">{qty} 件</div>
-                          <button onClick={() => updateQuantity(product.id, 1)} className="w-8 h-8 font-medium rounded-md text-white transition bg-[#a88a5c] hover:bg-[#967a57]">+</button>
+                          <button onClick={() => updateQuantity(product.id, 1)} className="w-8 h-8 font-medium rounded-md text-white transition hover:opacity-85" style={{background:'var(--primary)'}}>+</button>
                           <button onClick={() => removeItem(product.id)} className="ml-6 px-4 py-2 bg-red-50 text-red-700 font-medium rounded-lg hover:bg-red-100 transition">删除</button>
                         </div>
                         <div className="font-bold">{fmt(product.price * qty)}</div>
@@ -230,7 +230,7 @@ export default function CartPage() {
                   </div>
                 </div>
               )}
-              <Link href="/checkout" onClick={() => localStorage.setItem('beauty-delivery-method', deliveryMethod)} className="block w-full mt-8 py-4 text-center font-medium rounded-md text-white transition" style={{"background":'#a88a5c',"boxShadow":'0 4px 15px rgba(168,138,92,0.35)'}}>去结算</Link>
+              <Link href="/checkout" onClick={() => localStorage.setItem('beauty-delivery-method', deliveryMethod)} className="block w-full mt-8 py-4 text-center font-medium rounded-md text-white transition hover:opacity-85" style={{background:'var(--accent)',boxShadow:'0 4px 15px rgba(45,74,62,0.2)'}}>去结算</Link>
               <div className="mt-8 pt-8 border-t border-gray-200 space-y-3">
                 <div className="flex items-center gap-2 text-sm text-gray-600">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
@@ -246,7 +246,7 @@ export default function CartPage() {
         </div>
       )}
       <div className="text-center mt-12">
-        <Link href="/" className="inline-flex items-center px-6 py-3 font-semibold rounded-lg transition" style={{"background":'#2d4a3e',"color":'white'}}>
+        <Link href="/" className="inline-flex items-center px-6 py-3 font-semibold rounded-lg transition hover:opacity-85" style={{background:'var(--accent)',color:'white'}}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2"><polyline points="15 18 9 12 15 6"/></svg>
           返回主页
         </Link>
