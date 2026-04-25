@@ -16,15 +16,24 @@ export default function CartPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  
-    useEffect(() => { document.title = '购物车 - 丽姿秀';
+  // 立即加载本地购物车（不依赖 API）
+  useEffect(() => {
+    document.title = '购物车 - 丽姿秀';
+    const saved = localStorage.getItem('beauty-shop-cart');
+    if (saved) {
+      try { setCart(JSON.parse(saved)); } catch {}
+    }
+  }, []);
+
+  // 加载产品数据（用于展示名称/价格/图片）
+  useEffect(() => {
     getProducts()
       .then(data => {
         if (data?.products) {
           const m: Record<string, Product> = {};
           data.products.forEach((p: Product) => { m[p.id] = p; });
           setProducts(m);
-          // 清理购物车中已删除的产品
+          // 如果本地购物车有已删除商品，同步清理
           const saved = localStorage.getItem('beauty-shop-cart');
           if (saved) {
             try {
@@ -36,12 +45,13 @@ export default function CartPage() {
                 else { hasInvalid = true; }
               }
               if (hasInvalid) {
-                setCart(validCart);
-                localStorage.setItem('beauty-shop-cart', JSON.stringify(validCart));
-              } else {
-                setCart(savedCart);
+                const cleanCart = hasInvalid
+                  ? Object.fromEntries(Object.entries(savedCart).filter(([id]) => !!m[id]))
+                  : savedCart;
+                setCart(cleanCart);
+                localStorage.setItem('beauty-shop-cart', JSON.stringify(cleanCart));
               }
-            } catch { setCart({}); }
+            } catch {}
           }
         }
         setLoading(false);

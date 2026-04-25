@@ -19,29 +19,36 @@ export default function AddToCartButton({ product }: { product: Product }) {
   const [cartCount, setCartCount] = useState(0);
   const [cartTotal, setCartTotal] = useState(0);
 
+  // 监听 cart-updated 事件（来自 products 等页面）
+  useEffect(() => {
+    const handler = () => {
+      const saved = localStorage.getItem(CART_KEY);
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          setCart(parsed);
+          setCartCount(Object.values(parsed).reduce((s: number, q: any) => s + Number(q), 0));
+        } catch {}
+      }
+    };
+    window.addEventListener('cart-updated', handler);
+    return () => window.removeEventListener('cart-updated', handler);
+  }, []);
+
+  // 初始读取本地购物车
   useEffect(() => {
     const saved = localStorage.getItem(CART_KEY);
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
         setCart(parsed);
-        if (parsed[product.id]) setQty(parsed[product.id]);
-      } catch {}
-    }
-    const allSaved = localStorage.getItem('__cart_products');
-    if (allSaved) {
-      try {
-        const prods: Product[] = JSON.parse(allSaved);
-        const parsed = JSON.parse(saved || '{}');
-        const total = Object.entries(parsed).reduce((t, [pid, q]) => {
-          const p = prods.find((x: Product) => x.id === pid);
-          return t + (p ? p.price * Number(q) : 0);
-        }, 0);
-        setCartTotal(total);
         setCartCount(Object.values(parsed).reduce((s: number, q: any) => s + Number(q), 0));
+        if (parsed[product.id]) setQty(parsed[product.id]);
+        // 计算当前商品的小计
+        setCartTotal(product.price * (parsed[product.id] || 0));
       } catch {}
     }
-  }, [product.id]);
+  }, [product.id, product.price]);
 
   const saveCart = (next: Record<string, number>) => {
     setCart(next);
@@ -52,9 +59,14 @@ export default function AddToCartButton({ product }: { product: Product }) {
     if (product.stock === 0) return;
     const current = cart[product.id] || 0;
     const newQty = Math.min(current + qty, product.stock);
-    saveCart({ ...cart, [product.id]: newQty });
+    const next = { ...cart, [product.id]: newQty };
+    setCart(next);
+    localStorage.setItem(CART_KEY, JSON.stringify(next));
     setAdded(true);
+    setCartCount(Object.values(next).reduce((s: number, q: any) => s + Number(q), 0));
+    setCartTotal(prev => prev + product.price * qty);
     setTimeout(() => setAdded(false), 2000);
+    window.dispatchEvent(new Event('cart-updated'));
   };
 
   const changeQty = (delta: number) => {
@@ -99,13 +111,15 @@ export default function AddToCartButton({ product }: { product: Product }) {
         </Link>
       </div>
 
+      {/* 悬浮购物车 - 只在有商品时显示 */}
       {cartCount > 0 && (
         <div className="fixed bottom-6 right-6 bg-white rounded-2xl p-5 max-w-xs z-40" style={{boxShadow:'0 20px 60px rgba(0,0,0,0.12)',border:'1px solid rgba(201,168,124,0.15)'}}>
           <div className="flex justify-between items-center mb-3">
             <span className="font-bold" style={{color:'#2a2a28'}}>购物车 ({cartCount}件)</span>
             <Link href="/cart" className="text-sm font-medium" style={{color:'#a88a5c'}}>去结算 →</Link>
           </div>
-          <div className="text-2xl font-bold mb-3" style={{color:'#2a2a28'}}>¥{cartTotal.toFixed(2)}</div>
+          <div className="text-2xl font-bold mb-3" style={{color:'#2a2a28'}}>¥{(cartTotal + product.price * (cart[product.id] || 0) - product.price * (cart[product.id] || 0)).toFixed(2)}</div>
+          <div className="text-sm text-center mb-3" style={{color:'#9b9b98'}}>共 {cartCount} 件商品</div>
           <Link href="/cart" className="block w-full py-3 text-center rounded-xl font-bold text-sm text-white transition" style={{background:'#a88a5c'}}>去结算</Link>
         </div>
       )}
