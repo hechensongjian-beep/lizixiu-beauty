@@ -285,7 +285,7 @@ const { role } = useAuth();
               </div>
               <div className="flex gap-3 pt-2">
                 <button type="button" onClick={() => setShowAdd(false)} className="flex-1 py-2.5 rounded-xl border border-[var(--primary-light)] text-sm text-[var(--foreground-muted)]">取消</button>
-                <button type="submit" disabled={adding} className="flex-1 py-2.5 rounded-xl text-white text-sm font-medium disabled:opacity-50" style={{ background: 'var(--primary)' }}>
+                <button type="submit" disabled={adding} className="flex-1 py-2.5 rounded-xl text-white text-sm font-medium disabled:opacity-50" style={{ background: 'var(--accent)' }}>
                   {adding ? '创建中...' : '确认添加'}
                 </button>
               </div>
@@ -308,7 +308,7 @@ const { role } = useAuth();
               </div>
               <div className="flex gap-3">
                 <button type="button" onClick={() => setResetPwd(null)} className="flex-1 py-2.5 rounded-xl border border-[var(--primary-light)] text-sm text-[var(--foreground-muted)]">取消</button>
-                <button type="submit" disabled={adding} className="flex-1 py-2.5 rounded-xl text-white text-sm font-medium disabled:opacity-50" style={{ background: 'var(--primary)' }}>
+                <button type="submit" disabled={adding} className="flex-1 py-2.5 rounded-xl text-white text-sm font-medium disabled:opacity-50" style={{ background: 'var(--accent)' }}>
                   {adding ? '处理中...' : '确认'}
                 </button>
               </div>

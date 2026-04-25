@@ -148,10 +148,10 @@ export default function OrdersPage() {
             登录后即可查看您的所有订单记录
           </p>
           <div className="flex items-center justify-center gap-3 flex-wrap">
-            <Link href="/auth/login" className="px-8 py-3 rounded-full text-white font-bold text-sm" style={{background:'#a88a5c',boxShadow:'0 4px 16px rgba(168,138,92,0.4)'}}>
+            <Link href="/auth/login" className="px-8 py-3 rounded-full text-white font-bold text-sm" style={{background:'#2d4a3e',boxShadow:'0 4px 16px rgba(45,74,62,0.35)'}}>
               登录 / 注册
             </Link>
-            <Link href="/products" className="px-8 py-3 rounded-full font-bold text-sm" style={{border:'1px solid #e8d5b8',color:'#a88a5c'}}>
+            <Link href="/products" className="px-8 py-3 rounded-full font-bold text-sm" style={{border:'1px solid rgba(201,168,124,0.5)',color:'var(--accent)'}}>
               先去逛逛
             </Link>
           </div>
@@ -165,7 +165,7 @@ export default function OrdersPage() {
           </p>
           <Link
             href="/products"
-            className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#c9a87c] to-[#e8d5b8] text-white font-bold text-lg rounded-lg hover:opacity-90 transition"
+            className="inline-flex items-center px-8 py-4 bg-[#2d4a3e] text-white font-bold text-lg rounded-lg hover:opacity-90 transition"
           >
              去产品商店
           </Link>
