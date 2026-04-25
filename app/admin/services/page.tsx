@@ -348,7 +348,7 @@ const { role } = useAuth();
 
                         <div>
 
-                          <span className="text-2xl font-bold" style={{color:'#a88a5c'}}>{fmt(svc.price)}</span>
+                          <span className="text-xl font-semibold" style={{color:'#a88a5c'}}>{fmt(svc.price)}</span>
 
                           <span className="text-sm ml-1" style={{color:'#9b9b98'}}>/ {svc.duration || 60}分钟</span>
 
@@ -418,7 +418,7 @@ const { role } = useAuth();
 
             <div className="bg-white rounded-2xl p-8" style={{boxShadow:'0 4px 20px rgba(0,0,0,0.04)',border:'1px solid rgba(201,168,124,0.12)'}}>
 
-              <h2 className="text-2xl font-bold mb-6" style={{fontFamily:"'Noto Serif SC',serif",color:'#2a2a28'}}>
+              <h2 className="text-xl font-semibold mb-6" style={{fontFamily:"'Noto Serif SC',serif",color:'#2a2a28'}}>
 
                 {tab === 'edit' ? '编辑服务项目' : '添加新服务项目'}
 

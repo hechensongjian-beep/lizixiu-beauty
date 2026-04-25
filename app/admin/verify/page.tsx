@@ -139,7 +139,7 @@ const { role } = useAuth();
           <div className="flex items-center gap-3">
             <Link href="/" className="text-gray-400 hover:text-gray-600">首页</Link>
             <span className="text-gray-300">/</span>
-            <h1 className="text-2xl font-bold text-gray-900">支付核验</h1>
+            <h1 className="text-xl font-semibold text-gray-900">支付核验</h1>
           </div>
           <p className="text-gray-500 text-sm mt-1">客户提交支付凭证后，商家审核确认</p>
         </div>
@@ -168,7 +168,7 @@ const { role } = useAuth();
           ].map(item => (
             <div key={item.label} className={`bg-gradient-to-br ${item.color} text-white rounded-xl p-4 shadow-sm`}>
               <div className="text-xl mb-1">{item.icon}</div>
-              <div className="text-2xl font-bold">{item.value}</div>
+              <div className="text-xl font-semibold">{item.value}</div>
               <div className="text-sm opacity-80">{item.label}</div>
             </div>
           ))}

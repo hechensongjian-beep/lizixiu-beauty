@@ -336,7 +336,7 @@ const { role } = useAuth();
             }}
           >
             <div className="text-sm mb-1" style={{ color: 'var(--foreground-muted)' }}>{stat.label}</div>
-            <div className="text-2xl font-bold" style={{ color: stat.color }}>{stat.value}</div>
+            <div className="text-xl font-semibold" style={{ color: stat.color }}>{stat.value}</div>
           </div>
         ))}
       </div>
@@ -441,7 +441,7 @@ const { role } = useAuth();
                       <span className={`px-4 py-1.5 rounded-full text-sm font-medium ${getStatusColor(order.status)}`}>
                         {translateStatus(order.status)}
                       </span>
-                      <div className="text-2xl font-bold" style={{ color: 'var(--primary)' }}>
+                      <div className="text-xl font-semibold" style={{ color: 'var(--primary)' }}>
                         {formatCurrency(order.total)}
                       </div>
                     </div>

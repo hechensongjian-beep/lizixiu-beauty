@@ -329,7 +329,7 @@ const { role } = useAuth();
           <div className="flex items-center gap-3">
             <Link href="/" className="text-gray-400 hover:text-gray-600">首页</Link>
             <span className="text-gray-300">/</span>
-            <h1 className="text-2xl font-bold text-gray-900">员工排班日历</h1>
+            <h1 className="text-xl font-semibold text-gray-900">员工排班日历</h1>
           </div>
           <p className="text-gray-500 text-sm mt-1">商家视角 · 所有员工预约一览 · 支持调换分配</p>
         </div>
@@ -595,7 +595,7 @@ const { role } = useAuth();
                             <div className="text-sm text-gray-300 text-center">—</div>
                           ) : (
                             <div className="text-center">
-                              <div className="text-2xl font-bold text-gray-900">{count}</div>
+                              <div className="text-xl font-semibold text-gray-900">{count}</div>
                               <div className="text-sm text-gray-500">预约</div>
                               {pendingCount > 0 && (
                                 <div className="text-sm text-amber-600 mt-0.5">({pendingCount}) 待确认</div>
