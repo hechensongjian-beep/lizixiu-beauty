@@ -167,7 +167,7 @@ export default function NotificationsPage() {
           <div className="w-14 h-14 mx-auto mb-4 bg-[#f5f2ed] rounded-full flex items-center justify-center">
             <Icons.bell />
           </div>
-          <h3 className="text-2xl font-serif font-bold text-[#2a2a28] mb-3">{filter === 'all' ? '暂无通知' : `暂无${TYPE_CONFIG[filter]?.label || ''}通知`}</h3>
+          <h3 className="text-xl font-serif font-medium text-[#2a2a28] mb-3">{filter === 'all' ? '暂无通知' : `暂无${TYPE_CONFIG[filter]?.label || ''}通知`}</h3>
           <p className="text-[#6b6b68]">有新消息时会在这里显示</p>
           <Link href="/products" className="inline-block mt-6 px-6 py-3 bg-gradient-to-r from-[#c9a87c] to-[#e8d5b8] text-white rounded-xl font-bold hover:opacity-90 transition">
             去逛逛产品商城

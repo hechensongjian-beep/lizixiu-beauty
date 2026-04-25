@@ -85,7 +85,7 @@ export default function ProfilePage() {
       {/* 统计卡片 */}
       <div className="grid grid-cols-3 gap-3 mb-8">
         <div className="bg-white rounded-2xl border p-5 text-center" style={{ borderColor: 'var(--primary-light)' }}>
-          <div className="text-2xl font-bold" style={{ color: 'var(--foreground)' }}>{totalCount}</div>
+          <div className="text-xl font-semibold" style={{ color: 'var(--foreground)' }}>{totalCount}</div>
           <div className="text-sm mt-1" style={{ color: 'var(--foreground-muted)' }}>历史预约</div>
         </div>
         <div className="bg-white rounded-2xl border p-5 text-center" style={{ borderColor: 'var(--primary-light)' }}>

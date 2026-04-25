@@ -106,7 +106,7 @@ export default function OrdersPage() {
         <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-r from-[#c9a87c]/10 to-[#e8d5b8]/10 rounded-2xl mb-6">
           <div className="text-xl"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#a88a5c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
         </div>
-        <h1 className="text-2xl font-bold text-gray-900 mb-4">我的订单</h1>
+        <h1 className="text-xl font-medium text-gray-900 mb-4">我的订单</h1>
         <p className="text-gray-600 max-w-2xl mx-auto">
           查看您的所有订单记录与状态。
         </p>
@@ -143,7 +143,7 @@ export default function OrdersPage() {
       ) : orders.length === 0 && role === 'guest' ? (
         <div className="bg-[#faf8f5] border border-gray-200 rounded-2xl p-16 text-center">
           <div className="mb-6 flex justify-center"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#c9a87c" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
-          <h3 className="text-2xl font-bold mb-4" style={{color:'#2a2a28'}}>查看我的订单</h3>
+          <h3 className="text-xl font-bold mb-4" style={{color:'#2a2a28'}}>查看我的订单</h3>
           <p className="text-gray-500 max-w-md mx-auto mb-8">
             登录后即可查看您的所有订单记录
           </p>
@@ -159,7 +159,7 @@ export default function OrdersPage() {
       ) : orders.length === 0 ? (
         <div className="bg-[#faf8f5] border border-gray-200 rounded-2xl p-16 text-center">
           <div className="mb-6 flex justify-center"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#c0bdb8" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
-          <h3 className="text-2xl font-bold text-gray-800 mb-4">暂无订单</h3>
+          <h3 className="text-xl font-medium text-gray-800 mb-4">暂无订单</h3>
           <p className="text-gray-600 max-w-md mx-auto mb-8">
             您还没有创建任何订单。快去产品商店逛逛吧！
           </p>
@@ -180,14 +180,14 @@ export default function OrdersPage() {
               {/* 订单头部 */}
               <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 pb-6 border-b border-gray-200">
                 <div>
-                  <h3 className="text-2xl font-bold text-gray-900">订单 #{order.id.substring(0, 12)}</h3>
+                  <h3 className="text-xl font-medium text-gray-900">订单 #{order.id.substring(0, 12)}</h3>
                   <p className="text-base text-gray-600 mt-2">创建于 {formatDate(order.createdAt)}</p>
                 </div>
                 <div className="flex items-center space-x-4 mt-4 md:mt-0">
                   <span className={`px-4 py-2 rounded-full font-medium ${getStatusColor(order.status)}`} style={{fontSize:'1rem'}}>
                     {translateStatus(order.status)}
                   </span>
-                  <div className="text-2xl font-bold text-gray-900">
+                  <div className="text-xl font-medium text-gray-900">
                     {formatCurrency(order.total)}
                   </div>
                 </div>

@@ -83,7 +83,7 @@ export default function RegisterPage() {
             <polyline points="20 6 9 17 4 12"/>
           </svg>
         </div>
-        <h1 className="text-2xl font-bold text-gray-900 mb-4">注册成功！</h1>
+        <h1 className="text-xl font-medium text-gray-900 mb-4">注册成功！</h1>
         <p className="text-gray-700 mb-2">
           我们已向 <strong>{email}</strong> 发送了一封验证邮件。
         </p>
@@ -113,7 +113,7 @@ export default function RegisterPage() {
             <circle cx="12" cy="7" r="4"/>
           </svg>
         </div>
-        <h1 className="text-2xl font-bold text-gray-900 mb-3">创建账号</h1>
+        <h1 className="text-xl font-medium text-gray-900 mb-3">创建账号</h1>
         <p className="text-gray-600">
           注册后即可预约美容服务、查看订单
         </p>

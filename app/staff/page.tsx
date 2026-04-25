@@ -551,7 +551,7 @@ export default function StaffPage() {
       ) : staff.length === 0 ? (
         <div className="bg-gradient-to-r from-[#faf8f5] to-[#f5f0e8] border border-[#e8d5b8] rounded-2xl p-12 text-center">
           <div className="text-xl mb-6"></div>
-          <h3 className="text-2xl font-semibold text-gray-800 mb-3">暂无员工数据</h3>
+          <h3 className="text-xl font-semibold text-gray-800 mb-3">暂无员工数据</h3>
           <p className="text-gray-700 max-w-md mx-auto mb-6">
             您尚未添加任何员工。点击“添加员工”按钮开始建立您的团队。
           </p>
@@ -572,7 +572,7 @@ export default function StaffPage() {
                 className="bg-white border border-gray-200 rounded-2xl p-6 hover:shadow-lg transition text-center"
               >
                 <div
-                  className={`w-24 h-24 bg-gradient-to-r ${getAvatarColor(index)} rounded-full mx-auto mb-6 flex items-center justify-center text-2xl font-bold text-gray-800`}
+                  className={`w-24 h-24 bg-gradient-to-r ${getAvatarColor(index)} rounded-full mx-auto mb-6 flex items-center justify-center text-xl font-medium text-gray-800`}
                 >
                   {getInitials(person.name)}
                 </div>

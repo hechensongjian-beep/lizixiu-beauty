@@ -42,7 +42,7 @@ export default function ForgotPasswordPage() {
         <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-r from-green-100 to-emerald-100 rounded-2xl mb-6">
           <div className="text-xl"></div>
         </div>
-        <h1 className="text-2xl font-bold text-gray-900 mb-4">邮件已发送！</h1>
+        <h1 className="text-xl font-medium text-gray-900 mb-4">邮件已发送！</h1>
         <p className="text-gray-700 mb-6">
           我们已向 <strong>{email}</strong> 发送了一封密码重置邮件。请点击邮件中的链接设置新密码。
         </p>
@@ -73,7 +73,7 @@ export default function ForgotPasswordPage() {
         <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-r from-blue-100 to-cyan-100 rounded-2xl mb-6">
           <div className="text-xl"></div>
         </div>
-        <h1 className="text-2xl font-bold text-gray-900 mb-3">重置密码</h1>
+        <h1 className="text-xl font-medium text-gray-900 mb-3">重置密码</h1>
         <p className="text-gray-600">
           输入您的邮箱地址，我们将发送重置链接
         </p>
