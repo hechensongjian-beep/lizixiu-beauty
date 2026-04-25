@@ -101,7 +101,7 @@ export default function CartPage() {
             <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
           </svg>
         </div>
-        <h1 className="text-2xl font-bold text-gray-900 mb-4">购物车</h1>
+        <h1 className="font-bold mb-4">购物车</h1>
         <p className="text-gray-600">请核对您的商品，确认无误后进行结算。</p>
       </div>
 
@@ -113,7 +113,7 @@ export default function CartPage() {
           <button onClick={() => window.location.reload()} className="px-6 py-3 bg-[#c9a87c] text-white rounded-xl hover:bg-[#a88a5c] transition">刷新页面</button>
         </div>
       ) : cartItems.length === 0 ? (
-        <div className="bg-gradient-to-r from-[#faf8f5] to-[#f5f2ed] border border-gray-200 rounded-2xl p-16 text-center">
+        <div className="bg-gradient-to-r from-[#faf8f5] to-[#f5f2ed] border border-gray-200 rounded-xl p-10 text-center">
           <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#c0bdb8" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="mx-auto mb-6">
             <circle cx="12" cy="12" r="10"/>
             <path d="M16 16s-1.5-2-4-2-4 2-4 2"/>
@@ -122,14 +122,14 @@ export default function CartPage() {
           </svg>
           <h3 className="text-2xl font-bold text-gray-800 mb-4">购物车是空的</h3>
           <p className="text-gray-600 max-w-md mx-auto mb-8">您还没有添加任何商品。去产品商店逛逛吧！</p>
-          <Link href="/products" className="inline-flex items-center px-8 py-4 font-bold text-lg rounded-lg text-white transition" style={{"background":'linear-gradient(135deg,#c9a87c 0%,#e8d5b8 100%)',"boxShadow":'0 4px 15px rgba(201,168,124,0.3)'}}>去产品商店</Link>
+          <Link href="/products" className="inline-flex items-center px-5 py-2.5 font-medium rounded-md text-white transition" style={{"background":'linear-gradient(135deg,#c9a87c 0%,#e8d5b8 100%)',"boxShadow":'0 4px 15px rgba(201,168,124,0.3)'}}>去产品商店</Link>
         </div>
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           <div className="lg:col-span-2">
-            <div className="bg-white border border-gray-200 rounded-2xl p-8 mb-8">
+            <div className="bg-white border border-gray-200 rounded-xl p-5 mb-8">
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold text-gray-900">购物车商品 ({cartItems.length})</h2>
+                <h2 className="font-bold">购物车商品 ({cartItems.length})</h2>
                 <button onClick={clearCart} className="text-sm text-red-600 hover:text-red-700 font-medium">清空购物车</button>
               </div>
               <div className="space-y-6">
@@ -147,7 +147,7 @@ export default function CartPage() {
                     <div className="flex-1">
                       <div className="flex justify-between items-start">
                         <div>
-                          <h4 className="text-xl font-bold text-gray-900">{product.name}</h4>
+                          <h4 className="font-bold">{product.name}</h4>
                           <p className="text-base text-gray-600 mt-1">{product.description}</p>
                           <div className="mt-2 text-sm text-gray-500">分类：{product.category} · 库存：{product.stock} 件</div>
                           {stockWarnings[product.id] && (
@@ -158,18 +158,18 @@ export default function CartPage() {
                           )}
                         </div>
                         <div className="text-right ml-4">
-                          <div className="text-2xl font-bold text-gray-900">{fmt(product.price)}</div>
+                          <div className="font-bold">{fmt(product.price)}</div>
                           {product.originalPrice && <div className="text-sm text-gray-500 line-through">{fmt(product.originalPrice)}</div>}
                         </div>
                       </div>
                       <div className="flex items-center justify-between mt-6">
                         <div className="flex items-center">
-                          <button onClick={() => updateQuantity(product.id, -1)} className="w-10 h-10 bg-gray-100 text-gray-800 font-bold rounded-lg hover:bg-gray-200 transition">-</button>
-                          <div className="mx-4 text-xl font-bold text-gray-900">{qty} 件</div>
-                          <button onClick={() => updateQuantity(product.id, 1)} className="w-10 h-10 font-bold rounded-lg text-white transition" style={{"background":'linear-gradient(135deg,#c9a87c 0%,#e8d5b8 100%)'}}>+</button>
+                          <button onClick={() => updateQuantity(product.id, -1)} className="w-8 h-8 bg-gray-100 text-gray-800 font-medium rounded-md hover:bg-gray-200 transition">-</button>
+                          <div className="mx-4 font-bold">{qty} 件</div>
+                          <button onClick={() => updateQuantity(product.id, 1)} className="w-8 h-8 font-medium rounded-md text-white transition" style={{"background":'linear-gradient(135deg,#c9a87c 0%,#e8d5b8 100%)'}}>+</button>
                           <button onClick={() => removeItem(product.id)} className="ml-6 px-4 py-2 bg-red-50 text-red-700 font-medium rounded-lg hover:bg-red-100 transition">删除</button>
                         </div>
-                        <div className="text-xl font-bold text-gray-900">{fmt(product.price * qty)}</div>
+                        <div className="font-bold">{fmt(product.price * qty)}</div>
                       </div>
                     </div>
                   </div>
@@ -184,8 +184,8 @@ export default function CartPage() {
             </div>
           </div>
           <div className="lg:col-span-1">
-            <div className="sticky top-24 bg-white border border-gray-200 rounded-2xl p-8 shadow-lg">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">订单摘要</h2>
+            <div className="sticky top-24 bg-white border border-gray-200 rounded-xl p-5 shadow-lg">
+              <h2 className="font-bold mb-6">订单摘要</h2>
               <div className="space-y-4">
                 <div className="flex justify-between"><span className="text-gray-700">商品小计</span><span className="font-medium">{fmt(subtotal)}</span></div>
                 <div className="flex justify-between">
@@ -209,7 +209,7 @@ export default function CartPage() {
                   <span className={`font-medium ${shipping === 0 ? 'text-green-600' : ''}`}>{shipping === 0 ? '免费' : fmt(shipping)}</span>
                 </div>
                 <div className="border-t border-gray-200 pt-4">
-                  <div className="flex justify-between text-xl font-bold text-gray-900"><span>总计</span><span>{fmt(total)}</span></div>
+                  <div className="flex justify-between font-bold"><span>总计</span><span>{fmt(total)}</span></div>
                 </div>
               </div>
               {deliveryMethod !== 'pickup' && subtotal < freeDeliveryThreshold && (
@@ -220,7 +220,7 @@ export default function CartPage() {
                   </div>
                 </div>
               )}
-              <Link href="/checkout" onClick={() => localStorage.setItem('beauty-delivery-method', deliveryMethod)} className="block w-full mt-8 py-4 text-center font-bold text-lg rounded-lg text-white transition" style={{"background":'linear-gradient(135deg,#c9a87c 0%,#e8d5b8 100%)',"boxShadow":'0 4px 15px rgba(201,168,124,0.3)'}}>去结算</Link>
+              <Link href="/checkout" onClick={() => localStorage.setItem('beauty-delivery-method', deliveryMethod)} className="block w-full mt-8 py-4 text-center font-medium rounded-md text-white transition" style={{"background":'linear-gradient(135deg,#c9a87c 0%,#e8d5b8 100%)',"boxShadow":'0 4px 15px rgba(201,168,124,0.3)'}}>去结算</Link>
               <div className="mt-8 pt-8 border-t border-gray-200 space-y-3">
                 <div className="flex items-center gap-2 text-sm text-gray-600">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
