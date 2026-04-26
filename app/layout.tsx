@@ -405,7 +405,7 @@ function CookieNotice() {
         </p>
         <button onClick={accept}
           className="w-full py-2 rounded-md text-white font-medium transition hover:opacity-90"
-          style={{ background: 'var(--primary)', fontSize: '0.75rem' }}>
+          style={{ background: 'var(--accent)', fontSize: '0.75rem' }}>
           我知道了
         </button>
       </div>
