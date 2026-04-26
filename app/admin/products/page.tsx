@@ -122,7 +122,7 @@ const { role } = useAuth();
           <h1 className="text-xl font-bold text-gray-900">产品管理</h1>
           <p className="text-gray-500 mt-1">管理商品 · 上传图片 · 更新库存</p>
         </div>
-        <button onClick={openAdd} className="px-6 py-3 bg-gradient-to-r from-[#c9a87c] to-[#e8d5b8] text-white font-bold rounded-xl hover:opacity-90 transition shadow-lg">
+        <button onClick={openAdd} className="px-6 py-3 text-white font-bold rounded-xl hover:opacity-90 transition shadow-lg" style={{background:'var(--accent)'}}>
           ＋ 添加商品
         </button>
       </div>
@@ -202,7 +202,7 @@ const { role } = useAuth();
             </div>
             <div className="flex gap-4 pt-4 border-t">
               <button type="button" onClick={() => setTab('list')} className="px-6 py-3 border rounded-xl font-bold text-gray-700 hover:bg-gray-50">取消</button>
-              <button type="submit" className="px-8 py-3 bg-gradient-to-r from-[#c9a87c] to-[#e8d5b8] text-white rounded-xl font-bold hover:opacity-90 shadow">
+              <button type="submit" className="px-8 py-3 text-white rounded-xl font-bold hover:opacity-90 shadow" style={{background:'var(--accent)'}}>
                 {editing ? ' 保存更改' : '+ 创建商品'}
               </button>
             </div>
