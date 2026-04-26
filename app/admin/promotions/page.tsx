@@ -1,5 +1,6 @@
 'use client';
 
+import { useToast } from '@/components/Toast';
 import { useState, useEffect } from 'react';
 import { getAllPromotions, createPromotion, updatePromotion, deletePromotion } from '@/lib/api';
 
@@ -26,7 +27,8 @@ const emptyForm = {
   applicable_to: 'all' as 'all' | 'products' | 'services',
 };
 
-export default function PromotionsPage() {
+export default async function PromotionsPage() {
+  const { toast } = useToast();
   const [promotions, setPromotions] = useState<Promotion[]>([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
@@ -107,7 +109,7 @@ export default function PromotionsPage() {
   }
 
   async function handleDelete(id: string) {
-    if (!confirm('确定要删除这个促销活动吗？')) return;
+    if (!await toast.confirm('确定要删除这个促销活动吗？')) return;
     await deletePromotion(id);
     loadPromotions();
   }
@@ -166,7 +168,7 @@ export default function PromotionsPage() {
               {setupSql}
             </pre>
             <button
-              onClick={() => { navigator.clipboard.writeText(setupSql); alert('SQL已复制'); }}
+              onClick={() => { navigator.clipboard.writeText(setupSql); toast.success('SQL已复制'); }}
               className="absolute top-2 right-2 px-3 py-1 rounded text-xs"
               style={{ background: 'rgba(255,255,255,0.15)', color: '#e5e5e5' }}
             >

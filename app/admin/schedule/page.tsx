@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 
 import Link from 'next/link';
 import { useAuth } from '@/components/AuthProvider';
+import { useToast } from '@/components/Toast';
 import { useRouter } from 'next/navigation';
 import { getStaffSchedule, updateStaffSchedule, getStaff, getAppointments, updateAppointmentStatus } from '@/lib/api';
 
@@ -197,6 +198,7 @@ function WeekCell({
 }
 
 export default function AdminSchedulePage() {
+  const { toast } = useToast();
     useEffect(() => { document.title = '排班管理 - 丽姿秀'; }, []);
 
 const { role } = useAuth();
@@ -306,7 +308,7 @@ const { role } = useAuth();
       await fetchSchedule(currentDate, view);
       setSelectedApt(null);
     } catch (e: any) {
-      alert(e.message);
+      toast.info(e.message);
     } finally {
       setReassigning(false);
     }

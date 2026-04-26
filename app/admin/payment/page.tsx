@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 
 import Link from 'next/link';
 import { useAuth } from '@/components/AuthProvider';
+import { useToast } from '@/components/Toast';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import { getPaymentSettings, savePaymentSettings } from '@/lib/api';
@@ -33,6 +34,7 @@ function IconX({ className }: { className?: string }) {
 }
 
 export default function PaymentSettingsPage() {
+  const { toast } = useToast();
     useEffect(() => { document.title = '支付设置 - 丽姿秀'; }, []);
 
 const { role } = useAuth();
@@ -74,10 +76,10 @@ const { role } = useAuth();
       if (session?.access_token) authHeaders['Authorization'] = `Bearer ${session.access_token}`;
       const res = await fetch('/api/admin/upload', { method: 'POST', body: formData, headers: authHeaders });
       const result = await res.json();
-      if (result.error) { alert(`Upload failed: ${result.error}`); return; }
+      if (result.error) { toast.error(`Upload failed: ${result.error}`); return; }
       const key = type === 'wechat' ? 'wechatQr' : 'alipayQr';
       setSettings(s => ({ ...s, [key]: result.url || result.publicUrl }));
-    } catch (e: any) { alert(`Upload failed: ${e.message}`); }
+    } catch (e: any) { toast.error(`Upload failed: ${e.message}`); }
     finally { setUploading(null); }
   };
 
@@ -89,9 +91,9 @@ const { role } = useAuth();
         setSaved(true);
         setTimeout(() => setSaved(false), 3000);
       } else {
-        alert('保存失败: ' + (result.error || ''));
+        toast.error('保存失败: ' + (result.error || ''));
       }
-    } catch (e) { alert('保存失败'); }
+    } catch (e) { toast.error('保存失败'); }
     finally { setSaving(false); }
   };
 

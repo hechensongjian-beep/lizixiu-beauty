@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/components/AuthProvider';
+import { useToast } from '@/components/Toast';
 import { supabase } from '@/lib/supabase';
 import { getStaffDashboard, updateAppointmentStatus } from '@/lib/api';
 
@@ -53,6 +54,7 @@ const STATUS_COLORS: Record<string, { bg: string; text: string; label: string }>
 };
 
 export default function StaffWorkbenchPage() {
+  const { toast } = useToast();
   const router = useRouter();
   const { role, loading } = useAuth();
   const [selectedStaffId, setSelectedStaffId] = useState<string | null>(null);
@@ -152,7 +154,7 @@ export default function StaffWorkbenchPage() {
       if (result.error) throw new Error(result.error);
       if (selectedStaffId) fetchDashboard(selectedStaffId);
     } catch (e: any) {
-      alert(e.message);
+      toast.info(e.message);
     } finally {
       setUpdatingId(null);
     }

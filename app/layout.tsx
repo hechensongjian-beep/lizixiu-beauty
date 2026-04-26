@@ -4,6 +4,7 @@ import "./globals.css";
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import { AuthProvider, useAuth } from "@/components/AuthProvider";
+import { ToastProvider } from "@/components/Toast";
 import Footer from './components/Footer';
 import NotificationBadge from './components/NotificationBadge';
 
@@ -433,17 +434,19 @@ export default function RootLayout({
         <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%23c9a87c'/><text x='50' y='68' font-size='50' text-anchor='middle' fill='white' font-family='serif'>丽</text></svg>" />
       </head>
       <body className="min-h-full" style={{ background: 'var(--background)' }}>
-        <AuthProvider>
-          <NavContent />
-          <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-            {children}
-          </main>
-          <Footer />
-          {/* 回到顶部 */}
-          <ScrollToTop />
-          {/* Cookie提示 */}
-          <CookieNotice />
-        </AuthProvider>
+        <ToastProvider>
+          <AuthProvider>
+            <NavContent />
+            <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+              {children}
+            </main>
+            <Footer />
+            {/* 回到顶部 */}
+            <ScrollToTop />
+            {/* Cookie提示 */}
+            <CookieNotice />
+          </AuthProvider>
+        </ToastProvider>
       </body>
     </html>
   );

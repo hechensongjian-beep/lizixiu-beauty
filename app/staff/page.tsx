@@ -1,5 +1,6 @@
 'use client';
 
+import { useToast } from '@/components/Toast';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { getStaff, createStaff, updateStaff, deleteStaff } from '@/lib/api';
@@ -16,7 +17,8 @@ interface Staff {
   avatar_color?: string; // 用于头像背景
 }
 
-export default function StaffPage() {
+export default async function StaffPage() {
+  const { toast } = useToast();
   useEffect(() => { document.title = '员工团队 - 丽姿秀'; }, []);
   const [staff, setStaff] = useState<Staff[]>([]);
   const [loading, setLoading] = useState(true);
@@ -51,7 +53,7 @@ export default function StaffPage() {
   };
 
   const handleDeleteStaff = async (id: string) => {
-    if (!confirm('确定删除此员工吗？删除后不可恢复。')) {
+    if (!await toast.confirm('确定删除此员工吗？删除后不可恢复。')) {
       return;
     }
     setDeletingId(id);
@@ -60,7 +62,7 @@ export default function StaffPage() {
       if (result.error) throw new Error(result.error);
       setStaff(prev => prev.filter(s => s.id !== id));
     } catch (err: any) {
-      alert(`删除失败: ${err.message}`);
+      toast.error(`删除失败: ${err.message}`);
       console.error(err);
     } finally {
       setDeletingId(null);
@@ -69,11 +71,11 @@ export default function StaffPage() {
 
   const handleAddStaff = async () => {
     if (!newStaff.name.trim()) {
-      alert('请输入员工姓名');
+      toast.info('请输入员工姓名');
       return;
     }
     if (!newStaff.role.trim()) {
-      alert('请输入员工角色');
+      toast.info('请输入员工角色');
       return;
     }
     setSubmitting(true);
@@ -91,9 +93,9 @@ export default function StaffPage() {
         is_active: true,
       });
       setShowAddForm(false);
-      alert('添加成功！');
+      toast.success('添加成功！');
     } catch (err: any) {
-      alert(`添加失败: ${err.message}`);
+      toast.error(`添加失败: ${err.message}`);
       console.error(err);
     } finally {
       setSubmitting(false);
@@ -103,11 +105,11 @@ export default function StaffPage() {
   const handleEditStaff = async () => {
     if (!editingStaff) return;
     if (!editingStaff.name.trim()) {
-      alert('请输入员工姓名');
+      toast.info('请输入员工姓名');
       return;
     }
     if (!editingStaff.role.trim()) {
-      alert('请输入员工角色');
+      toast.info('请输入员工角色');
       return;
     }
     setSubmitting(true);
@@ -124,9 +126,9 @@ export default function StaffPage() {
       if (result.error) throw new Error(result.error);
       setStaff(prev => prev.map(s => s.id === editingStaff.id ? { ...s, ...editingStaff } : s));
       setEditingStaff(null);
-      alert('更新成功！');
+      toast.success('更新成功！');
     } catch (err: any) {
-      alert(`更新失败: ${err.message}`);
+      toast.error(`更新失败: ${err.message}`);
       console.error(err);
     } finally {
       setSubmitting(false);

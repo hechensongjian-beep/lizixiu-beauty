@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useAuth } from '@/components/AuthProvider';
+import { useToast } from '@/components/Toast';
 import { getAllTestimonials, createTestimonial, updateTestimonial, deleteTestimonial } from '@/lib/api';
 
 interface Testimonial {
@@ -18,7 +19,8 @@ interface Testimonial {
   sort_order: number;
 }
 
-export default function TestimonialsPage() {
+export default async function TestimonialsPage() {
+  const { toast } = useToast();
     useEffect(() => { document.title = '口碑管理 - 丽姿秀'; }, []);
 
 const router = useRouter();
@@ -51,10 +53,10 @@ const router = useRouter();
   useEffect(() => { fetchData(); }, []);
 
   const handleAdd = async () => {
-    if (!form.name || !form.text) { alert('请填写姓名和评价内容'); return; }
+    if (!form.name || !form.text) { toast.info('请填写姓名和评价内容'); return; }
     setSubmitting(true);
     const res = await createTestimonial(form);
-    if (res.error) alert('添加失败: ' + res.error);
+    if (res.error) toast.error('添加失败: ' + res.error);
     else { setTestimonials(prev => [...prev, res.testimonial]); setShowAdd(false); setForm({ name: '', avatar: '', service: '', text: '', score: 5 }); }
     setSubmitting(false);
   };
@@ -63,15 +65,15 @@ const router = useRouter();
     if (!editing) return;
     setSubmitting(true);
     const res = await updateTestimonial(editing.id, editing);
-    if (res.error) alert('更新失败: ' + res.error);
+    if (res.error) toast.error('更新失败: ' + res.error);
     else { setTestimonials(prev => prev.map(t => t.id === editing.id ? res.testimonial : t)); setEditing(null); }
     setSubmitting(false);
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm('确定删除此评价？')) return;
+    if (!await toast.confirm('确定删除此评价？')) return;
     const res = await deleteTestimonial(id);
-    if (res.error) alert('删除失败: ' + res.error);
+    if (res.error) toast.error('删除失败: ' + res.error);
     else setTestimonials(prev => prev.filter(t => t.id !== id));
   };
 

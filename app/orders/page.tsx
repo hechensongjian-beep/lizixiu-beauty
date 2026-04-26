@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { getOrders, updateOrderStatus } from '@/lib/api';
 import { useAuth } from '@/components/AuthProvider';
+import { useToast } from '@/components/Toast';
 
 interface OrderItem {
   productId: string;
@@ -29,6 +30,7 @@ interface Order {
 }
 
 export default function OrdersPage() {
+  const { toast } = useToast();
   const { role } = useAuth();
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
@@ -74,7 +76,7 @@ export default function OrdersPage() {
     }
   };
 
-  const translateStatus = (status: string) => {
+const translateStatus = async (status: string) => {
     const map: Record<string, string> = {
       pending: '待付款',
       paid: '已付款',
@@ -87,16 +89,16 @@ export default function OrdersPage() {
 
 
   const cancelOrder = async (orderId: string) => {
-    if (!confirm('确定要取消这个订单吗？')) return;
+    if (!await toast.confirm('确定要取消这个订单吗？')) return;
     try {
       const result = await updateOrderStatus(orderId, 'cancelled');
       if (result.success) {
         setOrders(prev => prev.map(o => o.id === orderId ? { ...o, status: 'cancelled' } : o));
       } else {
-        alert(result.error || '取消失败，请重试');
+        toast.error(result.error || '取消失败，请重试');
       }
     } catch {
-      alert('网络错误，请重试');
+      toast.error('网络错误，请重试');
     }
   };
 
@@ -283,7 +285,7 @@ export default function OrdersPage() {
                   </>
                 )}
                 <button
-                  onClick={() => { alert('订单详情：' + order.id.substring(0, 12)); }}
+                  onClick={() => { toast.info('订单详情：' + order.id.substring(0, 12)); }}
                   className="px-6 py-3 border-2 border-gray-300 text-gray-800 font-bold rounded-lg hover:bg-gray-50 transition"
                 >
                   查看详情

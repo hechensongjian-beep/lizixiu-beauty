@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 
 import Link from 'next/link';
 import { useAuth } from '@/components/AuthProvider';
+import { useToast } from '@/components/Toast';
 import { useRouter } from 'next/navigation';
 import { getPaymentVerifications, updatePaymentVerification } from '@/lib/api';
 
@@ -35,6 +36,7 @@ interface Summary {
 }
 
 export default function PaymentVerifyPage() {
+  const { toast } = useToast();
     useEffect(() => { document.title = '支付验证 - 丽姿秀'; }, []);
 
 const { role } = useAuth();
@@ -102,7 +104,7 @@ const { role } = useAuth();
       setNoteModal(null);
       fetchData();
     } catch (e: any) {
-      alert(e.message);
+      toast.info(e.message);
     } finally {
       setProcessingId(null);
     }

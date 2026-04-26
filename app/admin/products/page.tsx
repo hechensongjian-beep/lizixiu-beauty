@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 
 import Link from 'next/link';
 import { useAuth } from '@/components/AuthProvider';
+import { useToast } from '@/components/Toast';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import { getProducts, createProduct, updateProduct, deleteProduct } from '@/lib/api';
@@ -21,6 +22,7 @@ const IMAGE_COLORS = [
 ];
 
 export default function AdminProductsPage() {
+  const { toast } = useToast();
     useEffect(() => { document.title = '产品管理 - 丽姿秀'; }, []);
 
 const { role } = useAuth();
@@ -86,7 +88,7 @@ const { role } = useAuth();
     setTab('add');
   };
 
-  const openEdit = (p: Product) => {
+const openEdit = async (p: Product) => {
     setEditing(p);
     setForm({ name: p.name, description: p.description, price: p.price, category: p.category, stock: p.stock, imageColor: p.imageColor || IMAGE_COLORS[0], imageUrl: p.imageUrl || '' });
     setTab('add');
@@ -94,21 +96,21 @@ const { role } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.name || !form.price || !form.category) { alert('请填写名称、价格和分类'); return; }
+    if (!form.name || !form.price || !form.category) { toast.info('请填写名称、价格和分类'); return; }
     try {
       const result = editing ? await updateProduct(editing.id, form) : await createProduct(form);
-      if (result.error) { alert(result.error); }
-      else { alert(editing ? '更新成功' : '添加成功'); fetchProducts(); setTab('list'); }
-    } catch { alert('网络错误'); }
+      if (result.error) { toast.error(result.error); }
+      else { toast.success(editing ? '更新成功' : '添加成功'); fetchProducts(); setTab('list'); }
+    } catch { toast.error('网络错误'); }
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm('确定删除？删除后无法恢复')) return;
+    if (!await toast.confirm('确定删除？删除后无法恢复')) return;
     try {
       const result = await deleteProduct(id);
-      if (result.success) { alert('删除成功'); fetchProducts(); }
-      else { alert(result.error || '删除失败'); }
-    } catch { alert('网络错误'); }
+      if (result.success) { toast.success('删除成功'); fetchProducts(); }
+      else { toast.error(result.error || '删除失败'); }
+    } catch { toast.error('网络错误'); }
   };
 
   const fmt = (n: number) => new Intl.NumberFormat('zh-CN', { style: 'currency', currency: 'CNY' }).format(n);

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/components/AuthProvider';
+import { useToast } from '@/components/Toast';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { getProducts, createOrder, createPaymentVerification, getPaymentSettings, getPromotions, applyDiscount } from '@/lib/api';
@@ -33,6 +34,7 @@ function IconArrowLeft({ className }: { className?: string }) {
 }
 
 export default function CheckoutPage() {
+  const { toast } = useToast();
   const router = useRouter();
   const { role } = useAuth();
   const [products, setProducts] = useState<Record<string, any>>({});
@@ -317,8 +319,8 @@ export default function CheckoutPage() {
                     payment_channel: channel,
                   });
                   if (res.success) { setPaymentSubmitted(true); }
-                  else { alert(res.error || '提交失败，请重试'); }
-                } catch { alert('网络错误，请重试'); }
+                  else { toast.error(res.error || '提交失败，请重试'); }
+                } catch { toast.error('网络错误，请重试'); }
                 finally { setSubmittingPayment(false); }
               }}
               disabled={submittingPayment || !hasQr}

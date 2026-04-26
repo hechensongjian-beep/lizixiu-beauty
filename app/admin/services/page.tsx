@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
 import { useAuth } from '@/components/AuthProvider';
+import { useToast } from '@/components/Toast';
 import { useRouter } from 'next/navigation';
 import { getServices, createService, updateService, deleteService } from '@/lib/api';
 
@@ -40,7 +41,8 @@ const CATEGORIES = ['面部护理', '身体护理', '美甲', '美睫', '脱毛'
 
 
 
-export default function AdminServicesPage() {
+export default async function AdminServicesPage() {
+  const { toast } = useToast();
     useEffect(() => { document.title = '服务管理 - 丽姿秀'; }, []);
 
 const { role } = useAuth();
@@ -174,7 +176,7 @@ const { role } = useAuth();
 
   const handleDelete = async (id: string) => {
 
-    if (!confirm('确认删除该项目？')) return;
+    if (!await toast.confirm('确认删除该项目？')) return;
 
     try {
 

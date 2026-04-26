@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/components/AuthProvider';
+import { useToast } from '@/components/Toast';
 import { getCustomers } from '@/lib/api';
 
 interface Customer {
@@ -27,6 +28,7 @@ const MEMBERSHIP_STYLE: Record<string, string> = {
 };
 
 export default function CustomersPage() {
+  const { toast } = useToast();
   useEffect(() => { document.title = '客户管理 - 丽姿秀'; }, []);
   const router = useRouter();
   const { role } = useAuth();
@@ -71,7 +73,7 @@ export default function CustomersPage() {
     setTab('add');
   };
 
-  const openEdit = (c: Customer) => {
+const openEdit = async (c: Customer) => {
     setEditing(c);
     setForm({ name: c.name, phone: c.phone, email: c.email, membership_level: c.membership_level, notes: c.notes || '' });
     setTab('edit');
@@ -79,12 +81,12 @@ export default function CustomersPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.name) { alert('请填写客户姓名'); return; }
+    if (!form.name) { toast.info('请填写客户姓名'); return; }
     setSaving(true);
     try {
       // 直接用 Supabase REST API（和现有产品管理一样的方式）
       const supabase = (window as any).__SUPABASE_CLIENT__;
-      if (!supabase) { alert('数据源不可用，请刷新页面'); return; }
+      if (!supabase) { toast.info('数据源不可用，请刷新页面'); return; }
 
       if (editing) {
         const { error } = await supabase.from('customers').update({
@@ -92,7 +94,7 @@ export default function CustomersPage() {
           membership_level: form.membership_level, notes: form.notes,
         }).eq('id', editing.id);
         if (error) throw error;
-        alert('更新成功');
+        toast.success('更新成功');
       } else {
         const { error } = await supabase.from('customers').insert({
           name: form.name, phone: form.phone, email: form.email,
@@ -100,27 +102,27 @@ export default function CustomersPage() {
           total_spent: 0, last_visit: new Date().toISOString().split('T')[0],
         });
         if (error) throw error;
-        alert('添加成功');
+        toast.success('添加成功');
       }
       fetchCustomers();
       setTab('list');
     } catch (err: any) {
-      alert('保存失败: ' + (err.message || '未知错误'));
+      toast.error('保存失败: ' + (err.message || '未知错误'));
     } finally {
       setSaving(false);
     }
   };
 
   const handleDelete = async (c: Customer) => {
-    if (!confirm(`确定删除客户"${c.name}"吗？`)) return;
+    if (!await toast.confirm(`确定删除客户"${c.name}"吗？`)) return;
     try {
       const supabase = (window as any).__SUPABASE_CLIENT__;
-      if (!supabase) { alert('数据源不可用'); return; }
+      if (!supabase) { toast.info('数据源不可用'); return; }
       const { error } = await supabase.from('customers').delete().eq('id', c.id);
       if (error) throw error;
-      alert('删除成功');
+      toast.success('删除成功');
       fetchCustomers();
-    } catch { alert('删除失败'); }
+    } catch { toast.error('删除失败'); }
   };
 
   const fmt = (n: number) => new Intl.NumberFormat('zh-CN', { style: 'currency', currency: 'CNY' }).format(n);

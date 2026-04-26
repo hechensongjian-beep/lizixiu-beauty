@@ -669,3 +669,15 @@ img[src=""] {
   font-weight: 400;
   letter-spacing: 0.05em;
 }
+
+/* Toast 动画 */
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

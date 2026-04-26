@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/components/AuthProvider';
+import { useToast } from '@/components/Toast';
 import { getOrders, updateOrderStatus } from '@/lib/api';
 
 interface OrderItem {
@@ -73,6 +74,7 @@ function ConfirmDialog({
 }
 
 export default function AdminOrdersPage() {
+  const { toast } = useToast();
     useEffect(() => { document.title = '订单管理 - 丽姿秀'; }, []);
 
 const { role } = useAuth();
@@ -168,11 +170,11 @@ const { role } = useAuth();
         );
         setDialog(null);
       } else {
-        alert(`更新失败: ${data.error}`);
+        toast.error(`更新失败: ${data.error}`);
       }
     } catch (error) {
       console.error('更新订单状态失败', error);
-      alert('网络错误，请重试');
+      toast.error('网络错误，请重试');
     } finally {
       setUpdating(null);
     }
