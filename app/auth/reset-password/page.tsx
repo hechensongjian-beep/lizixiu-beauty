@@ -84,7 +84,7 @@ export default function ResetPasswordPage() {
         <div className="space-y-4">
           <Link
             href="/auth/forgot-password"
-            className="block px-6 py-3 bg-gradient-to-r from-[#c9a87c] to-[#e8d5b8] text-white font-semibold rounded-lg hover:opacity-90 transition"
+            className="block px-6 py-3 bg-[var(--accent)] text-white font-semibold rounded-lg hover:opacity-90 transition"
           >
             重新申请重置
           </Link>
@@ -174,7 +174,7 @@ export default function ResetPasswordPage() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full px-6 py-3 bg-gradient-to-r from-[#c9a87c] to-[#e8d5b8] text-white font-semibold rounded-lg hover:opacity-90 transition disabled:opacity-50"
+          className="w-full px-6 py-3 bg-[var(--accent)] text-white font-semibold rounded-lg hover:opacity-90 transition disabled:opacity-50"
         >
           {loading ? (
             <span className="flex items-center justify-center">
