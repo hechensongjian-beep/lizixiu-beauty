@@ -255,7 +255,7 @@ export default function ChatPage() {
                     <div className={`flex items-end gap-3 ${msg.sender === 'merchant' ? 'flex-row-reverse' : ''}`}>
                       <div className={`w-8 h-8 rounded-full ${msg.avatarColor} flex items-center justify-center text-white text-sm font-bold flex-shrink-0`}>{getInitials(msg.senderName)}</div>
                       <div className={`max-w-xs lg:max-w-md ${msg.sender === 'merchant' ? 'items-end' : 'items-start'} flex flex-col`}>
-                        <div className={`px-4 py-3 rounded-2xl text-sm ${msg.sender === 'merchant' ? 'bg-gradient-to-r from-[#c9a87c] to-[#e8d5b8] text-white rounded-br-sm' : 'bg-white border border-[#e8d5b8]/30 text-[#2a2a28] rounded-bl-sm'}`}>
+                        <div className={`px-4 py-3 rounded-2xl text-sm ${msg.sender === 'merchant' ? 'bg-[var(--accent)] text-white rounded-br-sm' : 'bg-white border border-[#e8d5b8]/30 text-[#2a2a28] rounded-bl-sm'}`}>
                           {msg.content}
                         </div>
                         <div className="text-sm text-[#6b6b68] mt-1 px-1">{msg.senderName} · {formatTime(msg.timestamp)}</div>
