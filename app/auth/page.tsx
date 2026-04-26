@@ -63,15 +63,15 @@ export default function AuthIndexPage() {
           </p>
           <ul className="space-y-3 mb-8">
             <li className="flex items-center">
-              <div className="w-2 h-2 bg-[#faf8f5]0 rounded-full mr-3"></div>
+              <div className="w-2 h-2 bg-[#c9a87c] rounded-full mr-3"></div>
               <span>可视化预约日历，拖拽调整</span>
             </li>
             <li className="flex items-center">
-              <div className="w-2 h-2 bg-[#faf8f5]0 rounded-full mr-3"></div>
+              <div className="w-2 h-2 bg-[#c9a87c] rounded-full mr-3"></div>
               <span>员工排班与绩效统计</span>
             </li>
             <li className="flex items-center">
-              <div className="w-2 h-2 bg-[#faf8f5]0 rounded-full mr-3"></div>
+              <div className="w-2 h-2 bg-[#c9a87c] rounded-full mr-3"></div>
               <span>客户关系管理与营销工具</span>
             </li>
           </ul>

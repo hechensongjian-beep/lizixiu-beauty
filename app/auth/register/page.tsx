@@ -57,7 +57,7 @@ export default function RegisterPage() {
         <div style={{display:'flex',flexDirection:'column',gap:'1rem'}}>
           <button onClick={() => router.push('/auth/login')}
             className="w-full px-6 py-3 text-white font-semibold rounded-lg transition"
-            style={{background:'#a88a5c',boxShadow:'0 4px 15px rgba(201,168,124,0.3)'}}>
+            style={{background:'var(--accent)',boxShadow:'0 4px 15px rgba(45,74,62,0.4)'}}>
             前往登录
           </button>
           <Link href="/"
