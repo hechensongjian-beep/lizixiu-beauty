@@ -203,7 +203,7 @@ function ProductDetailInner() {
                   className="flex items-center justify-between bg-white rounded-lg px-4 py-3 group transition hover:shadow-sm"
                   style={{ border: '1px solid var(--primary-light)' }}>
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full flex items-center justify-center text-white font-medium" style={{ background: 'linear-gradient(135deg, var(--primary), var(--primary-light))', fontSize: '0.75rem' }}>
+                    <div className="w-8 h-8 rounded-full flex items-center justify-center text-white font-medium bg-[var(--accent)]"--primary-light))', fontSize: '0.75rem' }}>
                       {svc.name?.charAt(0) || 'S'}
                     </div>
                     <div>

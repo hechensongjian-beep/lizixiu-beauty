@@ -163,12 +163,12 @@ const { role } = useAuth();
       {!loading && (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
           {[
-            { label: '待核验', value: summary.pending, color: 'from-[#2d4a3e] to-[#4a7c6f]', icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> },
-            { label: '已通过', value: summary.approved, color: 'from-[#166534] to-[#22c55e]', icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="20 6 9 17 4 12"/></svg> },
-            { label: '已拒绝', value: summary.rejected, color: 'from-[#991b1b] to-[#ef4444]', icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> },
-            { label: '已确认金额', value: fmt(summary.totalAmount), color: 'from-[#2d4a3e] to-[#4a7c6f]', icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg> },
+            { label: '待核验', value: summary.pending, bg: '#1a3a2a', icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> },
+            { label: '已通过', value: summary.approved, bg: '#14532d', icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="20 6 9 17 4 12"/></svg> },
+            { label: '已拒绝', value: summary.rejected, bg: '#7f1d1d', icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> },
+            { label: '已确认金额', value: fmt(summary.totalAmount), bg: '#1a3a2a', icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg> },
           ].map(item => (
-            <div key={item.label} className={`bg-gradient-to-br ${item.color} text-white rounded-xl p-4 shadow-sm`}>
+            <div key={item.label} className="text-white rounded-xl p-4 shadow-sm" style={{ backgroundColor: item.bg }}>
               <div className="text-xl mb-1 flex">{item.icon}</div>
               <div className="text-xl font-semibold">{item.value}</div>
               <div className="text-sm opacity-80">{item.label}</div>

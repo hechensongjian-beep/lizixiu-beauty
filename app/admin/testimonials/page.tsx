@@ -150,7 +150,7 @@ const router = useRouter();
         <div className="space-y-4">
           {testimonials.map(t => (
             <div key={t.id} className="bg-white border border-gray-200 rounded-xl p-6 flex items-start gap-4">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-[#c9a87c] to-[#b8956a] flex items-center justify-center text-white font-bold text-lg flex-shrink-0">
+              <div className="w-12 h-12 rounded-full bg-[var(--primary)] flex items-center justify-center text-white font-bold text-lg flex-shrink-0">
                 {t.avatar || t.name.charAt(0)}
               </div>
               <div className="flex-1">
