@@ -52,7 +52,7 @@ export default function ForgotPasswordPage() {
         <div className="space-y-4">
           <Link
             href="/auth/login"
-            className="block px-6 py-3 bg-gradient-to-r from-gray-800 to-gray-900 text-white font-semibold rounded-lg hover:opacity-90 transition"
+            className="block px-6 py-3 text-white font-semibold rounded-lg hover:opacity-90 transition" style={{ background: 'var(--accent)' }}
           >
             返回登录
           </Link>

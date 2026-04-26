@@ -103,7 +103,7 @@ export default function ResetPasswordPage() {
     return (
       <div className="max-w-md mx-auto px-4 py-12 text-center">
         <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-r from-green-100 to-emerald-100 rounded-2xl mb-6">
-          <div className="text-xl font-bold text-green-600">✓</div>
+          <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-green-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
         </div>
         <h1 className="text-2xl font-bold text-gray-900 mb-4">密码重置成功！</h1>
         <p className="text-gray-700 mb-6">
@@ -112,7 +112,7 @@ export default function ResetPasswordPage() {
         <div className="space-y-4">
           <Link
             href="/auth/login"
-            className="block px-6 py-3 bg-gradient-to-r from-gray-800 to-gray-900 text-white font-semibold rounded-lg hover:opacity-90 transition"
+            className="block px-6 py-3 text-white font-semibold rounded-lg hover:opacity-90 transition" style={{ background: 'var(--accent)' }}
           >
             立即登录
           </Link>

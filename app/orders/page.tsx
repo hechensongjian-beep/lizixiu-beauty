@@ -270,7 +270,7 @@ export default function OrdersPage() {
                   <>
                     <button
                       onClick={() => { window.location.href = '/checkout'; }}
-                      className="px-6 py-3 bg-gradient-to-r from-[#2d4a3e] to-[#3d6252] text-white font-bold rounded-lg hover:opacity-90 transition"
+                      className="px-6 py-3 text-white font-bold rounded-lg hover:opacity-90 transition" style={{ background: 'var(--accent)' }}
                     >
                       立即支付
                     </button>

@@ -511,7 +511,7 @@ const { role } = useAuth();
                           disabled={updating === order.id}
                           className="btn btn-danger"
                         >
-                          ✕ 取消订单
+                          <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 inline -mt-0.5 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>取消订单
                         </button>
                       </>
                     )}
