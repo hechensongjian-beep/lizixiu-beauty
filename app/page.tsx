@@ -51,7 +51,16 @@ function InitialAvatar({ name, size = 48 }: { name: string; size?: number }) {
   return (
     <div
       className="initial-placeholder"
-      style={{ width: size, height: size, fontSize: size * 0.4, borderRadius: '50%' }}
+      style={{
+        width: size,
+        height: size,
+        fontSize: size * 0.38,
+        borderRadius: '50%',
+        border: '1px solid rgba(201,168,124,0.35)',
+        letterSpacing: 0,
+        fontFamily: 'var(--font-serif)',
+        fontWeight: 400,
+      }}
     >
       {initial}
     </div>
@@ -65,8 +74,26 @@ function ProductImage({ product, size = 220 }: { product: Product; size?: number
     return (
       <div
         className="initial-placeholder"
-        style={{ width: '100%', height: size, fontSize: size * 0.28, borderRadius: 'var(--radius-xl)' }}
+        style={{
+          width: '100%',
+          height: size,
+          fontSize: size * 0.3,
+          borderRadius: 'var(--radius-xl)',
+          border: '1px solid rgba(201,168,124,0.25)',
+          background: 'linear-gradient(135deg, rgba(201,168,124,0.06) 0%, rgba(201,168,124,0.02) 100%)',
+          position: 'relative',
+          overflow: 'hidden',
+        }}
       >
+        <div style={{
+          position: 'absolute',
+          top: '35%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: '30%',
+          height: 1,
+          background: 'rgba(201,168,124,0.2)',
+        }} />
         {product.name.charAt(0)}
       </div>
     );
@@ -173,6 +200,32 @@ export default function HomePage() {
           paddingBottom: '4rem',
         }}
       >
+        {/* 暖色层次渐变层（底部透明，金色渐入） */}
+        <div
+          aria-hidden="true"
+          style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'radial-gradient(ellipse 80% 70% at 90% 10%, rgba(201,168,124,0.07) 0%, transparent 65%)',
+            pointerEvents: 'none',
+            zIndex: 0,
+          }}
+        />
+        {/* 左下暖角微光 */}
+        <div
+          aria-hidden="true"
+          style={{
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            width: '50%',
+            height: '40%',
+            background: 'radial-gradient(ellipse at 0% 100%, rgba(201,168,124,0.05) 0%, transparent 60%)',
+            pointerEvents: 'none',
+            zIndex: 0,
+          }}
+        />
+
         {/* 右侧：精致几何装饰区 */}
         <div
           aria-hidden="true"
@@ -531,12 +584,14 @@ export default function HomePage() {
                     overflow: 'hidden',
                   }}
                   onMouseEnter={e => {
-                    (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 24px rgba(201,168,124,0.15)';
-                    (e.currentTarget as HTMLElement).style.borderColor = 'rgba(201,168,124,0.35)';
+                    (e.currentTarget as HTMLElement).style.boxShadow = '0 8px 32px rgba(201,168,124,0.2)';
+                    (e.currentTarget as HTMLElement).style.borderColor = 'rgba(201,168,124,0.45)';
+                    (e.currentTarget as HTMLElement).style.transform = 'translateY(-3px)';
                   }}
                   onMouseLeave={e => {
                     (e.currentTarget as HTMLElement).style.boxShadow = 'none';
                     (e.currentTarget as HTMLElement).style.borderColor = 'rgba(201,168,124,0.15)';
+                    (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
                   }}
                 >
                   {/* 左上角金色装饰 */}

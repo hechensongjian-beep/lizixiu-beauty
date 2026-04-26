@@ -662,8 +662,10 @@ img[src=""] {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary-ultra-light) 100%);
-  color: var(--primary-dark);
+  background: linear-gradient(135deg, rgba(201,168,124,0.08) 0%, rgba(232,213,184,0.12) 100%);
+  border: 1px solid rgba(201,168,124,0.3);
+  color: var(--primary);
   font-family: var(--font-serif);
-  font-weight: 600;
+  font-weight: 400;
+  letter-spacing: 0.05em;
 }
