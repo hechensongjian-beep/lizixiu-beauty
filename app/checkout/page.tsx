@@ -218,7 +218,7 @@ export default function CheckoutPage() {
           </div>
           <h1 className="font-bold mb-4">订单已创建</h1>
           <p className="text-gray-600">订单号：<span className="font-mono font-bold text-gray-900">{currentOrder.id}</span></p>
-          <p className="text-2xl font-bold mt-4" style={{color:'#a88a5c'}}>应付金额：{fmt(total)}</p>
+          <p className="text-2xl font-bold mt-4" style={{color:'var(--primary)'}}>应付金额：{fmt(total)}</p>
         </div>
 
         <div className="bg-white border border-gray-200 rounded-xl p-5 mb-8">
@@ -452,20 +452,20 @@ export default function CheckoutPage() {
                     <div className="font-medium text-gray-900">{item.name}</div>
                     <div className="text-sm text-gray-600">{item.quantity} x {fmt(item.price)}</div>
                   </div>
-                  <div className="font-bold">{fmt(item.price * item.quantity)}</div>
+                  <div className="font-bold" style={{color:'var(--foreground)'}}>{fmt(item.price * item.quantity)}</div>
                 </div>
               ))}
-              <div className="flex justify-between pt-4"><span className="text-gray-700">商品小计</span><span className="font-medium">{fmt(subtotal)}</span></div>
+                <div className="flex justify-between"><span className="text-gray-700">商品小计</span><span className="font-medium" style={{color:'var(--foreground)'}}>{fmt(subtotal)}</span></div>
               {appliedPromotion && discountAmount > 0 && (
                 <div className="flex justify-between">
                   <span className="text-red-500">活动优惠 ({appliedPromotion.title})</span>
                   <span className="font-medium text-red-500">-{fmt(discountAmount)}</span>
                 </div>
               )}
-              <div className="flex justify-between"><span className="text-gray-700">运费</span><span className={`font-medium ${shipping === 0 ? 'text-green-600' : ''}`}>{shipping === 0 ? '免费' : fmt(shipping)}</span></div>
+              <div className="flex justify-between"><span className="text-gray-700">运费</span><span className={`font-medium ${shipping === 0 ? 'text-green-600' : ''}`} style={{color: shipping === 0 ? undefined : 'var(--foreground)'}}>{shipping === 0 ? '免费' : fmt(shipping)}</span></div>
               <div className="flex justify-between"><span className="text-gray-700">配送方式</span><span className="font-medium">{deliveryMethod === 'express' ? '快递' : deliveryMethod === 'pickup' ? '到店自取' : '送货上门'}</span></div>
               <div className="border-t border-gray-200 pt-4">
-                <div className="flex justify-between font-bold"><span>总计</span><span>{fmt(total)}</span></div>
+                <div className="flex justify-between font-bold"><span>总计</span><span style={{color:'var(--primary)'}}>{fmt(total)}</span></div>
               </div>
             </div>
             <div className="border-t border-gray-200 pt-6 space-y-3">

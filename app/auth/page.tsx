@@ -41,7 +41,7 @@ export default function AuthIndexPage() {
           <div className="space-y-4">
             <Link
               href="/auth/login"
-              className="block px-6 py-3 bg-gradient-to-r from-[#c9a87c] to-[#e8d5b8] text-white font-semibold rounded-lg hover:opacity-90 transition text-center"
+              className="block px-6 py-3 bg-[var(--accent)] text-white font-semibold rounded-lg hover:opacity-90 transition text-center" style={{background:'var(--accent)'}}
             >
               客户登录
             </Link>

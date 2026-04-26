@@ -22,7 +22,7 @@ function CalendarGrid({ date, appointments, onPrev, onNext, today }: { date: Dat
   const isToday = date.toDateString() === today.toDateString();
   return (
     <div className="bg-white rounded-2xl shadow overflow-hidden">
-      <div className="flex items-center justify-between bg-gradient-to-r from-[#c9a87c] to-[#e8d5b8] text-white px-6 py-4">
+      <div className="flex items-center justify-between bg-[#2d4a3e] text-white px-6 py-4">
         <button onClick={onPrev} className="w-9 h-9 rounded-lg bg-white/20 hover:bg-white/30 flex items-center justify-center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
         <h2 className="text-lg font-bold">{date.getFullYear()}年{date.getMonth()+1}月{date.getDate()}日 {['日','一','二','三','四','五','六'][date.getDay()]}{isToday ? ' · 今天' : ''}</h2>
         <button onClick={onNext} className="w-9 h-9 rounded-lg bg-white/20 hover:bg-white/30 flex items-center justify-center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>

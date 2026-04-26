@@ -155,7 +155,7 @@ export default function NotificationsPage() {
       <div className="flex gap-2 mb-8 flex-wrap">
         {[{ key: 'all', label: '全部' }, ...Object.entries(TYPE_CONFIG).map(([k, v]) => ({ key: k, label: v.label }))].map(f => (
           <button key={f.key} onClick={() => setFilter(f.key)}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition ${filter === f.key ? 'bg-gradient-to-r from-[#c9a87c] to-[#e8d5b8] text-white shadow' : 'bg-white border border-[#e8d5b8]/50 text-[#2a2a28] hover:bg-[#f5f2ed]'}`}>
+            className={`px-4 py-2 rounded-full text-sm font-medium transition ${filter === f.key ? 'bg-[#2d4a3e] text-white shadow' : 'bg-white border border-[#e8d5b8]/50 text-[#2a2a28] hover:bg-[#f5f2ed]'}`}>
             {f.label}
           </button>
         ))}
@@ -169,7 +169,7 @@ export default function NotificationsPage() {
           </div>
           <h3 className="text-xl font-serif font-medium text-[#2a2a28] mb-3">{filter === 'all' ? '暂无通知' : `暂无${TYPE_CONFIG[filter]?.label || ''}通知`}</h3>
           <p className="text-[#6b6b68]">有新消息时会在这里显示</p>
-          <Link href="/products" className="inline-block mt-6 px-6 py-3 bg-gradient-to-r from-[#c9a87c] to-[#e8d5b8] text-white rounded-xl font-bold hover:opacity-90 transition">
+          <Link href="/products" className="inline-block mt-6 px-6 py-3 bg-[#2d4a3e] text-white rounded-xl font-bold hover:opacity-90 transition">
             去逛逛产品商城
           </Link>
         </div>
@@ -178,7 +178,7 @@ export default function NotificationsPage() {
           {filtered.map(notif => (
             <div key={notif.id}
               className={`bg-white rounded-2xl border ${notif.read ? 'border-[#e8d5b8]/30 shadow-sm' : 'border-[#c9a87c]/40 shadow-md'} transition hover:shadow-lg`}>
-              {!notif.read && <div className="h-1 rounded-t-2xl bg-gradient-to-r from-[#c9a87c] to-[#e8d5b8]"></div>}
+              {!notif.read && <div className="h-1 rounded-t-2xl bg-[#c9a87c]"></div>}
               <div className="p-5">
                 <div className="flex items-start gap-4">
                   {/* 图标 */}

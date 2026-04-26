@@ -281,7 +281,7 @@ export default function ChatPage() {
                 />
                 <div className="flex flex-col gap-2">
                   <button onClick={sendMessage} disabled={!input.trim()}
-                    className="px-5 py-2 bg-gradient-to-r from-[#c9a87c] to-[#e8d5b8] text-white font-bold rounded-xl hover:opacity-90 transition disabled:opacity-40 text-sm">
+                    className="px-5 py-2 text-white font-bold rounded-xl hover:opacity-90 transition disabled:opacity-40 text-sm" style={{background:'var(--accent)'}}>
                     发送
                   </button>
                 </div>

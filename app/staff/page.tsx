@@ -173,7 +173,7 @@ export default function StaffPage() {
             刷新
           </button>
           <button
-            className="px-6 py-3 bg-gradient-to-r from-[#c9a87c] to-[#e8d5b8] text-white font-semibold rounded-lg hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-6 py-3 bg-[#2d4a3e] text-white font-semibold rounded-lg hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
             onClick={() => setShowAddForm(true)}
             disabled={submitting}
           >
@@ -325,7 +325,7 @@ export default function StaffPage() {
               取消
             </button>
             <button
-              className="px-8 py-3 bg-gradient-to-r from-[#c9a87c] to-[#e8d5b8] text-white font-semibold rounded-lg hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-8 py-3 bg-[#2d4a3e] text-white font-semibold rounded-lg hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
               onClick={handleAddStaff}
               disabled={submitting}
             >
@@ -488,7 +488,7 @@ export default function StaffPage() {
                 取消
               </button>
               <button
-                className="px-8 py-3 bg-gradient-to-r from-[#c9a87c] to-[#e8d5b8] text-white font-semibold rounded-lg hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-8 py-3 bg-[#2d4a3e] text-white font-semibold rounded-lg hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
                 onClick={handleEditStaff}
                 disabled={submitting}
               >
@@ -556,7 +556,7 @@ export default function StaffPage() {
             您尚未添加任何员工。点击“添加员工”按钮开始建立您的团队。
           </p>
           <button
-            className="px-8 py-3 bg-gradient-to-r from-[#c9a87c] to-[#e8d5b8] text-white font-semibold rounded-lg hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-8 py-3 bg-[#2d4a3e] text-white font-semibold rounded-lg hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
             onClick={() => setShowAddForm(true)}
             disabled={submitting}
           >
@@ -660,7 +660,7 @@ export default function StaffPage() {
       <div className="text-center">
         <Link
           href="/"
-          className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-[#c9a87c] to-[#b8956a] text-white font-semibold rounded-lg hover:opacity-90 transition"
+          className="inline-flex items-center px-6 py-3 bg-[#2d4a3e] text-white font-semibold rounded-lg hover:opacity-90 transition"
         >
           ← 返回仪表板
         </Link>

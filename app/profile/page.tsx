@@ -49,10 +49,10 @@ export default function ProfilePage() {
   const upcomingCount = appointments.filter(a => a.status === 'confirmed' || a.status === 'pending').length;
 
   const LEVEL_COLORS: Record<string, string> = {
-    '普通会员': 'bg-gradient-to-r from-[#c9a87c] to-[#e8d5b8]',
+    '普通会员': 'bg-[#9b9b98]',
     '钻石会员': 'bg-gradient-to-r from-[#c9a87c] to-[#e8d5b8]',
-    '金卡会员': 'bg-gradient-to-r from-[#d4a853] to-[#f5d98a]',
-    '银卡会员': 'bg-gradient-to-r from-[#c0c0c0] to-[#e8e8e8]',
+    '金卡会员': 'bg-[#d4a853]',
+    '银卡会员': 'bg-[#c0c0c0]',
   };
 
   const handleSignOut = async () => {

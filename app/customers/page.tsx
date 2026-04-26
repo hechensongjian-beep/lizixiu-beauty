@@ -147,7 +147,7 @@ export default function CustomersPage() {
           <p className="text-gray-500 mt-1">客户档案 · 会员等级 · 消费记录</p>
         </div>
         <button onClick={openAdd}
-          className="px-6 py-3 bg-gradient-to-r from-[#c9a87c] to-[#e8d5b8] text-white font-bold rounded-xl hover:opacity-90 transition shadow-lg">
+          className="px-6 py-3 bg-[#2d4a3e] text-white font-bold rounded-xl hover:opacity-90 transition shadow-lg">
           + 添加客户
         </button>
       </div>
@@ -206,7 +206,7 @@ export default function CustomersPage() {
               <button type="button" onClick={() => setTab('list')}
                 className="px-6 py-3 border rounded-xl font-bold text-gray-700 hover:bg-gray-50">取消</button>
               <button type="submit" disabled={saving}
-                className="px-8 py-3 bg-gradient-to-r from-[#c9a87c] to-[#e8d5b8] text-white rounded-xl font-bold hover:opacity-90 shadow disabled:opacity-50">
+                className="px-8 py-3 bg-[#2d4a3e] text-white rounded-xl font-bold hover:opacity-90 shadow disabled:opacity-50">
                 {saving ? '保存中...' : (editing ? '保存更改' : '确认添加')}
               </button>
             </div>

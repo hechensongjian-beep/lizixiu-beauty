@@ -11,6 +11,7 @@ interface Product {
 }
 
 const CART_KEY = 'beauty-shop-cart';
+  const fmt = (n: number) => new Intl.NumberFormat('zh-CN', { style: 'currency', currency: 'CNY' }).format(n);
 
 export default function AddToCartButton({ product }: { product: Product }) {
   const [cart, setCart] = useState<Record<string, number>>({});
@@ -28,12 +29,14 @@ export default function AddToCartButton({ product }: { product: Product }) {
           const parsed = JSON.parse(saved);
           setCart(parsed);
           setCartCount(Object.values(parsed).reduce((s: number, q: any) => s + Number(q), 0));
+          // 实时计算当前商品的小计
+          setCartTotal(Number(parsed[product.id] || 0) * product.price);
         } catch {}
       }
     };
     window.addEventListener('cart-updated', handler);
     return () => window.removeEventListener('cart-updated', handler);
-  }, []);
+  }, [product.id, product.price]);
 
   // 初始读取本地购物车
   useEffect(() => {
@@ -44,8 +47,7 @@ export default function AddToCartButton({ product }: { product: Product }) {
         setCart(parsed);
         setCartCount(Object.values(parsed).reduce((s: number, q: any) => s + Number(q), 0));
         if (parsed[product.id]) setQty(parsed[product.id]);
-        // 计算当前商品的小计
-        setCartTotal(product.price * (parsed[product.id] || 0));
+        setCartTotal(Number(parsed[product.id] || 0) * product.price);
       } catch {}
     }
   }, [product.id, product.price]);
@@ -63,8 +65,9 @@ export default function AddToCartButton({ product }: { product: Product }) {
     setCart(next);
     localStorage.setItem(CART_KEY, JSON.stringify(next));
     setAdded(true);
-    setCartCount(Object.values(next).reduce((s: number, q: any) => s + Number(q), 0));
-    setCartTotal(prev => prev + product.price * qty);
+    const newCount = Object.values(next).reduce((s: number, q: any) => s + Number(q), 0);
+    setCartCount(newCount);
+    setCartTotal(newQty * product.price);
     setTimeout(() => setAdded(false), 2000);
     window.dispatchEvent(new Event('cart-updated'));
   };
@@ -111,15 +114,14 @@ export default function AddToCartButton({ product }: { product: Product }) {
         </Link>
       </div>
 
-      {/* 悬浮购物车 - 只在有商品时显示 */}
       {cartCount > 0 && (
         <div className="fixed bottom-6 right-6 bg-white rounded-2xl p-5 max-w-xs z-40" style={{boxShadow:'0 20px 60px rgba(0,0,0,0.12)',border:'1px solid rgba(201,168,124,0.15)'}}>
           <div className="flex justify-between items-center mb-3">
             <span className="font-bold" style={{color:'#2a2a28'}}>购物车 ({cartCount}件)</span>
-            <Link href="/cart" className="text-sm font-medium" style={{color:'#a88a5c'}}>去结算 →</Link>
+            <Link href="/cart" className="text-sm font-medium" style={{color:'var(--primary)'}}>去结算 →</Link>
           </div>
-          <div className="text-2xl font-bold mb-3" style={{color:'#2a2a28'}}>¥{(cartTotal + product.price * (cart[product.id] || 0) - product.price * (cart[product.id] || 0)).toFixed(2)}</div>
-          <div className="text-sm text-center mb-3" style={{color:'#9b9b98'}}>共 {cartCount} 件商品</div>
+          <div className="text-2xl font-bold mb-3" style={{color:'var(--primary)'}}>{fmt(cartTotal)}</div>
+          <div className="text-sm text-center mb-3" style={{color:'var(--foreground-muted)'}}>本商品 {cart[product.id] || 0} 件 · 共 {cartCount} 件</div>
           <Link href="/cart" className="block w-full py-3 text-center rounded-xl font-bold text-sm text-white transition hover:opacity-85" style={{background:'var(--accent)'}}>去结算</Link>
         </div>
       )}
