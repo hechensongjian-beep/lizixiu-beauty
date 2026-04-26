@@ -41,7 +41,8 @@ export default function AuthIndexPage() {
           <div className="space-y-4">
             <Link
               href="/auth/login"
-              className="block px-6 py-3 bg-[var(--accent)] text-white font-semibold rounded-lg hover:opacity-90 transition text-center" style={{background:'var(--accent)'}}
+              className="block w-full px-6 py-3 text-white font-bold rounded-lg hover:bg-[#3a6050] transition text-center shadow-md"
+              style={{background:'#2d4a3e'}}
             >
               客户登录
             </Link>
@@ -76,8 +77,9 @@ export default function AuthIndexPage() {
           </ul>
           <div className="space-y-4">
             <Link
-              href="/auth/login"
-              className="block px-6 py-3 bg-gradient-to-r from-gray-800 to-gray-900 text-white font-semibold rounded-lg hover:opacity-90 transition text-center"
+              href="/auth/staff-login"
+              className="block w-full px-6 py-3 text-white font-bold rounded-lg hover:bg-[#3a6050] transition text-center shadow-md"
+              style={{background:'#2d4a3e'}}
             >
               商家登录
             </Link>

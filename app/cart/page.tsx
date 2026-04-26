@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { getProducts } from '@/lib/api';
+import { useAuth } from '@/components/AuthProvider';
+import { useRouter } from 'next/navigation';
 
 interface Product {
   id: string; name: string; description: string; price: number;
@@ -11,6 +13,8 @@ interface Product {
 }
 
 export default function CartPage() {
+  const { user } = useAuth();
+  const router = useRouter();
   const [products, setProducts] = useState<Record<string, Product>>({});
   const [cart, setCart] = useState<Record<string, number>>({});
   const [loading, setLoading] = useState(true);
@@ -26,6 +30,13 @@ export default function CartPage() {
   }, []);
 
   // 加载产品数据（用于展示名称/价格/图片）
+  useEffect(() => {
+    if (!loading && !user) {
+      const confirmed = confirm('结算需要登录账号，是否前往登录？');
+      if (confirmed) router.push('/auth/login?redirect=/cart');
+    }
+  }, [loading, user, router]);
+
   useEffect(() => {
     getProducts()
       .then(data => {

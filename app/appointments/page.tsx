@@ -2,7 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { getServices, getStaff, getAppointments, createAppointment } from '@/lib/api';
+import { useAuth } from '@/components/AuthProvider';
 
 interface Service { id: string; name: string; description?: string; price: number; duration?: number; }
 interface Staff { id: string; name: string; role?: string; }
@@ -11,6 +13,8 @@ interface Appointment { id: string; start_time: string; status: string; service_
 const TIMES = ['09:00','09:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30'];
 
 export default function AppointmentsPage() {
+  const { user, role } = useAuth();
+  const router = useRouter();
   const [services, setServices] = useState<Service[]>([]);
   const [staff, setStaff] = useState<Staff[]>([]);
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
@@ -42,6 +46,13 @@ export default function AppointmentsPage() {
       setLoading(false);
     }).catch(() => setLoading(false));
   }, []);
+
+  useEffect(() => {
+    if (!loading && !user) {
+      const confirmed = confirm('预约需要登录账号，是否前往登录？');
+      if (confirmed) router.push('/auth/login?redirect=/appointments');
+    }
+  }, [loading, user, router]);
 
   useEffect(() => {
     if (services.length > 0 && selectedServices.length === 0) setSelectedServices([services[0].id]);
