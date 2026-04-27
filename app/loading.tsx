@@ -10,7 +10,7 @@ export default function Loading() {
           </svg>
         </div>
       </div>
-      <p className="text-gray-500 text-sm">加载中...</p>
+      <p className="var(--foreground-muted) text-sm">加载中...</p>
     </div>
   );
 }

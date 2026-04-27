@@ -50,7 +50,7 @@ const STATUS_COLORS: Record<string, { bg: string; text: string; label: string }>
   pending: { bg: 'bg-amber-100', text: 'text-amber-700', label: '待确认' },
   confirmed: { bg: 'bg-[#c9a87c]', text: 'text-white', label: '已确认' },
   completed: { bg: 'bg-green-100', text: 'text-green-700', label: '已完成' },
-  cancelled: { bg: 'bg-gray-100', text: 'text-gray-600', label: '已取消' },
+  cancelled: { bg: 'var(--background-secondary)', text: 'var(--foreground-muted)', label: '已取消' },
 };
 
 export default function StaffWorkbenchPage() {

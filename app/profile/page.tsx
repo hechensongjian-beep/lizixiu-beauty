@@ -26,7 +26,7 @@ const STATUS_STYLE: Record<string, string> = {
   pending: 'bg-amber-100 text-amber-700',
   confirmed: 'bg-[#c9a87c] text-white',
   completed: 'bg-green-100 text-green-700',
-  cancelled: 'bg-gray-100 text-gray-500',
+  cancelled: 'var(--background-secondary) var(--foreground-muted)',
 };
 
 export default function ProfilePage() {
@@ -184,8 +184,8 @@ export default function ProfilePage() {
           {loading ? (
             <div className="space-y-4">
               {[1,2,3].map(i => <div key={i} className="bg-white rounded-2xl p-5 animate-pulse" style={{ border: '1px solid var(--primary-light)' }}>
-                <div className="h-4 bg-gray-200 rounded w-1/3 mb-2"></div>
-                <div className="h-3 bg-gray-100 rounded w-1/2"></div>
+                <div className="h-4 var(--background-secondary) rounded w-1/3 mb-2"></div>
+                <div className="h-3 var(--background-secondary) rounded w-1/2"></div>
               </div>)}
             </div>
           ) : appointments.length === 0 ? (
@@ -214,7 +214,7 @@ export default function ProfilePage() {
                         {apt.start_time ? apt.start_time.replace('T', ' ').slice(0, 16) : apt.appointment_date}
                       </div>
                     </div>
-                    <span className={`px-3 py-1 rounded-full text-sm font-medium ${STATUS_STYLE[apt.status] || 'bg-gray-100 text-gray-500'}`}>
+                    <span className={`px-3 py-1 rounded-full text-sm font-medium ${STATUS_STYLE[apt.status] || 'var(--background-secondary) var(--foreground-muted)'}`}>
                       {STATUS_LABEL[apt.status] || apt.status}
                     </span>
                   </div>

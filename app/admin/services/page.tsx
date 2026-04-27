@@ -53,7 +53,7 @@ const { role } = useAuth();
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center">
           <div className="w-8 h-8 border-2 border-[#c9a87c] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-sm text-gray-500">正在检查权限...</p>
+          <p className="text-sm var(--foreground-muted)">正在检查权限...</p>
         </div>
       </div>
     );
@@ -240,7 +240,7 @@ const { role } = useAuth();
 
           <div className="flex items-center gap-3">
 
-            <Link href="/admin/dashboard" className="p-2 rounded-lg transition hover:bg-gray-100">
+            <Link href="/admin/dashboard" className="p-2 rounded-lg transition hover:var(--background-secondary)">
 
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6b6b68" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
 
@@ -382,7 +382,7 @@ const { role } = useAuth();
 
                         <button onClick={() => startEdit(svc)}
 
-                          className="flex-1 py-2 rounded-lg text-sm font-bold border transition hover:bg-gray-50" style={{border:'1.5px solid #e8e4df',color:'#6b6b68'}}>
+                          className="flex-1 py-2 rounded-lg text-sm font-bold border transition hover:var(--background-card)" style={{border:'1.5px solid #e8e4df',color:'#6b6b68'}}>
 
                           编辑
 
@@ -552,7 +552,7 @@ const { role } = useAuth();
 
                   <button type="button" onClick={() => setTab('list')}
 
-                    className="flex-1 py-3 rounded-xl font-bold border transition hover:bg-gray-50" style={{border:'1.5px solid #e8e4df',color:'#6b6b68'}}>
+                    className="flex-1 py-3 rounded-xl font-bold border transition hover:var(--background-card)" style={{border:'1.5px solid #e8e4df',color:'#6b6b68'}}>
 
                     取消
 

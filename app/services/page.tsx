@@ -49,9 +49,9 @@ export default function ServicesPage() {
 
   if (loading) return (
     <div className="max-w-4xl mx-auto px-4 py-10">
-      <div className="h-7 w-40 bg-gray-100 rounded-lg mb-8 mx-auto animate-pulse"></div>
+      <div className="h-7 w-40 var(--background-secondary) rounded-lg mb-8 mx-auto animate-pulse"></div>
       <div className="space-y-3">
-        {[1,2,3].map(i => <div key={i} className="bg-white rounded-xl p-5 animate-pulse" style={{ border: '1px solid var(--primary-light)' }}><div className="h-4 bg-gray-100 rounded w-1/3 mb-3"></div><div className="h-3 bg-gray-50 rounded w-full mb-2"></div><div className="h-3 bg-gray-50 rounded w-1/2"></div></div>)}
+        {[1,2,3].map(i => <div key={i} className="bg-white rounded-xl p-5 animate-pulse" style={{ border: '1px solid var(--primary-light)' }}><div className="h-4 var(--background-secondary) rounded w-1/3 mb-3"></div><div className="h-3 var(--background-card) rounded w-full mb-2"></div><div className="h-3 var(--background-card) rounded w-1/2"></div></div>)}
       </div>
     </div>
   );

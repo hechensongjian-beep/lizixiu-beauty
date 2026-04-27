@@ -47,7 +47,7 @@ const { role } = useAuth();
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center">
           <div className="w-8 h-8 border-2 border-[#c9a87c] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-sm text-gray-500">正在检查权限...</p>
+          <p className="text-sm var(--foreground-muted)">正在检查权限...</p>
         </div>
       </div>
     );
@@ -139,20 +139,20 @@ const { role } = useAuth();
       <div className="flex items-center justify-between mb-6">
         <div>
           <div className="flex items-center gap-3">
-            <Link href="/" className="text-gray-400 hover:text-gray-600">首页</Link>
-            <span className="text-gray-300">/</span>
-            <h1 className="text-xl font-semibold text-gray-900">支付核验</h1>
+            <Link href="/" className="var(--foreground-muted) hover:var(--foreground-muted)">首页</Link>
+            <span className="var(--foreground-light)">/</span>
+            <h1 className="text-xl font-semibold var(--foreground)">支付核验</h1>
           </div>
-          <p className="text-gray-500 text-sm mt-1">客户提交支付凭证后，商家审核确认</p>
+          <p className="var(--foreground-muted) text-sm mt-1">客户提交支付凭证后，商家审核确认</p>
         </div>
         <div className="flex gap-2">
-          <Link href="/admin/payment" className="px-4 py-2 bg-gray-100 text-gray-700 rounded-xl text-sm hover:bg-gray-200 transition">
+          <Link href="/admin/payment" className="px-4 py-2 var(--background-secondary) var(--foreground) rounded-xl text-sm hover:var(--background-secondary) transition">
              收款码设置
           </Link>
           <button
             onClick={fetchData}
             disabled={loading}
-            className="px-4 py-2 bg-gray-100 text-gray-700 rounded-xl text-sm hover:bg-gray-200 disabled:opacity-50 transition"
+            className="px-4 py-2 var(--background-secondary) var(--foreground) rounded-xl text-sm hover:var(--background-secondary) disabled:opacity-50 transition"
           >
             {loading ? '刷新中...' : '刷新数据'}
           </button>
@@ -178,7 +178,7 @@ const { role } = useAuth();
       )}
 
       {/* 筛选 */}
-      <div className="flex gap-1 bg-gray-100 rounded-xl p-1 mb-6">
+      <div className="flex gap-1 var(--background-secondary) rounded-xl p-1 mb-6">
         {[
           { key: 'all', label: `全部 (${verifications.length})` },
           { key: 'pending', label: `待核验 (${summary.pending})` },
@@ -191,7 +191,7 @@ const { role } = useAuth();
             className={`flex-1 px-3 py-2 rounded-lg text-sm font-medium transition ${
               filter === f.key
                 ? 'bg-white shadow text-[#a88a5c]'
-                : 'text-gray-600 hover:text-gray-900'
+                : 'var(--foreground-muted) hover:var(--foreground)'
             }`}
           >
             {f.label}
@@ -214,20 +214,20 @@ const { role } = useAuth();
       {/* 加载 */}
       {loading && (
         <div className="flex items-center justify-center py-16">
-          <div className="w-10 h-10 border-4 border-gray-200 border-t-[#c9a87c] rounded-full animate-spin mx-auto"></div>
+          <div className="w-10 h-10 border-4 rgba(201,168,124,0.2) border-t-[#c9a87c] rounded-full animate-spin mx-auto"></div>
         </div>
       )}
 
       {/* 空状态 */}
       {!loading && filtered.length === 0 && (
-        <div className="bg-white border border-gray-200 rounded-2xl p-16 text-center">
-          <div className="w-12 h-12 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+        <div className="bg-white border rgba(201,168,124,0.2) rounded-2xl p-16 text-center">
+          <div className="w-12 h-12 var(--background-secondary) rounded-2xl flex items-center justify-center mx-auto mb-4">
                         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#d1d5db" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                         </svg>
                       </div>
-          <p className="text-gray-500 text-lg font-medium">暂无{filter === 'all' ? '' : filter === 'pending' ? '待核验' : filter === 'approved' ? '已通过' : '已拒绝'}记录</p>
-          <p className="text-gray-400 text-sm mt-2">
+          <p className="var(--foreground-muted) text-lg font-medium">暂无{filter === 'all' ? '' : filter === 'pending' ? '待核验' : filter === 'approved' ? '已通过' : '已拒绝'}记录</p>
+          <p className="var(--foreground-muted) text-sm mt-2">
             {filter === 'pending' ? '客户扫码支付后会在此处显示' : '选择全部查看所有记录'}
           </p>
         </div>
@@ -239,16 +239,16 @@ const { role } = useAuth();
           {filtered.map(v => {
             const sc = STATUS_CONFIG[v.status] || STATUS_CONFIG.pending;
             return (
-              <div key={v.id} className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition">
+              <div key={v.id} className="bg-white border rgba(201,168,124,0.2) rounded-2xl p-6 shadow-sm hover:shadow-md transition">
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-3">
                       <span className="text-2xl">{CHANNEL_EMOJI[v.payment_channel] || ''}</span>
                       <div>
-                        <div className="font-bold text-gray-900 text-lg">
+                        <div className="font-bold var(--foreground) text-lg">
                           {CHANNEL_LABEL[v.payment_channel] || v.payment_channel} 支付
                         </div>
-                        <div className="text-sm text-gray-500">
+                        <div className="text-sm var(--foreground-muted)">
                           {v.customer_name || '匿名客户'}
                           {v.customer_phone && <span className="ml-2">{v.customer_phone}</span>}
                         </div>
@@ -260,29 +260,29 @@ const { role } = useAuth();
 
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                       <div>
-                        <div className="text-sm text-gray-500 mb-1">订单号</div>
-                        <div className="font-mono text-sm text-gray-900">{v.orders?.order_number || v.order_id?.substring(0, 8)}</div>
+                        <div className="text-sm var(--foreground-muted) mb-1">订单号</div>
+                        <div className="font-mono text-sm var(--foreground)">{v.orders?.order_number || v.order_id?.substring(0, 8)}</div>
                       </div>
                       <div>
-                        <div className="text-sm text-gray-500 mb-1">支付金额</div>
+                        <div className="text-sm var(--foreground-muted) mb-1">支付金额</div>
                         <div className="font-bold text-xl text-green-600">{fmt(v.amount)}</div>
                       </div>
                       <div>
-                        <div className="text-sm text-gray-500 mb-1">提交时间</div>
-                        <div className="text-sm text-gray-700">{fmtDate(v.created_at)}</div>
+                        <div className="text-sm var(--foreground-muted) mb-1">提交时间</div>
+                        <div className="text-sm var(--foreground)">{fmtDate(v.created_at)}</div>
                       </div>
                       {v.verified_at && (
                         <div>
-                          <div className="text-sm text-gray-500 mb-1">核验时间</div>
-                          <div className="text-sm text-gray-700">{fmtDate(v.verified_at)}</div>
+                          <div className="text-sm var(--foreground-muted) mb-1">核验时间</div>
+                          <div className="text-sm var(--foreground)">{fmtDate(v.verified_at)}</div>
                         </div>
                       )}
                     </div>
 
                     {v.merchant_note && (
-                      <div className="mt-3 p-3 bg-gray-50 rounded-xl">
-                        <div className="text-sm text-gray-500 mb-1">商家备注</div>
-                        <div className="text-sm text-gray-700">{v.merchant_note}</div>
+                      <div className="mt-3 p-3 var(--background-card) rounded-xl">
+                        <div className="text-sm var(--foreground-muted) mb-1">商家备注</div>
+                        <div className="text-sm var(--foreground)">{v.merchant_note}</div>
                       </div>
                     )}
                   </div>
@@ -323,7 +323,7 @@ const { role } = useAuth();
               </h3>
             </div>
             <div className="p-6">
-              <label className="block font-medium text-gray-700 mb-2" style={{fontSize:'1rem'}}>
+              <label className="block font-medium var(--foreground) mb-2" style={{fontSize:'1rem'}}>
                 备注（可选）
               </label>
               <textarea
@@ -331,13 +331,13 @@ const { role } = useAuth();
                 onChange={e => setNote(e.target.value)}
                 placeholder={noteModal.action === 'approve' ? '如：已到账确认' : '如：金额不符/未到账'}
                 rows={3}
-                className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#c9a87c] resize-none"
+                className="w-full border rgba(201,168,124,0.2) rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#c9a87c] resize-none"
               />
             </div>
             <div className="px-6 pb-6 flex gap-3">
               <button
                 onClick={() => setNoteModal(null)}
-                className="flex-1 py-2.5 bg-gray-100 text-gray-700 rounded-xl font-medium hover:bg-gray-200 transition"
+                className="flex-1 py-2.5 var(--background-secondary) var(--foreground) rounded-xl font-medium hover:var(--background-secondary) transition"
               >
                 取消
               </button>

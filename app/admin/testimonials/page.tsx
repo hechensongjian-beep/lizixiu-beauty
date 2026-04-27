@@ -81,18 +81,18 @@ const router = useRouter();
     <div className="max-w-6xl mx-auto px-4 py-12">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-xl font-bold text-gray-900 mb-2">口碑评价管理</h1>
-          <p className="text-gray-600">管理首页展示的用户评价</p>
+          <h1 className="text-xl font-bold var(--foreground) mb-2">口碑评价管理</h1>
+          <p className="var(--foreground-muted)">管理首页展示的用户评价</p>
         </div>
         <div className="flex gap-3">
-          <button onClick={fetchData} className="px-4 py-2 bg-gray-100 text-gray-800 rounded-lg hover:bg-gray-200">刷新</button>
+          <button onClick={fetchData} className="px-4 py-2 var(--background-secondary) var(--foreground) rounded-lg hover:var(--background-secondary)">刷新</button>
           <button onClick={() => setShowAdd(true)} className="px-6 py-3 bg-[#2d4a3e] text-white font-semibold rounded-lg">+ 添加评价</button>
         </div>
       </div>
 
       {/* 添加表单 */}
       {showAdd && (
-        <div className="bg-white border border-gray-200 rounded-2xl p-6 mb-8">
+        <div className="bg-white border rgba(201,168,124,0.2) rounded-2xl p-6 mb-8">
           <h2 className="text-xl font-bold mb-4">添加新评价</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <input placeholder="客户姓名 *" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} className="px-4 py-3 border rounded-lg" />
@@ -104,7 +104,7 @@ const router = useRouter();
             <textarea placeholder="评价内容 *" value={form.text} onChange={e => setForm({ ...form, text: e.target.value })} className="px-4 py-3 border rounded-lg md:col-span-2" rows={3} />
           </div>
           <div className="flex justify-end gap-3 mt-6">
-            <button onClick={() => setShowAdd(false)} className="px-6 py-2 bg-gray-100 rounded-lg">取消</button>
+            <button onClick={() => setShowAdd(false)} className="px-6 py-2 var(--background-secondary) rounded-lg">取消</button>
             <button onClick={handleAdd} disabled={submitting} className="px-6 py-2 bg-[#2d4a3e] text-white rounded-lg disabled:opacity-50">{submitting ? '提交中...' : '确认添加'}</button>
           </div>
         </div>
@@ -129,7 +129,7 @@ const router = useRouter();
               </label>
             </div>
             <div className="flex justify-end gap-3 mt-6">
-              <button onClick={() => setEditing(null)} className="px-6 py-2 bg-gray-100 rounded-lg">取消</button>
+              <button onClick={() => setEditing(null)} className="px-6 py-2 var(--background-secondary) rounded-lg">取消</button>
               <button onClick={handleUpdate} disabled={submitting} className="px-6 py-2 bg-[#2d4a3e] text-white rounded-lg disabled:opacity-50">{submitting ? '更新中...' : '保存'}</button>
             </div>
           </div>
@@ -139,24 +139,24 @@ const router = useRouter();
       {/* 列表 */}
       {loading ? (
         <div className="animate-pulse space-y-4">
-          {[1,2,3].map(i => <div key={i} className="h-24 bg-gray-200 rounded-xl" />)}
+          {[1,2,3].map(i => <div key={i} className="h-24 var(--background-secondary) rounded-xl" />)}
         </div>
       ) : testimonials.length === 0 ? (
-        <div className="bg-gray-50 rounded-2xl p-12 text-center">
-          <p className="text-gray-500 mb-4">暂无评价数据</p>
-          <p className="text-sm text-gray-400">请先在 Supabase Dashboard 创建 testimonials 表</p>
+        <div className="var(--background-card) rounded-2xl p-12 text-center">
+          <p className="var(--foreground-muted) mb-4">暂无评价数据</p>
+          <p className="text-sm var(--foreground-muted)">请先在 Supabase Dashboard 创建 testimonials 表</p>
         </div>
       ) : (
         <div className="space-y-4">
           {testimonials.map(t => (
-            <div key={t.id} className="bg-white border border-gray-200 rounded-xl p-6 flex items-start gap-4">
+            <div key={t.id} className="bg-white border rgba(201,168,124,0.2) rounded-xl p-6 flex items-start gap-4">
               <div className="w-12 h-12 rounded-full bg-[var(--primary)] flex items-center justify-center text-white font-bold text-lg flex-shrink-0">
                 {t.avatar || t.name.charAt(0)}
               </div>
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-1">
                   <span className="font-semibold">{t.name}</span>
-                  {t.service && <span className="text-sm text-gray-500">· {t.service}</span>}
+                  {t.service && <span className="text-sm var(--foreground-muted)">· {t.service}</span>}
                   <span className="flex gap-0.5 ml-2">
                     {Array.from({ length: t.score }).map((_, i) => (
                       <svg key={i} width="12" height="12" viewBox="0 0 24 24" fill="#f59e0b"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
@@ -164,10 +164,10 @@ const router = useRouter();
                   </span>
                   {!t.is_active && <span className="text-sm text-red-500 ml-2">(已隐藏)</span>}
                 </div>
-                <p className="text-gray-700 text-sm">{t.text}</p>
+                <p className="var(--foreground) text-sm">{t.text}</p>
               </div>
               <div className="flex gap-2 flex-shrink-0">
-                <button onClick={() => setEditing(t)} className="px-3 py-1 text-sm bg-gray-100 rounded hover:bg-gray-200">编辑</button>
+                <button onClick={() => setEditing(t)} className="px-3 py-1 text-sm var(--background-secondary) rounded hover:var(--background-secondary)">编辑</button>
                 <button onClick={() => handleDelete(t.id)} className="px-3 py-1 text-sm bg-red-50 text-red-600 rounded hover:bg-red-100">删除</button>
               </div>
             </div>
@@ -176,7 +176,7 @@ const router = useRouter();
       )}
 
       <div className="mt-8 text-center">
-        <Link href="/admin/dashboard" className="text-sm text-gray-500 hover:text-[#c9a87c]">← 返回仪表板</Link>
+        <Link href="/admin/dashboard" className="text-sm var(--foreground-muted) hover:text-[#c9a87c]">← 返回仪表板</Link>
       </div>
     </div>
   );

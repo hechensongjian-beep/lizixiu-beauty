@@ -105,7 +105,7 @@ const { role } = useAuth();
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center">
           <div className="w-8 h-8 border-2 border-[#c9a87c] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-sm text-gray-500">Loading...</p>
+          <p className="text-sm var(--foreground-muted)">Loading...</p>
         </div>
       </div>
     );
@@ -232,7 +232,7 @@ const { role } = useAuth();
       case 'shipped': return 'bg-[#c9a87c] text-white';
       case 'delivered': return 'bg-green-100 text-green-800';
       case 'cancelled': return 'bg-red-100 text-red-800';
-      default: return 'bg-gray-100 text-gray-800';
+      default: return 'var(--background-secondary) var(--foreground)';
     }
   };
 
@@ -297,8 +297,8 @@ const { role } = useAuth();
                   <div key={o.id} className="flex items-center justify-between bg-white rounded-lg p-3">
                     <div>
                       <span className="font-medium">#{o.id.substring(0, 8)}</span>
-                      <span className="text-gray-500 ml-2">{o.customerName}</span>
-                      <span className="text-gray-500 ml-2">{formatCurrency(o.total)}</span>
+                      <span className="var(--foreground-muted) ml-2">{o.customerName}</span>
+                      <span className="var(--foreground-muted) ml-2">{formatCurrency(o.total)}</span>
                     </div>
                     <button
                       onClick={() => openDialog(o.id, 'confirm_payment')}
@@ -362,7 +362,7 @@ const { role } = useAuth();
               <label className="block font-medium mb-2" style={{ fontSize: '1rem' }}>状态筛选</label>
               <div className="flex flex-wrap gap-2">
                 <button
-                  className={`px-4 py-2 rounded-lg font-medium text-sm transition ${statusFilter === 'all' ? 'text-white' : 'hover:bg-gray-100'}`}
+                  className={`px-4 py-2 rounded-lg font-medium text-sm transition ${statusFilter === 'all' ? 'text-white' : 'hover:var(--background-secondary)'}`}
                   style={{ background: statusFilter === 'all' ? 'var(--primary)' : 'var(--background-secondary)', color: statusFilter === 'all' ? 'white' : 'var(--foreground)' }}
                   onClick={() => setStatusFilter('all')}
                 >
@@ -371,7 +371,7 @@ const { role } = useAuth();
                 {statusOptions.map(opt => (
                   <button
                     key={opt.value}
-                    className={`px-4 py-2 rounded-lg font-medium text-sm transition ${statusFilter === opt.value ? 'text-white' : 'hover:bg-gray-100'}`}
+                    className={`px-4 py-2 rounded-lg font-medium text-sm transition ${statusFilter === opt.value ? 'text-white' : 'hover:var(--background-secondary)'}`}
                     style={{ background: statusFilter === opt.value ? 'var(--primary)' : 'var(--background-secondary)', color: statusFilter === opt.value ? 'white' : 'var(--foreground)' }}
                     onClick={() => setStatusFilter(opt.value)}
                   >
@@ -472,9 +472,9 @@ const { role } = useAuth();
                   {/* 商品列表 */}
                   <div className="mb-6">
                     <div className="text-sm font-medium mb-3" style={{ color: 'var(--foreground-muted)' }}>商品清单</div>
-                    <div className="bg-gray-50 rounded-lg overflow-hidden">
+                    <div className="var(--background-card) rounded-lg overflow-hidden">
                       <table className="w-full text-sm">
-                        <thead className="bg-gray-100">
+                        <thead className="var(--background-secondary)">
                           <tr>
                             <th className="py-2 px-4 text-left font-medium">商品</th>
                             <th className="py-2 px-4 text-left font-medium">单价</th>
@@ -484,7 +484,7 @@ const { role } = useAuth();
                         </thead>
                         <tbody>
                           {order.items.map((item, idx) => (
-                            <tr key={idx} className="border-t border-gray-200">
+                            <tr key={idx} className="border-t rgba(201,168,124,0.2)">
                               <td className="py-3 px-4">{item.name}</td>
                               <td className="py-3 px-4">{formatCurrency(item.price)}</td>
                               <td className="py-3 px-4">×{item.quantity}</td>

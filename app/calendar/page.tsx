@@ -10,7 +10,7 @@ interface Appointment {
 }
 
 const TIMES = ['09:00','09:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30'];
-const STATUS_COLORS: Record<string, string> = { pending: 'bg-yellow-100 border-yellow-400 text-yellow-800', confirmed: 'bg-[#c9a87c] border-[#c9a87c] text-white', completed: 'bg-green-100 border-green-400 text-green-800', cancelled: 'bg-gray-100 border-gray-300 text-gray-500' };
+const STATUS_COLORS: Record<string, string> = { pending: 'bg-yellow-100 border-yellow-400 text-yellow-800', confirmed: 'bg-[#c9a87c] border-[#c9a87c] text-white', completed: 'bg-green-100 border-green-400 text-green-800', cancelled: 'var(--background-secondary) rgba(201,168,124,0.3) var(--foreground-muted)' };
 const STATUS_LABEL: Record<string, string> = { pending: '待确认', confirmed: '已确认', completed: '已完成', cancelled: '已取消' };
 
 function IconWarning() { return <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>; }
@@ -32,7 +32,7 @@ function CalendarGrid({ date, appointments, onPrev, onNext, today }: { date: Dat
           const appt = dayAppts.find(a => a.start_time?.substring(11,16) === time);
           return (
             <div key={time} className="flex items-stretch min-h-[52px]">
-              <div className="w-20 py-3 px-3 text-sm text-gray-400 font-medium border-r border-gray-100 flex-shrink-0">{time}</div>
+              <div className="w-20 py-3 px-3 text-sm var(--foreground-muted) font-medium border-r border-gray-100 flex-shrink-0">{time}</div>
               <div className="flex-1 py-2 px-3">
                 {appt ? (
                   <div className={`px-3 py-2 rounded-lg border-l-4 text-sm ${STATUS_COLORS[appt.status] || STATUS_COLORS.pending}`}>
@@ -42,7 +42,7 @@ function CalendarGrid({ date, appointments, onPrev, onNext, today }: { date: Dat
                     {appt.notes && <div className="opacity-60 mt-1">备注：{appt.notes}</div>}
                   </div>
                 ) : (
-                  <div className="h-8 flex items-center text-sm text-gray-300">空闲</div>
+                  <div className="h-8 flex items-center text-sm var(--foreground-light)">空闲</div>
                 )}
               </div>
             </div>
@@ -99,12 +99,12 @@ export default function CalendarPage() {
     <div className="max-w-7xl mx-auto px-4 py-10">
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-xl font-bold text-gray-900">预约日历</h1>
-          <p className="text-gray-500 mt-1">查看和管理所有预约</p>
+          <h1 className="text-xl font-bold var(--foreground)">预约日历</h1>
+          <p className="var(--foreground-muted) mt-1">查看和管理所有预约</p>
         </div>
         <div className="flex gap-3">
           <Link href="/appointments" className="px-4 py-2 bg-[#c9a87c] text-white rounded-lg font-medium text-sm">＋ 新建预约</Link>
-          <button onClick={fetchAppointments} disabled={loading} className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm">{loading ? '刷新中...' : '刷新'}</button>
+          <button onClick={fetchAppointments} disabled={loading} className="px-4 py-2 var(--background-secondary) var(--foreground) rounded-lg text-sm">{loading ? '刷新中...' : '刷新'}</button>
         </div>
       </div>
 
@@ -134,24 +134,24 @@ export default function CalendarPage() {
               <h2 className="text-xl font-bold">{monthName}</h2>
               <button onClick={() => navigateMonth(1)} className="w-9 h-9 rounded-lg bg-white/20 hover:bg-white/30 flex items-center justify-center text-lg">›</button>
             </div>
-            <div className="grid grid-cols-7 bg-gray-50 border-b">
+            <div className="grid grid-cols-7 var(--background-card) border-b">
               {['日','一','二','三','四','五','六'].map(d => (
-                <div key={d} className="py-2 text-center text-sm font-semibold text-gray-500">{d}</div>
+                <div key={d} className="py-2 text-center text-sm font-semibold var(--foreground-muted)">{d}</div>
               ))}
             </div>
             <div className="grid grid-cols-7">
               {[...Array(firstDay).fill(null), ...[...Array(daysInMonth)].map((_, i) => i+1)].map((day, idx) => {
-                if (!day) return <div key={'empty-'+idx} className="min-h-[70px] bg-gray-50 border-r border-b border-gray-100"></div>;
+                if (!day) return <div key={'empty-'+idx} className="min-h-[70px] var(--background-card) border-r border-b border-gray-100"></div>;
                 const dStr = year+'-'+String(month+1).padStart(2,'0')+'-'+String(day).padStart(2,'0');
                 const isToday = dStr === today.toISOString().split('T')[0];
                 const count = appointments.filter(a => a.start_time?.startsWith(dStr)).length;
                 return (
                   <div key={day}
                     onClick={() => setCurrentDate(new Date(year, month, day))}
-                    className={`min-h-[70px] border-r border-b border-gray-100 p-1.5 cursor-pointer ${isToday ? 'bg-[#c9a87c]/10' : ''} hover:bg-gray-50`}>
-                    <div className={`w-7 h-7 flex items-center justify-center rounded-full text-sm font-medium mb-1 ${isToday ? 'bg-[#c9a87c] text-white' : 'text-gray-700'}`}>{day}</div>
+                    className={`min-h-[70px] border-r border-b border-gray-100 p-1.5 cursor-pointer ${isToday ? 'bg-[#c9a87c]/10' : ''} hover:var(--background-card)`}>
+                    <div className={`w-7 h-7 flex items-center justify-center rounded-full text-sm font-medium mb-1 ${isToday ? 'bg-[#c9a87c] text-white' : 'var(--foreground)'}`}>{day}</div>
                     {count > 0 && <div className="flex flex-wrap gap-1">{[...Array(Math.min(count,3))].map((_,i) => <div key={i} className="w-2 h-2 bg-[#c9a87c] rounded-full"></div>)}</div>}
-                    {count > 3 && <div className="text-sm text-gray-400 mt-0.5">+{count-3}</div>}
+                    {count > 3 && <div className="text-sm var(--foreground-muted) mt-0.5">+{count-3}</div>}
                   </div>
                 );
               })}
@@ -165,7 +165,7 @@ export default function CalendarPage() {
       </div>
 
       <div className="mt-6 bg-white rounded-2xl shadow p-5">
-        <h3 className="font-bold text-gray-800 mb-3">状态说明</h3>
+        <h3 className="font-bold var(--foreground) mb-3">状态说明</h3>
         <div className="flex flex-wrap gap-4">
           {Object.entries(STATUS_COLORS).map(([status, cls]) => (
             <div key={status} className={`px-3 py-1.5 rounded-full text-sm font-medium ${cls}`}>{STATUS_LABEL[status] || status}</div>

@@ -23,8 +23,8 @@ const MEMBERSHIP_OPTIONS = ['普通客户', '银卡会员', '金卡会员', '钻
 const MEMBERSHIP_STYLE: Record<string, string> = {
   '钻石会员': 'bg-[#2d4a3e] text-white',
   '金卡会员': 'bg-yellow-100 text-yellow-800',
-  '银卡会员': 'bg-gray-200 text-gray-700',
-  '普通客户': 'bg-gray-100 text-gray-600',
+  '银卡会员': 'var(--background-secondary) var(--foreground)',
+  '普通客户': 'var(--background-secondary) var(--foreground-muted)',
 };
 
 export default function CustomersPage() {
@@ -145,8 +145,8 @@ const openEdit = async (c: Customer) => {
       {/* 头部 */}
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-xl font-bold text-gray-900">客户管理</h1>
-          <p className="text-gray-500 mt-1">客户档案 · 会员等级 · 消费记录</p>
+          <h1 className="text-xl font-bold var(--foreground)">客户管理</h1>
+          <p className="var(--foreground-muted) mt-1">客户档案 · 会员等级 · 消费记录</p>
         </div>
         <button onClick={openAdd}
           className="px-6 py-3 bg-[#2d4a3e] text-white font-bold rounded-xl hover:opacity-90 transition shadow-lg">
@@ -157,11 +157,11 @@ const openEdit = async (c: Customer) => {
       {/* 标签切换 */}
       <div className="flex gap-3 mb-8">
         <button onClick={() => setTab('list')}
-          className={`px-5 py-2 rounded-full font-medium transition ${tab==='list'?'bg-[#c9a87c] text-white shadow':'bg-white border text-gray-700 hover:bg-gray-50'}`}>
+          className={`px-5 py-2 rounded-full font-medium transition ${tab==='list'?'bg-[#c9a87c] text-white shadow':'bg-white border var(--foreground) hover:var(--background-card)'}`}>
           客户列表
         </button>
         <button onClick={() => { openAdd(); setTab('add'); }}
-          className={`px-5 py-2 rounded-full font-medium transition ${tab==='add'?'bg-[#c9a87c] text-white shadow':'bg-white border text-gray-700 hover:bg-gray-50'}`}>
+          className={`px-5 py-2 rounded-full font-medium transition ${tab==='add'?'bg-[#c9a87c] text-white shadow':'bg-white border var(--foreground) hover:var(--background-card)'}`}>
           添加客户
         </button>
         {tab === 'edit' && (
@@ -172,33 +172,33 @@ const openEdit = async (c: Customer) => {
       {/* 添加/编辑表单 */}
       {(tab === 'add' || tab === 'edit') && (
         <div className="bg-white rounded-2xl shadow-lg p-8 mb-8">
-          <h2 className="text-xl font-bold text-gray-900 mb-6">{editing ? '编辑客户' : '添加新客户'}</h2>
+          <h2 className="text-xl font-bold var(--foreground) mb-6">{editing ? '编辑客户' : '添加新客户'}</h2>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block font-medium text-gray-700 mb-2">姓名 *</label>
+                <label className="block font-medium var(--foreground) mb-2">姓名 *</label>
                 <input type="text" value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
                   placeholder="客户姓名" className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#c9a87c]" required />
               </div>
               <div>
-                <label className="block font-medium text-gray-700 mb-2">电话</label>
+                <label className="block font-medium var(--foreground) mb-2">电话</label>
                 <input type="tel" value={form.phone} onChange={e => setForm(f => ({ ...f, phone: e.target.value }))}
                   placeholder="手机号码" className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#c9a87c]" />
               </div>
               <div>
-                <label className="block font-medium text-gray-700 mb-2">邮箱</label>
+                <label className="block font-medium var(--foreground) mb-2">邮箱</label>
                 <input type="email" value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
                   placeholder="电子邮箱" className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#c9a87c]" />
               </div>
               <div>
-                <label className="block font-medium text-gray-700 mb-2">会员等级</label>
+                <label className="block font-medium var(--foreground) mb-2">会员等级</label>
                 <select value={form.membership_level} onChange={e => setForm(f => ({ ...f, membership_level: e.target.value }))}
                   className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#c9a87c]">
                   {MEMBERSHIP_OPTIONS.map(m => <option key={m} value={m}>{m}</option>)}
                 </select>
               </div>
               <div className="md:col-span-2">
-                <label className="block font-medium text-gray-700 mb-2">备注</label>
+                <label className="block font-medium var(--foreground) mb-2">备注</label>
                 <textarea rows={2} value={form.notes} onChange={e => setForm(f => ({ ...f, notes: e.target.value }))}
                   placeholder="客户偏好、过敏史、特殊需求等..."
                   className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#c9a87c]" />
@@ -206,7 +206,7 @@ const openEdit = async (c: Customer) => {
             </div>
             <div className="flex gap-4 pt-4 border-t">
               <button type="button" onClick={() => setTab('list')}
-                className="px-6 py-3 border rounded-xl font-bold text-gray-700 hover:bg-gray-50">取消</button>
+                className="px-6 py-3 border rounded-xl font-bold var(--foreground) hover:var(--background-card)">取消</button>
               <button type="submit" disabled={saving}
                 className="px-8 py-3 bg-[#2d4a3e] text-white rounded-xl font-bold hover:opacity-90 shadow disabled:opacity-50">
                 {saving ? '保存中...' : (editing ? '保存更改' : '确认添加')}
@@ -252,8 +252,8 @@ const openEdit = async (c: Customer) => {
                 <button onClick={fetchCustomers} className="px-6 py-2 bg-red-100 text-red-700 rounded-lg font-medium hover:bg-red-200">重试</button>
               </div>
             ) : filtered.length === 0 ? (
-              <div className="p-16 text-center text-gray-400">
-                <div className="text-xl mb-4 font-bold text-gray-300">-</div>
+              <div className="p-16 text-center var(--foreground-muted)">
+                <div className="text-xl mb-4 font-bold var(--foreground-light)">-</div>
                 <p className="text-xl">{search ? '未找到匹配的客户' : '暂无客户数据'}</p>
                 {!search && (
                   <button onClick={openAdd} className="mt-6 px-8 py-3 bg-[#c9a87c] text-white rounded-xl font-bold hover:opacity-90">
@@ -264,31 +264,31 @@ const openEdit = async (c: Customer) => {
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full">
-                  <thead className="bg-gray-50 border-b">
+                  <thead className="var(--background-card) border-b">
                     <tr>
                       {['姓名', '联系方式', '会员等级', '累计消费', '最近到店', '操作'].map(col => (
-                        <th key={col} className="text-left py-4 px-6 font-semibold text-gray-700">{col}</th>
+                        <th key={col} className="text-left py-4 px-6 font-semibold var(--foreground)">{col}</th>
                       ))}
                     </tr>
                   </thead>
                   <tbody>
                     {filtered.map(c => (
-                      <tr key={c.id} className="border-t hover:bg-gray-50 transition">
+                      <tr key={c.id} className="border-t hover:var(--background-card) transition">
                         <td className="py-4 px-6">
-                          <div className="font-bold text-gray-900">{c.name}</div>
-                          {c.notes && <div className="text-sm text-gray-400 max-w-xs truncate">{c.notes}</div>}
+                          <div className="font-bold var(--foreground)">{c.name}</div>
+                          {c.notes && <div className="text-sm var(--foreground-muted) max-w-xs truncate">{c.notes}</div>}
                         </td>
                         <td className="py-4 px-6">
-                          <div className="text-gray-900">{c.phone || '-'}</div>
-                          <div className="text-sm text-gray-500">{c.email || '-'}</div>
+                          <div className="var(--foreground)">{c.phone || '-'}</div>
+                          <div className="text-sm var(--foreground-muted)">{c.email || '-'}</div>
                         </td>
                         <td className="py-4 px-6">
-                          <span className={`px-3 py-1 rounded-full text-sm font-semibold ${MEMBERSHIP_STYLE[c.membership_level] || 'bg-gray-100 text-gray-600'}`}>
+                          <span className={`px-3 py-1 rounded-full text-sm font-semibold ${MEMBERSHIP_STYLE[c.membership_level] || 'var(--background-secondary) var(--foreground-muted)'}`}>
                             {c.membership_level || '普通客户'}
                           </span>
                         </td>
                         <td className="py-4 px-6 font-bold text-[#a88a5c]">{fmt(c.total_spent)}</td>
-                        <td className="py-4 px-6 text-gray-600 text-sm">{fmtDate(c.last_visit)}</td>
+                        <td className="py-4 px-6 var(--foreground-muted) text-sm">{fmtDate(c.last_visit)}</td>
                         <td className="py-4 px-6">
                           <div className="flex gap-2">
                             <button onClick={() => openEdit(c)}

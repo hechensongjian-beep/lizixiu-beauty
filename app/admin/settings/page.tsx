@@ -151,21 +151,21 @@ CREATE POLICY "Allow all" ON site_settings FOR ALL USING (true);`}
               <label className="block font-medium text-[var(--foreground)] mb-2">主标题</label>
               <input type="text" value={settings.hero_title}
                 onChange={e => setSettings(s => ({ ...s, hero_title: e.target.value }))}
-                className="w-full px-4 py-3 border border-gray-200 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                className="w-full px-4 py-3 border rgba(201,168,124,0.2) rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
                 placeholder="例如：丽姿秀 · Beauty" />
             </div>
             <div>
               <label className="block font-medium text-[var(--foreground)] mb-2">副标题</label>
               <input type="text" value={settings.hero_subtitle}
                 onChange={e => setSettings(s => ({ ...s, hero_subtitle: e.target.value }))}
-                className="w-full px-4 py-3 border border-gray-200 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                className="w-full px-4 py-3 border rgba(201,168,124,0.2) rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
                 placeholder="例如：让美，从这里开始" />
             </div>
             <div>
               <label className="block font-medium text-[var(--foreground)] mb-2">简介描述</label>
               <textarea value={settings.hero_desc} rows={3}
                 onChange={e => setSettings(s => ({ ...s, hero_desc: e.target.value }))}
-                className="w-full px-4 py-3 border border-gray-200 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary)] resize-none"
+                className="w-full px-4 py-3 border rgba(201,168,124,0.2) rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary)] resize-none"
                 placeholder="简要介绍您的美容院" />
             </div>
           </div>
@@ -184,19 +184,19 @@ CREATE POLICY "Allow all" ON site_settings FOR ALL USING (true);`}
               <label className="block font-medium text-[var(--foreground)] mb-2">营业时间</label>
               <input type="text" value={settings.business_hours}
                 onChange={e => setSettings(s => ({ ...s, business_hours: e.target.value }))}
-                className="w-full px-4 py-3 border border-gray-200 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary)]" />
+                className="w-full px-4 py-3 border rgba(201,168,124,0.2) rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary)]" />
             </div>
             <div>
               <label className="block font-medium text-[var(--foreground)] mb-2">联系电话</label>
               <input type="text" value={settings.business_tel}
                 onChange={e => setSettings(s => ({ ...s, business_tel: e.target.value }))}
-                className="w-full px-4 py-3 border border-gray-200 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary)]" />
+                className="w-full px-4 py-3 border rgba(201,168,124,0.2) rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary)]" />
             </div>
             <div>
               <label className="block font-medium text-[var(--foreground)] mb-2">门店地址</label>
               <input type="text" value={settings.business_addr}
                 onChange={e => setSettings(s => ({ ...s, business_addr: e.target.value }))}
-                className="w-full px-4 py-3 border border-gray-200 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary)]" />
+                className="w-full px-4 py-3 border rgba(201,168,124,0.2) rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary)]" />
             </div>
           </div>
         </div>
@@ -213,7 +213,7 @@ CREATE POLICY "Allow all" ON site_settings FOR ALL USING (true);`}
             <label className="block font-medium text-[var(--foreground)] mb-2">公告内容</label>
             <input type="text" value={settings.notice_bar}
               onChange={e => setSettings(s => ({ ...s, notice_bar: e.target.value }))}
-              className="w-full px-4 py-3 border border-gray-200 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+              className="w-full px-4 py-3 border rgba(201,168,124,0.2) rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
               placeholder="留空则不显示公告，例如：春节期间营业时间调整通知" />
             <p className="text-[var(--foreground-light)] mt-2" style={{ fontSize: '0.9375rem' }}>
               设置后会显示在页面顶部显眼位置

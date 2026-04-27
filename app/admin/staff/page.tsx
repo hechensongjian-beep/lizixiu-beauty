@@ -38,7 +38,7 @@ const { role } = useAuth();
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center">
           <div className="w-8 h-8 border-2 border-[#c9a87c] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-sm text-gray-500">Loading...</p>
+          <p className="text-sm var(--foreground-muted)">Loading...</p>
         </div>
       </div>
     );
@@ -214,7 +214,7 @@ const { role } = useAuth();
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
                   <span className="font-medium text-[var(--foreground)]">{staff.name}</span>
-                  <span className={`text-sm px-2 py-0.5 rounded-full ${staff.is_active ? 'bg-green-50 text-green-700' : 'bg-gray-100 text-gray-400'}`}>
+                  <span className={`text-sm px-2 py-0.5 rounded-full ${staff.is_active ? 'bg-green-50 text-green-700' : 'var(--background-secondary) var(--foreground-muted)'}`}>
                     {staff.is_active ? '已激活' : '已停用'}
                   </span>
                   {staff.user_id && (

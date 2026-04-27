@@ -126,7 +126,7 @@ export default async function CartPage() {
           </svg>
         </div>
         <h1 className="mb-4" style={{ fontFamily: "'Noto Serif SC', serif", fontSize: '1.75rem', fontWeight: 400, color: 'var(--foreground)' }}>购物车</h1>
-        <p className="text-gray-600">请核对您的商品，确认无误后进行结算。</p>
+        <p className="var(--foreground-muted)">请核对您的商品，确认无误后进行结算。</p>
       </div>
 
       {loading ? (
@@ -137,7 +137,7 @@ export default async function CartPage() {
           <button onClick={() => window.location.reload()} className="px-6 py-3 text-white rounded-xl transition hover:opacity-85" style={{background:'var(--primary)'}}>刷新页面</button>
         </div>
       ) : cartItems.length === 0 ? (
-        <div className="bg-gradient-to-r from-[#faf8f5] to-[#f5f2ed] border border-gray-200 rounded-xl p-10 text-center">
+        <div className="bg-gradient-to-r from-[#faf8f5] to-[#f5f2ed] border rgba(201,168,124,0.2) rounded-xl p-10 text-center">
           <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#c0bdb8" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="mx-auto mb-6">
             <circle cx="12" cy="12" r="10"/>
             <path d="M16 16s-1.5-2-4-2-4 2-4 2"/>
@@ -145,13 +145,13 @@ export default async function CartPage() {
             <line x1="15" y1="9" x2="15.01" y2="9"/>
           </svg>
           <h3 style={{ fontFamily: "'Noto Serif SC', serif", fontSize: '1.375rem', fontWeight: 400, color: 'var(--foreground)', marginBottom: '1rem' }}>购物车是空的</h3>
-          <p className="text-gray-600 max-w-md mx-auto mb-8">您还没有添加任何商品。去产品商店逛逛吧！</p>
+          <p className="var(--foreground-muted) max-w-md mx-auto mb-8">您还没有添加任何商品。去产品商店逛逛吧！</p>
           <Link href="/products" className="inline-flex items-center px-5 py-2.5 font-medium rounded-md text-white transition hover:opacity-85" style={{background:'var(--primary)',boxShadow:'0 4px 15px rgba(201,168,124,0.35)'}}>去产品商店</Link>
         </div>
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           <div className="lg:col-span-2">
-            <div className="bg-white border border-gray-200 rounded-xl p-5 mb-8">
+            <div className="bg-white border rgba(201,168,124,0.2) rounded-xl p-5 mb-8">
               <div className="flex justify-between items-center mb-6">
                 <h2 className="font-bold">购物车商品 ({cartItems.length})</h2>
                 <button onClick={clearCart} className="text-sm text-red-600 hover:text-red-700 font-medium">清空购物车</button>
@@ -172,8 +172,8 @@ export default async function CartPage() {
                       <div className="flex justify-between items-start">
                         <div>
                           <h4 className="font-bold">{product.name}</h4>
-                          <p className="text-base text-gray-600 mt-1">{product.description}</p>
-                          <div className="mt-2 text-sm text-gray-500">分类：{product.category} · 库存：{product.stock} 件</div>
+                          <p className="text-base var(--foreground-muted) mt-1">{product.description}</p>
+                          <div className="mt-2 text-sm var(--foreground-muted)">分类：{product.category} · 库存：{product.stock} 件</div>
                           {stockWarnings[product.id] && (
                             <div className="mt-1 flex items-center gap-1 text-sm text-red-600 font-medium">
                               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
@@ -183,12 +183,12 @@ export default async function CartPage() {
                         </div>
                         <div className="text-right ml-4">
                           <div className="font-bold">{fmt(product.price)}</div>
-                          {product.originalPrice && <div className="text-sm text-gray-500 line-through">{fmt(product.originalPrice)}</div>}
+                          {product.originalPrice && <div className="text-sm var(--foreground-muted) line-through">{fmt(product.originalPrice)}</div>}
                         </div>
                       </div>
                       <div className="flex items-center justify-between mt-6">
                         <div className="flex items-center">
-                          <button onClick={() => updateQuantity(product.id, -1)} className="w-8 h-8 bg-gray-100 text-gray-800 font-medium rounded-md hover:bg-gray-200 transition">-</button>
+                          <button onClick={() => updateQuantity(product.id, -1)} className="w-8 h-8 var(--background-secondary) var(--foreground) font-medium rounded-md hover:var(--background-secondary) transition">-</button>
                           <div className="mx-4 font-bold">{qty} 件</div>
                           <button onClick={() => updateQuantity(product.id, 1)} className="w-8 h-8 font-medium rounded-md text-white transition hover:opacity-85" style={{background:'var(--primary)'}}>+</button>
                           <button onClick={() => removeItem(product.id)} className="ml-6 px-4 py-2 bg-red-50 text-red-700 font-medium rounded-lg hover:bg-red-100 transition">删除</button>
@@ -200,7 +200,7 @@ export default async function CartPage() {
                 ))}
               </div>
               <div className="mt-8 text-center">
-                <Link href="/products" className="inline-flex items-center px-6 py-3 border-2 border-gray-300 text-gray-800 font-bold rounded-lg hover:bg-gray-50 transition">
+                <Link href="/products" className="inline-flex items-center px-6 py-3 border-2 rgba(201,168,124,0.3) var(--foreground) font-bold rounded-lg hover:var(--background-card) transition">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2"><polyline points="15 18 9 12 15 6"/></svg>
                   继续购物
                 </Link>
@@ -208,12 +208,12 @@ export default async function CartPage() {
             </div>
           </div>
           <div className="lg:col-span-1">
-            <div className="sticky top-24 bg-white border border-gray-200 rounded-xl p-5 shadow-lg">
+            <div className="sticky top-24 bg-white border rgba(201,168,124,0.2) rounded-xl p-5 shadow-lg">
               <h2 className="font-bold mb-6">订单摘要</h2>
               <div className="space-y-4">
-                <div className="flex justify-between"><span className="text-gray-700">商品小计</span><span className="font-medium">{fmt(subtotal)}</span></div>
+                <div className="flex justify-between"><span className="var(--foreground)">商品小计</span><span className="font-medium">{fmt(subtotal)}</span></div>
                 <div className="flex justify-between">
-                  <span className="text-gray-700">配送方式</span>
+                  <span className="var(--foreground)">配送方式</span>
                 </div>
                 <div className="grid grid-cols-3 gap-2">
                   {[
@@ -222,17 +222,17 @@ export default async function CartPage() {
                     { key: 'delivery', label: '送货上门', desc: '镇内免费' },
                   ].map(opt => (
                     <button key={opt.key} onClick={() => setDeliveryMethod(opt.key as any)}
-                      className={`p-3 rounded-xl text-center transition border-2 ${deliveryMethod === opt.key ? 'border-[#c9a87c] bg-[#faf8f5]' : 'border-gray-200 hover:border-[#c9a87c44]'}`}>
-                      <div className="font-bold text-sm text-gray-900">{opt.label}</div>
-                      <div className="text-xs text-gray-500 mt-1">{opt.desc}</div>
+                      className={`p-3 rounded-xl text-center transition border-2 ${deliveryMethod === opt.key ? 'border-[#c9a87c] bg-[#faf8f5]' : 'rgba(201,168,124,0.2) hover:border-[#c9a87c44]'}`}>
+                      <div className="font-bold text-sm var(--foreground)">{opt.label}</div>
+                      <div className="text-xs var(--foreground-muted) mt-1">{opt.desc}</div>
                     </button>
                   ))}
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-700">运费</span>
+                  <span className="var(--foreground)">运费</span>
                   <span className={`font-medium ${shipping === 0 ? 'text-green-600' : ''}`}>{shipping === 0 ? '免费' : fmt(shipping)}</span>
                 </div>
-                <div className="border-t border-gray-200 pt-4">
+                <div className="border-t rgba(201,168,124,0.2) pt-4">
                   <div className="flex justify-between font-bold"><span>总计</span><span>{fmt(total)}</span></div>
                 </div>
               </div>
@@ -245,12 +245,12 @@ export default async function CartPage() {
                 </div>
               )}
               <Link href="/checkout" onClick={() => localStorage.setItem('beauty-delivery-method', deliveryMethod)} className="block w-full mt-8 py-4 text-center font-medium rounded-md text-white transition hover:opacity-85" style={{background:'var(--accent)',boxShadow:'0 4px 15px rgba(45,74,62,0.2)'}}>去结算</Link>
-              <div className="mt-8 pt-8 border-t border-gray-200 space-y-3">
-                <div className="flex items-center gap-2 text-sm text-gray-600">
+              <div className="mt-8 pt-8 border-t rgba(201,168,124,0.2) space-y-3">
+                <div className="flex items-center gap-2 text-sm var(--foreground-muted)">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
                   <span>SSL 加密支付</span>
                 </div>
-                <div className="flex items-center gap-2 text-sm text-gray-600">
+                <div className="flex items-center gap-2 text-sm var(--foreground-muted)">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.36"/></svg>
                   <span>7 天无忧退换</span>
                 </div>

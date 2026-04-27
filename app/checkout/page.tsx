@@ -198,7 +198,7 @@ export default function CheckoutPage() {
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a87c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
         </div>
         <h1 className="font-bold mb-4">购物车是空的</h1>
-        <p className="text-gray-600 mb-8">您还没有添加任何商品，无法结算。</p>
+        <p className="var(--foreground-muted) mb-8">您还没有添加任何商品，无法结算。</p>
         <Link href="/products" className="inline-block px-5 py-2 font-medium rounded-md text-white transition hover:opacity-85" style={{background:'var(--primary)',boxShadow:'0 4px 15px rgba(201,168,124,0.35)'}}>
           返回产品商店
         </Link>
@@ -219,18 +219,18 @@ export default function CheckoutPage() {
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#a88a5c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
           </div>
           <h1 className="font-bold mb-4">订单已创建</h1>
-          <p className="text-gray-600">订单号：<span className="font-mono font-bold text-gray-900">{currentOrder.id}</span></p>
+          <p className="var(--foreground-muted)">订单号：<span className="font-mono font-bold var(--foreground)">{currentOrder.id}</span></p>
           <p className="text-2xl font-bold mt-4" style={{color:'var(--primary)'}}>应付金额：{fmt(total)}</p>
         </div>
 
-        <div className="bg-white border border-gray-200 rounded-xl p-5 mb-8">
+        <div className="bg-white border rgba(201,168,124,0.2) rounded-xl p-5 mb-8">
           <h2 className="font-bold mb-6 text-center">
             {hasQr ? '请使用以下方式扫码支付' : '请使用微信/支付宝转账至商家账户'}
           </h2>
 
           {hasQr ? (
             <div className="mb-8">
-              <p className="text-center text-gray-600 mb-4">请使用下方收款码扫码支付</p>
+              <p className="text-center var(--foreground-muted) mb-4">请使用下方收款码扫码支付</p>
               {selectedChannel === 'wechat' && hasWechat && (
                 <div className="text-center">
                   <img src={paymentInfo.wechatQr} alt="微信收款码" className="w-48 h-48 rounded-xl mx-auto mb-3 object-cover shadow-md border border-green-100" />
@@ -251,12 +251,12 @@ export default function CheckoutPage() {
               )}
             </div>
           ) : (
-            <div className="text-center py-8 bg-gray-50 rounded-xl mb-6">
+            <div className="text-center py-8 var(--background-card) rounded-xl mb-6">
               <div className="w-12 h-12 mx-auto mb-4 rounded-full flex items-center justify-center" style={{"background":'#faf8f5'}}>
-                <IconClock className="text-gray-400" />
+                <IconClock className="var(--foreground-muted)" />
               </div>
-              <p className="text-gray-600">商家暂未设置收款码</p>
-              <p className="text-sm text-gray-500 mt-2">请联系商家获取支付方式</p>
+              <p className="var(--foreground-muted)">商家暂未设置收款码</p>
+              <p className="text-sm var(--foreground-muted) mt-2">请联系商家获取支付方式</p>
             </div>
           )}
 
@@ -267,7 +267,7 @@ export default function CheckoutPage() {
               {countdown === 0 && <span className="ml-2 text-red-600 font-bold">（已超时）</span>}
             </div>
           </div>
-          <div className="mt-6 bg-gray-50 rounded-xl p-4 text-sm text-gray-700 space-y-2">
+          <div className="mt-6 var(--background-card) rounded-xl p-4 text-sm var(--foreground) space-y-2">
             <p><strong>商家：</strong>{paymentInfo.merchantName}</p>
             <p><strong>收货人：</strong>{form.customerName}，{form.customerPhone}</p>
             {deliveryMethod !== 'pickup' && <p><strong>收货地址：</strong>{form.shippingAddress}</p>}
@@ -282,7 +282,7 @@ export default function CheckoutPage() {
               <IconCheck className="text-[#c9a87c]" />
             </div>
             <h2 className="text-2xl font-bold mb-3" style={{color:'#2d4a3e'}}>支付已提交</h2>
-            <p className="text-gray-600 mb-4">商家将在 24 小时内核实到账信息并确认订单</p>
+            <p className="var(--foreground-muted) mb-4">商家将在 24 小时内核实到账信息并确认订单</p>
             <Link href="/orders" className="inline-block px-5 py-2 font-medium rounded-md text-white transition" style={{"background":'#2d4a3e'}}>
               查看我的订单
             </Link>
@@ -290,21 +290,21 @@ export default function CheckoutPage() {
         ) : (
             <div className="text-center">
               {hasWechat && hasAlipay && (
-                <div className="mb-6 p-4 bg-gray-50 rounded-xl">
-                  <p className="text-sm text-gray-600 mb-3">请选择支付方式：</p>
+                <div className="mb-6 p-4 var(--background-card) rounded-xl">
+                  <p className="text-sm var(--foreground-muted) mb-3">请选择支付方式：</p>
                   <div className="flex justify-center gap-4">
-                    <label className={`flex items-center gap-2 cursor-pointer px-6 py-3 rounded-xl border-2 transition ${selectedChannel === 'wechat' ? 'border-green-500 bg-green-50' : 'border-gray-200 hover:border-green-300'}`}>
+                    <label className={`flex items-center gap-2 cursor-pointer px-6 py-3 rounded-xl border-2 transition ${selectedChannel === 'wechat' ? 'border-green-500 bg-green-50' : 'rgba(201,168,124,0.2) hover:border-green-300'}`}>
                       <input type="radio" name="pchannel" value="wechat" checked={selectedChannel === 'wechat'} onChange={() => setSelectedChannel('wechat')} className="hidden" />
                       <span className="font-bold text-green-700">微信支付</span>
                     </label>
-                    <label className={`flex items-center gap-2 cursor-pointer px-6 py-3 rounded-xl border-2 transition ${selectedChannel === 'alipay' ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-blue-300'}`}>
+                    <label className={`flex items-center gap-2 cursor-pointer px-6 py-3 rounded-xl border-2 transition ${selectedChannel === 'alipay' ? 'border-blue-500 bg-blue-50' : 'rgba(201,168,124,0.2) hover:border-blue-300'}`}>
                       <input type="radio" name="pchannel" value="alipay" checked={selectedChannel === 'alipay'} onChange={() => setSelectedChannel('alipay')} className="hidden" />
                       <span className="font-bold text-blue-700">支付宝</span>
                     </label>
                   </div>
                 </div>
               )}
-              <p className="text-gray-500 mb-4 text-base">扫码支付完成后，点击下方按钮提交凭证</p>
+              <p className="var(--foreground-muted) mb-4 text-base">扫码支付完成后，点击下方按钮提交凭证</p>
             <button
               onClick={async () => {
                 if (!currentOrder) return;
@@ -329,8 +329,8 @@ export default function CheckoutPage() {
             >
               {submittingPayment ? '提交中...' : '我已扫码支付，提交凭证'}
             </button>
-            {!hasQr && <p className="text-sm text-gray-500 mt-2">商家暂未配置收款码，请联系商家获取支付方式</p>}
-            <div className="mt-4"><Link href="/orders" className="text-gray-500 hover:text-gray-700 text-sm">查看我的订单</Link></div>
+            {!hasQr && <p className="text-sm var(--foreground-muted) mt-2">商家暂未配置收款码，请联系商家获取支付方式</p>}
+            <div className="mt-4"><Link href="/orders" className="var(--foreground-muted) hover:var(--foreground) text-sm">查看我的订单</Link></div>
           </div>
         )}
       </div>
@@ -342,10 +342,10 @@ export default function CheckoutPage() {
     <div className="max-w-6xl mx-auto px-4 py-12">
       {role === 'guest' && (
         <div className="mb-8 rounded-2xl p-6 text-center" style={{"background":'linear-gradient(135deg,#c9a87c22 0%,#e8d5b822 100%)',"border":'1px solid rgba(201,168,124,0.3)'}}>
-          <p className="text-gray-700 font-medium mb-3">您当前以访客身份操作，填写下方信息可直接下单</p>
+          <p className="var(--foreground) font-medium mb-3">您当前以访客身份操作，填写下方信息可直接下单</p>
           <div className="flex items-center justify-center gap-3 flex-wrap">
             <Link href="/auth/login" className="px-4 py-1.5 text-white font-medium rounded-md transition hover:opacity-85" style={{background:'var(--primary)'}}>登录/注册</Link>
-            <span className="text-gray-400 text-base">登录后可保存订单记录、享受更多服务</span>
+            <span className="var(--foreground-muted) text-base">登录后可保存订单记录、享受更多服务</span>
           </div>
         </div>
       )}
@@ -357,17 +357,17 @@ export default function CheckoutPage() {
           </svg>
         </div>
         <h1 className="font-bold mb-4">结算</h1>
-        <p className="text-gray-600">请填写收货信息，确认订单无误后提交。</p>
+        <p className="var(--foreground-muted)">请填写收货信息，确认订单无误后提交。</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
         <div className="lg:col-span-2">
-          <div className="bg-white border border-gray-200 rounded-xl p-5 mb-8">
+          <div className="bg-white border rgba(201,168,124,0.2) rounded-xl p-5 mb-8">
             <h2 className="font-bold mb-6">配送与收货</h2>
 
             {/* 配送方式 */}
             <div className="mb-8">
-              <label className="block text-gray-800 font-medium mb-3">配送方式</label>
+              <label className="block var(--foreground) font-medium mb-3">配送方式</label>
               <div className="grid grid-cols-3 gap-3">
                 {[
                   { key: 'express' as const, label: '快递配送', desc: subtotal >= freeDeliveryThreshold ? '满500免运费' : '运费15元' },
@@ -375,44 +375,44 @@ export default function CheckoutPage() {
                   { key: 'delivery' as const, label: '送货上门', desc: '镇内免费' },
                 ].map(opt => (
                   <button key={opt.key} onClick={() => setDeliveryMethod(opt.key)}
-                    className={`p-4 rounded-xl text-center transition border-2 ${deliveryMethod === opt.key ? 'border-[#c9a87c] bg-[#faf8f5]' : 'border-gray-200 hover:border-[#c9a87c44]'}`}>
-                    <div className="font-bold text-gray-900">{opt.label}</div>
-                    <div className="text-sm text-gray-500 mt-1">{opt.desc}</div>
+                    className={`p-4 rounded-xl text-center transition border-2 ${deliveryMethod === opt.key ? 'border-[#c9a87c] bg-[#faf8f5]' : 'rgba(201,168,124,0.2) hover:border-[#c9a87c44]'}`}>
+                    <div className="font-bold var(--foreground)">{opt.label}</div>
+                    <div className="text-sm var(--foreground-muted) mt-1">{opt.desc}</div>
                   </button>
                 ))}
               </div>
             </div>
 
             {/* 收货信息 */}
-            <h3 className="font-bold text-gray-900 mb-4">收货信息</h3>
+            <h3 className="font-bold var(--foreground) mb-4">收货信息</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-gray-800 font-medium mb-2">姓名 *</label>
+                <label className="block var(--foreground) font-medium mb-2">姓名 *</label>
                 <input type="text" name="customerName" value={form.customerName} onChange={handleChange} required placeholder="收货人姓名"
-                  className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c9a87c]" />
+                  className="w-full px-3 py-2.5 border rgba(201,168,124,0.3) rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c9a87c]" />
               </div>
               <div>
-                <label className="block text-gray-800 font-medium mb-2">手机号 *</label>
+                <label className="block var(--foreground) font-medium mb-2">手机号 *</label>
                 <input type="tel" name="customerPhone" value={form.customerPhone} onChange={handleChange} required placeholder="手机号码"
-                  className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c9a87c]" />
+                  className="w-full px-3 py-2.5 border rgba(201,168,124,0.3) rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c9a87c]" />
               </div>
               <div className="md:col-span-2">
-                <label className="block text-gray-800 font-medium mb-2">电子邮箱</label>
+                <label className="block var(--foreground) font-medium mb-2">电子邮箱</label>
                 <input type="email" name="customerEmail" value={form.customerEmail} onChange={handleChange} placeholder="选填"
-                  className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c9a87c]" />
+                  className="w-full px-3 py-2.5 border rgba(201,168,124,0.3) rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c9a87c]" />
               </div>
               {deliveryMethod !== 'pickup' && (
                 <div className="md:col-span-2 relative">
-                  <label className="block text-gray-800 font-medium mb-2">收货地址 *</label>
+                  <label className="block var(--foreground) font-medium mb-2">收货地址 *</label>
                   <input type="text" name="shippingAddress" value={form.shippingAddress} onChange={handleChange} required
                     placeholder="详细收货地址" onFocus={() => savedAddresses.length > 0 && setShowSavedAddresses(true)}
                     onBlur={() => setTimeout(() => setShowSavedAddresses(false), 200)}
-                    className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c9a87c]" />
+                    className="w-full px-3 py-2.5 border rgba(201,168,124,0.3) rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c9a87c]" />
                   {showSavedAddresses && savedAddresses.length > 0 && (
-                    <div className="absolute z-10 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-40 overflow-auto">
+                    <div className="absolute z-10 w-full mt-1 bg-white border rgba(201,168,124,0.2) rounded-lg shadow-lg max-h-40 overflow-auto">
                       {savedAddresses.map((addr, i) => (
                         <button key={i} type="button" onMouseDown={() => { setForm(f => ({ ...f, shippingAddress: addr })); setShowSavedAddresses(false); }}
-                          className="w-full text-left px-4 py-2 hover:bg-gray-50 text-sm text-gray-700 border-b border-gray-100 last:border-0">
+                          className="w-full text-left px-4 py-2 hover:var(--background-card) text-sm var(--foreground) border-b border-gray-100 last:border-0">
                           {addr}
                         </button>
                       ))}
@@ -423,17 +423,17 @@ export default function CheckoutPage() {
             </div>
             {deliveryMethod === 'pickup' && (
               <div className="mt-4 p-3 rounded-lg text-sm" style={{"background":'#faf8f5',"border":'1px solid rgba(201,168,124,0.2)'}}>
-                <span className="text-gray-700">到店自取：请到门店出示订单号取货，门店地址由商家确认后通知。</span>
+                <span className="var(--foreground)">到店自取：请到门店出示订单号取货，门店地址由商家确认后通知。</span>
               </div>
             )}
             {deliveryMethod === 'delivery' && (
               <div className="mt-4 p-3 rounded-lg text-sm" style={{"background":'#faf8f5',"border":'1px solid rgba(201,168,124,0.2)'}}>
-                <span className="text-gray-700">送货上门：三乡镇范围内免费配送，超出范围请联系商家确认运费。</span>
+                <span className="var(--foreground)">送货上门：三乡镇范围内免费配送，超出范围请联系商家确认运费。</span>
               </div>
             )}
             {error && <div className="mt-6 p-4 bg-red-50 border border-red-200 text-red-700 rounded-lg">{error}</div>}
             <div className="mt-8 flex justify-between items-center">
-              <Link href="/cart" className="flex items-center px-6 py-3 border-2 border-gray-300 text-gray-800 font-medium rounded-md hover:bg-gray-50 transition">
+              <Link href="/cart" className="flex items-center px-6 py-3 border-2 rgba(201,168,124,0.3) var(--foreground) font-medium rounded-md hover:var(--background-card) transition">
                 <IconArrowLeft className="mr-1" /> 返回购物车
               </Link>
               <button onClick={handleSubmitOrder} disabled={submitting}
@@ -445,34 +445,34 @@ export default function CheckoutPage() {
           </div>
         </div>
         <div className="lg:col-span-1">
-          <div className="sticky top-24 bg-white border border-gray-200 rounded-xl p-5 shadow-lg">
+          <div className="sticky top-24 bg-white border rgba(201,168,124,0.2) rounded-xl p-5 shadow-lg">
             <h2 className="font-bold mb-6">订单摘要</h2>
             <div className="space-y-4 mb-8">
               {resolvedCart.map(item => (
                 <div key={item.productId} className="flex justify-between items-center border-b border-gray-100 pb-4">
                   <div>
-                    <div className="font-medium text-gray-900">{item.name}</div>
-                    <div className="text-sm text-gray-600">{item.quantity} x {fmt(item.price)}</div>
+                    <div className="font-medium var(--foreground)">{item.name}</div>
+                    <div className="text-sm var(--foreground-muted)">{item.quantity} x {fmt(item.price)}</div>
                   </div>
                   <div className="font-bold" style={{color:'var(--foreground)'}}>{fmt(item.price * item.quantity)}</div>
                 </div>
               ))}
-                <div className="flex justify-between"><span className="text-gray-700">商品小计</span><span className="font-medium" style={{color:'var(--foreground)'}}>{fmt(subtotal)}</span></div>
+                <div className="flex justify-between"><span className="var(--foreground)">商品小计</span><span className="font-medium" style={{color:'var(--foreground)'}}>{fmt(subtotal)}</span></div>
               {appliedPromotion && discountAmount > 0 && (
                 <div className="flex justify-between">
                   <span className="text-red-500">活动优惠 ({appliedPromotion.title})</span>
                   <span className="font-medium text-red-500">-{fmt(discountAmount)}</span>
                 </div>
               )}
-              <div className="flex justify-between"><span className="text-gray-700">运费</span><span className={`font-medium ${shipping === 0 ? 'text-green-600' : ''}`} style={{color: shipping === 0 ? undefined : 'var(--foreground)'}}>{shipping === 0 ? '免费' : fmt(shipping)}</span></div>
-              <div className="flex justify-between"><span className="text-gray-700">配送方式</span><span className="font-medium">{deliveryMethod === 'express' ? '快递' : deliveryMethod === 'pickup' ? '到店自取' : '送货上门'}</span></div>
-              <div className="border-t border-gray-200 pt-4">
+              <div className="flex justify-between"><span className="var(--foreground)">运费</span><span className={`font-medium ${shipping === 0 ? 'text-green-600' : ''}`} style={{color: shipping === 0 ? undefined : 'var(--foreground)'}}>{shipping === 0 ? '免费' : fmt(shipping)}</span></div>
+              <div className="flex justify-between"><span className="var(--foreground)">配送方式</span><span className="font-medium">{deliveryMethod === 'express' ? '快递' : deliveryMethod === 'pickup' ? '到店自取' : '送货上门'}</span></div>
+              <div className="border-t rgba(201,168,124,0.2) pt-4">
                 <div className="flex justify-between font-bold"><span>总计</span><span style={{color:'var(--primary)'}}>{fmt(total)}</span></div>
               </div>
             </div>
-            <div className="border-t border-gray-200 pt-6 space-y-3">
-              <div className="flex items-center gap-2 text-sm text-gray-600"><IconShield className="text-gray-500" /><span>SSL 加密支付</span></div>
-              <div className="flex items-center gap-2 text-sm text-gray-600"><IconReturn className="text-gray-500" /><span>7 天无忧退换</span></div>
+            <div className="border-t rgba(201,168,124,0.2) pt-6 space-y-3">
+              <div className="flex items-center gap-2 text-sm var(--foreground-muted)"><IconShield className="var(--foreground-muted)" /><span>SSL 加密支付</span></div>
+              <div className="flex items-center gap-2 text-sm var(--foreground-muted)"><IconReturn className="var(--foreground-muted)" /><span>7 天无忧退换</span></div>
               {(paymentInfo.wechatQr || paymentInfo.alipayQr) && (
                 <div className="flex items-center gap-2 text-base mt-2" style={{color:'#2d8a5e'}}>
                   <IconCheck className="text-[#2d8a5e]" />

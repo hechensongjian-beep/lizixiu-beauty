@@ -79,7 +79,7 @@ const TYPE_CONFIG: Record<string, { bg: string; text: string; label: string }> =
   promotion: { bg: 'bg-[#c9a87c]/10', text: 'text-[#a88a5c]', label: '促销' },
   appointment: { bg: 'bg-[#2d4a3e]/10', text: 'text-[#2d4a3e]', label: '预约' },
   order: { bg: 'bg-[#c9a87c]/10', text: 'text-[#a88a5c]', label: '订单' },
-  system: { bg: 'bg-gray-100', text: 'text-gray-600', label: '系统' },
+  system: { bg: 'var(--background-secondary)', text: 'var(--foreground-muted)', label: '系统' },
 };
 
 export default function NotificationsPage() {
@@ -182,7 +182,7 @@ export default function NotificationsPage() {
               <div className="p-5">
                 <div className="flex items-start gap-4">
                   {/* 图标 */}
-                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 ${TYPE_CONFIG[notif.type]?.bg || 'bg-gray-100'}`}>
+                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 ${TYPE_CONFIG[notif.type]?.bg || 'var(--background-secondary)'}`}>
                     {getIcon(notif.type)}
                   </div>
                   <div className="flex-1 min-w-0">

@@ -246,15 +246,15 @@ export default function AppointmentManager() {
       <div className="max-w-2xl mx-auto px-4 py-12">
         <div className="bg-gradient-to-r from-red-50 to-orange-50 border border-red-200 rounded-2xl p-8 text-center">
           <div className="mb-6"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">数据库连接失败</h2>
-          <p className="text-gray-700 mb-6">
+          <h2 className="text-2xl font-bold var(--foreground) mb-4">数据库连接失败</h2>
+          <p className="var(--foreground) mb-6">
             无法连接到 Supabase 数据库，这通常是因为您的 Supabase 项目处于<strong>暂停状态</strong>（免费项目在闲置7天后会自动暂停）。
           </p>
           <div className="bg-white rounded-xl p-6 border border-red-300 mb-8 text-left">
             <h3 className="font-semibold text-red-800 mb-3">请按以下步骤恢复：</h3>
-            <ol className="list-decimal pl-5 space-y-2 text-gray-700">
+            <ol className="list-decimal pl-5 space-y-2 var(--foreground)">
               <li>访问 <a href="https://supabase.com/dashboard" target="_blank" className="text-blue-600 hover:underline font-medium">Supabase 控制台</a></li>
-              <li>选择项目 <code className="bg-gray-100 px-2 py-1 rounded text-sm">jrdzmohjsteykvxszwve</code></li>
+              <li>选择项目 <code className="var(--background-secondary) px-2 py-1 rounded text-sm">jrdzmohjsteykvxszwve</code></li>
               <li>在左侧菜单点击 <strong>Database</strong> → <strong>Overview</strong></li>
               <li>如果看到暂停提示，点击 <strong>"Resume project"</strong>（恢复项目）</li>
               <li>等待1-2分钟，项目启动后刷新本页面</li>
@@ -276,7 +276,7 @@ export default function AppointmentManager() {
               立即唤醒项目
             </a>
           </div>
-          <p className="mt-6 text-gray-500 text-sm">
+          <p className="mt-6 var(--foreground-muted) text-sm">
             如果您需要帮助，请参考 <a href="https://supabase.com/docs/guides/platform/pause" target="_blank" className="text-blue-600 hover:underline">Supabase 暂停与恢复文档</a>。
           </p>
         </div>
@@ -290,37 +290,37 @@ export default function AppointmentManager() {
         {/* 操作栏骨架 */}
         <div className="mb-6 flex flex-col md:flex-row gap-4 items-center justify-between">
           <div className="flex items-center space-x-4">
-            <div className="w-80 h-12 bg-gray-200 rounded-lg"></div>
-            <div className="w-40 h-12 bg-gray-200 rounded-lg"></div>
-            <div className="w-32 h-12 bg-gray-200 rounded-lg"></div>
+            <div className="w-80 h-12 var(--background-secondary) rounded-lg"></div>
+            <div className="w-40 h-12 var(--background-secondary) rounded-lg"></div>
+            <div className="w-32 h-12 var(--background-secondary) rounded-lg"></div>
           </div>
-          <div className="w-24 h-6 bg-gray-200 rounded"></div>
+          <div className="w-24 h-6 var(--background-secondary) rounded"></div>
         </div>
 
         {/* 添加表单骨架 */}
-        <div className="mb-8 p-6 bg-gray-50 rounded-xl border border-gray-200">
-          <div className="h-6 w-48 bg-gray-300 rounded mb-4"></div>
+        <div className="mb-8 p-6 var(--background-card) rounded-xl border rgba(201,168,124,0.2)">
+          <div className="h-6 w-48 var(--background-secondary) rounded mb-4"></div>
           <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-            <div className="h-12 bg-gray-300 rounded-lg"></div>
-            <div className="h-12 bg-gray-300 rounded-lg"></div>
-            <div className="h-12 bg-gray-300 rounded-lg"></div>
-            <div className="h-12 bg-gray-300 rounded-lg"></div>
-            <div className="h-12 bg-gray-300 rounded-lg"></div>
+            <div className="h-12 var(--background-secondary) rounded-lg"></div>
+            <div className="h-12 var(--background-secondary) rounded-lg"></div>
+            <div className="h-12 var(--background-secondary) rounded-lg"></div>
+            <div className="h-12 var(--background-secondary) rounded-lg"></div>
+            <div className="h-12 var(--background-secondary) rounded-lg"></div>
           </div>
           <div className="mt-4 flex items-center space-x-4">
-            <div className="h-12 w-32 bg-gray-300 rounded-lg"></div>
-            <div className="h-4 w-64 bg-gray-300 rounded"></div>
+            <div className="h-12 w-32 var(--background-secondary) rounded-lg"></div>
+            <div className="h-4 w-64 var(--background-secondary) rounded"></div>
           </div>
         </div>
 
         {/* 表格骨架 */}
-        <div className="overflow-x-auto rounded-xl border border-gray-200">
+        <div className="overflow-x-auto rounded-xl border rgba(201,168,124,0.2)">
           <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+            <thead className="var(--background-card)">
               <tr>
                 {['客户', '手机号', '服务项目', '预约时间', '状态', '操作'].map((col) => (
                   <th key={col} className="px-6 py-3 text-left">
-                    <div className="h-4 w-20 bg-gray-300 rounded"></div>
+                    <div className="h-4 w-20 var(--background-secondary) rounded"></div>
                   </th>
                 ))}
               </tr>
@@ -328,12 +328,12 @@ export default function AppointmentManager() {
             <tbody className="bg-white divide-y divide-gray-200">
               {[1, 2, 3].map((i) => (
                 <tr key={i}>
-                  <td className="px-6 py-4"><div className="h-4 w-32 bg-gray-200 rounded"></div></td>
-                  <td className="px-6 py-4"><div className="h-4 w-24 bg-gray-200 rounded"></div></td>
-                  <td className="px-6 py-4"><div className="h-4 w-40 bg-gray-200 rounded"></div></td>
-                  <td className="px-6 py-4"><div className="h-4 w-48 bg-gray-200 rounded"></div></td>
-                  <td className="px-6 py-4"><div className="h-6 w-20 bg-gray-200 rounded-full"></div></td>
-                  <td className="px-6 py-4"><div className="h-4 w-16 bg-gray-200 rounded"></div></td>
+                  <td className="px-6 py-4"><div className="h-4 w-32 var(--background-secondary) rounded"></div></td>
+                  <td className="px-6 py-4"><div className="h-4 w-24 var(--background-secondary) rounded"></div></td>
+                  <td className="px-6 py-4"><div className="h-4 w-40 var(--background-secondary) rounded"></div></td>
+                  <td className="px-6 py-4"><div className="h-4 w-48 var(--background-secondary) rounded"></div></td>
+                  <td className="px-6 py-4"><div className="h-6 w-20 var(--background-secondary) rounded-full"></div></td>
+                  <td className="px-6 py-4"><div className="h-4 w-16 var(--background-secondary) rounded"></div></td>
                 </tr>
               ))}
             </tbody>
@@ -341,8 +341,8 @@ export default function AppointmentManager() {
         </div>
 
         <div className="mt-6 flex justify-between">
-          <div className="h-4 w-64 bg-gray-200 rounded"></div>
-          <div className="h-4 w-20 bg-gray-200 rounded"></div>
+          <div className="h-4 w-64 var(--background-secondary) rounded"></div>
+          <div className="h-4 w-20 var(--background-secondary) rounded"></div>
         </div>
       </div>
     );
@@ -369,14 +369,14 @@ export default function AppointmentManager() {
             <input
               type="text"
               placeholder="搜索客户、手机号、服务..."
-              className="pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent w-full md:w-80"
+              className="pl-10 pr-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent w-full md:w-80"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
             <div className="absolute left-3 top-3.5"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></div>
           </div>
           <select
-            className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+            className="px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
           >
@@ -386,24 +386,24 @@ export default function AppointmentManager() {
           </select>
           <button
             onClick={exportToCSV}
-            className="px-4 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition flex items-center space-x-2"
+            className="px-4 py-3 border rgba(201,168,124,0.3) rounded-lg hover:var(--background-card) transition flex items-center space-x-2"
             title="导出为 Excel 可导入的 CSV 文件"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             <span>导出 CSV</span>
           </button>
         </div>
-        <div className="text-gray-500">
-          共 <span className="font-bold text-gray-800">{filteredAppointments.length}</span> 条预约记录
+        <div className="var(--foreground-muted)">
+          共 <span className="font-bold var(--foreground)">{filteredAppointments.length}</span> 条预约记录
         </div>
       </div>
 
       {/* 添加预约表单 */}
-      <div className="mb-8 p-6 bg-gray-50 rounded-xl border border-gray-200">
-        <h3 className="text-lg font-semibold text-gray-800 mb-4">添加新预约</h3>
+      <div className="mb-8 p-6 var(--background-card) rounded-xl border rgba(201,168,124,0.2)">
+        <h3 className="text-lg font-semibold var(--foreground) mb-4">添加新预约</h3>
         <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
           <select
-            className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+            className="px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
             value={newAppointment.customer_id}
             onChange={(e) => setNewAppointment({ ...newAppointment, customer_id: e.target.value })}
           >
@@ -413,7 +413,7 @@ export default function AppointmentManager() {
             ))}
           </select>
           <select
-            className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+            className="px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
             value={newAppointment.service_id}
             onChange={(e) => setNewAppointment({ ...newAppointment, service_id: e.target.value })}
           >
@@ -423,7 +423,7 @@ export default function AppointmentManager() {
             ))}
           </select>
           <select
-            className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+            className="px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
             value={newAppointment.staff_id}
             onChange={(e) => setNewAppointment({ ...newAppointment, staff_id: e.target.value })}
           >
@@ -434,14 +434,14 @@ export default function AppointmentManager() {
           </select>
           <input
             type="date"
-            className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+            className="px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
             value={newAppointment.appointment_date}
             onChange={(e) => setNewAppointment({ ...newAppointment, appointment_date: e.target.value })}
             min={new Date().toISOString().split('T')[0]}
           />
           <input
             type="time"
-            className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+            className="px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
             value={newAppointment.appointment_time}
             onChange={(e) => setNewAppointment({ ...newAppointment, appointment_time: e.target.value })}
           />
@@ -467,29 +467,29 @@ export default function AppointmentManager() {
       </div>
 
       {/* 预约表格 */}
-      <div className="overflow-x-auto rounded-xl border border-gray-200">
+      <div className="overflow-x-auto rounded-xl border rgba(201,168,124,0.2)">
         <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
+          <thead className="var(--background-card)">
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">客户</th>
-              <th className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">手机号</th>
-              <th className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">服务项目</th>
-              <th className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">预约时间</th>
-              <th className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">状态</th>
-              <th className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">操作</th>
+              <th className="px-6 py-3 text-left text-xs font-semibold var(--foreground) uppercase tracking-wider">客户</th>
+              <th className="px-6 py-3 text-left text-xs font-semibold var(--foreground) uppercase tracking-wider">手机号</th>
+              <th className="px-6 py-3 text-left text-xs font-semibold var(--foreground) uppercase tracking-wider">服务项目</th>
+              <th className="px-6 py-3 text-left text-xs font-semibold var(--foreground) uppercase tracking-wider">预约时间</th>
+              <th className="px-6 py-3 text-left text-xs font-semibold var(--foreground) uppercase tracking-wider">状态</th>
+              <th className="px-6 py-3 text-left text-xs font-semibold var(--foreground) uppercase tracking-wider">操作</th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
             {filteredAppointments.map((apt) => {
               const { date, time } = formatDateTime(apt.appointment_time);
               return (
-                <tr key={apt.id} className="even:bg-gray-50 hover:bg-gray-100 transition-colors">
-                  <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">{apt.customer_name}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-gray-700">{apt.phone}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-gray-700">{apt.service_type}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-gray-700">
+                <tr key={apt.id} className="even:var(--background-card) hover:var(--background-secondary) transition-colors">
+                  <td className="px-6 py-4 whitespace-nowrap font-medium var(--foreground)">{apt.customer_name}</td>
+                  <td className="px-6 py-4 whitespace-nowrap var(--foreground)">{apt.phone}</td>
+                  <td className="px-6 py-4 whitespace-nowrap var(--foreground)">{apt.service_type}</td>
+                  <td className="px-6 py-4 whitespace-nowrap var(--foreground)">
                     <div className="font-medium">{date}</div>
-                    <div className="text-sm text-gray-500">{time}</div>
+                    <div className="text-sm var(--foreground-muted)">{time}</div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <select
@@ -520,19 +520,19 @@ export default function AppointmentManager() {
       </div>
 
       {filteredAppointments.length === 0 && (
-        <div className="text-center py-12 text-gray-400">
+        <div className="text-center py-12 var(--foreground-muted)">
           暂无预约记录，点击上方表单添加第一条预约。
         </div>
       )}
 
-      <div className="mt-6 text-gray-500 text-sm flex items-center justify-between">
+      <div className="mt-6 var(--foreground-muted) text-sm flex items-center justify-between">
         <div>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> 数据实时保存至云端数据库 · <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg> 支持多端同步 · <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg> 实时更新
         </div>
         <div>
           <button
             onClick={() => window.location.reload()}
-            className="text-gray-600 hover:text-gray-800 text-sm"
+            className="var(--foreground-muted) hover:var(--foreground) text-sm"
           >
             刷新页面
           </button>
