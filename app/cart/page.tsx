@@ -222,7 +222,7 @@ export default async function CartPage() {
                     { key: 'delivery', label: '送货上门', desc: '镇内免费' },
                   ].map(opt => (
                     <button key={opt.key} onClick={() => setDeliveryMethod(opt.key as any)}
-                      className={`p-3 rounded-xl text-center transition border-2 ${deliveryMethod === opt.key ? 'border-[#c9a87c] bg-[#faf8f5]' : 'rgba(201,168,124,0.2)'}}}`}>
+                      className={`p-3 rounded-xl text-center transition border-2 ${deliveryMethod === opt.key ? 'border-[#c9a87c] bg-[#faf8f5]' : 'rgba(201,168,124,0.2)'}`}>
                       <div className="font-bold text-sm text-[var(--foreground)]">{opt.label}</div>
                       <div className="text-xs text-[var(--foreground-muted)] mt-1">{opt.desc}</div>
                     </button>

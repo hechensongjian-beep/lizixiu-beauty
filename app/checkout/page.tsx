@@ -293,11 +293,11 @@ export default function CheckoutPage() {
                 <div className="mb-6 p-4 text-[var(--background-card)] rounded-xl">
                   <p className="text-sm text-[var(--foreground-muted)] mb-3">请选择支付方式：</p>
                   <div className="flex justify-center gap-4">
-                    <label className={`flex items-center gap-2 cursor-pointer px-6 py-3 rounded-xl border-2 transition ${selectedChannel === 'wechat' ? 'var(--sage)' : 'rgba(201,168,124,0.2) hover:border-[var(--sage)]'}`}>
+                    <label className={`flex items-center gap-2 cursor-pointer px-6 py-3 rounded-xl border-2 transition ${selectedChannel === 'wechat' ? 'border-[var(--sage)]' : 'rgba(201,168,124,0.2) hover:border-[var(--sage)]'}`}>
                       <input type="radio" name="pchannel" value="wechat" checked={selectedChannel === 'wechat'} onChange={() => setSelectedChannel('wechat')} className="hidden" />
                       <span className="font-bold text-[var(--sage)]">微信支付</span>
                     </label>
-                    <label className={`flex items-center gap-2 cursor-pointer px-6 py-3 rounded-xl border-2 transition ${selectedChannel === 'alipay' ? 'var(--primary)' : 'rgba(201,168,124,0.2) hover:border-[var(--primary)]'}`}>
+                    <label className={`flex items-center gap-2 cursor-pointer px-6 py-3 rounded-xl border-2 transition ${selectedChannel === 'alipay' ? 'border-[var(--primary)]' : 'rgba(201,168,124,0.2) hover:border-[var(--primary)]'}`}>
                       <input type="radio" name="pchannel" value="alipay" checked={selectedChannel === 'alipay'} onChange={() => setSelectedChannel('alipay')} className="hidden" />
                       <span className="font-bold text-[var(--primary)]">支付宝</span>
                     </label>
@@ -412,7 +412,7 @@ export default function CheckoutPage() {
                     <div className="absolute z-10 w-full mt-1 bg-white border rgba(201,168,124,0.2) rounded-lg shadow-lg max-h-40 overflow-auto">
                       {savedAddresses.map((addr, i) => (
                         <button key={i} type="button" onMouseDown={() => { setForm(f => ({ ...f, shippingAddress: addr })); setShowSavedAddresses(false); }}
-                          className="w-full text-left px-4 py-2 hover:bg-[var(-background-card)] text-sm text-[var(--foreground)] border-b border-[var(--background-secondary)] last:border-0">
+                          className="w-full text-left px-4 py-2 hover:bg-[var(--background-card)] text-sm text-[var(--foreground)] border-b border-[var(--background-secondary)] last:border-0">
                           {addr}
                         </button>
                       ))}
@@ -431,9 +431,9 @@ export default function CheckoutPage() {
                 <span className="text-[var(--foreground)]">送货上门：三乡镇范围内免费配送，超出范围请联系商家确认运费。</span>
               </div>
             )}
-            {error && <div className="mt-6 p-4 rgba(177,93,94,0.06) border border-red-200 text-[var(--rose)] rounded-lg">{error}</div>}
+            {error && <div className="mt-6 p-4 rgba(177,93,94,0.08) border border-[rgba(177,93,94,0.25)] text-[var(--rose)] rounded-lg">{error}</div>}
             <div className="mt-8 flex justify-between items-center">
-              <Link href="/cart" className="flex items-center px-6 py-3 border-2 rgba(201,168,124,0.3) text-[var(--foreground)] font-medium rounded-md hover:bg-[var(-background-card)] transition">
+              <Link href="/cart" className="flex items-center px-6 py-3 border-2 rgba(201,168,124,0.3) text-[var(--foreground)] font-medium rounded-md hover:bg-[var(--background-card)] transition">
                 <IconArrowLeft className="mr-1" /> 返回购物车
               </Link>
               <button onClick={handleSubmitOrder} disabled={submitting}
