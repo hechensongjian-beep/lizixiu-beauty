@@ -133,7 +133,7 @@ export default function RegisterPage() {
 
         <button type="submit" disabled={loading}
           className="w-full px-6 py-3 text-white font-semibold rounded-lg transition disabled:opacity-50"
-          style={{background:'#a88a5c',fontSize:'1rem',boxShadow:'0 4px 15px rgba(201,168,124,0.3)'}}>
+          style={{background:'var(--accent)',fontSize:'1rem',boxShadow:'0 4px 15px rgba(45,74,62,0.4)'}}>
           {loading ? '注册中...' : '立即注册'}
         </button>
       </form>

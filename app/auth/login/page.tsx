@@ -33,7 +33,21 @@ export default function LoginPage() {
       router.push("/");
       router.refresh();
     } catch (err: any) {
-      setError(err.message || "登录失败，请检查邮箱或密码");
+      // 将 Supabase 英文错误转换为友好的中文提示
+      const msg = err.message || "";
+      if (msg.includes("Invalid login credentials") || msg.includes("Invalid credentials")) {
+        setError("邮箱或密码错误，请重新输入");
+      } else if (msg.includes("Email not confirmed")) {
+        setError("邮箱尚未验证，请先查收验证邮件");
+      } else if (msg.includes("Too many requests")) {
+        setError("请求过于频繁，请稍后再试");
+      } else if (msg.includes("User not found") || msg.includes("not found")) {
+        setError("该邮箱尚未注册，请先注册账号");
+      } else if (msg.includes("Network") || msg.includes("fetch")) {
+        setError("网络连接失败，请检查网络后重试");
+      } else {
+        setError("登录失败：" + msg);
+      }
     } finally { setLoading(false); }
   };
 
@@ -49,7 +63,10 @@ export default function LoginPage() {
         if (loginError) throw loginError;
       }
       router.push("/"); router.refresh();
-    } catch (err: any) { setError("演示登录失败: " + err.message); setLoading(false); }
+    } catch (err: any) {
+      setError("演示登录失败：" + (err.message || "未知错误"));
+      setLoading(false);
+    }
   };
 
   return (

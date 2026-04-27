@@ -21,7 +21,110 @@
   --text-4xl: 2.25rem;    /* 36px */
 }
 
-/* ========================================
+/* =======================================
+   页面过渡动画 & 交互优化
+   ======================================= */
+
+/* 页面进入动画 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 骨架屏加载动画 */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, var(--background-secondary) 0%, var(--background-card) 50%, var(--background-secondary) 100%);
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite linear;
+}
+
+/* 页面内容动画容器 */
+.page-content {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+/* 按钮点击反馈 */
+button:active, .btn-primary:active, .btn-danger:active {
+  transform: scale(0.98);
+}
+
+/* 输入框焦点优化 */
+input:focus, textarea:focus, select:focus {
+  box-shadow: 0 0 0 3px rgba(201,168,124,0.2);
+}
+
+/* 平滑滚动 */
+html {
+  scroll-behavior: smooth;
+}
+
+/* 返回顶部按钮 */
+.back-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 50;
+  padding: 0.75rem;
+  border-radius: 9999px;
+  background: var(--accent);
+  color: white;
+  box-shadow: 0 4px 15px rgba(45,74,62,0.3);
+  transition: all 0.3s ease;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(45,74,62,0.4);
+}
+
+/* 卡片悬停效果 */
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* 图片懒加载淡入 */
+img {
+  transition: opacity 0.3s ease;
+}
+
+img[loading="lazy"] {
+  opacity: 0;
+}
+
+img[loading="lazy"].loaded {
+  opacity: 1;
+}
+
+/* =======================================
    丽姿秀专属配色 - 暖调亮色高奢
    ======================================== */
 :root {
@@ -241,11 +344,11 @@ a:hover {
   letter-spacing: 0.05em;
 }
 
-/* 主按钮 - 实心金底白字 */
+/* 主按钮 - 深色背景+白字（最高对比度） */
 .btn-primary {
-  background: var(--gradient-gold);
+  background: var(--accent);
   color: white;
-  box-shadow: var(--shadow-gold);
+  box-shadow: 0 4px 15px rgba(45,74,62,0.3);
   border-radius: var(--radius-md);
   padding: 0.625rem 1.5rem;
   font-weight: 500;
@@ -263,7 +366,7 @@ a:hover {
 
 .btn-primary:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 20px rgba(201,168,124,0.35);
+  box-shadow: 0 6px 25px rgba(45,74,62,0.5);
   color: white;
 }
 
@@ -340,9 +443,9 @@ a:hover {
 }
 
 .btn-danger {
-  background: #b85c5c;
+  background: var(--rose);
   color: white;
-  box-shadow: 0 2px 12px rgba(184,92,92,0.25);
+  box-shadow: 0 2px 12px rgba(184,92,92,0.3);
   border-radius: var(--radius-md);
   padding: 0.625rem 1.5rem;
   font-weight: 500;
