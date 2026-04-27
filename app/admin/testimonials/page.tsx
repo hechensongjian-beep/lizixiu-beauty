@@ -168,7 +168,7 @@ const router = useRouter();
               </div>
               <div className="flex gap-2 flex-shrink-0">
                 <button onClick={() => setEditing(t)} className="px-3 py-1 text-sm var(--background-secondary) rounded hover:var(--background-secondary)">编辑</button>
-                <button onClick={() => handleDelete(t.id)} className="px-3 py-1 text-sm bg-red-50 var(--rose) rounded hover:bg-red-100">删除</button>
+                <button onClick={() => handleDelete(t.id)} className="px-3 py-1 text-sm rgba(177,93,94,0.08) var(--rose) rounded hover:rgba(177,93,94,0.15)">删除</button>
               </div>
             </div>
           ))}

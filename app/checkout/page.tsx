@@ -260,7 +260,7 @@ export default function CheckoutPage() {
             </div>
           )}
 
-          <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 text-center">
+          <div className="rounded-xl p-4 text-center" style={{background:'var(--background-card)',border:'1px solid rgba(201,168,124,0.2)'}}>
             <div className="flex items-center justify-center gap-2 var(--primary-dark) font-medium">
               <IconClock className="var(--primary-dark)" />
               订单将在 <strong>{Math.floor(countdown / 60)} 分{countdown % 60} 秒</strong> 后自动取消，请尽快完成支付

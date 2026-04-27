@@ -106,8 +106,8 @@ const { role } = useAuth();
 
   const statusColor: Record<string, string> = {
     pending: 'bg-yellow-100 var(--foreground)', paid: 'bg-[#c9a87c]/20 text-[#8b7355]',
-    shipped: 'bg-[#c9a87c] text-white', delivered: 'bg-green-100 var(--sage)',
-    cancelled: 'bg-red-100 text-red-800',
+    shipped: 'bg-[#c9a87c] text-white', delivered: 'rgba(74,117,86,0.15) var(--sage)',
+    cancelled: 'rgba(177,93,94,0.15) var(--rose)',
   };
   const statusLabel: Record<string, string> = {
     pending: '待付款', paid: '已付款', shipped: '已发货',

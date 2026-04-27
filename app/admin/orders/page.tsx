@@ -227,11 +227,11 @@ const { role } = useAuth();
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'pending': return 'bg-amber-100 var(--primary-dark)';
+      case 'pending': return 'rgba(168,138,92,0.15) var(--primary-dark)';
       case 'paid': return 'bg-[#c9a87c]/20 text-[#8b7355]';
       case 'shipped': return 'bg-[#c9a87c] text-white';
-      case 'delivered': return 'bg-green-100 var(--sage)';
-      case 'cancelled': return 'bg-red-100 text-red-800';
+      case 'delivered': return 'rgba(74,117,86,0.15) var(--sage)';
+      case 'cancelled': return 'rgba(177,93,94,0.15) var(--rose)';
       default: return 'var(--background-secondary) var(--foreground)';
     }
   };
@@ -278,9 +278,9 @@ const { role } = useAuth();
 
       {/* 超时警告 */}
       {showTimeoutWarning && timeoutOrders.length > 0 && (
-        <div className="mb-6 p-5 rounded-xl border-2 border-amber-300 bg-amber-50">
+        <div className="mb-6 p-5 rounded-xl border-2 rgba(201,168,124,0.3) var(--background-card)">
           <div className="flex items-start gap-4">
-            <div className="w-10 h-10 rounded-full bg-amber-200 flex items-center justify-center flex-shrink-0">
+            <div className="w-10 h-10 rounded-full rgba(168,138,92,0.25) flex items-center justify-center flex-shrink-0">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#b45309" strokeWidth="2">
                 <path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
               </svg>
@@ -434,7 +434,7 @@ const { role } = useAuth();
                         </p>
                       </div>
                       {isTimeout && (
-                        <span className="px-3 py-1 rounded-full text-xs font-medium bg-amber-100 var(--primary-dark)">
+                        <span className="px-3 py-1 rounded-full text-xs font-medium" style={{background:'rgba(168,138,92,0.15)',color:'var(--primary-dark)'}}>
                           超时未处理
                         </span>
                       )}

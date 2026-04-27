@@ -54,9 +54,9 @@ const TIMES = [
 ];
 
 const STATUS_COLORS: Record<string, string> = {
-  pending: 'bg-amber-100 var(--primary) text-amber-900',
+  pending: 'rgba(168,138,92,0.15) var(--primary)',
   confirmed: 'bg-[#c9a87c] border-[#c9a87c] text-white',
-  completed: 'bg-green-100 border-green-400 text-green-900',
+  completed: 'rgba(74,117,86,0.15) border-green-400 var(--sage)',
   cancelled: 'var(--background-secondary) rgba(201,168,124,0.3) var(--foreground-muted) line-through',
 };
 
@@ -434,7 +434,7 @@ const { role } = useAuth();
 
       {/* 错误 */}
       {error && (
-        <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-6">
+        <div className="rgba(177,93,94,0.06) border border-red-200 rounded-xl p-4 mb-6">
           <p className="var(--rose)">{error}</p>
           <p className="text-sm var(--rose) mt-1">请检查 Supabase 数据库是否已创建必要的数据表</p>
         </div>

@@ -124,9 +124,9 @@ const { role } = useAuth();
     cash: '现金',
   };
   const STATUS_CONFIG: Record<string, { bg: string; text: string; label: string }> = {
-    pending: { bg: 'bg-amber-100', text: 'var(--primary-dark)', label: '待核验' },
-    approved: { bg: 'bg-green-100', text: 'var(--sage)', label: '已通过' },
-    rejected: { bg: 'bg-red-100', text: 'var(--rose)', label: '已拒绝' },
+    pending: { bg: 'rgba(168,138,92,0.15)', text: 'var(--primary-dark)', label: '待核验' },
+    approved: { bg: 'rgba(74,117,86,0.15)', text: 'var(--sage)', label: '已通过' },
+    rejected: { bg: 'rgba(177,93,94,0.15)', text: 'var(--rose)', label: '已拒绝' },
   };
 
   const filtered = filter === 'all'
