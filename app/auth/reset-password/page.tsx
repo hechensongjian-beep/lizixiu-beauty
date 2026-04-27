@@ -165,7 +165,7 @@ export default function ResetPasswordPage() {
         </div>
 
         {error && (
-          <div className="p-4 bg-red-50 border border-red-200 var(--rose) rounded-lg">
+          <div className="p-4 rgba(177,93,94,0.06) border border-red-200 var(--rose) rounded-lg">
             <p className="font-semibold">设置失败</p>
             <p>{error}</p>
           </div>

@@ -431,7 +431,7 @@ export default function CheckoutPage() {
                 <span className="var(--foreground)">送货上门：三乡镇范围内免费配送，超出范围请联系商家确认运费。</span>
               </div>
             )}
-            {error && <div className="mt-6 p-4 bg-red-50 border border-red-200 var(--rose) rounded-lg">{error}</div>}
+            {error && <div className="mt-6 p-4 rgba(177,93,94,0.06) border border-red-200 var(--rose) rounded-lg">{error}</div>}
             <div className="mt-8 flex justify-between items-center">
               <Link href="/cart" className="flex items-center px-6 py-3 border-2 rgba(201,168,124,0.3) var(--foreground) font-medium rounded-md hover:var(--background-card) transition">
                 <IconArrowLeft className="mr-1" /> 返回购物车

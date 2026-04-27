@@ -22,7 +22,7 @@ const MEMBERSHIP_OPTIONS = ['普通客户', '银卡会员', '金卡会员', '钻
 
 const MEMBERSHIP_STYLE: Record<string, string> = {
   '钻石会员': 'bg-[#2d4a3e] text-white',
-  '金卡会员': 'bg-yellow-100 var(--foreground)',
+  '金卡会员': 'rgba(201,168,124,0.2) var(--foreground)',
   '银卡会员': 'var(--background-secondary) var(--foreground)',
   '普通客户': 'var(--background-secondary) var(--foreground-muted)',
 };
@@ -165,7 +165,7 @@ const openEdit = async (c: Customer) => {
           添加客户
         </button>
         {tab === 'edit' && (
-          <span className="px-5 py-2 bg-blue-100 var(--primary) rounded-full font-medium">编辑客户</span>
+          <span className="px-5 py-2 rgba(201,168,124,0.15) var(--primary) rounded-full font-medium">编辑客户</span>
         )}
       </div>
 
@@ -249,7 +249,7 @@ const openEdit = async (c: Customer) => {
               <div className="p-12 text-center">
                 <div className="var(--rose) mb-4 font-bold text-xl">!</div>
                 <p className="var(--rose) mb-4">{error}</p>
-                <button onClick={fetchCustomers} className="px-6 py-2 bg-red-100 var(--rose) rounded-lg font-medium hover:bg-red-200">重试</button>
+                <button onClick={fetchCustomers} className="px-6 py-2 rgba(177,93,94,0.12) var(--rose) rounded-lg font-medium hover:rgba(177,93,94,0.2)">重试</button>
               </div>
             ) : filtered.length === 0 ? (
               <div className="p-16 text-center var(--foreground-muted)">
@@ -292,9 +292,9 @@ const openEdit = async (c: Customer) => {
                         <td className="py-4 px-6">
                           <div className="flex gap-2">
                             <button onClick={() => openEdit(c)}
-                              className="px-3 py-1.5 bg-blue-50 var(--primary) rounded-lg text-sm font-medium hover:bg-blue-100">编辑</button>
+                              className="px-3 py-1.5 rgba(201,168,124,0.1) var(--primary) rounded-lg text-sm font-medium hover:rgba(201,168,124,0.18)">编辑</button>
                             <button onClick={() => handleDelete(c)}
-                              className="px-3 py-1.5 bg-red-50 var(--rose) rounded-lg text-sm font-medium hover:bg-red-100">删除</button>
+                              className="px-3 py-1.5 rgba(177,93,94,0.08) var(--rose) rounded-lg text-sm font-medium hover:rgba(177,93,94,0.15)">删除</button>
                           </div>
                         </td>
                       </tr>

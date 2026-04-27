@@ -144,7 +144,7 @@ export default function NotificationsPage() {
             </button>
           )}
           {notifications.length > 0 && (
-            <button onClick={clearAll} className="px-4 py-2 bg-red-50 var(--rose) rounded-lg text-sm font-medium hover:bg-red-100 transition">
+            <button onClick={clearAll} className="px-4 py-2 rgba(177,93,94,0.08) var(--rose) rounded-lg text-sm font-medium hover:rgba(177,93,94,0.15) transition">
               清空全部
             </button>
           )}

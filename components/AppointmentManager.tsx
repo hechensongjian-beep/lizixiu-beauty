@@ -350,10 +350,10 @@ export default function AppointmentManager() {
 
   if (error && !connectionError) {
     return (
-      <div className="bg-red-50 border border-red-200 var(--rose) p-6 rounded-xl max-w-2xl mx-auto">
+      <div className="rgba(177,93,94,0.06) border border-red-200 var(--rose) p-6 rounded-xl max-w-2xl mx-auto">
         <p className="font-semibold mb-2">数据加载失败</p>
         <p className="mb-4">{error}</p>
-        <button onClick={fetchAppointments} className="px-4 py-2 var(--accent-light) text-white rounded-lg hover:bg-red-700 transition">
+        <button onClick={fetchAppointments} className="px-4 py-2 var(--accent-light) text-white rounded-lg hover:rgba(177,93,94,0.85) transition">
           重试加载
         </button>
       </div>
@@ -493,7 +493,7 @@ export default function AppointmentManager() {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <select
-                      className={`px-3 py-1 rounded-full text-xs font-semibold cursor-pointer ${apt.status === 'confirmed' ? 'bg-green-100 var(--sage)' : apt.status === 'pending' ? 'bg-yellow-100 var(--foreground)' : apt.status === 'completed' ? 'bg-blue-100 text-blue-800' : 'bg-red-100 text-red-800'}`}
+                      className={`px-3 py-1 rounded-full text-xs font-semibold cursor-pointer ${apt.status === 'confirmed' ? 'rgba(74,117,86,0.15) var(--sage)' : apt.status === 'pending' ? 'rgba(201,168,124,0.2) var(--foreground)' : apt.status === 'completed' ? 'rgba(201,168,124,0.15) var(--primary)' : 'rgba(177,93,94,0.15) var(--rose)'}`}
                       value={apt.status}
                       onChange={(e) => handleStatusChange(apt.id, e.target.value as Appointment['status'])}
                     >

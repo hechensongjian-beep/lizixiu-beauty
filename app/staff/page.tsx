@@ -535,7 +535,7 @@ export default async function StaffPage() {
           </div>
         </div>
       ) : error ? (
-        <div className="bg-red-50 border border-red-200 rounded-xl p-6 mb-8">
+        <div className="rgba(177,93,94,0.06) border border-red-200 rounded-xl p-6 mb-8">
           <div className="flex items-center">
             <div className="var(--rose) text-xl mr-3 font-bold">!</div>
             <div>
@@ -545,7 +545,7 @@ export default async function StaffPage() {
           </div>
           <button
             onClick={fetchStaff}
-            className="mt-4 px-4 py-2 bg-red-100 text-red-800 font-medium rounded-lg hover:bg-red-200 transition"
+            className="mt-4 px-4 py-2 rgba(177,93,94,0.12) text-red-800 font-medium rounded-lg hover:rgba(177,93,94,0.2) transition"
           >
             重试
           </button>
@@ -614,7 +614,7 @@ export default async function StaffPage() {
                     编辑
                   </button>
                   <button
-                    className="px-4 py-2 bg-red-50 var(--rose) font-medium rounded-lg hover:bg-red-100 transition text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="px-4 py-2 rgba(177,93,94,0.08) var(--rose) font-medium rounded-lg hover:rgba(177,93,94,0.15) transition text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                     onClick={() => handleDeleteStaff(person.id)}
                     disabled={deletingId === person.id}
                   >

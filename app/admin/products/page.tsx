@@ -267,7 +267,7 @@ const openEdit = async (p: Product) => {
                         <td className="py-4 px-6">
                           <span className={`font-bold ${p.stock===0?'var(--rose)':p.stock<=10?'text-yellow-600':'var(--sage)'}`}>{p.stock} 件</span>
                           {p.stock===0 && <span className="ml-2 text-sm px-2 py-0.5 rounded-full" style={{background:'rgba(177,93,94,0.12)',color:'var(--rose)'}}>缺货</span>}
-                          {p.stock>0 && p.stock<=10 && <span className="ml-2 text-sm bg-yellow-100 text-yellow-600 px-2 py-0.5 rounded-full">紧张</span>}
+                          {p.stock>0 && p.stock<=10 && <span className="ml-2 text-sm rgba(201,168,124,0.2) var(--primary-dark) px-2 py-0.5 rounded-full">紧张</span>}
                         </td>
                         <td className="py-4 px-6">
                           <div className="flex gap-2">

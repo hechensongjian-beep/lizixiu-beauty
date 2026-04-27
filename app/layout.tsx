@@ -278,7 +278,7 @@ function NavContent() {
                         个人设置
                       </Link>
                       <button onClick={() => { signOut(); closeAll(); }}
-                        className="w-full text-left px-4 py-2.5 var(--rose) hover:bg-red-50" style={{ fontSize: '0.8125rem' }}>
+                        className="w-full text-left px-4 py-2.5 var(--rose) rgba(177,93,94,0.1)" style={{ fontSize: '0.8125rem' }}>
                         退出登录
                       </button>
                     </div>

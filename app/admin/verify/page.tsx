@@ -201,12 +201,12 @@ const { role } = useAuth();
 
       {/* 错误 */}
       {error && (
-        <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-6">
+        <div className="rgba(177,93,94,0.06) border border-red-200 rounded-xl p-4 mb-6">
           <p className="var(--rose) font-medium">{error}</p>
           <p className="text-sm var(--rose) mt-1">
             请确认已在 Supabase 执行初始化 SQL：
-            <code className="bg-red-100 px-1 rounded text-sm">payment_verifications</code> 表和
-            <code className="bg-red-100 px-1 rounded text-sm">orders.payment_status</code> 字段
+            <code className="rgba(177,93,94,0.15) px-1 rounded text-sm">payment_verifications</code> 表和
+            <code className="rgba(177,93,94,0.15) px-1 rounded text-sm">orders.payment_status</code> 字段
           </p>
         </div>
       )}
@@ -294,14 +294,14 @@ const { role } = useAuth();
                     <button
                       onClick={() => handleAction(v.id, 'approve')}
                       disabled={processingId === v.id}
-                      className="flex-1 py-2.5 var(--accent-light) text-white rounded-xl font-medium hover:bg-green-600 disabled:opacity-50 transition flex items-center justify-center gap-2"
+                      className="flex-1 py-2.5 var(--accent-light) text-white rounded-xl font-medium hover:rgba(74,117,86,0.2) disabled:opacity-50 transition flex items-center justify-center gap-2"
                     >
                       {processingId === v.id ? '处理中..' : '确认收款'}
                     </button>
                     <button
                       onClick={() => handleAction(v.id, 'reject')}
                       disabled={processingId === v.id}
-                      className="flex-1 py-2.5 bg-red-50 var(--rose) rounded-xl font-medium hover:bg-red-100 disabled:opacity-50 transition flex items-center justify-center gap-2"
+                      className="flex-1 py-2.5 rgba(177,93,94,0.08) var(--rose) rounded-xl font-medium hover:rgba(177,93,94,0.15) disabled:opacity-50 transition flex items-center justify-center gap-2"
                     >
                       拒绝
                     </button>
@@ -317,7 +317,7 @@ const { role } = useAuth();
       {noteModal && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 px-4">
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md">
-            <div className={`px-6 py-4 border-b border-[var(--background-secondary)] ${noteModal.action === 'approve' ? 'bg-green-50' : 'bg-red-50'} rounded-t-2xl`}>
+            <div className={`px-6 py-4 border-b border-[var(--background-secondary)] ${noteModal.action === 'approve' ? 'rgba(74,117,86,0.06)' : 'rgba(177,93,94,0.06)'} rounded-t-2xl`}>
               <h3 className="font-bold text-lg">
                 {noteModal.action === 'approve' ? '确认收款' : '拒绝该支付记录'}
               </h3>
@@ -345,7 +345,7 @@ const { role } = useAuth();
                 onClick={confirmAction}
                 className={`flex-1 py-2.5 text-white rounded-xl font-medium transition ${
                   noteModal.action === 'approve'
-                    ? 'var(--accent-light) hover:bg-green-600'
+                    ? 'var(--accent-light) hover:rgba(74,117,86,0.2)'
                     : 'var(--accent-light) hover:var(--accent-light)'
                 }`}
               >

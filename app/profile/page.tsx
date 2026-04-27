@@ -170,8 +170,7 @@ export default function ProfilePage() {
           {/* 退出登录 */}
           {user && (
             <button onClick={handleSignOut}
-              className="w-full py-3 rounded-xl border-2 font-semibold text-sm transition hover:bg-red-50 hover:border-red-300"
-              style={{ borderColor: '#fca5a5', color: '#dc2626' }}>
+              className="w-full py-3 rounded-xl border-2 font-semibold text-sm transition" style={{ color: 'var(--rose)', borderColor: 'rgba(177,93,94,0.3)' }}>
               退出登录
             </button>
           )}
