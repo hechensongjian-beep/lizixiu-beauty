@@ -191,7 +191,7 @@ export default async function CartPage() {
                           <button onClick={() => updateQuantity(product.id, -1)} className="w-8 h-8 var(--background-secondary) var(--foreground) font-medium rounded-md hover:var(--background-secondary) transition">-</button>
                           <div className="mx-4 font-bold">{qty} 件</div>
                           <button onClick={() => updateQuantity(product.id, 1)} className="w-8 h-8 font-medium rounded-md text-white transition hover:opacity-85" style={{background:'var(--primary)'}}>+</button>
-                          <button onClick={() => removeItem(product.id)} className="ml-6 px-4 py-2 bg-red-50 var(--rose) font-medium rounded-lg hover:bg-red-100 transition">删除</button>
+                          <button onClick={() => removeItem(product.id)} className="ml-6 px-4 py-2 font-medium rounded-lg transition" style={{background:"rgba(220,38,38,0.06)",color:"var(--rose)"}}>删除</button>
                         </div>
                         <div className="font-bold">{fmt(product.price * qty)}</div>
                       </div>
@@ -222,7 +222,7 @@ export default async function CartPage() {
                     { key: 'delivery', label: '送货上门', desc: '镇内免费' },
                   ].map(opt => (
                     <button key={opt.key} onClick={() => setDeliveryMethod(opt.key as any)}
-                      className={`p-3 rounded-xl text-center transition border-2 ${deliveryMethod === opt.key ? 'border-[#c9a87c] bg-[#faf8f5]' : 'rgba(201,168,124,0.2) hover:border-[#c9a87c44]'}`}>
+                      className={`p-3 rounded-xl text-center transition border-2 ${deliveryMethod === opt.key ? 'border-[#c9a87c] bg-[#faf8f5]' : 'rgba(201,168,124,0.2)'}}}`}>
                       <div className="font-bold text-sm var(--foreground)">{opt.label}</div>
                       <div className="text-xs var(--foreground-muted) mt-1">{opt.desc}</div>
                     </button>
@@ -237,11 +237,27 @@ export default async function CartPage() {
                 </div>
               </div>
               {deliveryMethod !== 'pickup' && subtotal < freeDeliveryThreshold && (
-                <div className="mt-6 p-4 rounded-lg" style={{"background":'#faf8f5',"border":'1px solid rgba(201,168,124,0.2)'}}>
-                  <div className="flex items-center gap-2 var(--primary-dark) font-medium mb-1">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                    还差 {fmt(freeDeliveryThreshold - subtotal)} 即可免运费
-                  </div>
+                <div className="mt-6 rounded-xl p-4" style={{background:"var(--background-card)",border:"1px solid rgba(201,168,124,0.2)"}}>
+                  {subtotal >= freeDeliveryThreshold ? (
+                    <div className="flex items-center gap-2 font-bold" style={{color:"var(--sage)"}}>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                      已达满500免运费，配送免费！
+                    </div>
+                  ) : (
+                    <div>
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="font-bold" style={{color:"var(--primary)"}}>满500免运费</span>
+                        <span className="text-sm var(--foreground-muted)">还差 {fmt(freeDeliveryThreshold - subtotal)}</span>
+                      </div>
+                      <div className="w-full rounded-full h-2" style={{background:"var(--background-secondary)"}}>
+                        <div className="h-2 rounded-full transition-all" style={{width:Math.min((subtotal/freeDeliveryThreshold)*100,100)+'%',background:"linear-gradient(90deg, var(--primary), var(--primary-dark))"}}></div>
+                      </div>
+                      <div className="flex items-center gap-1.5 mt-2 var(--foreground-muted)" style={{fontSize:"0.8125rem"}}>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        配送费 {fmt(15)}，满500即免
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
               <Link href="/checkout" onClick={() => localStorage.setItem('beauty-delivery-method', deliveryMethod)} className="block w-full mt-8 py-4 text-center font-medium rounded-md text-white transition hover:opacity-85" style={{background:'var(--accent)',boxShadow:'0 4px 15px rgba(45,74,62,0.2)'}}>去结算</Link>

@@ -293,11 +293,11 @@ export default function CheckoutPage() {
                 <div className="mb-6 p-4 var(--background-card) rounded-xl">
                   <p className="text-sm var(--foreground-muted) mb-3">请选择支付方式：</p>
                   <div className="flex justify-center gap-4">
-                    <label className={`flex items-center gap-2 cursor-pointer px-6 py-3 rounded-xl border-2 transition ${selectedChannel === 'wechat' ? 'var(--sage) bg-green-50' : 'rgba(201,168,124,0.2) hover:border-green-300'}`}>
+                    <label className={`flex items-center gap-2 cursor-pointer px-6 py-3 rounded-xl border-2 transition ${selectedChannel === 'wechat' ? 'var(--sage)' : 'rgba(201,168,124,0.2) hover:border-[var(--sage)]'}`}>
                       <input type="radio" name="pchannel" value="wechat" checked={selectedChannel === 'wechat'} onChange={() => setSelectedChannel('wechat')} className="hidden" />
                       <span className="font-bold var(--sage)">微信支付</span>
                     </label>
-                    <label className={`flex items-center gap-2 cursor-pointer px-6 py-3 rounded-xl border-2 transition ${selectedChannel === 'alipay' ? 'var(--primary) bg-blue-50' : 'rgba(201,168,124,0.2) hover:border-blue-300'}`}>
+                    <label className={`flex items-center gap-2 cursor-pointer px-6 py-3 rounded-xl border-2 transition ${selectedChannel === 'alipay' ? 'var(--primary)' : 'rgba(201,168,124,0.2) hover:border-[var(--primary)]'}`}>
                       <input type="radio" name="pchannel" value="alipay" checked={selectedChannel === 'alipay'} onChange={() => setSelectedChannel('alipay')} className="hidden" />
                       <span className="font-bold var(--primary)">支付宝</span>
                     </label>
@@ -375,7 +375,7 @@ export default function CheckoutPage() {
                   { key: 'delivery' as const, label: '送货上门', desc: '镇内免费' },
                 ].map(opt => (
                   <button key={opt.key} onClick={() => setDeliveryMethod(opt.key)}
-                    className={`p-4 rounded-xl text-center transition border-2 ${deliveryMethod === opt.key ? 'border-[#c9a87c] bg-[#faf8f5]' : 'rgba(201,168,124,0.2) hover:border-[#c9a87c44]'}`}>
+                    className={`p-4 rounded-xl text-center transition border-2 ${deliveryMethod === opt.key ? 'border-[#c9a87c] bg-[#faf8f5]' : 'rgba(201,168,124,0.2) hover:border-[rgba(201,168,124,0.5)]'}`}>
                     <div className="font-bold var(--foreground)">{opt.label}</div>
                     <div className="text-sm var(--foreground-muted) mt-1">{opt.desc}</div>
                   </button>
