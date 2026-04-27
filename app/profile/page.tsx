@@ -23,9 +23,9 @@ const STATUS_LABEL: Record<string, string> = {
 };
 
 const STATUS_STYLE: Record<string, string> = {
-  pending: 'bg-amber-100 var(--primary-dark)',
-  confirmed: 'bg-[#c9a87c] text-white',
-  completed: 'bg-green-100 var(--sage)',
+  pending: 'rgba(168,138,92,0.15) var(--primary-dark)',
+  confirmed: 'var(--primary) text-white',
+  completed: 'rgba(156,175,136,0.15) var(--sage)',
   cancelled: 'var(--background-secondary) var(--foreground-muted)',
 };
 
@@ -49,10 +49,10 @@ export default function ProfilePage() {
   const upcomingCount = appointments.filter(a => a.status === 'confirmed' || a.status === 'pending').length;
 
   const LEVEL_COLORS: Record<string, string> = {
-    '普通会员': 'bg-[#9b9b98]',
+    '普通会员': 'var(--foreground-muted)',
     '钻石会员': 'bg-gradient-to-r from-[#c9a87c] to-[#e8d5b8]',
-    '金卡会员': 'bg-[#d4a853]',
-    '银卡会员': 'bg-[#c0c0c0]',
+    '金卡会员': 'var(--primary-dark)',
+    '银卡会员': 'var(--foreground-light)',
   };
 
   const handleSignOut = async () => {
