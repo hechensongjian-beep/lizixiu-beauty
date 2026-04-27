@@ -47,9 +47,9 @@ interface DashboardData {
 }
 
 const STATUS_COLORS: Record<string, { bg: string; text: string; label: string }> = {
-  pending: { bg: 'bg-amber-100', text: 'var(--primary-dark)', label: '待确认' },
+  pending: { bg: 'rgba(168,138,92,0.15)', text: 'var(--primary-dark)', label: '待确认' },
   confirmed: { bg: 'bg-[#c9a87c]', text: 'text-white', label: '已确认' },
-  completed: { bg: 'bg-green-100', text: 'var(--sage)', label: '已完成' },
+  completed: { bg: 'rgba(156,175,136,0.15)', text: 'var(--sage)', label: '已完成' },
   cancelled: { bg: 'var(--background-secondary)', text: 'var(--foreground-muted)', label: '已取消' },
 };
 
@@ -302,12 +302,12 @@ export default function StaffWorkbenchPage() {
                             <>
                               <button onClick={() => handleStatusChange(apt.id, 'confirmed')}
                                 disabled={updatingId === apt.id}
-                                className="px-2 py-1 bg-[#c9a87c]/20 text-[#8b7355] text-sm font-medium rounded-lg hover:bg-[#c9a87c]/30 disabled:opacity-50 transition">
+                                className="px-2 py-1 text-sm font-medium rounded-lg disabled:opacity-50 transition" style={{background:'rgba(201,168,124,0.15)',color:'var(--primary-dark)'}}>
                                 {updatingId === apt.id ? '处理中...' : '确认'}
                               </button>
                               <button onClick={() => handleStatusChange(apt.id, 'cancelled')}
                                 disabled={updatingId === apt.id}
-                                className="px-2 py-1 bg-red-50 var(--rose) text-sm font-medium rounded-lg hover:bg-red-100 disabled:opacity-50 transition">
+                                className="px-2 py-1 text-sm font-medium rounded-lg disabled:opacity-50 transition" style={{background:'rgba(220,38,38,0.06)',color:'var(--rose)'}}>
                                 取消
                               </button>
                             </>
@@ -315,7 +315,7 @@ export default function StaffWorkbenchPage() {
                           {apt.status === 'confirmed' && (
                             <button onClick={() => handleStatusChange(apt.id, 'completed')}
                               disabled={updatingId === apt.id}
-                              className="px-2 py-1 bg-green-100 var(--sage) text-sm font-medium rounded-lg hover:bg-green-200 disabled:opacity-50 transition">
+                              className="px-2 py-1 text-sm font-medium rounded-lg disabled:opacity-50 transition" style={{background:'rgba(156,175,136,0.15)',color:'var(--sage)'}}>
                               {updatingId === apt.id ? '处理中...' : '完成'}
                             </button>
                           )}
@@ -371,7 +371,7 @@ export default function StaffWorkbenchPage() {
                 return (
                   <div key={d.date} className="flex-1 flex flex-col items-center gap-1">
                     <div className="w-full flex items-end justify-center" style={{ height: `${h}%`, minHeight: d.count > 0 ? '4px' : '0' }}>
-                      <div className="w-full rounded-t-md" style={{ height: '100%', background: isToday ? 'var(--primary)' : '#e8d5b8' }}></div>
+                      <div className="w-full rounded-t-md" style={{ height: '100%', background: isToday ? 'var(--primary)' : 'var(--primary-light)' }}></div>
                     </div>
                     <span className={`text-sm font-medium ${isToday ? 'text-[var(--primary)]' : 'text-[var(--foreground-muted)]'}`}>{d.dayName}</span>
                     <span className={`text-sm font-bold ${isToday ? 'text-[var(--primary)]' : 'text-[var(--foreground-muted)]'}`}>{d.count}</span>
