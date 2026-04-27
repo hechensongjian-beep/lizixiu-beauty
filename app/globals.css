@@ -318,9 +318,9 @@ a:hover {
 }
 
 .btn-success {
-  background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+  background: var(--accent);
   color: white;
-  box-shadow: 0 2px 12px rgba(16,185,129,0.3);
+  box-shadow: 0 2px 12px rgba(45,74,62,0.25);
   border-radius: var(--radius-md);
   padding: 0.625rem 1.5rem;
   font-weight: 500;
@@ -336,13 +336,13 @@ a:hover {
 
 .btn-success:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 20px rgba(16,185,129,0.4);
+  box-shadow: 0 4px 20px rgba(45,74,62,0.35);
 }
 
 .btn-danger {
-  background: linear-gradient(135deg, #ef4444 0%, #f87171 100%);
+  background: #b85c5c;
   color: white;
-  box-shadow: 0 2px 12px rgba(239,68,68,0.3);
+  box-shadow: 0 2px 12px rgba(184,92,92,0.25);
   border-radius: var(--radius-md);
   padding: 0.625rem 1.5rem;
   font-weight: 500;
@@ -358,13 +358,13 @@ a:hover {
 
 .btn-danger:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 20px rgba(239,68,68,0.4);
+  box-shadow: 0 4px 20px rgba(184,92,92,0.35);
 }
 
 .btn-warning {
-  background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+  background: var(--primary-dark);
   color: white;
-  box-shadow: 0 2px 12px rgba(245,158,11,0.3);
+  box-shadow: 0 2px 12px rgba(168,138,92,0.25);
   border-radius: var(--radius-md);
   padding: 0.625rem 1.5rem;
   font-weight: 500;
@@ -380,7 +380,7 @@ a:hover {
 
 .btn-warning:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 20px rgba(245,158,11,0.4);
+  box-shadow: 0 4px 20px rgba(168,138,92,0.35);
 }
 
 .btn-sm {
