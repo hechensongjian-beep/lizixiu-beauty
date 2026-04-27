@@ -192,12 +192,12 @@ export default function HomePage() {
         style={{
           position: 'relative',
           background: 'var(--background)',
-          minHeight: '92vh',
+          minHeight: '86vh',
           display: 'flex',
           alignItems: 'center',
           overflow: 'hidden',
-          paddingTop: '5rem',
-          paddingBottom: '4rem',
+          paddingTop: '4rem',
+          paddingBottom: '3rem',
         }}
       >
         {/* 暖色层次渐变层（底部透明，金色渐入） */}
