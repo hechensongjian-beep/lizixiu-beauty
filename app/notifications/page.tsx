@@ -144,7 +144,7 @@ export default function NotificationsPage() {
             </button>
           )}
           {notifications.length > 0 && (
-            <button onClick={clearAll} className="px-4 py-2 bg-red-50 text-red-600 rounded-lg text-sm font-medium hover:bg-red-100 transition">
+            <button onClick={clearAll} className="px-4 py-2 bg-red-50 var(--rose) rounded-lg text-sm font-medium hover:bg-red-100 transition">
               清空全部
             </button>
           )}
@@ -220,7 +220,7 @@ export default function NotificationsPage() {
                           查看订单
                         </Link>
                       )}
-                      <button onClick={() => deleteNotif(notif.id)} className="text-sm text-[#6b6b68] hover:text-red-500 ml-auto transition">
+                      <button onClick={() => deleteNotif(notif.id)} className="text-sm text-[#6b6b68] hover:var(--rose) ml-auto transition">
                         删除
                       </button>
                     </div>

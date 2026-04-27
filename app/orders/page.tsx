@@ -67,10 +67,10 @@ export default function OrdersPage() {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'pending': return 'bg-yellow-100 text-yellow-800';
+      case 'pending': return 'bg-yellow-100 var(--foreground)';
       case 'paid': return 'bg-[#c9a87c]/20 text-[#8b7355]';
       case 'shipped': return 'bg-[#c9a87c] text-white';
-      case 'delivered': return 'bg-green-100 text-green-800';
+      case 'delivered': return 'bg-green-100 var(--sage)';
       case 'cancelled': return 'bg-red-100 text-red-800';
       default: return 'var(--background-secondary) var(--foreground)';
     }
@@ -278,7 +278,7 @@ const translateStatus = async (status: string) => {
                     </button>
                     <button
                       onClick={() => cancelOrder(order.id)}
-                      className="px-6 py-3 bg-red-50 text-red-700 font-bold rounded-lg hover:bg-red-100 transition"
+                      className="px-6 py-3 bg-red-50 var(--rose) font-bold rounded-lg hover:bg-red-100 transition"
                     >
                       取消订单
                     </button>

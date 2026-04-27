@@ -22,7 +22,7 @@ const MEMBERSHIP_OPTIONS = ['普通客户', '银卡会员', '金卡会员', '钻
 
 const MEMBERSHIP_STYLE: Record<string, string> = {
   '钻石会员': 'bg-[#2d4a3e] text-white',
-  '金卡会员': 'bg-yellow-100 text-yellow-800',
+  '金卡会员': 'bg-yellow-100 var(--foreground)',
   '银卡会员': 'var(--background-secondary) var(--foreground)',
   '普通客户': 'var(--background-secondary) var(--foreground-muted)',
 };
@@ -165,7 +165,7 @@ const openEdit = async (c: Customer) => {
           添加客户
         </button>
         {tab === 'edit' && (
-          <span className="px-5 py-2 bg-blue-100 text-blue-700 rounded-full font-medium">编辑客户</span>
+          <span className="px-5 py-2 bg-blue-100 var(--primary) rounded-full font-medium">编辑客户</span>
         )}
       </div>
 
@@ -247,9 +247,9 @@ const openEdit = async (c: Customer) => {
               <div className="p-20 text-center"><div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[#c9a87c] mx-auto"></div></div>
             ) : error ? (
               <div className="p-12 text-center">
-                <div className="text-red-500 mb-4 font-bold text-xl">!</div>
-                <p className="text-red-600 mb-4">{error}</p>
-                <button onClick={fetchCustomers} className="px-6 py-2 bg-red-100 text-red-700 rounded-lg font-medium hover:bg-red-200">重试</button>
+                <div className="var(--rose) mb-4 font-bold text-xl">!</div>
+                <p className="var(--rose) mb-4">{error}</p>
+                <button onClick={fetchCustomers} className="px-6 py-2 bg-red-100 var(--rose) rounded-lg font-medium hover:bg-red-200">重试</button>
               </div>
             ) : filtered.length === 0 ? (
               <div className="p-16 text-center var(--foreground-muted)">
@@ -292,9 +292,9 @@ const openEdit = async (c: Customer) => {
                         <td className="py-4 px-6">
                           <div className="flex gap-2">
                             <button onClick={() => openEdit(c)}
-                              className="px-3 py-1.5 bg-blue-50 text-blue-600 rounded-lg text-sm font-medium hover:bg-blue-100">编辑</button>
+                              className="px-3 py-1.5 bg-blue-50 var(--primary) rounded-lg text-sm font-medium hover:bg-blue-100">编辑</button>
                             <button onClick={() => handleDelete(c)}
-                              className="px-3 py-1.5 bg-red-50 text-red-600 rounded-lg text-sm font-medium hover:bg-red-100">删除</button>
+                              className="px-3 py-1.5 bg-red-50 var(--rose) rounded-lg text-sm font-medium hover:bg-red-100">删除</button>
                           </div>
                         </td>
                       </tr>

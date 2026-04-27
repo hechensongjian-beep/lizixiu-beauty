@@ -54,7 +54,7 @@ const TIMES = [
 ];
 
 const STATUS_COLORS: Record<string, string> = {
-  pending: 'bg-amber-100 border-amber-400 text-amber-900',
+  pending: 'bg-amber-100 var(--primary) text-amber-900',
   confirmed: 'bg-[#c9a87c] border-[#c9a87c] text-white',
   completed: 'bg-green-100 border-green-400 text-green-900',
   cancelled: 'var(--background-secondary) rgba(201,168,124,0.3) var(--foreground-muted) line-through',
@@ -435,8 +435,8 @@ const { role } = useAuth();
       {/* 错误 */}
       {error && (
         <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-6">
-          <p className="text-red-700">{error}</p>
-          <p className="text-sm text-red-500 mt-1">请检查 Supabase 数据库是否已创建必要的数据表</p>
+          <p className="var(--rose)">{error}</p>
+          <p className="text-sm var(--rose) mt-1">请检查 Supabase 数据库是否已创建必要的数据表</p>
         </div>
       )}
 
@@ -600,7 +600,7 @@ const { role } = useAuth();
                               <div className="text-xl font-semibold var(--foreground)">{count}</div>
                               <div className="text-sm var(--foreground-muted)">预约</div>
                               {pendingCount > 0 && (
-                                <div className="text-sm text-amber-600 mt-0.5">({pendingCount}) 待确认</div>
+                                <div className="text-sm var(--primary-dark) mt-0.5">({pendingCount}) 待确认</div>
                               )}
                             </div>
                           )}

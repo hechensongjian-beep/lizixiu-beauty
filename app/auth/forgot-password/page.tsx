@@ -99,7 +99,7 @@ export default function ForgotPasswordPage() {
         </div>
 
         {error && (
-          <div className="p-4 bg-red-50 border border-red-200 text-red-700 rounded-lg">
+          <div className="p-4 bg-red-50 border border-red-200 var(--rose) rounded-lg">
             <p className="font-semibold">发送失败</p>
             <p>{error}</p>
           </div>

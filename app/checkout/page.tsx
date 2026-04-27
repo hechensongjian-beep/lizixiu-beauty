@@ -261,10 +261,10 @@ export default function CheckoutPage() {
           )}
 
           <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 text-center">
-            <div className="flex items-center justify-center gap-2 text-amber-800 font-medium">
-              <IconClock className="text-amber-800" />
+            <div className="flex items-center justify-center gap-2 var(--primary-dark) font-medium">
+              <IconClock className="var(--primary-dark)" />
               订单将在 <strong>{Math.floor(countdown / 60)} 分{countdown % 60} 秒</strong> 后自动取消，请尽快完成支付
-              {countdown === 0 && <span className="ml-2 text-red-600 font-bold">（已超时）</span>}
+              {countdown === 0 && <span className="ml-2 var(--rose) font-bold">（已超时）</span>}
             </div>
           </div>
           <div className="mt-6 var(--background-card) rounded-xl p-4 text-sm var(--foreground) space-y-2">
@@ -293,13 +293,13 @@ export default function CheckoutPage() {
                 <div className="mb-6 p-4 var(--background-card) rounded-xl">
                   <p className="text-sm var(--foreground-muted) mb-3">请选择支付方式：</p>
                   <div className="flex justify-center gap-4">
-                    <label className={`flex items-center gap-2 cursor-pointer px-6 py-3 rounded-xl border-2 transition ${selectedChannel === 'wechat' ? 'border-green-500 bg-green-50' : 'rgba(201,168,124,0.2) hover:border-green-300'}`}>
+                    <label className={`flex items-center gap-2 cursor-pointer px-6 py-3 rounded-xl border-2 transition ${selectedChannel === 'wechat' ? 'var(--sage) bg-green-50' : 'rgba(201,168,124,0.2) hover:border-green-300'}`}>
                       <input type="radio" name="pchannel" value="wechat" checked={selectedChannel === 'wechat'} onChange={() => setSelectedChannel('wechat')} className="hidden" />
-                      <span className="font-bold text-green-700">微信支付</span>
+                      <span className="font-bold var(--sage)">微信支付</span>
                     </label>
-                    <label className={`flex items-center gap-2 cursor-pointer px-6 py-3 rounded-xl border-2 transition ${selectedChannel === 'alipay' ? 'border-blue-500 bg-blue-50' : 'rgba(201,168,124,0.2) hover:border-blue-300'}`}>
+                    <label className={`flex items-center gap-2 cursor-pointer px-6 py-3 rounded-xl border-2 transition ${selectedChannel === 'alipay' ? 'var(--primary) bg-blue-50' : 'rgba(201,168,124,0.2) hover:border-blue-300'}`}>
                       <input type="radio" name="pchannel" value="alipay" checked={selectedChannel === 'alipay'} onChange={() => setSelectedChannel('alipay')} className="hidden" />
-                      <span className="font-bold text-blue-700">支付宝</span>
+                      <span className="font-bold var(--primary)">支付宝</span>
                     </label>
                   </div>
                 </div>
@@ -431,7 +431,7 @@ export default function CheckoutPage() {
                 <span className="var(--foreground)">送货上门：三乡镇范围内免费配送，超出范围请联系商家确认运费。</span>
               </div>
             )}
-            {error && <div className="mt-6 p-4 bg-red-50 border border-red-200 text-red-700 rounded-lg">{error}</div>}
+            {error && <div className="mt-6 p-4 bg-red-50 border border-red-200 var(--rose) rounded-lg">{error}</div>}
             <div className="mt-8 flex justify-between items-center">
               <Link href="/cart" className="flex items-center px-6 py-3 border-2 rgba(201,168,124,0.3) var(--foreground) font-medium rounded-md hover:var(--background-card) transition">
                 <IconArrowLeft className="mr-1" /> 返回购物车
@@ -460,11 +460,11 @@ export default function CheckoutPage() {
                 <div className="flex justify-between"><span className="var(--foreground)">商品小计</span><span className="font-medium" style={{color:'var(--foreground)'}}>{fmt(subtotal)}</span></div>
               {appliedPromotion && discountAmount > 0 && (
                 <div className="flex justify-between">
-                  <span className="text-red-500">活动优惠 ({appliedPromotion.title})</span>
-                  <span className="font-medium text-red-500">-{fmt(discountAmount)}</span>
+                  <span className="var(--rose)">活动优惠 ({appliedPromotion.title})</span>
+                  <span className="font-medium var(--rose)">-{fmt(discountAmount)}</span>
                 </div>
               )}
-              <div className="flex justify-between"><span className="var(--foreground)">运费</span><span className={`font-medium ${shipping === 0 ? 'text-green-600' : ''}`} style={{color: shipping === 0 ? undefined : 'var(--foreground)'}}>{shipping === 0 ? '免费' : fmt(shipping)}</span></div>
+              <div className="flex justify-between"><span className="var(--foreground)">运费</span><span className={`font-medium ${shipping === 0 ? 'var(--sage)' : ''}`} style={{color: shipping === 0 ? undefined : 'var(--foreground)'}}>{shipping === 0 ? '免费' : fmt(shipping)}</span></div>
               <div className="flex justify-between"><span className="var(--foreground)">配送方式</span><span className="font-medium">{deliveryMethod === 'express' ? '快递' : deliveryMethod === 'pickup' ? '到店自取' : '送货上门'}</span></div>
               <div className="border-t rgba(201,168,124,0.2) pt-4">
                 <div className="flex justify-between font-bold"><span>总计</span><span style={{color:'var(--primary)'}}>{fmt(total)}</span></div>

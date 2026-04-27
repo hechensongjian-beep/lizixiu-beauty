@@ -103,7 +103,7 @@ export default function ResetPasswordPage() {
     return (
       <div className="max-w-md mx-auto px-4 py-12 text-center">
         <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-r from-green-100 to-emerald-100 rounded-2xl mb-6">
-          <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-green-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 var(--sage)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
         </div>
         <h1 className="text-2xl font-bold var(--foreground) mb-4">密码重置成功！</h1>
         <p className="var(--foreground) mb-6">
@@ -165,7 +165,7 @@ export default function ResetPasswordPage() {
         </div>
 
         {error && (
-          <div className="p-4 bg-red-50 border border-red-200 text-red-700 rounded-lg">
+          <div className="p-4 bg-red-50 border border-red-200 var(--rose) rounded-lg">
             <p className="font-semibold">设置失败</p>
             <p>{error}</p>
           </div>

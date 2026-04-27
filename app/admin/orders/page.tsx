@@ -227,10 +227,10 @@ const { role } = useAuth();
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'pending': return 'bg-amber-100 text-amber-800';
+      case 'pending': return 'bg-amber-100 var(--primary-dark)';
       case 'paid': return 'bg-[#c9a87c]/20 text-[#8b7355]';
       case 'shipped': return 'bg-[#c9a87c] text-white';
-      case 'delivered': return 'bg-green-100 text-green-800';
+      case 'delivered': return 'bg-green-100 var(--sage)';
       case 'cancelled': return 'bg-red-100 text-red-800';
       default: return 'var(--background-secondary) var(--foreground)';
     }
@@ -286,10 +286,10 @@ const { role } = useAuth();
               </svg>
             </div>
             <div className="flex-1">
-              <h3 className="font-bold text-amber-800 text-lg mb-1">
+              <h3 className="font-bold var(--primary-dark) text-lg mb-1">
                 有 {timeoutOrders.length} 个订单超过24小时未处理
               </h3>
-              <p className="text-amber-700 text-sm mb-3">
+              <p className="var(--primary-dark) text-sm mb-3">
                 以下订单已超过24小时未确认付款，请尽快处理：
               </p>
               <div className="space-y-2">
@@ -311,7 +311,7 @@ const { role } = useAuth();
               </div>
               <button 
                 onClick={() => setShowTimeoutWarning(false)}
-                className="text-amber-700 text-sm mt-3 hover:underline"
+                className="var(--primary-dark) text-sm mt-3 hover:underline"
               >
                 关闭提醒
               </button>
@@ -351,7 +351,7 @@ const { role } = useAuth();
               <label className="block font-medium mb-2" style={{ fontSize: '1rem' }}>搜索订单</label>
               <input
                 type="text"
-                className="w-full px-4 py-3 border rounded-lg outline-none transition focus:ring-2 focus:ring-amber-200"
+                className="w-full px-4 py-3 border rounded-lg outline-none transition focus:ring-2 focus:var(--primary)-200"
                 style={{ borderColor: 'var(--primary-light)', fontSize: '1rem' }}
                 placeholder="客户姓名、电话、订单ID..."
                 value={searchTerm}
@@ -434,7 +434,7 @@ const { role } = useAuth();
                         </p>
                       </div>
                       {isTimeout && (
-                        <span className="px-3 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-700">
+                        <span className="px-3 py-1 rounded-full text-xs font-medium bg-amber-100 var(--primary-dark)">
                           超时未处理
                         </span>
                       )}

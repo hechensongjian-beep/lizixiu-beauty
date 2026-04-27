@@ -82,7 +82,7 @@ export default function StaffLoginPage() {
           </div>
 
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 rounded-xl px-4 py-3 text-sm">{error}</div>
+            <div className="bg-red-50 border border-red-200 var(--rose) rounded-xl px-4 py-3 text-sm">{error}</div>
           )}
 
           <button type="submit" disabled={loading}

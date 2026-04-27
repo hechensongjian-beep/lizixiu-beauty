@@ -105,8 +105,8 @@ const { role } = useAuth();
   const fmt = (n: number) => new Intl.NumberFormat('zh-CN', { style: 'currency', currency: 'CNY' }).format(n);
 
   const statusColor: Record<string, string> = {
-    pending: 'bg-yellow-100 text-yellow-800', paid: 'bg-[#c9a87c]/20 text-[#8b7355]',
-    shipped: 'bg-[#c9a87c] text-white', delivered: 'bg-green-100 text-green-800',
+    pending: 'bg-yellow-100 var(--foreground)', paid: 'bg-[#c9a87c]/20 text-[#8b7355]',
+    shipped: 'bg-[#c9a87c] text-white', delivered: 'bg-green-100 var(--sage)',
     cancelled: 'bg-red-100 text-red-800',
   };
   const statusLabel: Record<string, string> = {
@@ -193,7 +193,7 @@ const { role } = useAuth();
                 </ResponsiveContainer>
                 <div className="space-y-3">
                   {[
-                    { label: '待付款', value: stats.pendingOrders, color: 'bg-yellow-400' },
+                    { label: '待付款', value: stats.pendingOrders, color: 'var(--primary-light)' },
                     { label: '已处理', value: stats.totalOrders - stats.pendingOrders, color: 'bg-[#c9a87c]' },
                   ].map(item => (
                     <div key={item.label} className="flex items-center gap-2">
@@ -283,7 +283,7 @@ const { role } = useAuth();
                 <div className="var(--foreground-muted) text-sm mt-1">等待客户付款</div>
               </div>
               <div className="bg-white rounded-xl p-4 border border-amber-200">
-                <div className="text-blue-500 font-bold text-xl mb-1">{stats.totalProducts}</div>
+                <div className="var(--primary) font-bold text-xl mb-1">{stats.totalProducts}</div>
                 <div className="var(--foreground) font-medium">在售商品</div>
                 <div className="var(--foreground-muted) text-sm mt-1">建议定期更新库存</div>
               </div>

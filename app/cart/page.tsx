@@ -133,7 +133,7 @@ export default async function CartPage() {
         <div className="flex justify-center py-20"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#c9a87c]"></div></div>
       ) : error ? (
         <div className="text-center py-20">
-          <p className="text-red-600 text-lg mb-4">{error}</p>
+          <p className="var(--rose) text-lg mb-4">{error}</p>
           <button onClick={() => window.location.reload()} className="px-6 py-3 text-white rounded-xl transition hover:opacity-85" style={{background:'var(--primary)'}}>刷新页面</button>
         </div>
       ) : cartItems.length === 0 ? (
@@ -154,7 +154,7 @@ export default async function CartPage() {
             <div className="bg-white border rgba(201,168,124,0.2) rounded-xl p-5 mb-8">
               <div className="flex justify-between items-center mb-6">
                 <h2 className="font-bold">购物车商品 ({cartItems.length})</h2>
-                <button onClick={clearCart} className="text-sm text-red-600 hover:text-red-700 font-medium">清空购物车</button>
+                <button onClick={clearCart} className="text-sm var(--rose) hover:var(--rose) font-medium">清空购物车</button>
               </div>
               <div className="space-y-6">
                 {cartItems.map(({ product, qty }) => (
@@ -175,7 +175,7 @@ export default async function CartPage() {
                           <p className="text-base var(--foreground-muted) mt-1">{product.description}</p>
                           <div className="mt-2 text-sm var(--foreground-muted)">分类：{product.category} · 库存：{product.stock} 件</div>
                           {stockWarnings[product.id] && (
-                            <div className="mt-1 flex items-center gap-1 text-sm text-red-600 font-medium">
+                            <div className="mt-1 flex items-center gap-1 text-sm var(--rose) font-medium">
                               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
                               库存不足，当前仅剩 {product.stock} 件
                             </div>
@@ -191,7 +191,7 @@ export default async function CartPage() {
                           <button onClick={() => updateQuantity(product.id, -1)} className="w-8 h-8 var(--background-secondary) var(--foreground) font-medium rounded-md hover:var(--background-secondary) transition">-</button>
                           <div className="mx-4 font-bold">{qty} 件</div>
                           <button onClick={() => updateQuantity(product.id, 1)} className="w-8 h-8 font-medium rounded-md text-white transition hover:opacity-85" style={{background:'var(--primary)'}}>+</button>
-                          <button onClick={() => removeItem(product.id)} className="ml-6 px-4 py-2 bg-red-50 text-red-700 font-medium rounded-lg hover:bg-red-100 transition">删除</button>
+                          <button onClick={() => removeItem(product.id)} className="ml-6 px-4 py-2 bg-red-50 var(--rose) font-medium rounded-lg hover:bg-red-100 transition">删除</button>
                         </div>
                         <div className="font-bold">{fmt(product.price * qty)}</div>
                       </div>
@@ -230,7 +230,7 @@ export default async function CartPage() {
                 </div>
                 <div className="flex justify-between">
                   <span className="var(--foreground)">运费</span>
-                  <span className={`font-medium ${shipping === 0 ? 'text-green-600' : ''}`}>{shipping === 0 ? '免费' : fmt(shipping)}</span>
+                  <span className={`font-medium ${shipping === 0 ? 'var(--sage)' : ''}`}>{shipping === 0 ? '免费' : fmt(shipping)}</span>
                 </div>
                 <div className="border-t rgba(201,168,124,0.2) pt-4">
                   <div className="flex justify-between font-bold"><span>总计</span><span>{fmt(total)}</span></div>
@@ -238,7 +238,7 @@ export default async function CartPage() {
               </div>
               {deliveryMethod !== 'pickup' && subtotal < freeDeliveryThreshold && (
                 <div className="mt-6 p-4 rounded-lg" style={{"background":'#faf8f5',"border":'1px solid rgba(201,168,124,0.2)'}}>
-                  <div className="flex items-center gap-2 text-amber-800 font-medium mb-1">
+                  <div className="flex items-center gap-2 var(--primary-dark) font-medium mb-1">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                     还差 {fmt(freeDeliveryThreshold - subtotal)} 即可免运费
                   </div>

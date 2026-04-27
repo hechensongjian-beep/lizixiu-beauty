@@ -149,7 +149,7 @@ const { role } = useAuth();
               <div className="relative inline-block">
                 <img src={settings.wechatQr} alt="微信收款码" className="max-w-xs mx-auto rounded-xl shadow-md" style={{ maxHeight: '300px' }} />
                 <button onClick={() => setSettings(s => ({ ...s, wechatQr: '' }))}
-                  className="absolute -top-3 -right-3 w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600 transition shadow-lg">
+                  className="absolute -top-3 -right-3 w-8 h-8 var(--accent-light) text-white rounded-full flex items-center justify-center hover:var(--accent-light) transition shadow-lg">
                   <IconX className="text-white" />
                 </button>
               </div>
@@ -184,7 +184,7 @@ const { role } = useAuth();
               <div className="relative inline-block">
                 <img src={settings.alipayQr} alt="支付宝收款码" className="max-w-xs mx-auto rounded-xl shadow-md" style={{ maxHeight: '300px' }} />
                 <button onClick={() => setSettings(s => ({ ...s, alipayQr: '' }))}
-                  className="absolute -top-3 -right-3 w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600 transition shadow-lg">
+                  className="absolute -top-3 -right-3 w-8 h-8 var(--accent-light) text-white rounded-full flex items-center justify-center hover:var(--accent-light) transition shadow-lg">
                   <IconX className="text-white" />
                 </button>
               </div>
@@ -215,8 +215,8 @@ const { role } = useAuth();
             {saving ? '保存中...' : '保存设置'}
           </button>
           {saved && (
-            <div className="flex items-center gap-2 text-green-600 font-bold">
-              <IconCheck className="text-green-600" />
+            <div className="flex items-center gap-2 var(--sage) font-bold">
+              <IconCheck className="var(--sage)" />
               保存成功
             </div>
           )}

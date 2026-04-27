@@ -206,7 +206,7 @@ export default function ChatPage() {
                     <div className={`w-12 h-12 rounded-full ${conv.avatarColor} flex items-center justify-center text-white text-lg font-bold`}>
                       {getInitials(conv.customerName)}
                     </div>
-                    <div className={`absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full border-2 border-white ${conv.status === 'online' ? 'bg-green-500' : 'var(--background-secondary)'}`}></div>
+                    <div className={`absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full border-2 border-white ${conv.status === 'online' ? 'var(--accent-light)' : 'var(--background-secondary)'}`}></div>
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex justify-between items-center">
@@ -231,7 +231,7 @@ export default function ChatPage() {
               <button onClick={() => setView('list')} className="w-9 h-9 rounded-lg bg-[#f5f2ed] hover:bg-[#e8d5b8]/30 flex items-center justify-center text-lg transition text-[#2a2a28]">←</button>
               <div className="relative">
                 <div className={`w-10 h-10 rounded-full ${activeConv?.avatarColor} flex items-center justify-center text-white text-lg font-bold`}>{activeConv && getInitials(activeConv.customerName)}</div>
-                <div className={`absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full border-2 border-white ${activeConv?.status === 'online' ? 'bg-green-500' : 'var(--background-secondary)'}`}></div>
+                <div className={`absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full border-2 border-white ${activeConv?.status === 'online' ? 'var(--accent-light)' : 'var(--background-secondary)'}`}></div>
               </div>
               <div className="flex-1">
                 <div className="font-bold text-[#2a2a28]">{activeConv?.customerName}</div>

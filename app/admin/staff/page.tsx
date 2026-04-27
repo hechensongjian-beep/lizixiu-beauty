@@ -179,7 +179,7 @@ const { role } = useAuth();
       </div>
 
       {msg && (
-        <div className={`rounded-xl px-4 py-3 text-sm ${msg.type === 'success' ? 'bg-green-50 border border-green-200 text-green-700' : 'bg-red-50 border border-red-200 text-red-700'}`}>
+        <div className={`rounded-xl px-4 py-3 text-sm ${msg.type === 'success' ? 'bg-green-50 border border-green-200 var(--sage)' : 'bg-red-50 border border-red-200 var(--rose)'}`}>
           {msg.text}
           <button onClick={() => setMsg(null)} className="float-right font-bold">×</button>
         </div>
@@ -214,11 +214,11 @@ const { role } = useAuth();
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
                   <span className="font-medium text-[var(--foreground)]">{staff.name}</span>
-                  <span className={`text-sm px-2 py-0.5 rounded-full ${staff.is_active ? 'bg-green-50 text-green-700' : 'var(--background-secondary) var(--foreground-muted)'}`}>
+                  <span className={`text-sm px-2 py-0.5 rounded-full ${staff.is_active ? 'bg-green-50 var(--sage)' : 'var(--background-secondary) var(--foreground-muted)'}`}>
                     {staff.is_active ? '已激活' : '已停用'}
                   </span>
                   {staff.user_id && (
-                    <span className="text-sm px-2 py-0.5 rounded-full bg-blue-50 text-blue-600">已绑定账号</span>
+                    <span className="text-sm px-2 py-0.5 rounded-full bg-blue-50 var(--primary)">已绑定账号</span>
                   )}
                 </div>
                 <div className="text-sm text-[var(--foreground-muted)] mt-0.5">
@@ -236,7 +236,7 @@ const { role } = useAuth();
                 )}
                 <button
                   onClick={() => handleToggleActive(staff)}
-                  className={`px-3 py-1.5 rounded-lg text-sm transition-all ${staff.is_active ? 'text-red-500 border border-red-200 hover:bg-red-50' : 'text-green-600 border border-green-200 hover:bg-green-50'}`}
+                  className={`px-3 py-1.5 rounded-lg text-sm transition-all ${staff.is_active ? 'var(--rose) border border-red-200 hover:bg-red-50' : 'var(--sage) border border-green-200 hover:bg-green-50'}`}
                 >
                   {staff.is_active ? '停用' : '启用'}
                 </button>

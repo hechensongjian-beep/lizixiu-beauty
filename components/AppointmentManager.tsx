@@ -253,7 +253,7 @@ export default function AppointmentManager() {
           <div className="bg-white rounded-xl p-6 border border-red-300 mb-8 text-left">
             <h3 className="font-semibold text-red-800 mb-3">请按以下步骤恢复：</h3>
             <ol className="list-decimal pl-5 space-y-2 var(--foreground)">
-              <li>访问 <a href="https://supabase.com/dashboard" target="_blank" className="text-blue-600 hover:underline font-medium">Supabase 控制台</a></li>
+              <li>访问 <a href="https://supabase.com/dashboard" target="_blank" className="var(--primary) hover:underline font-medium">Supabase 控制台</a></li>
               <li>选择项目 <code className="var(--background-secondary) px-2 py-1 rounded text-sm">jrdzmohjsteykvxszwve</code></li>
               <li>在左侧菜单点击 <strong>Database</strong> → <strong>Overview</strong></li>
               <li>如果看到暂停提示，点击 <strong>"Resume project"</strong>（恢复项目）</li>
@@ -277,7 +277,7 @@ export default function AppointmentManager() {
             </a>
           </div>
           <p className="mt-6 var(--foreground-muted) text-sm">
-            如果您需要帮助，请参考 <a href="https://supabase.com/docs/guides/platform/pause" target="_blank" className="text-blue-600 hover:underline">Supabase 暂停与恢复文档</a>。
+            如果您需要帮助，请参考 <a href="https://supabase.com/docs/guides/platform/pause" target="_blank" className="var(--primary) hover:underline">Supabase 暂停与恢复文档</a>。
           </p>
         </div>
       </div>
@@ -350,10 +350,10 @@ export default function AppointmentManager() {
 
   if (error && !connectionError) {
     return (
-      <div className="bg-red-50 border border-red-200 text-red-700 p-6 rounded-xl max-w-2xl mx-auto">
+      <div className="bg-red-50 border border-red-200 var(--rose) p-6 rounded-xl max-w-2xl mx-auto">
         <p className="font-semibold mb-2">数据加载失败</p>
         <p className="mb-4">{error}</p>
-        <button onClick={fetchAppointments} className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition">
+        <button onClick={fetchAppointments} className="px-4 py-2 var(--accent-light) text-white rounded-lg hover:bg-red-700 transition">
           重试加载
         </button>
       </div>
@@ -369,14 +369,14 @@ export default function AppointmentManager() {
             <input
               type="text"
               placeholder="搜索客户、手机号、服务..."
-              className="pl-10 pr-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent w-full md:w-80"
+              className="pl-10 pr-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:var(--rose)-500 focus:border-transparent w-full md:w-80"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
             <div className="absolute left-3 top-3.5"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></div>
           </div>
           <select
-            className="px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+            className="px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:var(--rose)-500 focus:border-transparent"
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
           >
@@ -403,7 +403,7 @@ export default function AppointmentManager() {
         <h3 className="text-lg font-semibold var(--foreground) mb-4">添加新预约</h3>
         <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
           <select
-            className="px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+            className="px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:var(--rose)-500 focus:border-transparent"
             value={newAppointment.customer_id}
             onChange={(e) => setNewAppointment({ ...newAppointment, customer_id: e.target.value })}
           >
@@ -413,7 +413,7 @@ export default function AppointmentManager() {
             ))}
           </select>
           <select
-            className="px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+            className="px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:var(--rose)-500 focus:border-transparent"
             value={newAppointment.service_id}
             onChange={(e) => setNewAppointment({ ...newAppointment, service_id: e.target.value })}
           >
@@ -423,7 +423,7 @@ export default function AppointmentManager() {
             ))}
           </select>
           <select
-            className="px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+            className="px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:var(--rose)-500 focus:border-transparent"
             value={newAppointment.staff_id}
             onChange={(e) => setNewAppointment({ ...newAppointment, staff_id: e.target.value })}
           >
@@ -434,14 +434,14 @@ export default function AppointmentManager() {
           </select>
           <input
             type="date"
-            className="px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+            className="px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:var(--rose)-500 focus:border-transparent"
             value={newAppointment.appointment_date}
             onChange={(e) => setNewAppointment({ ...newAppointment, appointment_date: e.target.value })}
             min={new Date().toISOString().split('T')[0]}
           />
           <input
             type="time"
-            className="px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+            className="px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:var(--rose)-500 focus:border-transparent"
             value={newAppointment.appointment_time}
             onChange={(e) => setNewAppointment({ ...newAppointment, appointment_time: e.target.value })}
           />
@@ -493,7 +493,7 @@ export default function AppointmentManager() {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <select
-                      className={`px-3 py-1 rounded-full text-xs font-semibold cursor-pointer ${apt.status === 'confirmed' ? 'bg-green-100 text-green-800' : apt.status === 'pending' ? 'bg-yellow-100 text-yellow-800' : apt.status === 'completed' ? 'bg-blue-100 text-blue-800' : 'bg-red-100 text-red-800'}`}
+                      className={`px-3 py-1 rounded-full text-xs font-semibold cursor-pointer ${apt.status === 'confirmed' ? 'bg-green-100 var(--sage)' : apt.status === 'pending' ? 'bg-yellow-100 var(--foreground)' : apt.status === 'completed' ? 'bg-blue-100 text-blue-800' : 'bg-red-100 text-red-800'}`}
                       value={apt.status}
                       onChange={(e) => handleStatusChange(apt.id, e.target.value as Appointment['status'])}
                     >
@@ -506,11 +506,11 @@ export default function AppointmentManager() {
                   <td className="px-6 py-4 whitespace-nowrap space-x-2">
                     <button
                       onClick={() => handleDelete(apt.id)}
-                      className="text-red-600 hover:text-red-800 font-medium text-sm"
+                      className="var(--rose) hover:text-red-800 font-medium text-sm"
                     >
                       删除
                     </button>
-                    <button className="text-blue-600 hover:text-blue-800 font-medium text-sm">编辑</button>
+                    <button className="var(--primary) hover:text-blue-800 font-medium text-sm">编辑</button>
                   </td>
                 </tr>
               );

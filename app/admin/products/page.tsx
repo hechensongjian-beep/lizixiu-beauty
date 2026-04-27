@@ -184,7 +184,7 @@ const openEdit = async (p: Product) => {
                     </button>
                     {form.imageUrl && (
                       <button type="button" onClick={() => setForm(f=>({...f,imageUrl:''}))}
-                        className="ml-3 px-3 py-2 bg-red-50 text-red-600 rounded-lg text-sm hover:bg-red-100">移除</button>
+                        className="ml-3 px-3 py-2 bg-red-50 var(--rose) rounded-lg text-sm hover:bg-red-100">移除</button>
                     )}
                     <p className="text-sm var(--foreground-muted) mt-2">支持 JPG、PNG、WebP，自动上传到云存储</p>
                     {uploading && <div className="mt-3 w-full var(--background-secondary) rounded-full h-2"><div className="bg-[#c9a87c] h-2 rounded-full animate-pulse" style={{width:'60%'}}></div></div>}
@@ -265,14 +265,14 @@ const openEdit = async (p: Product) => {
                         <td className="py-4 px-6"><span className="px-3 py-1 var(--background-secondary) var(--foreground) rounded-full text-sm">{p.category}</span></td>
                         <td className="py-4 px-6 font-bold text-[#a88a5c]">{fmt(p.price)}</td>
                         <td className="py-4 px-6">
-                          <span className={`font-bold ${p.stock===0?'text-red-500':p.stock<=10?'text-yellow-600':'text-green-600'}`}>{p.stock} 件</span>
-                          {p.stock===0 && <span className="ml-2 text-sm bg-red-100 text-red-600 px-2 py-0.5 rounded-full">缺货</span>}
+                          <span className={`font-bold ${p.stock===0?'var(--rose)':p.stock<=10?'text-yellow-600':'var(--sage)'}`}>{p.stock} 件</span>
+                          {p.stock===0 && <span className="ml-2 text-sm bg-red-100 var(--rose) px-2 py-0.5 rounded-full">缺货</span>}
                           {p.stock>0 && p.stock<=10 && <span className="ml-2 text-sm bg-yellow-100 text-yellow-600 px-2 py-0.5 rounded-full">紧张</span>}
                         </td>
                         <td className="py-4 px-6">
                           <div className="flex gap-2">
-                            <button onClick={() => openEdit(p)} className="px-3 py-1.5 bg-blue-50 text-blue-600 rounded-lg text-sm font-medium hover:bg-blue-100">编辑</button>
-                            <button onClick={() => handleDelete(p.id)} className="px-3 py-1.5 bg-red-50 text-red-600 rounded-lg text-sm font-medium hover:bg-red-100">删除</button>
+                            <button onClick={() => openEdit(p)} className="px-3 py-1.5 bg-blue-50 var(--primary) rounded-lg text-sm font-medium hover:bg-blue-100">编辑</button>
+                            <button onClick={() => handleDelete(p.id)} className="px-3 py-1.5 bg-red-50 var(--rose) rounded-lg text-sm font-medium hover:bg-red-100">删除</button>
                           </div>
                         </td>
                       </tr>

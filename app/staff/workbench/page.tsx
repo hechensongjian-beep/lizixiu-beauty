@@ -47,9 +47,9 @@ interface DashboardData {
 }
 
 const STATUS_COLORS: Record<string, { bg: string; text: string; label: string }> = {
-  pending: { bg: 'bg-amber-100', text: 'text-amber-700', label: '待确认' },
+  pending: { bg: 'bg-amber-100', text: 'var(--primary-dark)', label: '待确认' },
   confirmed: { bg: 'bg-[#c9a87c]', text: 'text-white', label: '已确认' },
-  completed: { bg: 'bg-green-100', text: 'text-green-700', label: '已完成' },
+  completed: { bg: 'bg-green-100', text: 'var(--sage)', label: '已完成' },
   cancelled: { bg: 'var(--background-secondary)', text: 'var(--foreground-muted)', label: '已取消' },
 };
 
@@ -235,7 +235,7 @@ export default function StaffWorkbenchPage() {
         <div className="bg-white rounded-2xl border border-[var(--primary-light)] p-5">
           <p className="text-sm text-[var(--foreground-muted)] mb-1">今日预约</p>
           <div className="text-xl font-bold text-[var(--foreground)] mb-1">{dashboard?.today.count}</div>
-          <div className="text-sm text-green-600">
+          <div className="text-sm var(--sage)">
             已完成 {dashboard?.today.appointments.filter((a: Appointment) => a.status === 'completed').length || 0} 单
           </div>
         </div>
@@ -245,13 +245,13 @@ export default function StaffWorkbenchPage() {
         </div>
         <div className="bg-white rounded-2xl border border-[var(--primary-light)] p-5">
           <p className="text-sm text-[var(--foreground-muted)] mb-1">本周收入</p>
-          <div className="text-xl font-bold text-green-600">
+          <div className="text-xl font-bold var(--sage)">
             {(dashboard?.week.earnings || 0).toLocaleString('zh-CN', { style: 'currency', currency: 'CNY', minimumFractionDigits: 0 })}
           </div>
         </div>
         <div className="bg-white rounded-2xl border border-[var(--primary-light)] p-5">
           <p className="text-sm text-[var(--foreground-muted)] mb-1">待服务</p>
-          <div className="text-xl font-bold text-amber-600">
+          <div className="text-xl font-bold var(--primary-dark)">
             {(dashboard?.week.pending || 0) + (dashboard?.week.confirmed || 0)}
           </div>
         </div>
@@ -307,7 +307,7 @@ export default function StaffWorkbenchPage() {
                               </button>
                               <button onClick={() => handleStatusChange(apt.id, 'cancelled')}
                                 disabled={updatingId === apt.id}
-                                className="px-2 py-1 bg-red-50 text-red-600 text-sm font-medium rounded-lg hover:bg-red-100 disabled:opacity-50 transition">
+                                className="px-2 py-1 bg-red-50 var(--rose) text-sm font-medium rounded-lg hover:bg-red-100 disabled:opacity-50 transition">
                                 取消
                               </button>
                             </>
@@ -315,7 +315,7 @@ export default function StaffWorkbenchPage() {
                           {apt.status === 'confirmed' && (
                             <button onClick={() => handleStatusChange(apt.id, 'completed')}
                               disabled={updatingId === apt.id}
-                              className="px-2 py-1 bg-green-100 text-green-700 text-sm font-medium rounded-lg hover:bg-green-200 disabled:opacity-50 transition">
+                              className="px-2 py-1 bg-green-100 var(--sage) text-sm font-medium rounded-lg hover:bg-green-200 disabled:opacity-50 transition">
                               {updatingId === apt.id ? '处理中...' : '完成'}
                             </button>
                           )}
@@ -382,10 +382,10 @@ export default function StaffWorkbenchPage() {
             <div className="space-y-2">
               {[
                 { label: '本周总预约', value: dashboard?.week.total },
-                { label: '已完成', value: dashboard?.week.completed, color: 'text-green-600' },
+                { label: '已完成', value: dashboard?.week.completed, color: 'var(--sage)' },
                 { label: '已确认', value: dashboard?.week.confirmed, color: 'text-[#c9a87c]' },
-                { label: '待确认', value: dashboard?.week.pending, color: 'text-amber-600' },
-                { label: '本周收入', value: `¥${(dashboard?.week.earnings || 0).toLocaleString('zh-CN')}`, color: 'text-green-700' },
+                { label: '待确认', value: dashboard?.week.pending, color: 'var(--primary-dark)' },
+                { label: '本周收入', value: `¥${(dashboard?.week.earnings || 0).toLocaleString('zh-CN')}`, color: 'var(--sage)' },
               ].map(item => (
                 <div key={item.label} className="flex justify-between items-center py-2 border-b border-[var(--primary-light)] last:border-0">
                   <span className="text-sm text-[var(--foreground-muted)]">{item.label}</span>

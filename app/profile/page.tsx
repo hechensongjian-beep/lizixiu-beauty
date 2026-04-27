@@ -23,9 +23,9 @@ const STATUS_LABEL: Record<string, string> = {
 };
 
 const STATUS_STYLE: Record<string, string> = {
-  pending: 'bg-amber-100 text-amber-700',
+  pending: 'bg-amber-100 var(--primary-dark)',
   confirmed: 'bg-[#c9a87c] text-white',
-  completed: 'bg-green-100 text-green-700',
+  completed: 'bg-green-100 var(--sage)',
   cancelled: 'var(--background-secondary) var(--foreground-muted)',
 };
 
@@ -89,11 +89,11 @@ export default function ProfilePage() {
           <div className="text-sm mt-1" style={{ color: 'var(--foreground-muted)' }}>历史预约</div>
         </div>
         <div className="bg-white rounded-2xl border p-5 text-center" style={{ borderColor: 'var(--primary-light)' }}>
-          <div className="text-2xl font-bold text-amber-600">{upcomingCount}</div>
+          <div className="text-2xl font-bold var(--primary-dark)">{upcomingCount}</div>
           <div className="text-sm mt-1" style={{ color: 'var(--foreground-muted)' }}>待服务</div>
         </div>
         <div className="bg-white rounded-2xl border p-5 text-center" style={{ borderColor: 'var(--primary-light)' }}>
-          <div className="text-2xl font-bold text-green-600">{completedCount}</div>
+          <div className="text-2xl font-bold var(--sage)">{completedCount}</div>
           <div className="text-sm mt-1" style={{ color: 'var(--foreground-muted)' }}>已完成</div>
         </div>
       </div>

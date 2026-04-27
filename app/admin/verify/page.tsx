@@ -124,9 +124,9 @@ const { role } = useAuth();
     cash: '现金',
   };
   const STATUS_CONFIG: Record<string, { bg: string; text: string; label: string }> = {
-    pending: { bg: 'bg-amber-100', text: 'text-amber-700', label: '待核验' },
-    approved: { bg: 'bg-green-100', text: 'text-green-700', label: '已通过' },
-    rejected: { bg: 'bg-red-100', text: 'text-red-700', label: '已拒绝' },
+    pending: { bg: 'bg-amber-100', text: 'var(--primary-dark)', label: '待核验' },
+    approved: { bg: 'bg-green-100', text: 'var(--sage)', label: '已通过' },
+    rejected: { bg: 'bg-red-100', text: 'var(--rose)', label: '已拒绝' },
   };
 
   const filtered = filter === 'all'
@@ -202,8 +202,8 @@ const { role } = useAuth();
       {/* 错误 */}
       {error && (
         <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-6">
-          <p className="text-red-700 font-medium">{error}</p>
-          <p className="text-sm text-red-500 mt-1">
+          <p className="var(--rose) font-medium">{error}</p>
+          <p className="text-sm var(--rose) mt-1">
             请确认已在 Supabase 执行初始化 SQL：
             <code className="bg-red-100 px-1 rounded text-sm">payment_verifications</code> 表和
             <code className="bg-red-100 px-1 rounded text-sm">orders.payment_status</code> 字段
@@ -265,7 +265,7 @@ const { role } = useAuth();
                       </div>
                       <div>
                         <div className="text-sm var(--foreground-muted) mb-1">支付金额</div>
-                        <div className="font-bold text-xl text-green-600">{fmt(v.amount)}</div>
+                        <div className="font-bold text-xl var(--sage)">{fmt(v.amount)}</div>
                       </div>
                       <div>
                         <div className="text-sm var(--foreground-muted) mb-1">提交时间</div>
@@ -294,14 +294,14 @@ const { role } = useAuth();
                     <button
                       onClick={() => handleAction(v.id, 'approve')}
                       disabled={processingId === v.id}
-                      className="flex-1 py-2.5 bg-green-500 text-white rounded-xl font-medium hover:bg-green-600 disabled:opacity-50 transition flex items-center justify-center gap-2"
+                      className="flex-1 py-2.5 var(--accent-light) text-white rounded-xl font-medium hover:bg-green-600 disabled:opacity-50 transition flex items-center justify-center gap-2"
                     >
                       {processingId === v.id ? '处理中..' : '确认收款'}
                     </button>
                     <button
                       onClick={() => handleAction(v.id, 'reject')}
                       disabled={processingId === v.id}
-                      className="flex-1 py-2.5 bg-red-50 text-red-600 rounded-xl font-medium hover:bg-red-100 disabled:opacity-50 transition flex items-center justify-center gap-2"
+                      className="flex-1 py-2.5 bg-red-50 var(--rose) rounded-xl font-medium hover:bg-red-100 disabled:opacity-50 transition flex items-center justify-center gap-2"
                     >
                       拒绝
                     </button>
@@ -345,8 +345,8 @@ const { role } = useAuth();
                 onClick={confirmAction}
                 className={`flex-1 py-2.5 text-white rounded-xl font-medium transition ${
                   noteModal.action === 'approve'
-                    ? 'bg-green-500 hover:bg-green-600'
-                    : 'bg-red-500 hover:bg-red-600'
+                    ? 'var(--accent-light) hover:bg-green-600'
+                    : 'var(--accent-light) hover:var(--accent-light)'
                 }`}
               >
                 确认{noteModal.action === 'approve' ? '收款' : '拒绝'}

@@ -162,13 +162,13 @@ const router = useRouter();
                       <svg key={i} width="12" height="12" viewBox="0 0 24 24" fill="#f59e0b"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
                     ))}
                   </span>
-                  {!t.is_active && <span className="text-sm text-red-500 ml-2">(已隐藏)</span>}
+                  {!t.is_active && <span className="text-sm var(--rose) ml-2">(已隐藏)</span>}
                 </div>
                 <p className="var(--foreground) text-sm">{t.text}</p>
               </div>
               <div className="flex gap-2 flex-shrink-0">
                 <button onClick={() => setEditing(t)} className="px-3 py-1 text-sm var(--background-secondary) rounded hover:var(--background-secondary)">编辑</button>
-                <button onClick={() => handleDelete(t.id)} className="px-3 py-1 text-sm bg-red-50 text-red-600 rounded hover:bg-red-100">删除</button>
+                <button onClick={() => handleDelete(t.id)} className="px-3 py-1 text-sm bg-red-50 var(--rose) rounded hover:bg-red-100">删除</button>
               </div>
             </div>
           ))}

@@ -537,10 +537,10 @@ export default async function StaffPage() {
       ) : error ? (
         <div className="bg-red-50 border border-red-200 rounded-xl p-6 mb-8">
           <div className="flex items-center">
-            <div className="text-red-600 text-xl mr-3 font-bold">!</div>
+            <div className="var(--rose) text-xl mr-3 font-bold">!</div>
             <div>
               <h3 className="font-semibold text-red-800">加载失败</h3>
-              <p className="text-red-700 mt-1">{error}</p>
+              <p className="var(--rose) mt-1">{error}</p>
             </div>
           </div>
           <button
@@ -600,7 +600,7 @@ export default async function StaffPage() {
                   </div>
                   <div className="flex justify-between">
                     <span>状态:</span>
-                    <span className={`font-medium ${(person.is_active ?? true) ? 'text-green-600' : 'var(--foreground-muted)'}`}>
+                    <span className={`font-medium ${(person.is_active ?? true) ? 'var(--sage)' : 'var(--foreground-muted)'}`}>
                       {(person.is_active ?? true) ? '在职' : '离职'}
                     </span>
                   </div>
@@ -614,7 +614,7 @@ export default async function StaffPage() {
                     编辑
                   </button>
                   <button
-                    className="px-4 py-2 bg-red-50 text-red-700 font-medium rounded-lg hover:bg-red-100 transition text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="px-4 py-2 bg-red-50 var(--rose) font-medium rounded-lg hover:bg-red-100 transition text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                     onClick={() => handleDeleteStaff(person.id)}
                     disabled={deletingId === person.id}
                   >
