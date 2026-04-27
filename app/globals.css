@@ -670,6 +670,39 @@ img[src=""] {
   letter-spacing: 0.05em;
 }
 
+/* 高奢细节增强 */
+*, *::before, *::after {
+  scroll-behavior: smooth;
+}
+/* 自定义滚动条 */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background-secondary);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(201,168,124,0.3);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(201,168,124,0.5);
+}
+/* 选中文本色 */
+::selection {
+  background: rgba(201,168,124,0.25);
+  color: var(--foreground);
+}
+::-moz-selection {
+  background: rgba(201,168,124,0.25);
+  color: var(--foreground);
+}
+/* 图片加载渐入 */
+img {
+  transition: opacity 0.3s ease;
+}
+
 /* Toast 动画 */
 @keyframes toastIn {
   from {
