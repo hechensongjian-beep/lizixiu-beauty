@@ -175,8 +175,9 @@ export default function ProductsPage() {
                   {product.imageUrl ? (
                     <img src={product.imageUrl} alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center" style={{ background: 'linear-gradient(135deg, var(--primary-light), var(--primary))' }}>
-                      <span className="text-white font-bold" style={{ fontFamily: "'Noto Serif SC', serif", fontSize: '2rem', opacity: 0.8 }}>{product.name.charAt(0)}</span>
+                    <div className="w-full h-full flex items-center justify-center relative" style={{ background: 'linear-gradient(135deg, rgba(201,168,124,0.06) 0%, rgba(232,213,184,0.08) 100%)' }}>
+                      <div style={{ position:'absolute', top:0, left:0, right:0, height:2, background:'linear-gradient(90deg, transparent, var(--primary), transparent)' }} />
+                      <span style={{ color:'var(--primary)', fontFamily:"'Noto Serif SC', serif", fontSize:'2rem', fontWeight:400, opacity:0.7, letterSpacing:'0.05em' }}>{product.name.charAt(0)}</span>
                     </div>
                   )}
                   {product.stock === 0 && (
