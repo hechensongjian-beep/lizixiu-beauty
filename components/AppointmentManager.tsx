@@ -245,7 +245,7 @@ export default function AppointmentManager() {
     return (
       <div className="max-w-2xl mx-auto px-4 py-12">
         <div className="bg-gradient-to-r from-red-50 to-orange-50 border border-red-200 rounded-2xl p-8 text-center">
-          <div className="text-5xl mb-6">🔌</div>
+          <div className="mb-6"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></div>
           <h2 className="text-2xl font-bold text-gray-900 mb-4">数据库连接失败</h2>
           <p className="text-gray-700 mb-6">
             无法连接到 Supabase 数据库，这通常是因为您的 Supabase 项目处于<strong>暂停状态</strong>（免费项目在闲置7天后会自动暂停）。
@@ -265,14 +265,15 @@ export default function AppointmentManager() {
               onClick={fetchAppointments}
               className="px-6 py-3 bg-gradient-to-r from-gray-800 to-gray-900 text-white font-semibold rounded-lg hover:opacity-90 transition"
             >
-              🔄 重试连接
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg> 重试连接
             </button>
             <a
               href="https://supabase.com/dashboard/project/jrdzmohjsteykvxszwve"
               target="_blank"
-              className="px-6 py-3 bg-gradient-to-r from-red-500 to-orange-500 text-white font-semibold rounded-lg hover:opacity-90 transition"
+              className="px-6 py-3 bg-gradient-to-r from-red-500 to-orange-500 text-white font-semibold rounded-lg hover:opacity-90 transition flex items-center gap-2"
             >
-              ⚡ 立即唤醒项目
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              立即唤醒项目
             </a>
           </div>
           <p className="mt-6 text-gray-500 text-sm">
@@ -372,7 +373,7 @@ export default function AppointmentManager() {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <div className="absolute left-3 top-3.5 text-gray-400">🔍</div>
+            <div className="absolute left-3 top-3.5"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></div>
           </div>
           <select
             className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
@@ -388,7 +389,7 @@ export default function AppointmentManager() {
             className="px-4 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition flex items-center space-x-2"
             title="导出为 Excel 可导入的 CSV 文件"
           >
-            <span>📥</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             <span>导出 CSV</span>
           </button>
         </div>
@@ -461,7 +462,7 @@ export default function AppointmentManager() {
               </>
             ) : '添加预约'}
           </button>
-          <span className="text-sm text-gray-500">📅 选择客户、服务、员工 | ⏰ 禁止过去时间</span>
+          <span className="text-sm" style={{ color: 'var(--foreground-muted, #6b7280)' }}>选择客户、服务、员工 · 禁止选择过去时间</span>
         </div>
       </div>
 
@@ -526,7 +527,7 @@ export default function AppointmentManager() {
 
       <div className="mt-6 text-gray-500 text-sm flex items-center justify-between">
         <div>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> 数据实时保存至云端数据库 · 🔄 支持多端同步 · 🔔 实时更新
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> 数据实时保存至云端数据库 · <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg> 支持多端同步 · <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg> 实时更新
         </div>
         <div>
           <button
