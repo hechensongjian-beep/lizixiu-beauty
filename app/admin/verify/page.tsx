@@ -290,7 +290,7 @@ const { role } = useAuth();
 
                 {/* 操作按钮 */}
                 {v.status === 'pending' && (
-                  <div className="flex gap-3 mt-4 pt-4 border-t border-gray-100">
+                  <div className="flex gap-3 mt-4 pt-4 border-t border-[var(--background-secondary)]">
                     <button
                       onClick={() => handleAction(v.id, 'approve')}
                       disabled={processingId === v.id}
@@ -317,7 +317,7 @@ const { role } = useAuth();
       {noteModal && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 px-4">
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md">
-            <div className={`px-6 py-4 border-b border-gray-100 ${noteModal.action === 'approve' ? 'bg-green-50' : 'bg-red-50'} rounded-t-2xl`}>
+            <div className={`px-6 py-4 border-b border-[var(--background-secondary)] ${noteModal.action === 'approve' ? 'bg-green-50' : 'bg-red-50'} rounded-t-2xl`}>
               <h3 className="font-bold text-lg">
                 {noteModal.action === 'approve' ? '确认收款' : '拒绝该支付记录'}
               </h3>

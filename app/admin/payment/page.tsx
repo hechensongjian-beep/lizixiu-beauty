@@ -207,7 +207,7 @@ const { role } = useAuth();
         </div>
 
         {/* 保存 */}
-        <div className="flex items-center gap-4 pt-4 border-t border-gray-100">
+        <div className="flex items-center gap-4 pt-4 border-t border-[var(--background-secondary)]">
           <button onClick={handleSave} disabled={saving}
             className="flex items-center gap-2 px-10 py-3 text-white font-bold text-lg rounded-xl transition disabled:opacity-50"
             style={{"background":'#a88a5c',"boxShadow":'0 4px 15px rgba(201,168,124,0.3)'}}>

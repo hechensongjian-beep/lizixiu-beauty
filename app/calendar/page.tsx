@@ -27,12 +27,12 @@ function CalendarGrid({ date, appointments, onPrev, onNext, today }: { date: Dat
         <h2 className="text-lg font-bold">{date.getFullYear()}年{date.getMonth()+1}月{date.getDate()}日 {['日','一','二','三','四','五','六'][date.getDay()]}{isToday ? ' · 今天' : ''}</h2>
         <button onClick={onNext} className="w-9 h-9 rounded-lg bg-white/20 hover:bg-white/30 flex items-center justify-center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
       </div>
-      <div className="divide-y divide-gray-100">
+      <div className="divide-y divide-[var(--background-secondary)]">
         {TIMES.map(time => {
           const appt = dayAppts.find(a => a.start_time?.substring(11,16) === time);
           return (
             <div key={time} className="flex items-stretch min-h-[52px]">
-              <div className="w-20 py-3 px-3 text-sm var(--foreground-muted) font-medium border-r border-gray-100 flex-shrink-0">{time}</div>
+              <div className="w-20 py-3 px-3 text-sm var(--foreground-muted) font-medium border-r border-[var(--background-secondary)] flex-shrink-0">{time}</div>
               <div className="flex-1 py-2 px-3">
                 {appt ? (
                   <div className={`px-3 py-2 rounded-lg border-l-4 text-sm ${STATUS_COLORS[appt.status] || STATUS_COLORS.pending}`}>
@@ -141,14 +141,14 @@ export default function CalendarPage() {
             </div>
             <div className="grid grid-cols-7">
               {[...Array(firstDay).fill(null), ...[...Array(daysInMonth)].map((_, i) => i+1)].map((day, idx) => {
-                if (!day) return <div key={'empty-'+idx} className="min-h-[70px] var(--background-card) border-r border-b border-gray-100"></div>;
+                if (!day) return <div key={'empty-'+idx} className="min-h-[70px] var(--background-card) border-r border-b border-[var(--background-secondary)]"></div>;
                 const dStr = year+'-'+String(month+1).padStart(2,'0')+'-'+String(day).padStart(2,'0');
                 const isToday = dStr === today.toISOString().split('T')[0];
                 const count = appointments.filter(a => a.start_time?.startsWith(dStr)).length;
                 return (
                   <div key={day}
                     onClick={() => setCurrentDate(new Date(year, month, day))}
-                    className={`min-h-[70px] border-r border-b border-gray-100 p-1.5 cursor-pointer ${isToday ? 'bg-[#c9a87c]/10' : ''} hover:var(--background-card)`}>
+                    className={`min-h-[70px] border-r border-b border-[var(--background-secondary)] p-1.5 cursor-pointer ${isToday ? 'bg-[#c9a87c]/10' : ''} hover:var(--background-card)`}>
                     <div className={`w-7 h-7 flex items-center justify-center rounded-full text-sm font-medium mb-1 ${isToday ? 'bg-[#c9a87c] text-white' : 'var(--foreground)'}`}>{day}</div>
                     {count > 0 && <div className="flex flex-wrap gap-1">{[...Array(Math.min(count,3))].map((_,i) => <div key={i} className="w-2 h-2 bg-[#c9a87c] rounded-full"></div>)}</div>}
                     {count > 3 && <div className="text-sm var(--foreground-muted) mt-0.5">+{count-3}</div>}

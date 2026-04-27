@@ -269,7 +269,7 @@ function NavContent() {
                   </button>
                   {userMenuOpen && (
                     <div className="absolute right-0 mt-1.5 w-52 bg-white rounded-lg shadow-lg border border-[var(--primary-light)]/30 py-1.5 z-50">
-                      <div className="px-4 py-2.5 border-b border-gray-100">
+                      <div className="px-4 py-2.5 border-b border-[var(--background-secondary)]">
                         <div style={{ color: 'var(--foreground-muted)', fontSize: '0.75rem' }}>已登录</div>
                         <div className="font-medium truncate" style={{ fontSize: '0.8125rem' }}>{user?.email}</div>
                       </div>

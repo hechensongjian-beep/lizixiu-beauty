@@ -178,7 +178,7 @@ function WeekCell({
   return (
     <div
       onClick={() => onStaffClick(staffId, date)}
-      className="min-h-[48px] p-1 border-r border-gray-100 cursor-pointer hover:bg-[#faf8f5] transition"
+      className="min-h-[48px] p-1 border-r border-[var(--background-secondary)] cursor-pointer hover:bg-[#faf8f5] transition"
     >
       {staffApts.slice(0, 2).map(apt => (
         <div
@@ -483,10 +483,10 @@ const { role } = useAuth();
             {/* 时间网格 */}
             <div className="bg-white border rgba(201,168,124,0.2) rounded-2xl overflow-hidden shadow-sm">
               {/* 时间列头 */}
-              <div className="grid divide-x divide-gray-100" style={{ gridTemplateColumns: '64px repeat(' + data.staff.length + ', 1fr)' }}>
+              <div className="grid divide-x divide-[var(--background-secondary)]" style={{ gridTemplateColumns: '64px repeat(' + data.staff.length + ', 1fr)' }}>
                 <div className="p-2 var(--background-card)"></div>
                 {data.staff.map(s => (
-                  <div key={s.id} className="p-2 var(--background-card) text-center border-l border-gray-100">
+                  <div key={s.id} className="p-2 var(--background-card) text-center border-l border-[var(--background-secondary)]">
                     <span className="text-sm font-semibold var(--foreground-muted)">
                       {data.schedule[s.id]?.filter(a => a.status !== 'cancelled').length || 0} 节
                     </span>
@@ -498,7 +498,7 @@ const { role } = useAuth();
               {TIMES.map(time => (
                 <div
                   key={time}
-                  className="grid divide-x divide-gray-100 border-t border-gray-100"
+                  className="grid divide-x divide-[var(--background-secondary)] border-t border-[var(--background-secondary)]"
                   style={{ gridTemplateColumns: '64px repeat(' + data.staff.length + ', 1fr)' }}
                 >
                   <div className="p-2 text-sm var(--foreground-muted) font-medium flex items-center">
@@ -509,7 +509,7 @@ const { role } = useAuth();
                     if (apt) {
                       const color = STATUS_COLORS[apt.status] || STATUS_COLORS.pending;
                       return (
-                        <div key={s.id} className="p-1 border-l border-gray-100">
+                        <div key={s.id} className="p-1 border-l border-[var(--background-secondary)]">
                           <button
                             onClick={() => setSelectedApt(apt)}
                             className={`w-full text-left px-2 py-1.5 rounded-lg border-l-3 ${color} hover:opacity-80 transition text-sm cursor-pointer`}
@@ -523,7 +523,7 @@ const { role } = useAuth();
                       );
                     }
                     return (
-                      <div key={s.id} className="p-1 border-l border-gray-100 min-h-[44px]"></div>
+                      <div key={s.id} className="p-1 border-l border-[var(--background-secondary)] min-h-[44px]"></div>
                     );
                   })}
                 </div>
@@ -549,11 +549,11 @@ const { role } = useAuth();
           <div className="min-w-[900px]">
             <div className="bg-white border rgba(201,168,124,0.2) rounded-2xl overflow-hidden shadow-sm">
               {/* 表头 */}
-              <div className="grid divide-x divide-gray-100 bg-gradient-to-r from-gray-50 to-white border-b rgba(201,168,124,0.2)"
+              <div className="grid divide-x divide-[var(--background-secondary)] bg-gradient-to-r from-gray-50 to-white border-b rgba(201,168,124,0.2)"
                 style={{ gridTemplateColumns: '100px repeat(' + (data.staff.length || 1) + ', 1fr)' }}>
                 <div className="p-3 text-center font-bold var(--foreground-muted) text-sm">日期</div>
                 {data.staff.map(s => (
-                  <div key={s.id} className="p-3 text-center border-l border-gray-100">
+                  <div key={s.id} className="p-3 text-center border-l border-[var(--background-secondary)]">
                     <div className="font-bold var(--foreground) text-sm">{s.name}</div>
                     <div className="text-sm var(--foreground-muted)">{s.role}</div>
                   </div>
@@ -569,7 +569,7 @@ const { role } = useAuth();
                 return (
                   <div
                     key={d}
-                    className={`grid divide-x divide-gray-100 border-t border-gray-100 ${bgClass}`}
+                    className={`grid divide-x divide-[var(--background-secondary)] border-t border-[var(--background-secondary)] ${bgClass}`}
                     style={{ gridTemplateColumns: '100px repeat(' + (data.staff.length || 1) + ', 1fr)' }}
                   >
                     <div className={`p-3 flex flex-col justify-center ${isCurrentDay ? 'text-[#a88a5c]' : 'var(--foreground)'}`}>
@@ -591,7 +591,7 @@ const { role } = useAuth();
                             setCurrentDate(d);
                             setView('day');
                           }}
-                          className="p-3 border-l border-gray-100 cursor-pointer hover:bg-[#faf8f5] transition min-h-[64px] flex flex-col justify-center"
+                          className="p-3 border-l border-[var(--background-secondary)] cursor-pointer hover:bg-[#faf8f5] transition min-h-[64px] flex flex-col justify-center"
                         >
                           {count === 0 ? (
                             <div className="text-sm var(--foreground-light) text-center">—</div>

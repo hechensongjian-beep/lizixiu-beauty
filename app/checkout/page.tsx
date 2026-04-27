@@ -412,7 +412,7 @@ export default function CheckoutPage() {
                     <div className="absolute z-10 w-full mt-1 bg-white border rgba(201,168,124,0.2) rounded-lg shadow-lg max-h-40 overflow-auto">
                       {savedAddresses.map((addr, i) => (
                         <button key={i} type="button" onMouseDown={() => { setForm(f => ({ ...f, shippingAddress: addr })); setShowSavedAddresses(false); }}
-                          className="w-full text-left px-4 py-2 hover:var(--background-card) text-sm var(--foreground) border-b border-gray-100 last:border-0">
+                          className="w-full text-left px-4 py-2 hover:var(--background-card) text-sm var(--foreground) border-b border-[var(--background-secondary)] last:border-0">
                           {addr}
                         </button>
                       ))}
@@ -449,7 +449,7 @@ export default function CheckoutPage() {
             <h2 className="font-bold mb-6">订单摘要</h2>
             <div className="space-y-4 mb-8">
               {resolvedCart.map(item => (
-                <div key={item.productId} className="flex justify-between items-center border-b border-gray-100 pb-4">
+                <div key={item.productId} className="flex justify-between items-center border-b border-[var(--background-secondary)] pb-4">
                   <div>
                     <div className="font-medium var(--foreground)">{item.name}</div>
                     <div className="text-sm var(--foreground-muted)">{item.quantity} x {fmt(item.price)}</div>

@@ -315,7 +315,7 @@ export default function AppointmentManager() {
 
         {/* 表格骨架 */}
         <div className="overflow-x-auto rounded-xl border rgba(201,168,124,0.2)">
-          <table className="min-w-full divide-y divide-gray-200">
+          <table className="min-w-full divide-y divide-[var(--border)]">
             <thead className="var(--background-card)">
               <tr>
                 {['客户', '手机号', '服务项目', '预约时间', '状态', '操作'].map((col) => (
@@ -325,7 +325,7 @@ export default function AppointmentManager() {
                 ))}
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className="bg-white divide-y divide-[var(--border)]">
               {[1, 2, 3].map((i) => (
                 <tr key={i}>
                   <td className="px-6 py-4"><div className="h-4 w-32 var(--background-secondary) rounded"></div></td>
@@ -468,7 +468,7 @@ export default function AppointmentManager() {
 
       {/* 预约表格 */}
       <div className="overflow-x-auto rounded-xl border rgba(201,168,124,0.2)">
-        <table className="min-w-full divide-y divide-gray-200">
+        <table className="min-w-full divide-y divide-[var(--border)]">
           <thead className="var(--background-card)">
             <tr>
               <th className="px-6 py-3 text-left text-xs font-semibold var(--foreground) uppercase tracking-wider">客户</th>
@@ -479,7 +479,7 @@ export default function AppointmentManager() {
               <th className="px-6 py-3 text-left text-xs font-semibold var(--foreground) uppercase tracking-wider">操作</th>
             </tr>
           </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
+          <tbody className="bg-white divide-y divide-[var(--border)]">
             {filteredAppointments.map((apt) => {
               const { date, time } = formatDateTime(apt.appointment_time);
               return (
