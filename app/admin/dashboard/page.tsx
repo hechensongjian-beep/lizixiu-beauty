@@ -105,7 +105,7 @@ const { role } = useAuth();
   const fmt = (n: number) => new Intl.NumberFormat('zh-CN', { style: 'currency', currency: 'CNY' }).format(n);
 
   const statusColor: Record<string, string> = {
-    pending: 'bg-yellow-100 var(--foreground)', paid: 'bg-[#c9a87c]/20 text-[#8b7355]',
+    pending: 'rgba(201,168,124,0.2) var(--foreground)', paid: 'bg-[#c9a87c]/20 text-[#8b7355]',
     shipped: 'bg-[#c9a87c] text-white', delivered: 'rgba(74,117,86,0.15) var(--sage)',
     cancelled: 'rgba(177,93,94,0.15) var(--rose)',
   };
