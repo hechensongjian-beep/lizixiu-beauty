@@ -1,238 +1,389 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-
-import { supabase } from '@/lib/supabase';
-import { useAuth } from '@/components/AuthProvider';
+import { supabase } from '@/lib/supabase/client';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
-const DEFAULT_SETTINGS = {
-  hero_title: '丽姿秀 · Beauty',
-  hero_subtitle: '让美，从这里开始',
-  hero_desc: '专业美容服务团队，为您提供面部护理、身体SPA、美甲美睫等全方位美丽蜕变方案',
-  business_hours: '周一至周日 09:00 - 21:00',
-  business_tel: '139-0000-0001',
-  business_addr: '上海市静安区南京西路1266号',
-  notice_bar: '',
-};
+interface CleanupPolicy {
+  enabled: boolean;
+  period: '1month' | '6months' | '1year' | 'custom';
+  auto_delete: boolean;
+  last_cleanup: string | null;
+}
 
-export default function SiteSettingsPage() {
-    useEffect(() => { document.title = '站点设置 - 丽姿秀'; }, []);
-
-const { role, loading } = useAuth();
-  const [settings, setSettings] = useState(DEFAULT_SETTINGS);
+export default function AdminSettingsPage() {
+  const router = useRouter();
+  const [policy, setPolicy] = useState<CleanupPolicy>({
+    enabled: false,
+    period: '6months',
+    auto_delete: false,
+    last_cleanup: null
+  });
+  const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [msg, setMsg] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
-  const [tableExists, setTableExists] = useState(true);
+  const [previewResult, setPreviewResult] = useState<any>(null);
+  const [showCleanupConfirm, setShowCleanupConfirm] = useState(false);
+  const [confirmText, setConfirmText] = useState('');
+  const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
   useEffect(() => {
-    if (loading) return;
-    if (role !== 'merchant' && role !== 'admin') return;
-    loadSettings();
-  }, [role, loading]);
+    checkAuth();
+    loadPolicy();
+  }, []);
 
-  async function loadSettings() {
-    const { data, error } = await supabase
-      .from('site_settings')
-      .select('*')
-      .eq('id', 1)
-      .single();
-    if (error) {
-      if (error.code === 'PGRST204' || error.message.includes('does not exist')) {
-        setTableExists(false);
-      }
+  const checkAuth = async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
+      router.push('/auth');
       return;
     }
-    if (data) {
-      setSettings({
-        hero_title: data.hero_title || DEFAULT_SETTINGS.hero_title,
-        hero_subtitle: data.hero_subtitle || DEFAULT_SETTINGS.hero_subtitle,
-        hero_desc: data.hero_desc || DEFAULT_SETTINGS.hero_desc,
-        business_hours: data.business_hours || DEFAULT_SETTINGS.business_hours,
-        business_tel: data.business_tel || DEFAULT_SETTINGS.business_tel,
-        business_addr: data.business_addr || DEFAULT_SETTINGS.business_addr,
-        notice_bar: data.notice_bar || '',
-      });
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('role')
+      .eq('id', user.id)
+      .single();
+    if (!profile || !['admin', 'merchant'].includes(profile.role)) {
+      router.push('/');
     }
-  }
+  };
 
-  async function handleSave(e: React.FormEvent) {
-    e.preventDefault();
-    setSaving(true);
-    setMsg(null);
-
+  const loadPolicy = async () => {
     try {
-      const { error } = await supabase
-        .from('site_settings')
-        .upsert({ id: 1, ...settings, updated_at: new Date().toISOString() });
+      const res = await fetch('/api/admin/cleanup');
+      const data = await res.json();
+      if (data.policy) {
+        setPolicy(data.policy);
+      }
+    } catch (error) {
+      console.error('加载策略失败:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-      if (error) throw error;
-      setMsg({ type: 'success', text: '保存成功！首页已更新。' });
-    } catch (err: any) {
-      setMsg({ type: 'error', text: '保存失败：' + (err.message || '请先创建 site_settings 表') });
+  const savePolicy = async () => {
+    setSaving(true);
+    setMessage(null);
+    try {
+      const res = await fetch('/api/admin/cleanup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          enabled: policy.enabled,
+          period: policy.period,
+          auto_delete: policy.auto_delete
+        })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setMessage({ type: 'success', text: '清理策略已保存！' });
+      } else {
+        setMessage({ type: 'error', text: data.error || '保存失败' });
+      }
+    } catch (error: any) {
+      setMessage({ type: 'error', text: error.message || '保存失败' });
     } finally {
       setSaving(false);
     }
-  }
+  };
+
+  const previewCleanup = async () => {
+    setPreviewResult(null);
+    try {
+      const res = await fetch('/api/admin/cleanup', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ period: policy.period })
+      });
+      const data = await res.json();
+      if (data.preview) {
+        setPreviewResult(data);
+      } else {
+        setMessage({ type: 'error', text: data.error || '预览失败' });
+      }
+    } catch (error: any) {
+      setMessage({ type: 'error', text: error.message || '预览失败' });
+    }
+  };
+
+  const executeCleanup = async () => {
+    if (confirmText !== '我已确认订单信息无误，同意清理') {
+      setMessage({ type: 'error', text: '请输入正确的确认文本' });
+      return;
+    }
+    try {
+      const res = await fetch('/api/admin/cleanup', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          period: policy.period,
+          confirmed: true,
+          confirmation_text: confirmText
+        })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setMessage({ type: 'success', text: data.message });
+        setShowCleanupConfirm(false);
+        setConfirmText('');
+        loadPolicy(); // 重新加载策略
+      } else {
+        setMessage({ type: 'error', text: data.error || '清理失败' });
+      }
+    } catch (error: any) {
+      setMessage({ type: 'error', text: error.message || '清理失败' });
+    }
+  };
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center min-h-[60vh]">
-        <div className="w-8 h-8 border-3 border-[var(--primary)] border-t-transparent rounded-full animate-spin" />
-      </div>
-    );
-  }
-
-  if (role !== 'merchant' && role !== 'admin') {
-    return (
-      <div className="text-center py-16">
-        <p className="text-[var(--foreground-muted)] text-lg mb-4">无权限访问</p>
-        <Link href="/" className="text-[var(--primary)] hover:underline">返回首页</Link>
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+          <p className="mt-4 text-foreground-muted">加载中...</p>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-8">
-      <div className="mb-8">
-        <h1 className="text-xl font-bold text-[var(--foreground)]" style={{ fontFamily: 'var(--font-serif)' }}>
-          首页内容设置
-        </h1>
-        <p className="text-[var(--foreground-muted)] mt-2" style={{ fontSize: '1.0625rem' }}>
-          商家可自定义首页显示的标题、宣传语、联系方式等信息
-        </p>
-      </div>
-
-      {!tableExists && (
-        <div className="mb-6 p-5 rounded-xl" style={{background:'var(--background-card)',border:'1px solid rgba(201,168,124,0.2)'}}>
-          <div className="flex items-start gap-3">
-            <svg className="w-6 h-6 text-[var(--primary)] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-            </svg>
-            <div>
-              <p className="font-semibold text-[var(--primary-dark)] text-lg">需要先创建数据表</p>
-              <p className="text-[var(--primary-dark)] mt-1" style={{ fontSize: '1rem' }}>
-                请在 Supabase Dashboard → <strong>SQL Editor</strong> 执行以下 SQL：
-              </p>
-              <pre className="mt-3 p-4 bg-white rounded-lg border border-amber-200 text-sm overflow-x-auto"
-                style={{ fontFamily: 'monospace', fontSize: '0.875rem', color: '#92400e' }}>
-{`CREATE TABLE IF NOT EXISTS site_settings (
-  id integer PRIMARY KEY DEFAULT 1,
-  hero_title text DEFAULT '丽姿秀 · Beauty',
-  hero_subtitle text DEFAULT '让美，从这里开始',
-  hero_desc text DEFAULT '专业美容服务团队',
-  business_hours text DEFAULT '周一至周日 09:00 - 21:00',
-  business_tel text DEFAULT '139-0000-0001',
-  business_addr text DEFAULT '上海市静安区',
-  notice_bar text DEFAULT '',
-  updated_at timestamptz DEFAULT now()
-);
-INSERT INTO site_settings (id) VALUES (1) ON CONFLICT (id) DO NOTHING;
-ALTER TABLE site_settings ENABLE ROW LEVEL SECURITY;
-DROP POLICY "Allow all" ON site_settings;
-CREATE POLICY "Allow all" ON site_settings FOR ALL USING (true);`}
-              </pre>
-            </div>
-          </div>
-        </div>
-      )}
-
-      <form onSubmit={handleSave} className="space-y-6">
-        {/* 首页横幅 */}
-        <div className="bg-white rounded-2xl p-6 shadow-sm border border-[var(--primary-light)]/30">
-          <h2 className="text-xl font-bold text-[var(--foreground)] mb-5 flex items-center gap-2">
-            <svg width="22" height="22" fill="none" stroke="var(--primary)" strokeWidth="1.5" viewBox="0 0 24 24">
-              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
-            </svg>
-            首页横幅
-          </h2>
-          <div className="space-y-4">
-            <div>
-              <label className="block font-medium text-[var(--foreground)] mb-2">主标题</label>
-              <input type="text" value={settings.hero_title}
-                onChange={e => setSettings(s => ({ ...s, hero_title: e.target.value }))}
-                className="w-full px-4 py-3 border rgba(201,168,124,0.2) rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
-                placeholder="例如：丽姿秀 · Beauty" />
-            </div>
-            <div>
-              <label className="block font-medium text-[var(--foreground)] mb-2">副标题</label>
-              <input type="text" value={settings.hero_subtitle}
-                onChange={e => setSettings(s => ({ ...s, hero_subtitle: e.target.value }))}
-                className="w-full px-4 py-3 border rgba(201,168,124,0.2) rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
-                placeholder="例如：让美，从这里开始" />
-            </div>
-            <div>
-              <label className="block font-medium text-[var(--foreground)] mb-2">简介描述</label>
-              <textarea value={settings.hero_desc} rows={3}
-                onChange={e => setSettings(s => ({ ...s, hero_desc: e.target.value }))}
-                className="w-full px-4 py-3 border rgba(201,168,124,0.2) rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary)] resize-none"
-                placeholder="简要介绍您的美容院" />
-            </div>
-          </div>
-        </div>
-
-        {/* 营业信息 */}
-        <div className="bg-white rounded-2xl p-6 shadow-sm border border-[var(--primary-light)]/30">
-          <h2 className="text-xl font-bold text-[var(--foreground)] mb-5 flex items-center gap-2">
-            <svg width="22" height="22" fill="none" stroke="var(--primary)" strokeWidth="1.5" viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-            </svg>
-            营业信息
-          </h2>
-          <div className="space-y-4">
-            <div>
-              <label className="block font-medium text-[var(--foreground)] mb-2">营业时间</label>
-              <input type="text" value={settings.business_hours}
-                onChange={e => setSettings(s => ({ ...s, business_hours: e.target.value }))}
-                className="w-full px-4 py-3 border rgba(201,168,124,0.2) rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary)]" />
-            </div>
-            <div>
-              <label className="block font-medium text-[var(--foreground)] mb-2">联系电话</label>
-              <input type="text" value={settings.business_tel}
-                onChange={e => setSettings(s => ({ ...s, business_tel: e.target.value }))}
-                className="w-full px-4 py-3 border rgba(201,168,124,0.2) rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary)]" />
-            </div>
-            <div>
-              <label className="block font-medium text-[var(--foreground)] mb-2">门店地址</label>
-              <input type="text" value={settings.business_addr}
-                onChange={e => setSettings(s => ({ ...s, business_addr: e.target.value }))}
-                className="w-full px-4 py-3 border rgba(201,168,124,0.2) rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary)]" />
-            </div>
-          </div>
-        </div>
-
-        {/* 公告栏 */}
-        <div className="bg-white rounded-2xl p-6 shadow-sm border border-[var(--primary-light)]/30">
-          <h2 className="text-xl font-bold text-[var(--foreground)] mb-5 flex items-center gap-2">
-            <svg width="22" height="22" fill="none" stroke="var(--primary)" strokeWidth="1.5" viewBox="0 0 24 24">
-              <path d="M22 17H2a3 3 0 0 0 3-3V9a7 7 0 0 1 14 0v5a3 3 0 0 0 3 3zm-8.27 4a2 2 0 0 1-3.46 0"/>
-            </svg>
-            顶部公告栏（可选）
-          </h2>
+    <div className="min-h-screen bg-background">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* 顶部导航 */}
+        <div className="flex items-center justify-between mb-8">
           <div>
-            <label className="block font-medium text-[var(--foreground)] mb-2">公告内容</label>
-            <input type="text" value={settings.notice_bar}
-              onChange={e => setSettings(s => ({ ...s, notice_bar: e.target.value }))}
-              className="w-full px-4 py-3 border rgba(201,168,124,0.2) rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
-              placeholder="留空则不显示公告，例如：春节期间营业时间调整通知" />
-            <p className="text-[var(--foreground-light)] mt-2" style={{ fontSize: '0.9375rem' }}>
-              设置后会显示在页面顶部显眼位置
-            </p>
+            <h1 className="text-3xl font-serif text-foreground">系统设置</h1>
+            <p className="text-foreground-muted mt-1">管理网站性能和数据清理策略</p>
           </div>
+          <Link
+            href="/admin/dashboard"
+            className="btn-primary px-4 py-2 rounded-lg"
+          >
+            返回控制台
+          </Link>
         </div>
 
-        {msg && (
-          <div className={`p-4 rounded-xl text-lg ${msg.type === 'success' ? 'rgba(74,117,86,0.08) var(--sage) border border-green-200' : 'rgba(177,93,94,0.08) var(--rose) border border-red-200'}`}>
-            {msg.text}
+        {message && (
+          <div className={`mb-6 p-4 rounded-lg ${
+            message.type === 'success' 
+              ? 'bg-green-50 text-green-800 border border-green-200' 
+              : 'bg-red-50 text-red-800 border border-red-200'
+          }`}>
+            {message.text}
           </div>
         )}
 
-        <button type="submit" disabled={saving}
-          className="w-full py-4 rounded-xl font-bold text-white text-lg transition-all disabled:opacity-50"
-          style={{ background: '#a88a5c', boxShadow: '0 4px 15px rgba(168,138,92,0.35)' }}>
-          {saving ? '保存中...' : '保存设置'}
-        </button>
-      </form>
+        {/* 订单清理设置 */}
+        <div className="bg-background-card rounded-xl shadow-lg p-6 mb-8">
+          <h2 className="text-xl font-serif text-foreground mb-4">订单自动清理</h2>
+          <p className="text-foreground-muted mb-6">
+            为避免历史订单积累导致网站变卡，可设置自动清理策略。仅清理已完成或已取消的订单。
+          </p>
+
+          {/* 启用开关 */}
+          <div className="flex items-center justify-between mb-6 pb-6 border-b border-gray-200">
+            <div>
+              <h3 className="font-medium text-foreground">启用自动清理</h3>
+              <p className="text-sm text-foreground-muted">定期自动清理历史订单</p>
+            </div>
+            <button
+              onClick={() => setPolicy({ ...policy, enabled: !policy.enabled })}
+              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                policy.enabled ? 'bg-primary' : 'bg-gray-300'
+              }`}
+            >
+              <span
+                className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                  policy.enabled ? 'translate-x-6' : 'translate-x-1'
+                }`}
+              />
+            </button>
+          </div>
+
+          {/* 清理周期 */}
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-foreground mb-3">清理周期</label>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              {[
+                { value: '1month', label: '1个月前' },
+                { value: '6months', label: '6个月前' },
+                { value: '1year', label: '1年前' },
+                { value: 'custom', label: '自定义', disabled: true }
+              ].map(option => (
+                <button
+                  key={option.value}
+                  onClick={() => !option.disabled && setPolicy({ ...policy, period: option.value as any })}
+                  disabled={option.disabled}
+                  className={`p-3 rounded-lg border-2 transition-colors ${
+                    policy.period === option.value
+                      ? 'border-primary bg-primary/10 text-primary'
+                      : 'border-gray-200 hover:border-primary/50 text-foreground-muted'
+                  } ${option.disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+                >
+                  {option.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* 自动删除选项 */}
+          <div className="flex items-start gap-3 mb-6 p-4 bg-yellow-50 rounded-lg">
+            <input
+              type="checkbox"
+              id="auto_delete"
+              checked={policy.auto_delete}
+              onChange={(e) => setPolicy({ ...policy, auto_delete: e.target.checked })}
+              className="mt-1"
+            />
+            <div>
+              <label htmlFor="auto_delete" className="font-medium text-foreground">
+                自动执行删除（不推荐）
+              </label>
+              <p className="text-sm text-foreground-muted mt-1">
+                启用后，系统将自动删除订单，不弹窗确认。建议仅在确认订单无误后启用。
+              </p>
+            </div>
+          </div>
+
+          {/* 上次清理时间 */}
+          {policy.last_cleanup && (
+            <div className="mb-6 p-4 bg-green-50 rounded-lg">
+              <p className="text-sm text-green-800">
+                上次清理时间：{new Date(policy.last_cleanup).toLocaleString('zh-CN')}
+              </p>
+            </div>
+          )}
+
+          {/* 操作按钮 */}
+          <div className="flex gap-3">
+            <button
+              onClick={savePolicy}
+              disabled={saving}
+              className="btn-primary px-6 py-2 rounded-lg disabled:opacity-50"
+            >
+              {saving ? '保存中...' : '保存策略'}
+            </button>
+            <button
+              onClick={previewCleanup}
+              className="btn-secondary px-6 py-2 rounded-lg"
+            >
+              预览清理
+            </button>
+          </div>
+        </div>
+
+        {/* 预览结果 */}
+        {previewResult && (
+          <div className="bg-background-card rounded-xl shadow-lg p-6 mb-8">
+            <h3 className="text-lg font-serif text-foreground mb-4">清理预览</h3>
+            <div className="space-y-3 mb-6">
+              <div className="flex justify-between">
+                <span className="text-foreground-muted">清理截止日期</span>
+                <span className="font-medium text-foreground">
+                  {new Date(previewResult.cutoff_date).toLocaleDateString('zh-CN')}
+                </span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-foreground-muted">将清理订单数</span>
+                <span className="font-medium text-rose-600">{previewResult.order_count} 条</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-foreground-muted">涉及金额</span>
+                <span className="font-medium text-foreground">¥{previewResult.total_amount.toFixed(2)}</span>
+              </div>
+            </div>
+            <div className="p-4 bg-yellow-50 rounded-lg mb-4">
+              <p className="text-sm text-yellow-800">
+                ⚠️ 请仔细检查以上订单，确认无误后再执行清理。清理后数据无法恢复！
+              </p>
+            </div>
+            <button
+              onClick={() => setShowCleanupConfirm(true)}
+              className="btn-danger px-6 py-2 rounded-lg"
+            >
+              确认清理订单
+            </button>
+          </div>
+        )}
+
+        {/* 清理确认弹窗 */}
+        {showCleanupConfirm && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+            <div className="bg-background-card rounded-xl p-6 max-w-md w-full mx-4">
+              <h3 className="text-lg font-serif text-foreground mb-4">最终确认</h3>
+              <p className="text-foreground-muted mb-4">
+                此操作将永久删除 {previewResult?.order_count} 条订单记录，且无法恢复。请输入以下文字确认：
+              </p>
+              <p className="font-medium text-foreground mb-4">"我已确认订单信息无误，同意清理"</p>
+              <input
+                type="text"
+                value={confirmText}
+                onChange={(e) => setConfirmText(e.target.value)}
+                placeholder="请输入确认文本"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg mb-4"
+              />
+              <div className="flex gap-3">
+                <button
+                  onClick={executeCleanup}
+                  className="btn-danger px-6 py-2 rounded-lg"
+                >
+                  确认删除
+                </button>
+                <button
+                  onClick={() => {
+                    setShowCleanupConfirm(false);
+                    setConfirmText('');
+                  }}
+                  className="btn-secondary px-6 py-2 rounded-lg"
+                >
+                  取消
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* 性能监控提醒 */}
+        <div className="bg-background-card rounded-xl shadow-lg p-6">
+          <h2 className="text-xl font-serif text-foreground mb-4">性能优化建议</h2>
+          <div className="space-y-4">
+            <div className="flex items-start gap-3 p-4 bg-blue-50 rounded-lg">
+              <svg className="w-5 h-5 text-blue-600 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <div>
+                <h4 className="font-medium text-blue-900">图片优化</h4>
+                <p className="text-sm text-blue-700 mt-1">
+                  上传产品图片时，建议使用 WebP 格式，尺寸不超过 1920x1080，单张大小控制在 500KB 以内，可显著提升加载速度。
+                </p>
+              </div>
+            </div>
+            <div className="flex items-start gap-3 p-4 bg-green-50 rounded-lg">
+              <svg className="w-5 h-5 text-green-600 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <div>
+                <h4 className="font-medium text-green-900">数据库备份</h4>
+                <p className="text-sm text-green-700 mt-1">
+                  建议定期在 Supabase 后台导出数据库备份（SQL 格式），以防数据丢失。路径：Supabase → Project → Database → Backups
+                </p>
+              </div>
+            </div>
+            <div className="flex items-start gap-3 p-4 bg-yellow-50 rounded-lg">
+              <svg className="w-5 h-5 text-yellow-600 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              </svg>
+              <div>
+                <h4 className="font-medium text-yellow-900">订单分页</h4>
+                <p className="text-sm text-yellow-700 mt-1">
+                  系统已启用订单分页查询，每页显示 20 条，避免加载过多订单导致页面卡顿。
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

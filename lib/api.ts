@@ -99,13 +99,33 @@ export async function deleteProduct(id): Promise<any> {
   } catch (e) { return { error: String(e) }; }
 }
 
-// ===== Orders =====
-export async function getOrders(): Promise<any> {
+// ===== Orders (支持分页) =====
+export async function getOrders(page = 1, pageSize = 20): Promise<any> {
   try {
-    const { data, error } = await supabase.from('orders').select('*, order_items(*)').order('created_at', { ascending: false });
-    if (error) return { orders: [] };
-    return { orders: (data || []).map(fmtOrder) };
-  } catch { return { orders: [] }; }
+    const from = (page - 1) * pageSize;
+    const to = from + pageSize - 1;
+    
+    // 先获取总数
+    const { count } = await supabase
+      .from('orders')
+      .select('*', { count: 'exact', head: true });
+    
+    // 再获取分页数据
+    const { data, error } = await supabase
+      .from('orders')
+      .select('*, order_items(*)')
+      .order('created_at', { ascending: false })
+      .range(from, to);
+      
+    if (error) return { orders: [], total: 0, page, pageSize };
+    return { 
+      orders: (data || []).map(fmtOrder),
+      total: count || 0,
+      page,
+      pageSize,
+      totalPages: Math.ceil((count || 0) / pageSize)
+    };
+  } catch { return { orders: [], total: 0, page, pageSize }; }
 }
 
 export async function createOrder(body): Promise<any> {
