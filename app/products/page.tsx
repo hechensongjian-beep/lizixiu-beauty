@@ -71,16 +71,16 @@ export default function ProductsPage() {
     return (
       <div className="max-w-7xl mx-auto px-4 py-10">
         <div className="text-center mb-10">
-          <div className="h-8 w-40 var(--background-secondary) rounded-lg mx-auto mb-3 animate-pulse" style={{ maxWidth: '200px' }}></div>
-          <div className="h-4 w-56 var(--background-card) rounded mx-auto animate-pulse" style={{ maxWidth: '280px' }}></div>
+          <div className="h-8 w-40 text-[var(--background-secondary)] rounded-lg mx-auto mb-3 animate-pulse" style={{ maxWidth: '200px' }}></div>
+          <div className="h-4 w-56 text-[var(--background-card)] rounded mx-auto animate-pulse" style={{ maxWidth: '280px' }}></div>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
           {[1,2,3,4,5,6,7,8].map(i => (
             <div key={i} className="bg-white rounded-xl p-5 animate-pulse" style={{ border: '1px solid var(--primary-light)' }}>
-              <div className="w-full h-40 var(--background-secondary) rounded-lg mb-4"></div>
-              <div className="h-4 w-3/4 var(--background-secondary) rounded mb-3"></div>
-              <div className="h-3 w-full var(--background-card) rounded mb-2"></div>
-              <div className="h-5 w-1/3 var(--background-secondary) rounded"></div>
+              <div className="w-full h-40 text-[var(--background-secondary)] rounded-lg mb-4"></div>
+              <div className="h-4 w-3/4 text-[var(--background-secondary)] rounded mb-3"></div>
+              <div className="h-3 w-full text-[var(--background-card)] rounded mb-2"></div>
+              <div className="h-5 w-1/3 text-[var(--background-secondary)] rounded"></div>
             </div>
           ))}
         </div>

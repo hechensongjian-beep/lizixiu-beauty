@@ -68,7 +68,7 @@ export default function ResetPasswordPage() {
     return (
       <div className="max-w-md mx-auto px-4 py-12 text-center">
         <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#c9a87c] mb-4"></div>
-        <p className="var(--foreground-muted)">验证重置链接中...</p>
+        <p className="text-[var(--foreground-muted)]">验证重置链接中...</p>
       </div>
     );
   }
@@ -79,8 +79,8 @@ export default function ResetPasswordPage() {
         <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-r from-red-100 to-orange-100 rounded-2xl mb-6">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#d97706" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
         </div>
-        <h1 className="text-2xl font-bold var(--foreground) mb-4">链接无效</h1>
-        <p className="var(--foreground) mb-6">{error}</p>
+        <h1 className="text-2xl font-bold text-[var(--foreground)] mb-4">链接无效</h1>
+        <p className="text-[var(--foreground)] mb-6">{error}</p>
         <div className="space-y-4">
           <Link
             href="/auth/forgot-password"
@@ -90,7 +90,7 @@ export default function ResetPasswordPage() {
           </Link>
           <Link
             href="/auth/login"
-            className="block px-6 py-3 border rgba(201,168,124,0.3) var(--foreground) font-semibold rounded-lg hover:var(--background-card) transition"
+            className="block px-6 py-3 border rgba(201,168,124,0.3) text-[var(--foreground)] font-semibold rounded-lg hover:bg-[var(-background-card)] transition"
           >
             返回登录
           </Link>
@@ -103,10 +103,10 @@ export default function ResetPasswordPage() {
     return (
       <div className="max-w-md mx-auto px-4 py-12 text-center">
         <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-r from-green-100 to-emerald-100 rounded-2xl mb-6">
-          <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 var(--sage)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-[var(--sage)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
         </div>
-        <h1 className="text-2xl font-bold var(--foreground) mb-4">密码重置成功！</h1>
-        <p className="var(--foreground) mb-6">
+        <h1 className="text-2xl font-bold text-[var(--foreground)] mb-4">密码重置成功！</h1>
+        <p className="text-[var(--foreground)] mb-6">
           您的新密码已生效，3 秒后将自动跳转到登录页面。
         </p>
         <div className="space-y-4">
@@ -127,15 +127,15 @@ export default function ResetPasswordPage() {
         <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-r from-blue-100 to-cyan-100 rounded-2xl mb-6">
           <div className="text-xl"></div>
         </div>
-        <h1 className="text-2xl font-bold var(--foreground) mb-3">设置新密码</h1>
-        <p className="var(--foreground-muted)">
+        <h1 className="text-2xl font-bold text-[var(--foreground)] mb-3">设置新密码</h1>
+        <p className="text-[var(--foreground-muted)]">
           请设置一个至少6位字符的新密码
         </p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label className="block font-medium var(--foreground) mb-2">
+          <label className="block font-medium text-[var(--foreground)] mb-2">
             新密码
           </label>
           <input
@@ -150,7 +150,7 @@ export default function ResetPasswordPage() {
         </div>
 
         <div>
-          <label className="block font-medium var(--foreground) mb-2">
+          <label className="block font-medium text-[var(--foreground)] mb-2">
             确认新密码
           </label>
           <input
@@ -165,7 +165,7 @@ export default function ResetPasswordPage() {
         </div>
 
         {error && (
-          <div className="p-4 rgba(177,93,94,0.06) border border-red-200 var(--rose) rounded-lg">
+          <div className="p-4 rgba(177,93,94,0.06) border border-red-200 text-[var(--rose)] rounded-lg">
             <p className="font-semibold">设置失败</p>
             <p>{error}</p>
           </div>
@@ -188,7 +188,7 @@ export default function ResetPasswordPage() {
         </button>
       </form>
 
-      <div className="mt-8 text-center var(--foreground-muted)">
+      <div className="mt-8 text-center text-[var(--foreground-muted)]">
         <Link href="/auth/login" className="text-[#a88a5c] font-semibold hover:underline">
           ← 返回登录
         </Link>

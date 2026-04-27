@@ -46,13 +46,13 @@ function ProductDetailInner() {
     return (
       <div className="max-w-6xl mx-auto px-4 py-10">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-          <div className="rounded-xl var(--background-secondary) animate-pulse" style={{ minHeight: '400px' }}></div>
+          <div className="rounded-xl text-[var(--background-secondary)] animate-pulse" style={{ minHeight: '400px' }}></div>
           <div className="space-y-3">
-            <div className="h-5 w-20 var(--background-secondary) rounded-full animate-pulse"></div>
-            <div className="h-8 w-3/4 var(--background-secondary) rounded animate-pulse"></div>
-            <div className="h-3 w-full var(--background-card) rounded animate-pulse"></div>
-            <div className="h-3 w-5/6 var(--background-card) rounded animate-pulse"></div>
-            <div className="h-16 var(--background-secondary) rounded-xl animate-pulse mt-4"></div>
+            <div className="h-5 w-20 text-[var(--background-secondary)] rounded-full animate-pulse"></div>
+            <div className="h-8 w-3/4 text-[var(--background-secondary)] rounded animate-pulse"></div>
+            <div className="h-3 w-full text-[var(--background-card)] rounded animate-pulse"></div>
+            <div className="h-3 w-5/6 text-[var(--background-card)] rounded animate-pulse"></div>
+            <div className="h-16 text-[var(--background-secondary)] rounded-xl animate-pulse mt-4"></div>
           </div>
         </div>
       </div>

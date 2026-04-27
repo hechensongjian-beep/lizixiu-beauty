@@ -278,7 +278,7 @@ function NavContent() {
                         个人设置
                       </Link>
                       <button onClick={() => { signOut(); closeAll(); }}
-                        className="w-full text-left px-4 py-2.5 var(--rose) rgba(177,93,94,0.1)" style={{ fontSize: '0.8125rem' }}>
+                        className="w-full text-left px-4 py-2.5 text-[var(--rose)] rgba(177,93,94,0.1)" style={{ fontSize: '0.8125rem' }}>
                         退出登录
                       </button>
                     </div>
@@ -351,7 +351,7 @@ function NavContent() {
               )}
               {showUserMenu && (
                 <button onClick={() => { signOut(); closeAll(); }}
-                  className="w-full text-left py-2.5 px-4 var(--rose)" style={{ fontSize: '0.875rem' }}>
+                  className="w-full text-left py-2.5 px-4 text-[var(--rose)]" style={{ fontSize: '0.875rem' }}>
                   退出登录
                 </button>
               )}

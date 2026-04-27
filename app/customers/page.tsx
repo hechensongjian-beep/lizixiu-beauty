@@ -145,8 +145,8 @@ const openEdit = async (c: Customer) => {
       {/* 头部 */}
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-xl font-bold var(--foreground)">客户管理</h1>
-          <p className="var(--foreground-muted) mt-1">客户档案 · 会员等级 · 消费记录</p>
+          <h1 className="text-xl font-bold text-[var(--foreground)]">客户管理</h1>
+          <p className="text-[var(--foreground-muted)] mt-1">客户档案 · 会员等级 · 消费记录</p>
         </div>
         <button onClick={openAdd}
           className="px-6 py-3 bg-[#2d4a3e] text-white font-bold rounded-xl hover:opacity-90 transition shadow-lg">
@@ -157,48 +157,48 @@ const openEdit = async (c: Customer) => {
       {/* 标签切换 */}
       <div className="flex gap-3 mb-8">
         <button onClick={() => setTab('list')}
-          className={`px-5 py-2 rounded-full font-medium transition ${tab==='list'?'bg-[#c9a87c] text-white shadow':'bg-white border var(--foreground) hover:var(--background-card)'}`}>
+          className={`px-5 py-2 rounded-full font-medium transition ${tab==='list'?'bg-[#c9a87c] text-white shadow':'bg-white border var(--foreground) hover:bg-[var(-background-card)]'}`}>
           客户列表
         </button>
         <button onClick={() => { openAdd(); setTab('add'); }}
-          className={`px-5 py-2 rounded-full font-medium transition ${tab==='add'?'bg-[#c9a87c] text-white shadow':'bg-white border var(--foreground) hover:var(--background-card)'}`}>
+          className={`px-5 py-2 rounded-full font-medium transition ${tab==='add'?'bg-[#c9a87c] text-white shadow':'bg-white border var(--foreground) hover:bg-[var(-background-card)]'}`}>
           添加客户
         </button>
         {tab === 'edit' && (
-          <span className="px-5 py-2 rgba(201,168,124,0.15) var(--primary) rounded-full font-medium">编辑客户</span>
+          <span className="px-5 py-2 rgba(201,168,124,0.15) text-[var(--primary)] rounded-full font-medium">编辑客户</span>
         )}
       </div>
 
       {/* 添加/编辑表单 */}
       {(tab === 'add' || tab === 'edit') && (
         <div className="bg-white rounded-2xl shadow-lg p-8 mb-8">
-          <h2 className="text-xl font-bold var(--foreground) mb-6">{editing ? '编辑客户' : '添加新客户'}</h2>
+          <h2 className="text-xl font-bold text-[var(--foreground)] mb-6">{editing ? '编辑客户' : '添加新客户'}</h2>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block font-medium var(--foreground) mb-2">姓名 *</label>
+                <label className="block font-medium text-[var(--foreground)] mb-2">姓名 *</label>
                 <input type="text" value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
                   placeholder="客户姓名" className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#c9a87c]" required />
               </div>
               <div>
-                <label className="block font-medium var(--foreground) mb-2">电话</label>
+                <label className="block font-medium text-[var(--foreground)] mb-2">电话</label>
                 <input type="tel" value={form.phone} onChange={e => setForm(f => ({ ...f, phone: e.target.value }))}
                   placeholder="手机号码" className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#c9a87c]" />
               </div>
               <div>
-                <label className="block font-medium var(--foreground) mb-2">邮箱</label>
+                <label className="block font-medium text-[var(--foreground)] mb-2">邮箱</label>
                 <input type="email" value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
                   placeholder="电子邮箱" className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#c9a87c]" />
               </div>
               <div>
-                <label className="block font-medium var(--foreground) mb-2">会员等级</label>
+                <label className="block font-medium text-[var(--foreground)] mb-2">会员等级</label>
                 <select value={form.membership_level} onChange={e => setForm(f => ({ ...f, membership_level: e.target.value }))}
                   className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#c9a87c]">
                   {MEMBERSHIP_OPTIONS.map(m => <option key={m} value={m}>{m}</option>)}
                 </select>
               </div>
               <div className="md:col-span-2">
-                <label className="block font-medium var(--foreground) mb-2">备注</label>
+                <label className="block font-medium text-[var(--foreground)] mb-2">备注</label>
                 <textarea rows={2} value={form.notes} onChange={e => setForm(f => ({ ...f, notes: e.target.value }))}
                   placeholder="客户偏好、过敏史、特殊需求等..."
                   className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#c9a87c]" />
@@ -206,7 +206,7 @@ const openEdit = async (c: Customer) => {
             </div>
             <div className="flex gap-4 pt-4 border-t">
               <button type="button" onClick={() => setTab('list')}
-                className="px-6 py-3 border rounded-xl font-bold var(--foreground) hover:var(--background-card)">取消</button>
+                className="px-6 py-3 border rounded-xl font-bold text-[var(--foreground)] hover:bg-[var(-background-card)]">取消</button>
               <button type="submit" disabled={saving}
                 className="px-8 py-3 bg-[#2d4a3e] text-white rounded-xl font-bold hover:opacity-90 shadow disabled:opacity-50">
                 {saving ? '保存中...' : (editing ? '保存更改' : '确认添加')}
@@ -247,13 +247,13 @@ const openEdit = async (c: Customer) => {
               <div className="p-20 text-center"><div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[#c9a87c] mx-auto"></div></div>
             ) : error ? (
               <div className="p-12 text-center">
-                <div className="var(--rose) mb-4 font-bold text-xl">!</div>
-                <p className="var(--rose) mb-4">{error}</p>
-                <button onClick={fetchCustomers} className="px-6 py-2 rgba(177,93,94,0.12) var(--rose) rounded-lg font-medium hover:rgba(177,93,94,0.2)">重试</button>
+                <div className="text-[var(--rose)] mb-4 font-bold text-xl">!</div>
+                <p className="text-[var(--rose)] mb-4">{error}</p>
+                <button onClick={fetchCustomers} className="px-6 py-2 rgba(177,93,94,0.12) text-[var(--rose)] rounded-lg font-medium hover:rgba(177,93,94,0.2)">重试</button>
               </div>
             ) : filtered.length === 0 ? (
-              <div className="p-16 text-center var(--foreground-muted)">
-                <div className="text-xl mb-4 font-bold var(--foreground-light)">-</div>
+              <div className="p-16 text-center text-[var(--foreground-muted)]">
+                <div className="text-xl mb-4 font-bold text-[var(--foreground-light)]">-</div>
                 <p className="text-xl">{search ? '未找到匹配的客户' : '暂无客户数据'}</p>
                 {!search && (
                   <button onClick={openAdd} className="mt-6 px-8 py-3 bg-[#c9a87c] text-white rounded-xl font-bold hover:opacity-90">
@@ -264,23 +264,23 @@ const openEdit = async (c: Customer) => {
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full">
-                  <thead className="var(--background-card) border-b">
+                  <thead className="text-[var(--background-card)] border-b">
                     <tr>
                       {['姓名', '联系方式', '会员等级', '累计消费', '最近到店', '操作'].map(col => (
-                        <th key={col} className="text-left py-4 px-6 font-semibold var(--foreground)">{col}</th>
+                        <th key={col} className="text-left py-4 px-6 font-semibold text-[var(--foreground)]">{col}</th>
                       ))}
                     </tr>
                   </thead>
                   <tbody>
                     {filtered.map(c => (
-                      <tr key={c.id} className="border-t hover:var(--background-card) transition">
+                      <tr key={c.id} className="border-t hover:bg-[var(-background-card)] transition">
                         <td className="py-4 px-6">
-                          <div className="font-bold var(--foreground)">{c.name}</div>
-                          {c.notes && <div className="text-sm var(--foreground-muted) max-w-xs truncate">{c.notes}</div>}
+                          <div className="font-bold text-[var(--foreground)]">{c.name}</div>
+                          {c.notes && <div className="text-sm text-[var(--foreground-muted)] max-w-xs truncate">{c.notes}</div>}
                         </td>
                         <td className="py-4 px-6">
-                          <div className="var(--foreground)">{c.phone || '-'}</div>
-                          <div className="text-sm var(--foreground-muted)">{c.email || '-'}</div>
+                          <div className="text-[var(--foreground)]">{c.phone || '-'}</div>
+                          <div className="text-sm text-[var(--foreground-muted)]">{c.email || '-'}</div>
                         </td>
                         <td className="py-4 px-6">
                           <span className={`px-3 py-1 rounded-full text-sm font-semibold ${MEMBERSHIP_STYLE[c.membership_level] || 'var(--background-secondary) var(--foreground-muted)'}`}>
@@ -288,13 +288,13 @@ const openEdit = async (c: Customer) => {
                           </span>
                         </td>
                         <td className="py-4 px-6 font-bold text-[#a88a5c]">{fmt(c.total_spent)}</td>
-                        <td className="py-4 px-6 var(--foreground-muted) text-sm">{fmtDate(c.last_visit)}</td>
+                        <td className="py-4 px-6 text-[var(--foreground-muted)] text-sm">{fmtDate(c.last_visit)}</td>
                         <td className="py-4 px-6">
                           <div className="flex gap-2">
                             <button onClick={() => openEdit(c)}
-                              className="px-3 py-1.5 rgba(201,168,124,0.1) var(--primary) rounded-lg text-sm font-medium hover:rgba(201,168,124,0.18)">编辑</button>
+                              className="px-3 py-1.5 rgba(201,168,124,0.1) text-[var(--primary)] rounded-lg text-sm font-medium hover:rgba(201,168,124,0.18)">编辑</button>
                             <button onClick={() => handleDelete(c)}
-                              className="px-3 py-1.5 rgba(177,93,94,0.08) var(--rose) rounded-lg text-sm font-medium hover:rgba(177,93,94,0.15)">删除</button>
+                              className="px-3 py-1.5 rgba(177,93,94,0.08) text-[var(--rose)] rounded-lg text-sm font-medium hover:rgba(177,93,94,0.15)">删除</button>
                           </div>
                         </td>
                       </tr>

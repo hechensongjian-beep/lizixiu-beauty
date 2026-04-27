@@ -89,11 +89,11 @@ export default function ProfilePage() {
           <div className="text-sm mt-1" style={{ color: 'var(--foreground-muted)' }}>历史预约</div>
         </div>
         <div className="bg-white rounded-2xl border p-5 text-center" style={{ borderColor: 'var(--primary-light)' }}>
-          <div className="text-2xl font-bold var(--primary-dark)">{upcomingCount}</div>
+          <div className="text-2xl font-bold text-[var(--primary-dark)]">{upcomingCount}</div>
           <div className="text-sm mt-1" style={{ color: 'var(--foreground-muted)' }}>待服务</div>
         </div>
         <div className="bg-white rounded-2xl border p-5 text-center" style={{ borderColor: 'var(--primary-light)' }}>
-          <div className="text-2xl font-bold var(--sage)">{completedCount}</div>
+          <div className="text-2xl font-bold text-[var(--sage)]">{completedCount}</div>
           <div className="text-sm mt-1" style={{ color: 'var(--foreground-muted)' }}>已完成</div>
         </div>
       </div>
@@ -183,8 +183,8 @@ export default function ProfilePage() {
           {loading ? (
             <div className="space-y-4">
               {[1,2,3].map(i => <div key={i} className="bg-white rounded-2xl p-5 animate-pulse" style={{ border: '1px solid var(--primary-light)' }}>
-                <div className="h-4 var(--background-secondary) rounded w-1/3 mb-2"></div>
-                <div className="h-3 var(--background-secondary) rounded w-1/2"></div>
+                <div className="h-4 text-[var(--background-secondary)] rounded w-1/3 mb-2"></div>
+                <div className="h-3 text-[var(--background-secondary)] rounded w-1/2"></div>
               </div>)}
             </div>
           ) : appointments.length === 0 ? (

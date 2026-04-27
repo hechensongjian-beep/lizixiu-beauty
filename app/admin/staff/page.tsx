@@ -38,7 +38,7 @@ const { role } = useAuth();
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center">
           <div className="w-8 h-8 border-2 border-[#c9a87c] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-sm var(--foreground-muted)">Loading...</p>
+          <p className="text-sm text-[var(--foreground-muted)]">Loading...</p>
         </div>
       </div>
     );
@@ -218,7 +218,7 @@ const { role } = useAuth();
                     {staff.is_active ? '已激活' : '已停用'}
                   </span>
                   {staff.user_id && (
-                    <span className="text-sm px-2 py-0.5 rounded-full rgba(201,168,124,0.1) var(--primary)">已绑定账号</span>
+                    <span className="text-sm px-2 py-0.5 rounded-full rgba(201,168,124,0.1) text-[var(--primary)]">已绑定账号</span>
                   )}
                 </div>
                 <div className="text-sm text-[var(--foreground-muted)] mt-0.5">

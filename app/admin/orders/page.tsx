@@ -105,7 +105,7 @@ const { role } = useAuth();
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center">
           <div className="w-8 h-8 border-2 border-[#c9a87c] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-sm var(--foreground-muted)">Loading...</p>
+          <p className="text-sm text-[var(--foreground-muted)]">Loading...</p>
         </div>
       </div>
     );
@@ -278,7 +278,7 @@ const { role } = useAuth();
 
       {/* 超时警告 */}
       {showTimeoutWarning && timeoutOrders.length > 0 && (
-        <div className="mb-6 p-5 rounded-xl border-2 rgba(201,168,124,0.3) var(--background-card)">
+        <div className="mb-6 p-5 rounded-xl border-2 rgba(201,168,124,0.3) text-[var(--background-card)]">
           <div className="flex items-start gap-4">
             <div className="w-10 h-10 rounded-full rgba(168,138,92,0.25) flex items-center justify-center flex-shrink-0">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#b45309" strokeWidth="2">
@@ -286,10 +286,10 @@ const { role } = useAuth();
               </svg>
             </div>
             <div className="flex-1">
-              <h3 className="font-bold var(--primary-dark) text-lg mb-1">
+              <h3 className="font-bold text-[var(--primary-dark)] text-lg mb-1">
                 有 {timeoutOrders.length} 个订单超过24小时未处理
               </h3>
-              <p className="var(--primary-dark) text-sm mb-3">
+              <p className="text-[var(--primary-dark)] text-sm mb-3">
                 以下订单已超过24小时未确认付款，请尽快处理：
               </p>
               <div className="space-y-2">
@@ -297,8 +297,8 @@ const { role } = useAuth();
                   <div key={o.id} className="flex items-center justify-between bg-white rounded-lg p-3">
                     <div>
                       <span className="font-medium">#{o.id.substring(0, 8)}</span>
-                      <span className="var(--foreground-muted) ml-2">{o.customerName}</span>
-                      <span className="var(--foreground-muted) ml-2">{formatCurrency(o.total)}</span>
+                      <span className="text-[var(--foreground-muted)] ml-2">{o.customerName}</span>
+                      <span className="text-[var(--foreground-muted)] ml-2">{formatCurrency(o.total)}</span>
                     </div>
                     <button
                       onClick={() => openDialog(o.id, 'confirm_payment')}
@@ -311,7 +311,7 @@ const { role } = useAuth();
               </div>
               <button 
                 onClick={() => setShowTimeoutWarning(false)}
-                className="var(--primary-dark) text-sm mt-3 hover:underline"
+                className="text-[var(--primary-dark)] text-sm mt-3 hover:underline"
               >
                 关闭提醒
               </button>
@@ -351,7 +351,7 @@ const { role } = useAuth();
               <label className="block font-medium mb-2" style={{ fontSize: '1rem' }}>搜索订单</label>
               <input
                 type="text"
-                className="w-full px-4 py-3 border rounded-lg outline-none transition focus:ring-2 focus:var(--primary)-200"
+                className="w-full px-4 py-3 border rounded-lg outline-none transition focus:ring-2 focus:text-[var(--primary)]-200"
                 style={{ borderColor: 'var(--primary-light)', fontSize: '1rem' }}
                 placeholder="客户姓名、电话、订单ID..."
                 value={searchTerm}
@@ -362,7 +362,7 @@ const { role } = useAuth();
               <label className="block font-medium mb-2" style={{ fontSize: '1rem' }}>状态筛选</label>
               <div className="flex flex-wrap gap-2">
                 <button
-                  className={`px-4 py-2 rounded-lg font-medium text-sm transition ${statusFilter === 'all' ? 'text-white' : 'hover:var(--background-secondary)'}`}
+                  className={`px-4 py-2 rounded-lg font-medium text-sm transition ${statusFilter === 'all' ? 'text-white' : 'hover:bg-[var(-background-secondary)]'}`}
                   style={{ background: statusFilter === 'all' ? 'var(--primary)' : 'var(--background-secondary)', color: statusFilter === 'all' ? 'white' : 'var(--foreground)' }}
                   onClick={() => setStatusFilter('all')}
                 >
@@ -371,7 +371,7 @@ const { role } = useAuth();
                 {statusOptions.map(opt => (
                   <button
                     key={opt.value}
-                    className={`px-4 py-2 rounded-lg font-medium text-sm transition ${statusFilter === opt.value ? 'text-white' : 'hover:var(--background-secondary)'}`}
+                    className={`px-4 py-2 rounded-lg font-medium text-sm transition ${statusFilter === opt.value ? 'text-white' : 'hover:bg-[var(-background-secondary)]'}`}
                     style={{ background: statusFilter === opt.value ? 'var(--primary)' : 'var(--background-secondary)', color: statusFilter === opt.value ? 'white' : 'var(--foreground)' }}
                     onClick={() => setStatusFilter(opt.value)}
                   >
@@ -472,9 +472,9 @@ const { role } = useAuth();
                   {/* 商品列表 */}
                   <div className="mb-6">
                     <div className="text-sm font-medium mb-3" style={{ color: 'var(--foreground-muted)' }}>商品清单</div>
-                    <div className="var(--background-card) rounded-lg overflow-hidden">
+                    <div className="text-[var(--background-card)] rounded-lg overflow-hidden">
                       <table className="w-full text-sm">
-                        <thead className="var(--background-secondary)">
+                        <thead className="text-[var(--background-secondary)]">
                           <tr>
                             <th className="py-2 px-4 text-left font-medium">商品</th>
                             <th className="py-2 px-4 text-left font-medium">单价</th>
@@ -503,7 +503,7 @@ const { role } = useAuth();
                         <button
                           onClick={() => openDialog(order.id, 'confirm_payment')}
                           disabled={updating === order.id}
-                          className="btn btn-success"
+                          className="bg-[var(--accent)] text-white text-sm font-medium px-4 py-2 rounded-lg hover:opacity-90 transition"
                         >
                           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                           确认收款
@@ -511,7 +511,7 @@ const { role } = useAuth();
                         <button
                           onClick={() => openDialog(order.id, 'cancel')}
                           disabled={updating === order.id}
-                          className="btn btn-danger"
+                          className="bg-red-50 text-[var(--rose)] text-sm font-medium px-4 py-2 rounded-lg hover:bg-red-100 transition"
                         >
                           <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 inline -mt-0.5 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>取消订单
                         </button>
@@ -530,7 +530,7 @@ const { role } = useAuth();
                       <button
                         onClick={() => openDialog(order.id, 'complete')}
                         disabled={updating === order.id}
-                        className="btn btn-success"
+                        className="bg-[var(--accent)] text-white text-sm font-medium px-4 py-2 rounded-lg hover:opacity-90 transition"
                       >
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                         完成订单

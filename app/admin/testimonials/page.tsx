@@ -81,11 +81,11 @@ const router = useRouter();
     <div className="max-w-6xl mx-auto px-4 py-12">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-xl font-bold var(--foreground) mb-2">口碑评价管理</h1>
-          <p className="var(--foreground-muted)">管理首页展示的用户评价</p>
+          <h1 className="text-xl font-bold text-[var(--foreground)] mb-2">口碑评价管理</h1>
+          <p className="text-[var(--foreground-muted)]">管理首页展示的用户评价</p>
         </div>
         <div className="flex gap-3">
-          <button onClick={fetchData} className="px-4 py-2 var(--background-secondary) var(--foreground) rounded-lg hover:var(--background-secondary)">刷新</button>
+          <button onClick={fetchData} className="px-4 py-2 text-[var(--background-secondary)] text-[var(--foreground)] rounded-lg hover:bg-[var(-background-secondary)]">刷新</button>
           <button onClick={() => setShowAdd(true)} className="px-6 py-3 bg-[#2d4a3e] text-white font-semibold rounded-lg">+ 添加评价</button>
         </div>
       </div>
@@ -104,7 +104,7 @@ const router = useRouter();
             <textarea placeholder="评价内容 *" value={form.text} onChange={e => setForm({ ...form, text: e.target.value })} className="px-4 py-3 border rounded-lg md:col-span-2" rows={3} />
           </div>
           <div className="flex justify-end gap-3 mt-6">
-            <button onClick={() => setShowAdd(false)} className="px-6 py-2 var(--background-secondary) rounded-lg">取消</button>
+            <button onClick={() => setShowAdd(false)} className="px-6 py-2 text-[var(--background-secondary)] rounded-lg">取消</button>
             <button onClick={handleAdd} disabled={submitting} className="px-6 py-2 bg-[#2d4a3e] text-white rounded-lg disabled:opacity-50">{submitting ? '提交中...' : '确认添加'}</button>
           </div>
         </div>
@@ -129,7 +129,7 @@ const router = useRouter();
               </label>
             </div>
             <div className="flex justify-end gap-3 mt-6">
-              <button onClick={() => setEditing(null)} className="px-6 py-2 var(--background-secondary) rounded-lg">取消</button>
+              <button onClick={() => setEditing(null)} className="px-6 py-2 text-[var(--background-secondary)] rounded-lg">取消</button>
               <button onClick={handleUpdate} disabled={submitting} className="px-6 py-2 bg-[#2d4a3e] text-white rounded-lg disabled:opacity-50">{submitting ? '更新中...' : '保存'}</button>
             </div>
           </div>
@@ -139,12 +139,12 @@ const router = useRouter();
       {/* 列表 */}
       {loading ? (
         <div className="animate-pulse space-y-4">
-          {[1,2,3].map(i => <div key={i} className="h-24 var(--background-secondary) rounded-xl" />)}
+          {[1,2,3].map(i => <div key={i} className="h-24 text-[var(--background-secondary)] rounded-xl" />)}
         </div>
       ) : testimonials.length === 0 ? (
-        <div className="var(--background-card) rounded-2xl p-12 text-center">
-          <p className="var(--foreground-muted) mb-4">暂无评价数据</p>
-          <p className="text-sm var(--foreground-muted)">请先在 Supabase Dashboard 创建 testimonials 表</p>
+        <div className="text-[var(--background-card)] rounded-2xl p-12 text-center">
+          <p className="text-[var(--foreground-muted)] mb-4">暂无评价数据</p>
+          <p className="text-sm text-[var(--foreground-muted)]">请先在 Supabase Dashboard 创建 testimonials 表</p>
         </div>
       ) : (
         <div className="space-y-4">
@@ -156,19 +156,19 @@ const router = useRouter();
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-1">
                   <span className="font-semibold">{t.name}</span>
-                  {t.service && <span className="text-sm var(--foreground-muted)">· {t.service}</span>}
+                  {t.service && <span className="text-sm text-[var(--foreground-muted)]">· {t.service}</span>}
                   <span className="flex gap-0.5 ml-2">
                     {Array.from({ length: t.score }).map((_, i) => (
                       <svg key={i} width="12" height="12" viewBox="0 0 24 24" fill="#f59e0b"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
                     ))}
                   </span>
-                  {!t.is_active && <span className="text-sm var(--rose) ml-2">(已隐藏)</span>}
+                  {!t.is_active && <span className="text-sm text-[var(--rose)] ml-2">(已隐藏)</span>}
                 </div>
-                <p className="var(--foreground) text-sm">{t.text}</p>
+                <p className="text-[var(--foreground)] text-sm">{t.text}</p>
               </div>
               <div className="flex gap-2 flex-shrink-0">
-                <button onClick={() => setEditing(t)} className="px-3 py-1 text-sm var(--background-secondary) rounded hover:var(--background-secondary)">编辑</button>
-                <button onClick={() => handleDelete(t.id)} className="px-3 py-1 text-sm rgba(177,93,94,0.08) var(--rose) rounded hover:rgba(177,93,94,0.15)">删除</button>
+                <button onClick={() => setEditing(t)} className="px-3 py-1 text-sm text-[var(--background-secondary)] rounded hover:bg-[var(-background-secondary)]">编辑</button>
+                <button onClick={() => handleDelete(t.id)} className="px-3 py-1 text-sm rgba(177,93,94,0.08) text-[var(--rose)] rounded hover:rgba(177,93,94,0.15)">删除</button>
               </div>
             </div>
           ))}
@@ -176,7 +176,7 @@ const router = useRouter();
       )}
 
       <div className="mt-8 text-center">
-        <Link href="/admin/dashboard" className="text-sm var(--foreground-muted) hover:text-[#c9a87c]">← 返回仪表板</Link>
+        <Link href="/admin/dashboard" className="text-sm text-[var(--foreground-muted)] hover:text-[#c9a87c]">← 返回仪表板</Link>
       </div>
     </div>
   );

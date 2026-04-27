@@ -100,10 +100,10 @@ function ReassignModal({
           </p>
         </div>
         <div className="p-6">
-          <p className="var(--foreground-muted) text-sm mb-4">
-            当前：<span className="font-semibold var(--foreground)">{appointment.staff?.name}</span>
+          <p className="text-[var(--foreground-muted)] text-sm mb-4">
+            当前：<span className="font-semibold text-[var(--foreground)]">{appointment.staff?.name}</span>
           </p>
-          <p className="var(--foreground) font-medium mb-3">分配给：</p>
+          <p className="text-[var(--foreground)] font-medium mb-3">分配给：</p>
           <div className="space-y-2 max-h-64 overflow-y-auto">
             {staffList.map(s => (
               <button
@@ -121,8 +121,8 @@ function ReassignModal({
                   {s.name.slice(0, 2)}
                 </div>
                 <div>
-                  <div className="font-semibold var(--foreground)">{s.name}</div>
-                  <div className="text-sm var(--foreground-muted)">{s.role}</div>
+                  <div className="font-semibold text-[var(--foreground)]">{s.name}</div>
+                  <div className="text-sm text-[var(--foreground-muted)]">{s.role}</div>
                 </div>
                 {targetId === s.id && (
                   <svg className="ml-auto text-[#c9a87c]" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
@@ -131,11 +131,11 @@ function ReassignModal({
             ))}
           </div>
           {appointment.customer_name && (
-            <div className="mt-4 p-3 var(--background-card) rounded-xl">
-              <div className="text-sm var(--foreground-muted) mb-1">客户信息</div>
-              <div className="font-medium var(--foreground)">{appointment.customer_name}</div>
+            <div className="mt-4 p-3 text-[var(--background-card)] rounded-xl">
+              <div className="text-sm text-[var(--foreground-muted)] mb-1">客户信息</div>
+              <div className="font-medium text-[var(--foreground)]">{appointment.customer_name}</div>
               {appointment.customer_phone && (
-                <div className="text-sm var(--foreground-muted)">{appointment.customer_phone}</div>
+                <div className="text-sm text-[var(--foreground-muted)]">{appointment.customer_phone}</div>
               )}
             </div>
           )}
@@ -143,7 +143,7 @@ function ReassignModal({
         <div className="px-6 pb-6 flex gap-3">
           <button
             onClick={onClose}
-            className="flex-1 py-2.5 var(--background-secondary) var(--foreground) rounded-xl font-medium hover:var(--background-secondary) transition"
+            className="flex-1 py-2.5 text-[var(--background-secondary)] text-[var(--foreground)] rounded-xl font-medium hover:bg-[var(-background-secondary)] transition"
           >
             取消
           </button>
@@ -191,7 +191,7 @@ function WeekCell({
         </div>
       ))}
       {staffApts.length > 2 && (
-        <div className="text-sm var(--foreground-muted) text-center">+{staffApts.length - 2}</div>
+        <div className="text-sm text-[var(--foreground-muted)] text-center">+{staffApts.length - 2}</div>
       )}
     </div>
   );
@@ -209,7 +209,7 @@ const { role } = useAuth();
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center">
           <div className="w-8 h-8 border-2 border-[#c9a87c] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-sm var(--foreground-muted)">正在检查权限...</p>
+          <p className="text-sm text-[var(--foreground-muted)]">正在检查权限...</p>
         </div>
       </div>
     );
@@ -329,23 +329,23 @@ const { role } = useAuth();
       <div className="flex items-center justify-between mb-6">
         <div>
           <div className="flex items-center gap-3">
-            <Link href="/" className="var(--foreground-muted) hover:var(--foreground-muted)">首页</Link>
-            <span className="var(--foreground-light)">/</span>
-            <h1 className="text-xl font-semibold var(--foreground)">员工排班日历</h1>
+            <Link href="/" className="text-[var(--foreground-muted)] hover:text-[var(-foreground-muted)]">首页</Link>
+            <span className="text-[var(--foreground-light)]">/</span>
+            <h1 className="text-xl font-semibold text-[var(--foreground)]">员工排班日历</h1>
           </div>
-          <p className="var(--foreground-muted) text-sm mt-1">商家视角 · 所有员工预约一览 · 支持调换分配</p>
+          <p className="text-[var(--foreground-muted)] text-sm mt-1">商家视角 · 所有员工预约一览 · 支持调换分配</p>
         </div>
         <div className="flex gap-2">
           <Link
             href="/admin/dashboard"
-            className="px-4 py-2 var(--background-secondary) var(--foreground) rounded-xl text-sm hover:var(--background-secondary) transition"
+            className="px-4 py-2 text-[var(--background-secondary)] text-[var(--foreground)] rounded-xl text-sm hover:bg-[var(-background-secondary)] transition"
           >
              数据面板
           </Link>
           <button
             onClick={() => fetchSchedule(currentDate, view)}
             disabled={loading}
-            className="px-4 py-2 var(--background-secondary) var(--foreground) rounded-xl text-sm hover:var(--background-secondary) disabled:opacity-50 transition"
+            className="px-4 py-2 text-[var(--background-secondary)] text-[var(--foreground)] rounded-xl text-sm hover:bg-[var(-background-secondary)] disabled:opacity-50 transition"
           >
             {loading ? '刷新中..' : ''}
           </button>
@@ -354,11 +354,11 @@ const { role } = useAuth();
 
       {/* 视图切换 + 筛选 */}
       <div className="flex items-center justify-between mb-4 flex-wrap gap-3">
-        <div className="flex gap-1 var(--background-secondary) rounded-xl p-1">
+        <div className="flex gap-1 text-[var(--background-secondary)] rounded-xl p-1">
           <button
             onClick={() => setView('day')}
             className={`px-4 py-1.5 rounded-lg text-sm font-medium transition ${
-              view === 'day' ? 'bg-white shadow text-[#a88a5c]' : 'var(--foreground-muted) hover:var(--foreground)'
+              view === 'day' ? 'bg-white shadow text-[#a88a5c]' : 'var(--foreground-muted) hover:text-[var(-foreground)]'
             }`}
           >
             日视图
@@ -366,7 +366,7 @@ const { role } = useAuth();
           <button
             onClick={() => setView('week')}
             className={`px-4 py-1.5 rounded-lg text-sm font-medium transition ${
-              view === 'week' ? 'bg-white shadow text-[#a88a5c]' : 'var(--foreground-muted) hover:var(--foreground)'
+              view === 'week' ? 'bg-white shadow text-[#a88a5c]' : 'var(--foreground-muted) hover:text-[var(-foreground)]'
             }`}
           >
             周视图
@@ -377,7 +377,7 @@ const { role } = useAuth();
           <select
             value={filterStatus}
             onChange={e => setFilterStatus(e.target.value)}
-            className="text-sm border rgba(201,168,124,0.2) rounded-lg px-3 py-1.5 var(--foreground) focus:outline-none focus:ring-2 focus:ring-[#c9a87c]"
+            className="text-sm border rgba(201,168,124,0.2) rounded-lg px-3 py-1.5 text-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[#c9a87c]"
           >
             <option value="all">全部状态</option>
             <option value="pending">待确认</option>
@@ -397,7 +397,7 @@ const { role } = useAuth();
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
         </button>
         <div className="text-center">
-          <div className="text-xl font-bold var(--foreground)">
+          <div className="text-xl font-bold text-[var(--foreground)]">
             {view === 'day'
               ? new Date(currentDate + 'T00:00:00').toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' })
               : `第${Math.ceil((new Date(currentDate + 'T00:00:00').getDate()) / 7)}周 · ${new Date(currentDate + 'T00:00:00').toLocaleDateString('zh-CN', { month: 'long', year: 'numeric' })}`
@@ -435,8 +435,8 @@ const { role } = useAuth();
       {/* 错误 */}
       {error && (
         <div className="rgba(177,93,94,0.06) border border-red-200 rounded-xl p-4 mb-6">
-          <p className="var(--rose)">{error}</p>
-          <p className="text-sm var(--rose) mt-1">请检查 Supabase 数据库是否已创建必要的数据表</p>
+          <p className="text-[var(--rose)]">{error}</p>
+          <p className="text-sm text-[var(--rose)] mt-1">请检查 Supabase 数据库是否已创建必要的数据表</p>
         </div>
       )}
 
@@ -445,7 +445,7 @@ const { role } = useAuth();
         <div className="flex items-center justify-center py-20">
           <div className="text-center">
             <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[#c9a87c] mx-auto mb-4"></div>
-            <p className="var(--foreground-muted)">加载排班数据中...</p>
+            <p className="text-[var(--foreground-muted)]">加载排班数据中...</p>
           </div>
         </div>
       )}
@@ -462,8 +462,8 @@ const { role } = useAuth();
                   <div className="w-10 h-10 bg-gradient-to-br from-[#2d4a3e] to-[#e8d5b8] rounded-full flex items-center justify-center text-white font-bold text-sm mx-auto mb-1">
                     {s.name.slice(0, 2)}
                   </div>
-                  <div className="font-bold var(--foreground) text-sm">{s.name}</div>
-                  <div className="text-sm var(--foreground-muted)">{s.role}</div>
+                  <div className="font-bold text-[var(--foreground)] text-sm">{s.name}</div>
+                  <div className="text-sm text-[var(--foreground-muted)]">{s.role}</div>
                   {s.specialties && s.specialties.length > 0 && (
                     <div className="flex flex-wrap gap-1 justify-center mt-1">
                       {s.specialties.slice(0, 2).map((spec, i) => (
@@ -473,7 +473,7 @@ const { role } = useAuth();
                       ))}
                     </div>
                   )}
-                  <div className="text-sm var(--foreground-muted) mt-1">
+                  <div className="text-sm text-[var(--foreground-muted)] mt-1">
                     {data.schedule[s.id]?.length || 0}个预约
                   </div>
                 </div>
@@ -484,10 +484,10 @@ const { role } = useAuth();
             <div className="bg-white border rgba(201,168,124,0.2) rounded-2xl overflow-hidden shadow-sm">
               {/* 时间列头 */}
               <div className="grid divide-x divide-[var(--background-secondary)]" style={{ gridTemplateColumns: '64px repeat(' + data.staff.length + ', 1fr)' }}>
-                <div className="p-2 var(--background-card)"></div>
+                <div className="p-2 text-[var(--background-card)]"></div>
                 {data.staff.map(s => (
-                  <div key={s.id} className="p-2 var(--background-card) text-center border-l border-[var(--background-secondary)]">
-                    <span className="text-sm font-semibold var(--foreground-muted)">
+                  <div key={s.id} className="p-2 text-[var(--background-card)] text-center border-l border-[var(--background-secondary)]">
+                    <span className="text-sm font-semibold text-[var(--foreground-muted)]">
                       {data.schedule[s.id]?.filter(a => a.status !== 'cancelled').length || 0} 节
                     </span>
                   </div>
@@ -501,7 +501,7 @@ const { role } = useAuth();
                   className="grid divide-x divide-[var(--background-secondary)] border-t border-[var(--background-secondary)]"
                   style={{ gridTemplateColumns: '64px repeat(' + data.staff.length + ', 1fr)' }}
                 >
-                  <div className="p-2 text-sm var(--foreground-muted) font-medium flex items-center">
+                  <div className="p-2 text-sm text-[var(--foreground-muted)] font-medium flex items-center">
                     {time}
                   </div>
                   {data.staff.map(s => {
@@ -537,7 +537,7 @@ const { role } = useAuth();
                   {STATUS_LABEL[status] || status}
                 </div>
               ))}
-              <div className="text-sm var(--foreground-muted) self-center ml-2">点击预约可调换负责员工</div>
+              <div className="text-sm text-[var(--foreground-muted)] self-center ml-2">点击预约可调换负责员工</div>
             </div>
           </div>
         </div>
@@ -549,13 +549,13 @@ const { role } = useAuth();
           <div className="min-w-[900px]">
             <div className="bg-white border rgba(201,168,124,0.2) rounded-2xl overflow-hidden shadow-sm">
               {/* 表头 */}
-              <div className="grid divide-x divide-[var(--background-secondary)] bg-gradient-to-r from-gray-50 to-white border-b rgba(201,168,124,0.2)"
+              <div className="grid divide-x divide-[var(--background-secondary)] bg-gradient-to-r from-[var(--background)] to-white border-b rgba(201,168,124,0.2)"
                 style={{ gridTemplateColumns: '100px repeat(' + (data.staff.length || 1) + ', 1fr)' }}>
-                <div className="p-3 text-center font-bold var(--foreground-muted) text-sm">日期</div>
+                <div className="p-3 text-center font-bold text-[var(--foreground-muted)] text-sm">日期</div>
                 {data.staff.map(s => (
                   <div key={s.id} className="p-3 text-center border-l border-[var(--background-secondary)]">
-                    <div className="font-bold var(--foreground) text-sm">{s.name}</div>
-                    <div className="text-sm var(--foreground-muted)">{s.role}</div>
+                    <div className="font-bold text-[var(--foreground)] text-sm">{s.name}</div>
+                    <div className="text-sm text-[var(--foreground-muted)]">{s.role}</div>
                   </div>
                 ))}
               </div>
@@ -574,7 +574,7 @@ const { role } = useAuth();
                   >
                     <div className={`p-3 flex flex-col justify-center ${isCurrentDay ? 'text-[#a88a5c]' : 'var(--foreground)'}`}>
                       <div className="font-bold text-sm">{dateObj.getDate()}日</div>
-                      <div className="text-sm var(--foreground-muted)">周{dayNames[idx]}</div>
+                      <div className="text-sm text-[var(--foreground-muted)]">周{dayNames[idx]}</div>
                       {isCurrentDay && <div className="text-sm text-[#c9a87c] font-medium">今天</div>}
                     </div>
                     {data.staff.map(s => {
@@ -594,13 +594,13 @@ const { role } = useAuth();
                           className="p-3 border-l border-[var(--background-secondary)] cursor-pointer hover:bg-[#faf8f5] transition min-h-[64px] flex flex-col justify-center"
                         >
                           {count === 0 ? (
-                            <div className="text-sm var(--foreground-light) text-center">—</div>
+                            <div className="text-sm text-[var(--foreground-light)] text-center">—</div>
                           ) : (
                             <div className="text-center">
-                              <div className="text-xl font-semibold var(--foreground)">{count}</div>
-                              <div className="text-sm var(--foreground-muted)">预约</div>
+                              <div className="text-xl font-semibold text-[var(--foreground)]">{count}</div>
+                              <div className="text-sm text-[var(--foreground-muted)]">预约</div>
                               {pendingCount > 0 && (
-                                <div className="text-sm var(--primary-dark) mt-0.5">({pendingCount}) 待确认</div>
+                                <div className="text-sm text-[var(--primary-dark)] mt-0.5">({pendingCount}) 待确认</div>
                               )}
                             </div>
                           )}

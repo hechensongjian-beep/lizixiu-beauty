@@ -235,7 +235,7 @@ export default function StaffWorkbenchPage() {
         <div className="bg-white rounded-2xl border border-[var(--primary-light)] p-5">
           <p className="text-sm text-[var(--foreground-muted)] mb-1">今日预约</p>
           <div className="text-xl font-bold text-[var(--foreground)] mb-1">{dashboard?.today.count}</div>
-          <div className="text-sm var(--sage)">
+          <div className="text-sm text-[var(--sage)]">
             已完成 {dashboard?.today.appointments.filter((a: Appointment) => a.status === 'completed').length || 0} 单
           </div>
         </div>
@@ -245,13 +245,13 @@ export default function StaffWorkbenchPage() {
         </div>
         <div className="bg-white rounded-2xl border border-[var(--primary-light)] p-5">
           <p className="text-sm text-[var(--foreground-muted)] mb-1">本周收入</p>
-          <div className="text-xl font-bold var(--sage)">
+          <div className="text-xl font-bold text-[var(--sage)]">
             {(dashboard?.week.earnings || 0).toLocaleString('zh-CN', { style: 'currency', currency: 'CNY', minimumFractionDigits: 0 })}
           </div>
         </div>
         <div className="bg-white rounded-2xl border border-[var(--primary-light)] p-5">
           <p className="text-sm text-[var(--foreground-muted)] mb-1">待服务</p>
-          <div className="text-xl font-bold var(--primary-dark)">
+          <div className="text-xl font-bold text-[var(--primary-dark)]">
             {(dashboard?.week.pending || 0) + (dashboard?.week.confirmed || 0)}
           </div>
         </div>

@@ -162,15 +162,15 @@ export default async function StaffPage() {
           <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-r from-[#e8d5b8] to-[#f5ede0] rounded-2xl mb-4">
             <div className="text-xl">‍</div>
           </div>
-          <h1 className="text-xl font-bold var(--foreground) mb-2">员工管理</h1>
-          <p className="var(--foreground-muted)">
+          <h1 className="text-xl font-bold text-[var(--foreground)] mb-2">员工管理</h1>
+          <p className="text-[var(--foreground-muted)]">
             管理员工信息、排班、绩效、提成，实现高效团队协作与人力资源优化。
           </p>
         </div>
         <div className="flex gap-3">
           <button
             onClick={() => fetchStaff()}
-            className="px-4 py-2 var(--background-secondary) var(--foreground) font-medium rounded-lg hover:var(--background-secondary) transition"
+            className="px-4 py-2 text-[var(--background-secondary)] text-[var(--foreground)] font-medium rounded-lg hover:bg-[var(-background-secondary)] transition"
           >
             刷新
           </button>
@@ -187,10 +187,10 @@ export default async function StaffPage() {
       {/* 添加员工表单 */}
       {showAddForm && (
         <div className="bg-white border rgba(201,168,124,0.3) rounded-2xl p-8 mb-8 shadow-sm">
-          <h2 className="text-xl font-bold var(--foreground) mb-6">添加新员工</h2>
+          <h2 className="text-xl font-bold text-[var(--foreground)] mb-6">添加新员工</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block font-medium var(--foreground) mb-2">姓名 *</label>
+              <label className="block font-medium text-[var(--foreground)] mb-2">姓名 *</label>
               <input
                 type="text"
                 className="w-full px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-[#c9a87c] focus:border-[#c9a87c] outline-none transition"
@@ -200,7 +200,7 @@ export default async function StaffPage() {
               />
             </div>
             <div>
-              <label className="block font-medium var(--foreground) mb-2">角色 *</label>
+              <label className="block font-medium text-[var(--foreground)] mb-2">角色 *</label>
               <select
                 className="w-full px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-[#c9a87c] focus:border-[#c9a87c] outline-none transition"
                 value={newStaff.role}
@@ -216,7 +216,7 @@ export default async function StaffPage() {
               </select>
             </div>
             <div>
-              <label className="block font-medium var(--foreground) mb-2">手机号</label>
+              <label className="block font-medium text-[var(--foreground)] mb-2">手机号</label>
               <input
                 type="tel"
                 className="w-full px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-[#c9a87c] focus:border-[#c9a87c] outline-none transition"
@@ -226,7 +226,7 @@ export default async function StaffPage() {
               />
             </div>
             <div>
-              <label className="block font-medium var(--foreground) mb-2">邮箱</label>
+              <label className="block font-medium text-[var(--foreground)] mb-2">邮箱</label>
               <input
                 type="email"
                 className="w-full px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-[#c9a87c] focus:border-[#c9a87c] outline-none transition"
@@ -236,7 +236,7 @@ export default async function StaffPage() {
               />
             </div>
             <div className="md:col-span-2">
-              <label className="block font-medium var(--foreground) mb-2">专长领域</label>
+              <label className="block font-medium text-[var(--foreground)] mb-2">专长领域</label>
               <div className="flex flex-wrap gap-2 mb-2">
                 {newStaff.specialties.map((spec, idx) => (
                   <span key={idx} className="px-3 py-1 bg-[#faf8f5] text-[#2d4a3e] text-sm font-medium rounded-full flex items-center gap-1">
@@ -283,7 +283,7 @@ export default async function StaffPage() {
               </div>
             </div>
             <div>
-              <label className="block font-medium var(--foreground) mb-2">工作经验（年）</label>
+              <label className="block font-medium text-[var(--foreground)] mb-2">工作经验（年）</label>
               <input
                 type="number"
                 min="0"
@@ -295,7 +295,7 @@ export default async function StaffPage() {
               />
             </div>
             <div>
-              <label className="block font-medium var(--foreground) mb-2">状态</label>
+              <label className="block font-medium text-[var(--foreground)] mb-2">状态</label>
               <div className="flex items-center space-x-4">
                 <label className="inline-flex items-center">
                   <input
@@ -304,7 +304,7 @@ export default async function StaffPage() {
                     checked={newStaff.is_active}
                     onChange={() => setNewStaff({ ...newStaff, is_active: true })}
                   />
-                  <span className="ml-2 var(--foreground)">在职</span>
+                  <span className="ml-2 text-[var(--foreground)]">在职</span>
                 </label>
                 <label className="inline-flex items-center">
                   <input
@@ -313,14 +313,14 @@ export default async function StaffPage() {
                     checked={!newStaff.is_active}
                     onChange={() => setNewStaff({ ...newStaff, is_active: false })}
                   />
-                  <span className="ml-2 var(--foreground)">离职</span>
+                  <span className="ml-2 text-[var(--foreground)]">离职</span>
                 </label>
               </div>
             </div>
           </div>
           <div className="flex justify-end gap-4 mt-8">
             <button
-              className="px-6 py-3 var(--background-secondary) var(--foreground) font-medium rounded-lg hover:var(--background-secondary) transition"
+              className="px-6 py-3 text-[var(--background-secondary)] text-[var(--foreground)] font-medium rounded-lg hover:bg-[var(-background-secondary)] transition"
               onClick={() => setShowAddForm(false)}
               disabled={submitting}
             >
@@ -341,10 +341,10 @@ export default async function StaffPage() {
       {editingStaff && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl p-8 w-full max-w-4xl max-h-[90vh] overflow-y-auto">
-            <h2 className="text-xl font-bold var(--foreground) mb-6">编辑员工</h2>
+            <h2 className="text-xl font-bold text-[var(--foreground)] mb-6">编辑员工</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block font-medium var(--foreground) mb-2">姓名 *</label>
+                <label className="block font-medium text-[var(--foreground)] mb-2">姓名 *</label>
                 <input
                   type="text"
                   className="w-full px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-[#c9a87c] focus:border-[#c9a87c] outline-none transition"
@@ -354,7 +354,7 @@ export default async function StaffPage() {
                 />
               </div>
               <div>
-                <label className="block font-medium var(--foreground) mb-2">角色 *</label>
+                <label className="block font-medium text-[var(--foreground)] mb-2">角色 *</label>
                 <select
                   className="w-full px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-[#c9a87c] focus:border-[#c9a87c] outline-none transition"
                   value={editingStaff.role}
@@ -370,7 +370,7 @@ export default async function StaffPage() {
                 </select>
               </div>
               <div>
-                <label className="block font-medium var(--foreground) mb-2">手机号</label>
+                <label className="block font-medium text-[var(--foreground)] mb-2">手机号</label>
                 <input
                   type="tel"
                   className="w-full px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-[#c9a87c] focus:border-[#c9a87c] outline-none transition"
@@ -380,7 +380,7 @@ export default async function StaffPage() {
                 />
               </div>
               <div>
-                <label className="block font-medium var(--foreground) mb-2">邮箱</label>
+                <label className="block font-medium text-[var(--foreground)] mb-2">邮箱</label>
                 <input
                   type="email"
                   className="w-full px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-[#c9a87c] focus:border-[#c9a87c] outline-none transition"
@@ -390,7 +390,7 @@ export default async function StaffPage() {
                 />
               </div>
               <div className="md:col-span-2">
-                <label className="block font-medium var(--foreground) mb-2">专长领域</label>
+                <label className="block font-medium text-[var(--foreground)] mb-2">专长领域</label>
                 <div className="flex flex-wrap gap-2 mb-2">
                   {(editingStaff.specialties || []).map((spec, idx) => (
                     <span key={idx} className="px-3 py-1 bg-[#faf8f5] text-[#2d4a3e] text-sm font-medium rounded-full flex items-center gap-1">
@@ -446,7 +446,7 @@ export default async function StaffPage() {
                 </div>
               </div>
               <div>
-                <label className="block font-medium var(--foreground) mb-2">工作经验（年）</label>
+                <label className="block font-medium text-[var(--foreground)] mb-2">工作经验（年）</label>
                 <input
                   type="number"
                   min="0"
@@ -458,7 +458,7 @@ export default async function StaffPage() {
                 />
               </div>
               <div>
-                <label className="block font-medium var(--foreground) mb-2">状态</label>
+                <label className="block font-medium text-[var(--foreground)] mb-2">状态</label>
                 <div className="flex items-center space-x-4">
                   <label className="inline-flex items-center">
                     <input
@@ -467,7 +467,7 @@ export default async function StaffPage() {
                       checked={editingStaff.is_active ?? true}
                       onChange={() => setEditingStaff({ ...editingStaff, is_active: true })}
                     />
-                    <span className="ml-2 var(--foreground)">在职</span>
+                    <span className="ml-2 text-[var(--foreground)]">在职</span>
                   </label>
                   <label className="inline-flex items-center">
                     <input
@@ -476,14 +476,14 @@ export default async function StaffPage() {
                       checked={!(editingStaff.is_active ?? true)}
                       onChange={() => setEditingStaff({ ...editingStaff, is_active: false })}
                     />
-                    <span className="ml-2 var(--foreground)">离职</span>
+                    <span className="ml-2 text-[var(--foreground)]">离职</span>
                   </label>
                 </div>
               </div>
             </div>
             <div className="flex justify-end gap-4 mt-8">
               <button
-                className="px-6 py-3 var(--background-secondary) var(--foreground) font-medium rounded-lg hover:var(--background-secondary) transition"
+                className="px-6 py-3 text-[var(--background-secondary)] text-[var(--foreground)] font-medium rounded-lg hover:bg-[var(-background-secondary)] transition"
                 onClick={() => setEditingStaff(null)}
                 disabled={submitting}
               >
@@ -504,21 +504,21 @@ export default async function StaffPage() {
       {loading ? (
         <div className="animate-pulse space-y-8">
           {/* 标题骨架 */}
-          <div className="h-10 w-64 var(--background-secondary) rounded-xl"></div>
+          <div className="h-10 w-64 text-[var(--background-secondary)] rounded-xl"></div>
           {/* 员工卡片网格骨架 */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[1, 2, 3, 4].map((i) => (
               <div key={i} className="bg-white border rgba(201,168,124,0.2) rounded-2xl p-6">
-                <div className="w-24 h-24 var(--background-secondary) rounded-full mx-auto mb-6"></div>
-                <div className="h-6 w-32 var(--background-secondary) rounded mx-auto mb-4"></div>
-                <div className="h-4 w-24 var(--background-secondary) rounded mx-auto mb-4"></div>
+                <div className="w-24 h-24 text-[var(--background-secondary)] rounded-full mx-auto mb-6"></div>
+                <div className="h-6 w-32 text-[var(--background-secondary)] rounded mx-auto mb-4"></div>
+                <div className="h-4 w-24 text-[var(--background-secondary)] rounded mx-auto mb-4"></div>
                 <div className="space-y-2 mb-4">
-                  <div className="h-4 w-16 var(--background-secondary) rounded mx-auto"></div>
-                  <div className="h-4 w-20 var(--background-secondary) rounded mx-auto"></div>
+                  <div className="h-4 w-16 text-[var(--background-secondary)] rounded mx-auto"></div>
+                  <div className="h-4 w-20 text-[var(--background-secondary)] rounded mx-auto"></div>
                 </div>
                 <div className="flex gap-2 justify-center">
-                  <div className="h-8 w-16 var(--background-secondary) rounded"></div>
-                  <div className="h-8 w-16 var(--background-secondary) rounded"></div>
+                  <div className="h-8 w-16 text-[var(--background-secondary)] rounded"></div>
+                  <div className="h-8 w-16 text-[var(--background-secondary)] rounded"></div>
                 </div>
               </div>
             ))}
@@ -527,9 +527,9 @@ export default async function StaffPage() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             {[1, 2, 3, 4].map((i) => (
               <div key={i} className="bg-white rounded-xl p-6 border border-[#c9a87c] shadow-sm">
-                <div className="h-8 w-8 var(--background-secondary) rounded mb-4"></div>
-                <div className="h-6 w-16 var(--background-secondary) rounded"></div>
-                <div className="h-4 w-24 var(--background-secondary) rounded mt-2"></div>
+                <div className="h-8 w-8 text-[var(--background-secondary)] rounded mb-4"></div>
+                <div className="h-6 w-16 text-[var(--background-secondary)] rounded"></div>
+                <div className="h-4 w-24 text-[var(--background-secondary)] rounded mt-2"></div>
               </div>
             ))}
           </div>
@@ -537,10 +537,10 @@ export default async function StaffPage() {
       ) : error ? (
         <div className="rgba(177,93,94,0.06) border border-red-200 rounded-xl p-6 mb-8">
           <div className="flex items-center">
-            <div className="var(--rose) text-xl mr-3 font-bold">!</div>
+            <div className="text-[var(--rose)] text-xl mr-3 font-bold">!</div>
             <div>
               <h3 className="font-semibold text-red-800">加载失败</h3>
-              <p className="var(--rose) mt-1">{error}</p>
+              <p className="text-[var(--rose)] mt-1">{error}</p>
             </div>
           </div>
           <button
@@ -553,8 +553,8 @@ export default async function StaffPage() {
       ) : staff.length === 0 ? (
         <div className="bg-gradient-to-r from-[#faf8f5] to-[#f5f0e8] border border-[#e8d5b8] rounded-2xl p-12 text-center">
           <div className="text-xl mb-6"></div>
-          <h3 className="text-xl font-semibold var(--foreground) mb-3">暂无员工数据</h3>
-          <p className="var(--foreground) max-w-md mx-auto mb-6">
+          <h3 className="text-xl font-semibold text-[var(--foreground)] mb-3">暂无员工数据</h3>
+          <p className="text-[var(--foreground)] max-w-md mx-auto mb-6">
             您尚未添加任何员工。点击“添加员工”按钮开始建立您的团队。
           </p>
           <button
@@ -578,22 +578,22 @@ export default async function StaffPage() {
                 >
                   {getInitials(person.name)}
                 </div>
-                <h3 className="text-xl font-bold var(--foreground) mb-1">{person.name}</h3>
-                <p className="var(--foreground-muted) mb-4">{person.role}</p>
+                <h3 className="text-xl font-bold text-[var(--foreground)] mb-1">{person.name}</h3>
+                <p className="text-[var(--foreground-muted)] mb-4">{person.role}</p>
                 <div className="mb-4">
-                  <div className="text-sm var(--foreground-muted) mb-2">专长领域</div>
+                  <div className="text-sm text-[var(--foreground-muted)] mb-2">专长领域</div>
                   <div className="flex flex-wrap justify-center gap-2">
                     {(person.specialties || []).map((spec, idx) => (
                       <span
                         key={idx}
-                        className="px-3 py-1 var(--background-secondary) var(--foreground) text-sm font-medium rounded-full"
+                        className="px-3 py-1 text-[var(--background-secondary)] text-[var(--foreground)] text-sm font-medium rounded-full"
                       >
                         {spec}
                       </span>
                     ))}
                   </div>
                 </div>
-                <div className="text-sm var(--foreground) mb-4">
+                <div className="text-sm text-[var(--foreground)] mb-4">
                   <div className="flex justify-between">
                     <span>经验:</span>
                     <span className="font-medium">{person.experience_years || 0} 年</span>
@@ -614,7 +614,7 @@ export default async function StaffPage() {
                     编辑
                   </button>
                   <button
-                    className="px-4 py-2 rgba(177,93,94,0.08) var(--rose) font-medium rounded-lg hover:rgba(177,93,94,0.15) transition text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="px-4 py-2 rgba(177,93,94,0.08) text-[var(--rose)] font-medium rounded-lg hover:rgba(177,93,94,0.15) transition text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                     onClick={() => handleDeleteStaff(person.id)}
                     disabled={deletingId === person.id}
                   >
@@ -626,33 +626,33 @@ export default async function StaffPage() {
           </div>
 
           <div className="bg-gradient-to-r from-[#faf8f5] to-[#f5f0e8] border border-[#e8d5b8] rounded-2xl p-8 mb-12">
-            <h2 className="text-xl font-semibold var(--foreground) mb-4">团队总览</h2>
+            <h2 className="text-xl font-semibold text-[var(--foreground)] mb-4">团队总览</h2>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
               <div className="bg-white rounded-xl p-6 border border-[#c9a87c] shadow-sm">
                 <div className="text-2xl mb-2"></div>
-                <div className="text-xl font-bold var(--foreground)">{staff.length}</div>
-                <div className="text-sm var(--foreground-muted)">员工总数</div>
+                <div className="text-xl font-bold text-[var(--foreground)]">{staff.length}</div>
+                <div className="text-sm text-[var(--foreground-muted)]">员工总数</div>
               </div>
               <div className="bg-white rounded-xl p-6 border border-[#c9a87c] shadow-sm">
                 <div className="text-2xl mb-2"></div>
-                <div className="text-xl font-bold var(--foreground)">
+                <div className="text-xl font-bold text-[var(--foreground)]">
                   {(staff.reduce((sum, s) => sum + (s.experience_years || 0), 0) / staff.length).toFixed(1)}
                 </div>
-                <div className="text-sm var(--foreground-muted)">平均经验（年）</div>
+                <div className="text-sm text-[var(--foreground-muted)]">平均经验（年）</div>
               </div>
               <div className="bg-white rounded-xl p-6 border border-[#c9a87c] shadow-sm">
                 <div className="text-2xl mb-2 font-bold text-[#c9a87c]">ok</div>
-                <div className="text-xl font-bold var(--foreground)">
+                <div className="text-xl font-bold text-[var(--foreground)]">
                   {staff.filter(s => s.is_active ?? true).length}
                 </div>
-                <div className="text-sm var(--foreground-muted)">在职员工</div>
+                <div className="text-sm text-[var(--foreground-muted)]">在职员工</div>
               </div>
               <div className="bg-white rounded-xl p-6 border border-[#c9a87c] shadow-sm">
                 <div className="text-2xl mb-2"></div>
-                <div className="text-xl font-bold var(--foreground)">
+                <div className="text-xl font-bold text-[var(--foreground)]">
                   {Array.from(new Set(staff.flatMap(s => s.specialties))).length}
                 </div>
-                <div className="text-sm var(--foreground-muted)">专长技能数</div>
+                <div className="text-sm text-[var(--foreground-muted)]">专长技能数</div>
               </div>
             </div>
           </div>

@@ -42,11 +42,11 @@ export default function ForgotPasswordPage() {
         <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-r from-green-100 to-emerald-100 rounded-2xl mb-6">
           <div className="text-xl"></div>
         </div>
-        <h1 className="text-xl font-medium var(--foreground) mb-4">邮件已发送！</h1>
-        <p className="var(--foreground) mb-6">
+        <h1 className="text-xl font-medium text-[var(--foreground)] mb-4">邮件已发送！</h1>
+        <p className="text-[var(--foreground)] mb-6">
           我们已向 <strong>{email}</strong> 发送了一封密码重置邮件。请点击邮件中的链接设置新密码。
         </p>
-        <p className="var(--foreground-muted) text-sm mb-8">
+        <p className="text-[var(--foreground-muted)] text-sm mb-8">
           如果您没有收到邮件，请检查垃圾邮件文件夹，或稍后重试。
         </p>
         <div className="space-y-4">
@@ -58,7 +58,7 @@ export default function ForgotPasswordPage() {
           </Link>
           <Link
             href="/"
-            className="block px-6 py-3 border rgba(201,168,124,0.3) var(--foreground) font-semibold rounded-lg hover:var(--background-card) transition"
+            className="block px-6 py-3 border rgba(201,168,124,0.3) text-[var(--foreground)] font-semibold rounded-lg hover:bg-[var(-background-card)] transition"
           >
             返回首页
           </Link>
@@ -73,15 +73,15 @@ export default function ForgotPasswordPage() {
         <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-r from-blue-100 to-cyan-100 rounded-2xl mb-6">
           <div className="text-xl"></div>
         </div>
-        <h1 className="text-xl font-medium var(--foreground) mb-3">重置密码</h1>
-        <p className="var(--foreground-muted)">
+        <h1 className="text-xl font-medium text-[var(--foreground)] mb-3">重置密码</h1>
+        <p className="text-[var(--foreground-muted)]">
           输入您的邮箱地址，我们将发送重置链接
         </p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label className="block font-medium var(--foreground) mb-2">
+          <label className="block font-medium text-[var(--foreground)] mb-2">
             邮箱地址
           </label>
           <input
@@ -93,13 +93,13 @@ export default function ForgotPasswordPage() {
             onChange={(e) => setEmail(e.target.value)}
             disabled={loading}
           />
-          <p className="mt-2 text-sm var(--foreground-muted)">
+          <p className="mt-2 text-sm text-[var(--foreground-muted)]">
             请输入您注册时使用的邮箱地址
           </p>
         </div>
 
         {error && (
-          <div className="p-4 rgba(177,93,94,0.06) border border-red-200 var(--rose) rounded-lg">
+          <div className="p-4 rgba(177,93,94,0.06) border border-red-200 text-[var(--rose)] rounded-lg">
             <p className="font-semibold">发送失败</p>
             <p>{error}</p>
           </div>
@@ -122,15 +122,15 @@ export default function ForgotPasswordPage() {
         </button>
       </form>
 
-      <div className="mt-8 text-center var(--foreground-muted)">
+      <div className="mt-8 text-center text-[var(--foreground-muted)]">
         <Link href="/auth/login" className="text-[#a88a5c] font-semibold hover:underline">
           ← 返回登录
         </Link>
       </div>
 
       <div className="mt-12 p-6 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl">
-        <h3 className="font-semibold var(--foreground) mb-2">注意事项</h3>
-        <ul className="text-sm var(--foreground) space-y-1">
+        <h3 className="font-semibold text-[var(--foreground)] mb-2">注意事项</h3>
+        <ul className="text-sm text-[var(--foreground)] space-y-1">
           <li>• 重置链接有效期 <strong>24 小时</strong>，请尽快操作</li>
           <li>• 如果收不到邮件，请检查垃圾邮件文件夹</li>
           <li>• 重置后您可以使用新密码立即登录</li>

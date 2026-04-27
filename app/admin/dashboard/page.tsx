@@ -24,7 +24,7 @@ const { role } = useAuth();
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center">
           <div className="w-8 h-8 border-2 border-[#c9a87c] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-sm var(--foreground-muted)">正在检查权限...</p>
+          <p className="text-sm text-[var(--foreground-muted)]">正在检查权限...</p>
         </div>
       </div>
     );
@@ -127,18 +127,18 @@ const { role } = useAuth();
     <div className="max-w-7xl mx-auto px-4 py-10">
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-xl font-bold var(--foreground)">数据面板</h1>
-          <p className="var(--foreground-muted) mt-1">实时掌握店铺运营数据</p>
+          <h1 className="text-xl font-bold text-[var(--foreground)]">数据面板</h1>
+          <p className="text-[var(--foreground-muted)] mt-1">实时掌握店铺运营数据</p>
         </div>
         <button onClick={fetchDashboardData} disabled={loading}
-          className="px-4 py-2 var(--background-secondary) var(--foreground) rounded-lg hover:var(--background-secondary) transition text-sm">
+          className="px-4 py-2 text-[var(--background-secondary)] text-[var(--foreground)] rounded-lg hover:bg-[var(-background-secondary)] transition text-sm">
           {loading ? '刷新中...' : ' 刷新数据'}
         </button>
       </div>
 
       {loading ? (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
-          {[...Array(6)].map((_, i) => <div key={i} className="h-28 var(--background-secondary) rounded-2xl animate-pulse"></div>)}
+          {[...Array(6)].map((_, i) => <div key={i} className="h-28 text-[var(--background-secondary)] rounded-2xl animate-pulse"></div>)}
         </div>
       ) : (
         <>
@@ -158,7 +158,7 @@ const { role } = useAuth();
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
             {/* 收入趋势 */}
             <div className="bg-white rounded-2xl shadow p-6">
-              <h2 className="text-xl font-bold var(--foreground) mb-5"> 近7天收入趋势</h2>
+              <h2 className="text-xl font-bold text-[var(--foreground)] mb-5"> 近7天收入趋势</h2>
               {revenueData.length > 0 && revenueData.some(d => d.amount > 0) ? (
                 <ResponsiveContainer width="100%" height={220}>
                   <BarChart data={revenueData}>
@@ -170,13 +170,13 @@ const { role } = useAuth();
                   </BarChart>
                 </ResponsiveContainer>
               ) : (
-                <div className="h-52 flex items-center justify-center var(--foreground-muted) text-sm">暂无收入数据</div>
+                <div className="h-52 flex items-center justify-center text-[var(--foreground-muted)] text-sm">暂无收入数据</div>
               )}
             </div>
 
             {/* 订单状态分布 */}
             <div className="bg-white rounded-2xl shadow p-6">
-              <h2 className="text-xl font-bold var(--foreground) mb-5">订单状态分布</h2>
+              <h2 className="text-xl font-bold text-[var(--foreground)] mb-5">订单状态分布</h2>
               <div className="flex items-center gap-6">
                 <ResponsiveContainer width={180} height={180}>
                   <PieChart>
@@ -198,8 +198,8 @@ const { role } = useAuth();
                   ].map(item => (
                     <div key={item.label} className="flex items-center gap-2">
                       <div className={`w-3 h-3 rounded-full ${item.color}`}></div>
-                      <span className="text-base var(--foreground)">{item.label}</span>
-                      <span className="text-base font-bold var(--foreground) ml-auto">{item.value}</span>
+                      <span className="text-base text-[var(--foreground)]">{item.label}</span>
+                      <span className="text-base font-bold text-[var(--foreground)] ml-auto">{item.value}</span>
                     </div>
                   ))}
                 </div>
@@ -210,7 +210,7 @@ const { role } = useAuth();
           {/* 商品分类 */}
           {categoryData.length > 0 && (
             <div className="bg-white rounded-2xl shadow p-6 mb-6">
-              <h2 className="text-xl font-bold var(--foreground) mb-5">商品分类分布</h2>
+              <h2 className="text-xl font-bold text-[var(--foreground)] mb-5">商品分类分布</h2>
               <ResponsiveContainer width="100%" height={200}>
                 <BarChart data={categoryData} layout="vertical">
                   <CartesianGrid strokeDasharray="3 3" />
@@ -226,38 +226,38 @@ const { role } = useAuth();
           {/* 最近订单 */}
           <div className="bg-white rounded-2xl shadow p-6 mb-6">
             <div className="flex justify-between items-center mb-5">
-              <h2 className="text-xl font-bold var(--foreground)">最近订单</h2>
+              <h2 className="text-xl font-bold text-[var(--foreground)]">最近订单</h2>
               <Link href="/admin/orders" className="text-[#a88a5c] text-base font-medium hover:underline">全部订单 →</Link>
             </div>
             {recentOrders.length === 0 ? (
-              <div className="text-center py-10 var(--foreground-muted)">暂无订单数据</div>
+              <div className="text-center py-10 text-[var(--foreground-muted)]">暂无订单数据</div>
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="border-b">
-                      <th className="text-left py-3 px-2 font-semibold var(--foreground)">订单号</th>
-                      <th className="text-left py-3 px-2 font-semibold var(--foreground)">客户</th>
-                      <th className="text-left py-3 px-2 font-semibold var(--foreground)">金额</th>
-                      <th className="text-left py-3 px-2 font-semibold var(--foreground)">状态</th>
-                      <th className="text-left py-3 px-2 font-semibold var(--foreground)">时间</th>
+                      <th className="text-left py-3 px-2 font-semibold text-[var(--foreground)]">订单号</th>
+                      <th className="text-left py-3 px-2 font-semibold text-[var(--foreground)]">客户</th>
+                      <th className="text-left py-3 px-2 font-semibold text-[var(--foreground)]">金额</th>
+                      <th className="text-left py-3 px-2 font-semibold text-[var(--foreground)]">状态</th>
+                      <th className="text-left py-3 px-2 font-semibold text-[var(--foreground)]">时间</th>
                     </tr>
                   </thead>
                   <tbody>
                     {recentOrders.map(o => (
-                      <tr key={o.id} className="border-b hover:var(--background-card)">
-                        <td className="py-3 px-2 font-mono text-sm var(--foreground-muted)">#{o.id.substring(0, 10)}</td>
+                      <tr key={o.id} className="border-b hover:bg-[var(-background-card)]">
+                        <td className="py-3 px-2 font-mono text-sm text-[var(--foreground-muted)]">#{o.id.substring(0, 10)}</td>
                         <td className="py-3 px-2">
-                          <div className="font-medium var(--foreground)">{o.customerName || '—'}</div>
-                          <div className="text-sm var(--foreground-muted)">{o.customerPhone || '—'}</div>
+                          <div className="font-medium text-[var(--foreground)]">{o.customerName || '—'}</div>
+                          <div className="text-sm text-[var(--foreground-muted)]">{o.customerPhone || '—'}</div>
                         </td>
-                        <td className="py-3 px-2 font-bold var(--foreground)">{fmt(o.total || 0)}</td>
+                        <td className="py-3 px-2 font-bold text-[var(--foreground)]">{fmt(o.total || 0)}</td>
                         <td className="py-3 px-2">
                           <span className={`px-2 py-0.5 rounded-full text-sm font-medium ${statusColor[o.status] || 'var(--background-secondary) var(--foreground-muted)'}`}>
                             {statusLabel[o.status] || o.status}
                           </span>
                         </td>
-                        <td className="py-3 px-2 var(--foreground-muted) text-sm">
+                        <td className="py-3 px-2 text-[var(--foreground-muted)] text-sm">
                           {o.createdAt ? new Date(o.createdAt).toLocaleString('zh-CN', { month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit' }) : '—'}
                         </td>
                       </tr>
@@ -270,22 +270,22 @@ const { role } = useAuth();
 
           {/* 库存预警 */}
           <div className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-2xl p-6 mb-6">
-            <h2 className="text-lg font-bold var(--foreground) mb-4">运营提醒</h2>
+            <h2 className="text-lg font-bold text-[var(--foreground)] mb-4">运营提醒</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="bg-white rounded-xl p-4 border border-amber-200">
                 <div className="text-[#c9a87c] font-bold text-xl mb-1">{stats.lowStockProducts}</div>
-                <div className="var(--foreground) font-medium">库存紧张商品</div>
-                <div className="var(--foreground-muted) text-sm mt-1">库存 ≤ 10 件</div>
+                <div className="text-[var(--foreground)] font-medium">库存紧张商品</div>
+                <div className="text-[var(--foreground-muted)] text-sm mt-1">库存 ≤ 10 件</div>
               </div>
               <div className="bg-white rounded-xl p-4 border border-amber-200">
                 <div className="text-yellow-500 font-bold text-xl mb-1">{stats.pendingOrders}</div>
-                <div className="var(--foreground) font-medium">待处理订单</div>
-                <div className="var(--foreground-muted) text-sm mt-1">等待客户付款</div>
+                <div className="text-[var(--foreground)] font-medium">待处理订单</div>
+                <div className="text-[var(--foreground-muted)] text-sm mt-1">等待客户付款</div>
               </div>
               <div className="bg-white rounded-xl p-4 border border-amber-200">
-                <div className="var(--primary) font-bold text-xl mb-1">{stats.totalProducts}</div>
-                <div className="var(--foreground) font-medium">在售商品</div>
-                <div className="var(--foreground-muted) text-sm mt-1">建议定期更新库存</div>
+                <div className="text-[var(--primary)] font-bold text-xl mb-1">{stats.totalProducts}</div>
+                <div className="text-[var(--foreground)] font-medium">在售商品</div>
+                <div className="text-[var(--foreground-muted)] text-sm mt-1">建议定期更新库存</div>
               </div>
             </div>
           </div>

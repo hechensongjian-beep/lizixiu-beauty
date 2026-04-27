@@ -90,9 +90,9 @@ export default function AddToCartButton({ product }: { product: Product }) {
       <div className="flex items-center gap-4 mb-6">
         <span className="font-medium" style={{color:'#2a2a28'}}>数量</span>
         <div className="flex items-center rounded-xl overflow-hidden" style={{border:'1.5px solid rgba(201,168,124,0.3)'}}>
-          <button onClick={() => changeQty(-1)} className="w-11 h-11 flex items-center justify-center text-lg font-bold transition hover:var(--background-secondary)" style={{color:'#2a2a28',background:'white'}} disabled={qty <= 1}>−</button>
+          <button onClick={() => changeQty(-1)} className="w-11 h-11 flex items-center justify-center text-lg font-bold transition hover:bg-[var(-background-secondary)]" style={{color:'#2a2a28',background:'white'}} disabled={qty <= 1}>−</button>
           <div className="w-16 h-11 flex items-center justify-center font-bold text-lg" style={{color:'#2a2a28',background:'white'}}>{qty}</div>
-          <button onClick={() => changeQty(1)} className="w-11 h-11 flex items-center justify-center text-lg font-bold transition hover:var(--background-secondary)" style={{color:'var(--primary)',background:'white'}} disabled={qty >= product.stock}>+</button>
+          <button onClick={() => changeQty(1)} className="w-11 h-11 flex items-center justify-center text-lg font-bold transition hover:bg-[var(-background-secondary)]" style={{color:'var(--primary)',background:'white'}} disabled={qty >= product.stock}>+</button>
         </div>
         <span className="text-sm" style={{color:'#9b9b98'}}>共 {product.stock} 件</span>
       </div>

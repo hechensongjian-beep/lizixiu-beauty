@@ -6,19 +6,19 @@ export default function AuthLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-[var(--background)] to-[var(--background-secondary)]">
       {/* 顶部导航 */}
       <header className="border-b rgba(201,168,124,0.2) bg-white">
         <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <Link href="/" className="flex items-center space-x-2">
               <div className="w-8 h-8 bg-gradient-to-r from-[#c9a87c] to-[#e8d5b8] rounded-lg"></div>
-              <span className="text-xl font-bold var(--foreground)">丽姿秀</span>
+              <span className="text-xl font-bold text-[var(--foreground)]">丽姿秀</span>
             </Link>
-            <span className="var(--foreground-muted)">|</span>
-            <span className="var(--foreground-muted) font-medium">账户中心</span>
+            <span className="text-[var(--foreground-muted)]">|</span>
+            <span className="text-[var(--foreground-muted)] font-medium">账户中心</span>
           </div>
-          <div className="text-sm var(--foreground-muted)">
+          <div className="text-sm text-[var(--foreground-muted)]">
             需要帮助？{' '}
             <a href="mailto:support@example.com" className="text-[#a88a5c] hover:underline">
               联系客服
@@ -34,7 +34,7 @@ export default function AuthLayout({
 
       {/* 页脚 */}
       <footer className="border-t rgba(201,168,124,0.2) bg-white py-6">
-        <div className="max-w-6xl mx-auto px-4 text-center var(--foreground-muted) text-sm">
+        <div className="max-w-6xl mx-auto px-4 text-center text-[var(--foreground-muted)] text-sm">
           <p>© 2026 丽姿秀美容预约系统 · 保留所有权利</p>
           <p className="mt-2">
             <Link href="/privacy" className="hover:underline">隐私政策</Link>

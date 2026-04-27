@@ -53,7 +53,7 @@ const { role } = useAuth();
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center">
           <div className="w-8 h-8 border-2 border-[#c9a87c] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-sm var(--foreground-muted)">正在检查权限...</p>
+          <p className="text-sm text-[var(--foreground-muted)]">正在检查权限...</p>
         </div>
       </div>
     );
@@ -240,7 +240,7 @@ const { role } = useAuth();
 
           <div className="flex items-center gap-3">
 
-            <Link href="/admin/dashboard" className="p-2 rounded-lg transition hover:var(--background-secondary)">
+            <Link href="/admin/dashboard" className="p-2 rounded-lg transition hover:bg-[var(-background-secondary)]">
 
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6b6b68" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
 
@@ -330,7 +330,7 @@ const { role } = useAuth();
 
                             {svc.featured && (
 
-                              <span className="px-2 py-0.5 rounded-full text-sm font-bold var(--sage)" style={{background:'#ecfdf5',border:'1px solid #a7f3d0'}}>人气王</span>
+                              <span className="px-2 py-0.5 rounded-full text-sm font-bold text-[var(--sage)]" style={{background:'#ecfdf5',border:'1px solid #a7f3d0'}}>人气王</span>
 
                             )}
 
@@ -382,7 +382,7 @@ const { role } = useAuth();
 
                         <button onClick={() => startEdit(svc)}
 
-                          className="flex-1 py-2 rounded-lg text-sm font-bold border transition hover:var(--background-card)" style={{border:'1.5px solid #e8e4df',color:'#6b6b68'}}>
+                          className="flex-1 py-2 rounded-lg text-sm font-bold border transition hover:bg-[var(-background-card)]" style={{border:'1.5px solid #e8e4df',color:'#6b6b68'}}>
 
                           编辑
 
@@ -390,7 +390,7 @@ const { role } = useAuth();
 
                         <button onClick={() => handleDelete(svc.id)}
 
-                          className="px-3 py-2 rounded-lg text-sm font-bold border transition hover:rgba(177,93,94,0.08) hover:border-red-300 hover:var(--rose)" style={{border:'1.5px solid rgba(201,168,124,0.2)',color:'var(--foreground-muted)'}}>
+                          className="px-3 py-2 rounded-lg text-sm font-bold border transition hover:rgba(177,93,94,0.08) hover:border-red-300 hover:text-[var(-rose)]" style={{border:'1.5px solid rgba(201,168,124,0.2)',color:'var(--foreground-muted)'}}>
 
                           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
 
@@ -552,7 +552,7 @@ const { role } = useAuth();
 
                   <button type="button" onClick={() => setTab('list')}
 
-                    className="flex-1 py-3 rounded-xl font-bold border transition hover:var(--background-card)" style={{border:'1.5px solid #e8e4df',color:'#6b6b68'}}>
+                    className="flex-1 py-3 rounded-xl font-bold border transition hover:bg-[var(-background-card)]" style={{border:'1.5px solid #e8e4df',color:'#6b6b68'}}>
 
                     取消
 
