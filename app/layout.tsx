@@ -427,6 +427,7 @@ export default function RootLayout({
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="keywords" content="美容,面部护理,身体SPA,美甲,美睫,美容工作室,丽姿秀" />
+        <meta name="theme-color" content="#faf8f3" />
         <meta property="og:title" content="丽姿秀 · 专业美容服务" />
         <meta property="og:description" content="东方草本 · 现代美容科技 · 专属定制服务" />
         <meta property="og:type" content="website" />
