@@ -109,7 +109,7 @@ function ProductDetailInner() {
           <div>
             <div className={`rounded-xl overflow-hidden relative ${!product.imageUrl ? '' : ''}`} style={{ minHeight: '420px', background: product.imageUrl ? 'white' : 'linear-gradient(135deg, var(--primary-light), var(--primary))' }}>
               {product.imageUrl ? (
-                <img src={product.imageUrl} alt={product.name} className="w-full h-full object-cover" style={{ minHeight: '420px' }} loading="lazy" />
+                <img src={product.imageUrl} alt={product.name} className="w-full h-full object-cover" style={{ minHeight: '420px' }} />
               ) : (
                 <div className="w-full h-full flex flex-col items-center justify-center" style={{ minHeight: '420px' }}>
                   <span className="text-white font-bold opacity-80" style={{ fontFamily: "'Noto Serif SC', serif", fontSize: '4rem' }}>{product.name.charAt(0)}</span>
@@ -233,7 +233,7 @@ function ProductDetailInner() {
                   style={{ border: '1px solid var(--primary-light)' }}>
                   <div className="w-full h-28 flex items-center justify-center" style={{ background: p.imageUrl ? 'white' : 'linear-gradient(135deg, var(--primary-light), var(--primary))' }}>
                     {p.imageUrl ? (
-                      <img src={p.imageUrl} alt={p.name} className="w-full h-full object-cover" />
+                      <img src={p.imageUrl} alt={p.name} className="w-full h-full object-cover" loading="lazy" />
                     ) : (
                       <span className="text-white font-bold opacity-80" style={{ fontSize: '1.5rem' }}>{p.name.charAt(0)}</span>
                     )}
