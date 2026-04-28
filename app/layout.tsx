@@ -426,6 +426,16 @@ export default function RootLayout({
         <meta name="description" content="丽姿秀专业美容服务与电商平台。面部护理、身体SPA、美甲美睫，精选草本成分，现代美容科技。立即预约，享受专属美丽蜕变。" />
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: `{
+          "@context": "https://schema.org",
+          "@type": "HealthAndBeautyBusiness",
+          "name": "丽姿秀",
+          "description": "专业美容服务与电商平台，提供面部护理、身体SPA、美甲美睫等服务",
+          "url": "https://lizixiu-beauty.pages.dev",
+          "priceRange": "$$",
+          "openingHours": "Mo-Su 09:00-21:00"
+}` }} />
+
         <meta name="keywords" content="美容,面部护理,身体SPA,美甲,美睫,美容工作室,丽姿秀" />
         <meta name="theme-color" content="#faf8f3" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
