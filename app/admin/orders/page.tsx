@@ -85,6 +85,12 @@ const { role } = useAuth();
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   
+  // 分页状态
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [totalCount, setTotalCount] = useState(0);
+  const pageSize = 20;
+  
   // 弹窗状态
   const [dialog, setDialog] = useState<{
     isOpen: boolean;
@@ -112,7 +118,7 @@ const { role } = useAuth();
   }
 
   useEffect(() => {
-    fetchOrders();
+    fetchOrders(1);
   }, []);
 
   useEffect(() => {
@@ -127,11 +133,14 @@ const { role } = useAuth();
     }
   }, [orders]);
 
-  const fetchOrders = async () => {
+  const fetchOrders = async (page = 1) => {
     setLoading(true);
     try {
-      const data = await getOrders();
+      const data = await getOrders(page, pageSize);
       setOrders(data?.orders || []);
+      setTotalCount(data?.total || 0);
+      setTotalPages(data?.totalPages || 1);
+      setCurrentPage(page);
     } catch (error) {
       console.error('获取订单失败', error);
     } finally {
@@ -255,9 +264,9 @@ const { role } = useAuth();
     { value: 'cancelled', label: '已取消' },
   ];
 
-  // 统计数据
+  // 统计数据（基于当前页）
   const stats = {
-    total: orders.length,
+    total: totalCount,
     pending: orders.filter(o => o.status === 'pending').length,
     paid: orders.filter(o => o.status === 'paid').length,
     shipped: orders.filter(o => o.status === 'shipped').length,
@@ -563,10 +572,72 @@ const { role } = useAuth();
         </div>
       )}
 
+      {/* 分页控件 */}
+      {totalPages > 1 && (
+        <div className="flex items-center justify-center gap-4 mt-8">
+          <button
+            onClick={() => fetchOrders(currentPage - 1)}
+            disabled={currentPage === 1}
+            className="px-4 py-2 rounded-lg font-medium transition disabled:opacity-50 disabled:cursor-not-allowed"
+            style={{ 
+              background: currentPage === 1 ? 'var(--background-secondary)' : 'var(--primary)',
+              color: currentPage === 1 ? 'var(--foreground-muted)' : 'white'
+            }}
+          >
+            上一页
+          </button>
+          
+          <div className="flex items-center gap-2">
+            {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+              let pageNum;
+              if (totalPages <= 5) {
+                pageNum = i + 1;
+              } else if (currentPage <= 3) {
+                pageNum = i + 1;
+              } else if (currentPage >= totalPages - 2) {
+                pageNum = totalPages - 4 + i;
+              } else {
+                pageNum = currentPage - 2 + i;
+              }
+              
+              return (
+                <button
+                  key={pageNum}
+                  onClick={() => fetchOrders(pageNum)}
+                  className="w-10 h-10 rounded-lg font-medium transition"
+                  style={{ 
+                    background: currentPage === pageNum ? 'var(--primary)' : 'var(--background-secondary)',
+                    color: currentPage === pageNum ? 'white' : 'var(--foreground)'
+                  }}
+                >
+                  {pageNum}
+                </button>
+              );
+            })}
+          </div>
+          
+          <button
+            onClick={() => fetchOrders(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            className="px-4 py-2 rounded-lg font-medium transition disabled:opacity-50 disabled:cursor-not-allowed"
+            style={{ 
+              background: currentPage === totalPages ? 'var(--background-secondary)' : 'var(--primary)',
+              color: currentPage === totalPages ? 'var(--foreground-muted)' : 'white'
+            }}
+          >
+            下一页
+          </button>
+          
+          <span className="text-sm ml-4" style={{ color: 'var(--foreground-muted)' }}>
+            第 {currentPage} / {totalPages} 页，共 {totalCount} 条订单
+          </span>
+        </div>
+      )}
+
       {/* 刷新按钮 */}
       <div className="text-center mt-8">
         <button
-          onClick={fetchOrders}
+          onClick={() => fetchOrders(currentPage)}
           className="btn btn-primary"
         >
           刷新订单
