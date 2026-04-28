@@ -1,0 +1,24 @@
+{
+  "name": "丽姿秀 - 专业美容服务",
+  "short_name": "丽姿秀",
+  "description": "丽姿秀专业美容服务与电商平台。面部护理、身体SPA、美甲美睫。",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#faf8f3",
+  "theme_color": "#c9a87c",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><circle cx='96' cy='96' r='88' fill='%23c9a87c'/><text x='96' y='128' font-size='96' text-anchor='middle' fill='white' font-family='serif'>丽</text></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><circle cx='256' cy='256' r='240' fill='%23c9a87c'/><text x='256' y='340' font-size='256' text-anchor='middle' fill='white' font-family='serif'>丽</text></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    }
+  ],
+  "categories": ["beauty", "lifestyle", "shopping"],
+  "lang": "zh-CN"
+}

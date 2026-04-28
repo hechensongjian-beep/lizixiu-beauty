@@ -431,6 +431,7 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="apple-mobile-web-app-title" content="丽姿秀" />
+        <link rel="manifest" href="/manifest.json" />
         <meta property="og:title" content="丽姿秀 · 专业美容服务" />
         <meta property="og:description" content="东方草本 · 现代美容科技 · 专属定制服务" />
         <meta property="og:type" content="website" />
