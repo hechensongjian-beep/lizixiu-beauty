@@ -26,6 +26,7 @@ function ProductDetailInner() {
         const list: Product[] = data?.products || [];
         const found = list.find(p => p.id === id) || null;
         setProduct(found);
+          if (found) document.title = found.name + ' - 丽姿秀';
         if (found) {
           setRelated(list.filter(p => p.category === found.category && p.id !== found.id).slice(0, 4));
         }
