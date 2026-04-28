@@ -3,6 +3,7 @@
 import { useToast } from '@/components/Toast';
 import { useState, useEffect } from 'react';
 import { getAllPromotions, createPromotion, updatePromotion, deletePromotion } from '@/lib/api';
+    document.title = '促销活动管理 - 丽姿秀';
 
 interface Promotion {
   id: string;

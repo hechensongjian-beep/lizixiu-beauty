@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabase';
+    document.title = '系统设置 - 丽姿秀';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
