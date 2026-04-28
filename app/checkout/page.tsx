@@ -330,7 +330,7 @@ export default function CheckoutPage() {
               {submittingPayment ? '提交中...' : '我已扫码支付，提交凭证'}
             </button>
             {!hasQr && <p className="text-sm text-[var(--foreground-muted)] mt-2">商家暂未配置收款码，请联系商家获取支付方式</p>}
-            <div className="mt-4"><Link href="/orders" className="text-[var(--foreground-muted)] hover:text-[var(-foreground)] text-sm">查看我的订单</Link></div>
+            <div className="mt-4"><Link href="/orders" className="text-[var(--foreground-muted)] hover:text-[var(--foreground)] text-sm">查看我的订单</Link></div>
           </div>
         )}
       </div>

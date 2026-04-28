@@ -143,7 +143,7 @@ function ReassignModal({
         <div className="px-6 pb-6 flex gap-3">
           <button
             onClick={onClose}
-            className="flex-1 py-2.5 text-[var(--background-secondary)] text-[var(--foreground)] rounded-xl font-medium hover:bg-[var(-background-secondary)] transition"
+            className="flex-1 py-2.5 text-[var(--background-secondary)] text-[var(--foreground)] rounded-xl font-medium hover:bg-[var(--background-secondary)] transition"
           >
             取消
           </button>
@@ -329,7 +329,7 @@ const { role } = useAuth();
       <div className="flex items-center justify-between mb-6">
         <div>
           <div className="flex items-center gap-3">
-            <Link href="/" className="text-[var(--foreground-muted)] hover:text-[var(-foreground-muted)]">首页</Link>
+            <Link href="/" className="text-[var(--foreground-muted)] hover:text-[var(--foreground-muted)]">首页</Link>
             <span className="text-[var(--foreground-light)]">/</span>
             <h1 className="text-xl font-semibold text-[var(--foreground)]">员工排班日历</h1>
           </div>
@@ -338,14 +338,14 @@ const { role } = useAuth();
         <div className="flex gap-2">
           <Link
             href="/admin/dashboard"
-            className="px-4 py-2 text-[var(--background-secondary)] text-[var(--foreground)] rounded-xl text-sm hover:bg-[var(-background-secondary)] transition"
+            className="px-4 py-2 text-[var(--background-secondary)] text-[var(--foreground)] rounded-xl text-sm hover:bg-[var(--background-secondary)] transition"
           >
              数据面板
           </Link>
           <button
             onClick={() => fetchSchedule(currentDate, view)}
             disabled={loading}
-            className="px-4 py-2 text-[var(--background-secondary)] text-[var(--foreground)] rounded-xl text-sm hover:bg-[var(-background-secondary)] disabled:opacity-50 transition"
+            className="px-4 py-2 text-[var(--background-secondary)] text-[var(--foreground)] rounded-xl text-sm hover:bg-[var(--background-secondary)] disabled:opacity-50 transition"
           >
             {loading ? '刷新中..' : ''}
           </button>
@@ -358,7 +358,7 @@ const { role } = useAuth();
           <button
             onClick={() => setView('day')}
             className={`px-4 py-1.5 rounded-lg text-sm font-medium transition ${
-              view === 'day' ? 'bg-white shadow text-[#a88a5c]' : 'var(--foreground-muted) hover:text-[var(-foreground)]'
+              view === 'day' ? 'bg-white shadow text-[#a88a5c]' : 'var(--foreground-muted) hover:text-[var(--foreground)]'
             }`}
           >
             日视图
@@ -366,7 +366,7 @@ const { role } = useAuth();
           <button
             onClick={() => setView('week')}
             className={`px-4 py-1.5 rounded-lg text-sm font-medium transition ${
-              view === 'week' ? 'bg-white shadow text-[#a88a5c]' : 'var(--foreground-muted) hover:text-[var(-foreground)]'
+              view === 'week' ? 'bg-white shadow text-[#a88a5c]' : 'var(--foreground-muted) hover:text-[var(--foreground)]'
             }`}
           >
             周视图

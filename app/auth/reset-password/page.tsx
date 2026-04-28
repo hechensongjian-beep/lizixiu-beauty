@@ -90,7 +90,7 @@ export default function ResetPasswordPage() {
           </Link>
           <Link
             href="/auth/login"
-            className="block px-6 py-3 border rgba(201,168,124,0.3) text-[var(--foreground)] font-semibold rounded-lg hover:bg-[var(-background-card)] transition"
+            className="block px-6 py-3 border rgba(201,168,124,0.3) text-[var(--foreground)] font-semibold rounded-lg hover:bg-[var(--background-card)] transition"
           >
             返回登录
           </Link>

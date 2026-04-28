@@ -139,20 +139,20 @@ const { role } = useAuth();
       <div className="flex items-center justify-between mb-6">
         <div>
           <div className="flex items-center gap-3">
-            <Link href="/" className="text-[var(--foreground-muted)] hover:text-[var(-foreground-muted)]">首页</Link>
+            <Link href="/" className="text-[var(--foreground-muted)] hover:text-[var(--foreground-muted)]">首页</Link>
             <span className="text-[var(--foreground-light)]">/</span>
             <h1 className="text-xl font-semibold text-[var(--foreground)]">支付核验</h1>
           </div>
           <p className="text-[var(--foreground-muted)] text-sm mt-1">客户提交支付凭证后，商家审核确认</p>
         </div>
         <div className="flex gap-2">
-          <Link href="/admin/payment" className="px-4 py-2 text-[var(--background-secondary)] text-[var(--foreground)] rounded-xl text-sm hover:bg-[var(-background-secondary)] transition">
+          <Link href="/admin/payment" className="px-4 py-2 text-[var(--background-secondary)] text-[var(--foreground)] rounded-xl text-sm hover:bg-[var(--background-secondary)] transition">
              收款码设置
           </Link>
           <button
             onClick={fetchData}
             disabled={loading}
-            className="px-4 py-2 text-[var(--background-secondary)] text-[var(--foreground)] rounded-xl text-sm hover:bg-[var(-background-secondary)] disabled:opacity-50 transition"
+            className="px-4 py-2 text-[var(--background-secondary)] text-[var(--foreground)] rounded-xl text-sm hover:bg-[var(--background-secondary)] disabled:opacity-50 transition"
           >
             {loading ? '刷新中...' : '刷新数据'}
           </button>
@@ -191,7 +191,7 @@ const { role } = useAuth();
             className={`flex-1 px-3 py-2 rounded-lg text-sm font-medium transition ${
               filter === f.key
                 ? 'bg-white shadow text-[#a88a5c]'
-                : 'var(--foreground-muted) hover:text-[var(-foreground)]'
+                : 'var(--foreground-muted) hover:text-[var(--foreground)]'
             }`}
           >
             {f.label}
@@ -337,7 +337,7 @@ const { role } = useAuth();
             <div className="px-6 pb-6 flex gap-3">
               <button
                 onClick={() => setNoteModal(null)}
-                className="flex-1 py-2.5 text-[var(--background-secondary)] text-[var(--foreground)] rounded-xl font-medium hover:bg-[var(-background-secondary)] transition"
+                className="flex-1 py-2.5 text-[var(--background-secondary)] text-[var(--foreground)] rounded-xl font-medium hover:bg-[var(--background-secondary)] transition"
               >
                 取消
               </button>
@@ -346,7 +346,7 @@ const { role } = useAuth();
                 className={`flex-1 py-2.5 text-white rounded-xl font-medium transition ${
                   noteModal.action === 'approve'
                     ? 'var(--accent-light) hover:rgba(74,117,86,0.2)'
-                    : 'var(--accent-light) hover:text-[var(-accent-light)]'
+                    : 'var(--accent-light) hover:text-[var(--accent-light)]'
                 }`}
               >
                 确认{noteModal.action === 'approve' ? '收款' : '拒绝'}

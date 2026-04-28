@@ -85,7 +85,7 @@ const router = useRouter();
           <p className="text-[var(--foreground-muted)]">管理首页展示的用户评价</p>
         </div>
         <div className="flex gap-3">
-          <button onClick={fetchData} className="px-4 py-2 text-[var(--background-secondary)] text-[var(--foreground)] rounded-lg hover:bg-[var(-background-secondary)]">刷新</button>
+          <button onClick={fetchData} className="px-4 py-2 text-[var(--background-secondary)] text-[var(--foreground)] rounded-lg hover:bg-[var(--background-secondary)]">刷新</button>
           <button onClick={() => setShowAdd(true)} className="px-6 py-3 bg-[#2d4a3e] text-white font-semibold rounded-lg">+ 添加评价</button>
         </div>
       </div>
@@ -167,7 +167,7 @@ const router = useRouter();
                 <p className="text-[var(--foreground)] text-sm">{t.text}</p>
               </div>
               <div className="flex gap-2 flex-shrink-0">
-                <button onClick={() => setEditing(t)} className="px-3 py-1 text-sm text-[var(--background-secondary)] rounded hover:bg-[var(-background-secondary)]">编辑</button>
+                <button onClick={() => setEditing(t)} className="px-3 py-1 text-sm text-[var(--background-secondary)] rounded hover:bg-[var(--background-secondary)]">编辑</button>
                 <button onClick={() => handleDelete(t.id)} className="px-3 py-1 text-sm rgba(177,93,94,0.08) text-[var(--rose)] rounded hover:rgba(177,93,94,0.15)">删除</button>
               </div>
             </div>

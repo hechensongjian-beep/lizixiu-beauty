@@ -157,11 +157,11 @@ const openEdit = async (c: Customer) => {
       {/* 标签切换 */}
       <div className="flex gap-3 mb-8">
         <button onClick={() => setTab('list')}
-          className={`px-5 py-2 rounded-full font-medium transition ${tab==='list'?'bg-[#c9a87c] text-white shadow':'bg-white border var(--foreground) hover:bg-[var(-background-card)]'}`}>
+          className={`px-5 py-2 rounded-full font-medium transition ${tab==='list'?'bg-[#c9a87c] text-white shadow':'bg-white border var(--foreground) hover:bg-[var(--background-card)]'}`}>
           客户列表
         </button>
         <button onClick={() => { openAdd(); setTab('add'); }}
-          className={`px-5 py-2 rounded-full font-medium transition ${tab==='add'?'bg-[#c9a87c] text-white shadow':'bg-white border var(--foreground) hover:bg-[var(-background-card)]'}`}>
+          className={`px-5 py-2 rounded-full font-medium transition ${tab==='add'?'bg-[#c9a87c] text-white shadow':'bg-white border var(--foreground) hover:bg-[var(--background-card)]'}`}>
           添加客户
         </button>
         {tab === 'edit' && (
@@ -206,7 +206,7 @@ const openEdit = async (c: Customer) => {
             </div>
             <div className="flex gap-4 pt-4 border-t">
               <button type="button" onClick={() => setTab('list')}
-                className="px-6 py-3 border rounded-xl font-bold text-[var(--foreground)] hover:bg-[var(-background-card)]">取消</button>
+                className="px-6 py-3 border rounded-xl font-bold text-[var(--foreground)] hover:bg-[var(--background-card)]">取消</button>
               <button type="submit" disabled={saving}
                 className="px-8 py-3 bg-[#2d4a3e] text-white rounded-xl font-bold hover:opacity-90 shadow disabled:opacity-50">
                 {saving ? '保存中...' : (editing ? '保存更改' : '确认添加')}
@@ -273,7 +273,7 @@ const openEdit = async (c: Customer) => {
                   </thead>
                   <tbody>
                     {filtered.map(c => (
-                      <tr key={c.id} className="border-t hover:bg-[var(-background-card)] transition">
+                      <tr key={c.id} className="border-t hover:bg-[var(--background-card)] transition">
                         <td className="py-4 px-6">
                           <div className="font-bold text-[var(--foreground)]">{c.name}</div>
                           {c.notes && <div className="text-sm text-[var(--foreground-muted)] max-w-xs truncate">{c.notes}</div>}

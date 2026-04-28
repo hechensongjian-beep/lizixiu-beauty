@@ -170,7 +170,7 @@ export default async function StaffPage() {
         <div className="flex gap-3">
           <button
             onClick={() => fetchStaff()}
-            className="px-4 py-2 text-[var(--background-secondary)] text-[var(--foreground)] font-medium rounded-lg hover:bg-[var(-background-secondary)] transition"
+            className="px-4 py-2 text-[var(--background-secondary)] text-[var(--foreground)] font-medium rounded-lg hover:bg-[var(--background-secondary)] transition"
           >
             刷新
           </button>
@@ -320,7 +320,7 @@ export default async function StaffPage() {
           </div>
           <div className="flex justify-end gap-4 mt-8">
             <button
-              className="px-6 py-3 text-[var(--background-secondary)] text-[var(--foreground)] font-medium rounded-lg hover:bg-[var(-background-secondary)] transition"
+              className="px-6 py-3 text-[var(--background-secondary)] text-[var(--foreground)] font-medium rounded-lg hover:bg-[var(--background-secondary)] transition"
               onClick={() => setShowAddForm(false)}
               disabled={submitting}
             >
@@ -483,7 +483,7 @@ export default async function StaffPage() {
             </div>
             <div className="flex justify-end gap-4 mt-8">
               <button
-                className="px-6 py-3 text-[var(--background-secondary)] text-[var(--foreground)] font-medium rounded-lg hover:bg-[var(-background-secondary)] transition"
+                className="px-6 py-3 text-[var(--background-secondary)] text-[var(--foreground)] font-medium rounded-lg hover:bg-[var(--background-secondary)] transition"
                 onClick={() => setEditingStaff(null)}
                 disabled={submitting}
               >

@@ -220,7 +220,7 @@ export default function NotificationsPage() {
                           查看订单
                         </Link>
                       )}
-                      <button onClick={() => deleteNotif(notif.id)} className="text-sm text-[#6b6b68] hover:text-[var(-rose)] ml-auto transition">
+                      <button onClick={() => deleteNotif(notif.id)} className="text-sm text-[#6b6b68] hover:text-[var(--rose)] ml-auto transition">
                         删除
                       </button>
                     </div>

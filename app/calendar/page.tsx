@@ -109,7 +109,7 @@ export default function CalendarPage() {
       </div>
 
       <div className="grid grid-cols-3 gap-4 mb-8">
-        <div className="bg-gradient-to-br from-yellow-400 to-amber-500 text-white rounded-2xl p-5 shadow">
+        <div className="bg-gradient-to-br from-[#b8945f] to-[#8b6914] text-white rounded-2xl p-5 shadow">
           <IconWarning />
           <div className="text-xl font-bold">{stats.pending}</div>
           <div className="text-sm opacity-80">待确认</div>
@@ -119,7 +119,7 @@ export default function CalendarPage() {
           <div className="text-xl font-bold">{stats.confirmed}</div>
           <div className="text-sm opacity-80">已确认</div>
         </div>
-        <div className="bg-gradient-to-br from-green-400 to-emerald-500 text-white rounded-2xl p-5 shadow">
+        <div className="bg-gradient-to-br from-[#1e3a2f] to-[#2d5a47] text-white rounded-2xl p-5 shadow">
           <IconDone />
           <div className="text-xl font-bold">{stats.completed}</div>
           <div className="text-sm opacity-80">已完成</div>
@@ -148,7 +148,7 @@ export default function CalendarPage() {
                 return (
                   <div key={day}
                     onClick={() => setCurrentDate(new Date(year, month, day))}
-                    className={`min-h-[70px] border-r border-b border-[var(--background-secondary)] p-1.5 cursor-pointer ${isToday ? 'bg-[#c9a87c]/10' : ''} hover:bg-[var(-background-card)]`}>
+                    className={`min-h-[70px] border-r border-b border-[var(--background-secondary)] p-1.5 cursor-pointer ${isToday ? 'bg-[#c9a87c]/10' : ''} hover:bg-[var(--background-card)]`}>
                     <div className={`w-7 h-7 flex items-center justify-center rounded-full text-sm font-medium mb-1 ${isToday ? 'bg-[#c9a87c] text-white' : 'var(--foreground)'}`}>{day}</div>
                     {count > 0 && <div className="flex flex-wrap gap-1">{[...Array(Math.min(count,3))].map((_,i) => <div key={i} className="w-2 h-2 bg-[#c9a87c] rounded-full"></div>)}</div>}
                     {count > 3 && <div className="text-sm text-[var(--foreground-muted)] mt-0.5">+{count-3}</div>}

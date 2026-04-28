@@ -386,7 +386,7 @@ export default function AppointmentManager() {
           </select>
           <button
             onClick={exportToCSV}
-            className="px-4 py-3 border rgba(201,168,124,0.3) rounded-lg hover:bg-[var(-background-card)] transition flex items-center space-x-2"
+            className="px-4 py-3 border rgba(201,168,124,0.3) rounded-lg hover:bg-[var(--background-card)] transition flex items-center space-x-2"
             title="导出为 Excel 可导入的 CSV 文件"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
@@ -483,7 +483,7 @@ export default function AppointmentManager() {
             {filteredAppointments.map((apt) => {
               const { date, time } = formatDateTime(apt.appointment_time);
               return (
-                <tr key={apt.id} className="even:text-[var(--background-card)] hover:bg-[var(-background-secondary)] transition-colors">
+                <tr key={apt.id} className="even:text-[var(--background-card)] hover:bg-[var(--background-secondary)] transition-colors">
                   <td className="px-6 py-4 whitespace-nowrap font-medium text-[var(--foreground)]">{apt.customer_name}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-[var(--foreground)]">{apt.phone}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-[var(--foreground)]">{apt.service_type}</td>
@@ -532,7 +532,7 @@ export default function AppointmentManager() {
         <div>
           <button
             onClick={() => window.location.reload()}
-            className="text-[var(--foreground-muted)] hover:text-[var(-foreground)] text-sm"
+            className="text-[var(--foreground-muted)] hover:text-[var(--foreground)] text-sm"
           >
             刷新页面
           </button>

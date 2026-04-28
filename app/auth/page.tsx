@@ -48,7 +48,7 @@ export default function AuthIndexPage() {
             </Link>
             <Link
               href="/auth/register"
-              className="block px-6 py-3 border rgba(201,168,124,0.3) text-[var(--foreground)] font-semibold rounded-lg hover:bg-[var(-background-card)] transition text-center"
+              className="block px-6 py-3 border rgba(201,168,124,0.3) text-[var(--foreground)] font-semibold rounded-lg hover:bg-[var(--background-card)] transition text-center"
             >
               注册客户账号
             </Link>
@@ -85,7 +85,7 @@ export default function AuthIndexPage() {
             </Link>
             <Link
               href="/auth/register"
-              className="block px-6 py-3 border rgba(201,168,124,0.3) text-[var(--foreground)] font-semibold rounded-lg hover:bg-[var(-background-card)] transition text-center"
+              className="block px-6 py-3 border rgba(201,168,124,0.3) text-[var(--foreground)] font-semibold rounded-lg hover:bg-[var(--background-card)] transition text-center"
             >
               注册商家账号
             </Link>

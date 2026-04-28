@@ -149,7 +149,7 @@ const { role } = useAuth();
               <div className="relative inline-block">
                 <img src={settings.wechatQr} alt="微信收款码" className="max-w-xs mx-auto rounded-xl shadow-md" style={{ maxHeight: '300px' }} />
                 <button onClick={() => setSettings(s => ({ ...s, wechatQr: '' }))}
-                  className="absolute -top-3 -right-3 w-8 h-8 text-[var(--accent-light)] text-white rounded-full flex items-center justify-center hover:text-[var(-accent-light)] transition shadow-lg">
+                  className="absolute -top-3 -right-3 w-8 h-8 text-[var(--accent-light)] text-white rounded-full flex items-center justify-center hover:text-[var(--accent-light)] transition shadow-lg">
                   <IconX className="text-white" />
                 </button>
               </div>
@@ -184,7 +184,7 @@ const { role } = useAuth();
               <div className="relative inline-block">
                 <img src={settings.alipayQr} alt="支付宝收款码" className="max-w-xs mx-auto rounded-xl shadow-md" style={{ maxHeight: '300px' }} />
                 <button onClick={() => setSettings(s => ({ ...s, alipayQr: '' }))}
-                  className="absolute -top-3 -right-3 w-8 h-8 text-[var(--accent-light)] text-white rounded-full flex items-center justify-center hover:text-[var(-accent-light)] transition shadow-lg">
+                  className="absolute -top-3 -right-3 w-8 h-8 text-[var(--accent-light)] text-white rounded-full flex items-center justify-center hover:text-[var(--accent-light)] transition shadow-lg">
                   <IconX className="text-white" />
                 </button>
               </div>

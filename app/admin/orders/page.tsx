@@ -371,7 +371,7 @@ const { role } = useAuth();
               <label className="block font-medium mb-2" style={{ fontSize: '1rem' }}>状态筛选</label>
               <div className="flex flex-wrap gap-2">
                 <button
-                  className={`px-4 py-2 rounded-lg font-medium text-sm transition ${statusFilter === 'all' ? 'text-white' : 'hover:bg-[var(-background-secondary)]'}`}
+                  className={`px-4 py-2 rounded-lg font-medium text-sm transition ${statusFilter === 'all' ? 'text-white' : 'hover:bg-[var(--background-secondary)]'}`}
                   style={{ background: statusFilter === 'all' ? 'var(--primary)' : 'var(--background-secondary)', color: statusFilter === 'all' ? 'white' : 'var(--foreground)' }}
                   onClick={() => setStatusFilter('all')}
                 >
@@ -380,7 +380,7 @@ const { role } = useAuth();
                 {statusOptions.map(opt => (
                   <button
                     key={opt.value}
-                    className={`px-4 py-2 rounded-lg font-medium text-sm transition ${statusFilter === opt.value ? 'text-white' : 'hover:bg-[var(-background-secondary)]'}`}
+                    className={`px-4 py-2 rounded-lg font-medium text-sm transition ${statusFilter === opt.value ? 'text-white' : 'hover:bg-[var(--background-secondary)]'}`}
                     style={{ background: statusFilter === opt.value ? 'var(--primary)' : 'var(--background-secondary)', color: statusFilter === opt.value ? 'white' : 'var(--foreground)' }}
                     onClick={() => setStatusFilter(opt.value)}
                   >

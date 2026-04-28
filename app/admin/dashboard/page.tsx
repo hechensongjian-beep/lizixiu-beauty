@@ -131,7 +131,7 @@ const { role } = useAuth();
           <p className="text-[var(--foreground-muted)] mt-1">实时掌握店铺运营数据</p>
         </div>
         <button onClick={fetchDashboardData} disabled={loading}
-          className="px-4 py-2 text-[var(--background-secondary)] text-[var(--foreground)] rounded-lg hover:bg-[var(-background-secondary)] transition text-sm">
+          className="px-4 py-2 text-[var(--background-secondary)] text-[var(--foreground)] rounded-lg hover:bg-[var(--background-secondary)] transition text-sm">
           {loading ? '刷新中...' : ' 刷新数据'}
         </button>
       </div>
@@ -245,7 +245,7 @@ const { role } = useAuth();
                   </thead>
                   <tbody>
                     {recentOrders.map(o => (
-                      <tr key={o.id} className="border-b hover:bg-[var(-background-card)]">
+                      <tr key={o.id} className="border-b hover:bg-[var(--background-card)]">
                         <td className="py-3 px-2 font-mono text-sm text-[var(--foreground-muted)]">#{o.id.substring(0, 10)}</td>
                         <td className="py-3 px-2">
                           <div className="font-medium text-[var(--foreground)]">{o.customerName || '—'}</div>

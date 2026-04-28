@@ -286,7 +286,7 @@ const translateStatus = async (status: string) => {
                 )}
                 <button
                   onClick={() => { toast.info('订单详情：' + order.id.substring(0, 12)); }}
-                  className="px-6 py-3 border-2 rgba(201,168,124,0.3) text-[var(--foreground)] font-bold rounded-lg hover:bg-[var(-background-card)] transition"
+                  className="px-6 py-3 border-2 rgba(201,168,124,0.3) text-[var(--foreground)] font-bold rounded-lg hover:bg-[var(--background-card)] transition"
                 >
                   查看详情
                 </button>

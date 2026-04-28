@@ -104,7 +104,7 @@ const { role } = useAuth();
         loadStaff();
       }
     } catch (e: any) {
-      setMsg({ type: 'error', text: 'Error: ' + e.message });
+      setMsg({ type: 'error', text: '操作失败：' + e.message });
     } finally {
       setAdding(false);
     }

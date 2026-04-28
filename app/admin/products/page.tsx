@@ -131,8 +131,8 @@ const openEdit = async (p: Product) => {
 
       {/* 标签切换 */}
       <div className="flex gap-3 mb-8">
-        <button onClick={() => setTab('list')} className={`px-5 py-2 rounded-full font-medium transition ${tab==='list'?'bg-[#c9a87c] text-white shadow':'bg-white border var(--foreground) hover:bg-[var(-background-card)]'}`}>商品列表</button>
-        <button onClick={() => { openAdd(); setTab('add'); }} className={`px-5 py-2 rounded-full font-medium transition ${tab==='add'?'bg-[#c9a87c] text-white shadow':'bg-white border var(--foreground) hover:bg-[var(-background-card)]'}`}>添加/编辑</button>
+        <button onClick={() => setTab('list')} className={`px-5 py-2 rounded-full font-medium transition ${tab==='list'?'bg-[#c9a87c] text-white shadow':'bg-white border var(--foreground) hover:bg-[var(--background-card)]'}`}>商品列表</button>
+        <button onClick={() => { openAdd(); setTab('add'); }} className={`px-5 py-2 rounded-full font-medium transition ${tab==='add'?'bg-[#c9a87c] text-white shadow':'bg-white border var(--foreground) hover:bg-[var(--background-card)]'}`}>添加/编辑</button>
       </div>
 
       {/* 添加/编辑表单 */}
@@ -179,7 +179,7 @@ const openEdit = async (p: Product) => {
                   <div className="flex-1">
                     <input ref={fileRef} type="file" accept="image/*" onChange={handleFileChange} className="hidden" />
                     <button type="button" onClick={() => fileRef.current?.click()} disabled={uploading}
-                      className="px-5 py-2.5 text-[var(--background-secondary)] text-[var(--foreground)] rounded-lg font-medium hover:bg-[var(-background-secondary)] transition border">
+                      className="px-5 py-2.5 text-[var(--background-secondary)] text-[var(--foreground)] rounded-lg font-medium hover:bg-[var(--background-secondary)] transition border">
                       {uploading ? '上传中...' : form.imageUrl ? ' 更换图片' : ' 上传图片'}
                     </button>
                     {form.imageUrl && (
@@ -203,7 +203,7 @@ const openEdit = async (p: Product) => {
               </div>
             </div>
             <div className="flex gap-4 pt-4 border-t">
-              <button type="button" onClick={() => setTab('list')} className="px-6 py-3 border rounded-xl font-bold text-[var(--foreground)] hover:bg-[var(-background-card)]">取消</button>
+              <button type="button" onClick={() => setTab('list')} className="px-6 py-3 border rounded-xl font-bold text-[var(--foreground)] hover:bg-[var(--background-card)]">取消</button>
               <button type="submit" className="px-8 py-3 text-white rounded-xl font-bold hover:opacity-90 shadow" style={{background:'var(--accent)'}}>
                 {editing ? ' 保存更改' : '+ 创建商品'}
               </button>
@@ -250,7 +250,7 @@ const openEdit = async (p: Product) => {
                   </thead>
                   <tbody>
                     {products.map(p => (
-                      <tr key={p.id} className="border-t hover:bg-[var(-background-card)] transition">
+                      <tr key={p.id} className="border-t hover:bg-[var(--background-card)] transition">
                         <td className="py-4 px-6">
                           <div className="flex items-center gap-4">
                             <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${p.imageColor} flex items-center justify-center overflow-hidden flex-shrink-0`}>
