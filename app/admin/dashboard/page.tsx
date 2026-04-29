@@ -227,7 +227,7 @@ const { role } = useAuth();
           <div className="bg-white rounded-2xl shadow p-6 mb-6">
             <div className="flex justify-between items-center mb-5">
               <h2 className="text-xl font-bold text-[var(--foreground)]">最近订单</h2>
-              <Link href="/admin/orders" className="text-[#a88a5c] text-base font-medium hover:underline">全部订单 →</Link>
+              <Link href="/admin/orders" className="text-[var(--foreground)] text-base font-medium hover:underline">全部订单 →</Link>
             </div>
             {recentOrders.length === 0 ? (
               <div className="text-center py-10 text-[var(--foreground-muted)]">暂无订单数据</div>
@@ -273,7 +273,7 @@ const { role } = useAuth();
             <h2 className="text-lg font-bold text-[var(--foreground)] mb-4">运营提醒</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="bg-white rounded-xl p-4 border border-amber-200">
-                <div className="text-[#a88a5c] font-bold text-xl mb-1">{stats.lowStockProducts}</div>
+                <div className="text-[var(--foreground)] font-bold text-xl mb-1">{stats.lowStockProducts}</div>
                 <div className="text-[var(--foreground)] font-medium">库存紧张商品</div>
                 <div className="text-[var(--foreground-muted)] text-sm mt-1">库存 ≤ 10 件</div>
               </div>

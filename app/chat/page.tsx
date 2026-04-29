@@ -160,11 +160,11 @@ export default function ChatPage() {
     <div className="max-w-6xl mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h1 className="text-xl font-serif font-bold text-[#2a2a28]">客服中心</h1>
-          <p className="text-[#6b6b68] mt-1">实时处理客户咨询</p>
+          <h1 className="text-xl font-serif font-bold text-[var(--foreground)]">客服中心</h1>
+          <p className="text-[var(--foreground-muted)] mt-1">实时处理客户咨询</p>
         </div>
         <div className="flex items-center gap-3">
-          <label className="flex items-center gap-2 text-sm text-[#6b6b68] cursor-pointer">
+          <label className="flex items-center gap-2 text-sm text-[var(--foreground-muted)] cursor-pointer">
             <input type="checkbox" checked={autoReply} onChange={e => setAutoReply(e.target.checked)}
               className="w-4 h-4 accent-[#c9a87c]" />
             自动回复（演示模式）
@@ -190,7 +190,7 @@ export default function ChatPage() {
             {/* 对话列表 */}
             <div className="flex-1 overflow-y-auto">
               {filtered.length === 0 ? (
-                <div className="text-center py-20 text-[#6b6b68]">
+                <div className="text-center py-20 text-[var(--foreground-muted)]">
                   <div className="w-12 h-12 mx-auto mb-4 bg-[#f5f2ed] rounded-full flex items-center justify-center">
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c0bdb8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
@@ -210,10 +210,10 @@ export default function ChatPage() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex justify-between items-center">
-                      <span className={`font-bold text-[#2a2a28] ${conv.unread > 0 ? 'text-[#a88a5c]' : ''}`}>{conv.customerName}</span>
-                      <span className="text-sm text-[#6b6b68]">{formatTime(conv.lastTime)}</span>
+                      <span className={`font-bold text-[var(--foreground)] ${conv.unread > 0 ? 'text-[var(--foreground)]' : ''}`}>{conv.customerName}</span>
+                      <span className="text-sm text-[var(--foreground-muted)]">{formatTime(conv.lastTime)}</span>
                     </div>
-                    <p className="text-sm text-[#6b6b68] truncate mt-1">{conv.lastMessage}</p>
+                    <p className="text-sm text-[var(--foreground-muted)] truncate mt-1">{conv.lastMessage}</p>
                   </div>
                   {conv.unread > 0 && (
                     <div className="w-6 h-6 bg-[#c9a87c] text-white text-sm font-bold rounded-full flex items-center justify-center flex-shrink-0">
@@ -228,16 +228,16 @@ export default function ChatPage() {
           <div className="flex flex-col h-full">
             {/* 聊天头部 */}
             <div className="flex items-center gap-4 px-6 py-4 border-b border-[#e8d5b8]/30 bg-white">
-              <button onClick={() => setView('list')} className="w-9 h-9 rounded-lg bg-[#f5f2ed] hover:bg-[#e8d5b8]/30 flex items-center justify-center text-lg transition text-[#2a2a28]">←</button>
+              <button onClick={() => setView('list')} className="w-9 h-9 rounded-lg bg-[#f5f2ed] hover:bg-[#e8d5b8]/30 flex items-center justify-center text-lg transition text-[var(--foreground)]">←</button>
               <div className="relative">
                 <div className={`w-10 h-10 rounded-full ${activeConv?.avatarColor} flex items-center justify-center text-white text-lg font-bold`}>{activeConv && getInitials(activeConv.customerName)}</div>
                 <div className={`absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full border-2 border-white ${activeConv?.status === 'online' ? 'var(--accent-light)' : 'var(--background-secondary)'}`}></div>
               </div>
               <div className="flex-1">
-                <div className="font-bold text-[#2a2a28]">{activeConv?.customerName}</div>
-                <div className="text-sm text-[#6b6b68]">{activeConv?.status === 'online' ? '在线' : '离线'}</div>
+                <div className="font-bold text-[var(--foreground)]">{activeConv?.customerName}</div>
+                <div className="text-sm text-[var(--foreground-muted)]">{activeConv?.status === 'online' ? '在线' : '离线'}</div>
               </div>
-              <div className="text-sm text-[#6b6b68]">
+              <div className="text-sm text-[var(--foreground-muted)]">
                 {messages.length} 条消息
               </div>
             </div>
@@ -248,17 +248,17 @@ export default function ChatPage() {
                 <div key={msg.id}>
                   {msg.sender === 'system' ? (
                     <div className="text-center">
-                      <div className="inline-block bg-[#e8d5b8]/50 text-[#6b6b68] text-sm px-4 py-1.5 rounded-full">{msg.content}</div>
-                      <div className="text-sm text-[#6b6b68] mt-1">{formatTime(msg.timestamp)}</div>
+                      <div className="inline-block bg-[#e8d5b8]/50 text-[var(--foreground-muted)] text-sm px-4 py-1.5 rounded-full">{msg.content}</div>
+                      <div className="text-sm text-[var(--foreground-muted)] mt-1">{formatTime(msg.timestamp)}</div>
                     </div>
                   ) : (
                     <div className={`flex items-end gap-3 ${msg.sender === 'merchant' ? 'flex-row-reverse' : ''}`}>
                       <div className={`w-8 h-8 rounded-full ${msg.avatarColor} flex items-center justify-center text-white text-sm font-bold flex-shrink-0`}>{getInitials(msg.senderName)}</div>
                       <div className={`max-w-xs lg:max-w-md ${msg.sender === 'merchant' ? 'items-end' : 'items-start'} flex flex-col`}>
-                        <div className={`px-4 py-3 rounded-2xl text-sm ${msg.sender === 'merchant' ? 'bg-[var(--accent)] text-white rounded-br-sm' : 'bg-white border border-[#e8d5b8]/30 text-[#2a2a28] rounded-bl-sm'}`}>
+                        <div className={`px-4 py-3 rounded-2xl text-sm ${msg.sender === 'merchant' ? 'bg-[var(--accent)] text-white rounded-br-sm' : 'bg-white border border-[#e8d5b8]/30 text-[var(--foreground)] rounded-bl-sm'}`}>
                           {msg.content}
                         </div>
-                        <div className="text-sm text-[#6b6b68] mt-1 px-1">{msg.senderName} · {formatTime(msg.timestamp)}</div>
+                        <div className="text-sm text-[var(--foreground-muted)] mt-1 px-1">{msg.senderName} · {formatTime(msg.timestamp)}</div>
                       </div>
                     </div>
                   )}
@@ -286,7 +286,7 @@ export default function ChatPage() {
                   </button>
                 </div>
               </div>
-              <div className="flex justify-between mt-2 text-sm text-[#6b6b68]">
+              <div className="flex justify-between mt-2 text-sm text-[var(--foreground-muted)]">
                 <span>Enter 发送 · Shift+Enter 换行</span>
                 {autoReply && <span>自动回复已开启</span>}
               </div>

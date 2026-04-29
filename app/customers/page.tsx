@@ -287,7 +287,7 @@ const openEdit = async (c: Customer) => {
                             {c.membership_level || '普通客户'}
                           </span>
                         </td>
-                        <td className="py-4 px-6 font-bold text-[#a88a5c]">{fmt(c.total_spent)}</td>
+                        <td className="py-4 px-6 font-bold text-[var(--foreground)]">{fmt(c.total_spent)}</td>
                         <td className="py-4 px-6 text-[var(--foreground-muted)] text-sm">{fmtDate(c.last_visit)}</td>
                         <td className="py-4 px-6">
                           <div className="flex gap-2">

@@ -76,9 +76,9 @@ function formatRelativeTime(iso: string) {
 }
 
 const TYPE_CONFIG: Record<string, { bg: string; text: string; label: string }> = {
-  promotion: { bg: 'bg-[#c9a87c]/10', text: 'text-[#a88a5c]', label: '促销' },
+  promotion: { bg: 'bg-[#c9a87c]/10', text: 'text-[var(--foreground)]', label: '促销' },
   appointment: { bg: 'bg-[#2d4a3e]/10', text: 'text-[#2d4a3e]', label: '预约' },
-  order: { bg: 'bg-[#c9a87c]/10', text: 'text-[#a88a5c]', label: '订单' },
+  order: { bg: 'bg-[#c9a87c]/10', text: 'text-[var(--foreground)]', label: '订单' },
   system: { bg: 'var(--background-secondary)', text: 'var(--foreground-muted)', label: '系统' },
 };
 
@@ -131,15 +131,15 @@ export default function NotificationsPage() {
             <Icons.bell />
           </div>
           <div>
-            <h1 className="text-xl font-serif font-bold text-[#2a2a28]">消息通知</h1>
-            <p className="text-[#6b6b68] mt-1">
-              {unreadCount > 0 ? <span className="text-[#a88a5c] font-bold">{unreadCount} 条未读</span> : '暂无未读消息'}
+            <h1 className="text-xl font-serif font-bold text-[var(--foreground)]">消息通知</h1>
+            <p className="text-[var(--foreground-muted)] mt-1">
+              {unreadCount > 0 ? <span className="text-[var(--foreground)] font-bold">{unreadCount} 条未读</span> : '暂无未读消息'}
             </p>
           </div>
         </div>
         <div className="flex gap-2">
           {unreadCount > 0 && (
-            <button onClick={markAllRead} className="px-4 py-2 bg-[#f5f2ed] text-[#2a2a28] rounded-lg text-sm font-medium hover:bg-[#e8d5b8]/30 transition">
+            <button onClick={markAllRead} className="px-4 py-2 bg-[#f5f2ed] text-[var(--foreground)] rounded-lg text-sm font-medium hover:bg-[#e8d5b8]/30 transition">
               全部已读
             </button>
           )}
@@ -155,7 +155,7 @@ export default function NotificationsPage() {
       <div className="flex gap-2 mb-8 flex-wrap">
         {[{ key: 'all', label: '全部' }, ...Object.entries(TYPE_CONFIG).map(([k, v]) => ({ key: k, label: v.label }))].map(f => (
           <button key={f.key} onClick={() => setFilter(f.key)}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition ${filter === f.key ? 'bg-[#2d4a3e] text-white shadow' : 'bg-white border border-[#e8d5b8]/50 text-[#2a2a28] hover:bg-[#f5f2ed]'}`}>
+            className={`px-4 py-2 rounded-full text-sm font-medium transition ${filter === f.key ? 'bg-[#2d4a3e] text-white shadow' : 'bg-white border border-[#e8d5b8]/50 text-[var(--foreground)] hover:bg-[#f5f2ed]'}`}>
             {f.label}
           </button>
         ))}
@@ -167,8 +167,8 @@ export default function NotificationsPage() {
           <div className="w-14 h-14 mx-auto mb-4 bg-[#f5f2ed] rounded-full flex items-center justify-center">
             <Icons.bell />
           </div>
-          <h3 className="text-xl font-serif font-medium text-[#2a2a28] mb-3">{filter === 'all' ? '暂无通知' : `暂无${TYPE_CONFIG[filter]?.label || ''}通知`}</h3>
-          <p className="text-[#6b6b68]">有新消息时会在这里显示</p>
+          <h3 className="text-xl font-serif font-medium text-[var(--foreground)] mb-3">{filter === 'all' ? '暂无通知' : `暂无${TYPE_CONFIG[filter]?.label || ''}通知`}</h3>
+          <p className="text-[var(--foreground-muted)]">有新消息时会在这里显示</p>
           <Link href="/products" className="inline-block mt-6 px-6 py-3 bg-[#2d4a3e] text-white rounded-xl font-bold hover:opacity-90 transition">
             去逛逛产品商城
           </Link>
@@ -188,20 +188,20 @@ export default function NotificationsPage() {
                   <div className="flex-1 min-w-0">
                     <div className="flex justify-between items-start">
                       <div>
-                        <h3 className={`font-bold ${notif.read ? 'text-[#2a2a28]' : 'text-[#a88a5c]'}`}>{notif.title}</h3>
+                        <h3 className={`font-bold ${notif.read ? 'text-[var(--foreground)]' : 'text-[var(--foreground)]'}`}>{notif.title}</h3>
                         <span className={`text-sm px-2 py-0.5 rounded-full mt-1 inline-block ${TYPE_CONFIG[notif.type]?.bg || ''} ${TYPE_CONFIG[notif.type]?.text || ''}`}>
                           {TYPE_CONFIG[notif.type]?.label || '通知'}
                         </span>
                       </div>
                       <div className="flex items-center gap-2 flex-shrink-0 ml-2">
                         {!notif.read && <div className="w-2.5 h-2.5 bg-[#c9a87c] rounded-full"></div>}
-                        <span className="text-sm text-[#6b6b68] whitespace-nowrap">{formatRelativeTime(notif.time)}</span>
+                        <span className="text-sm text-[var(--foreground-muted)] whitespace-nowrap">{formatRelativeTime(notif.time)}</span>
                       </div>
                     </div>
-                    <p className="text-[#6b6b68] text-sm mt-2 leading-relaxed">{notif.content}</p>
+                    <p className="text-[var(--foreground-muted)] text-sm mt-2 leading-relaxed">{notif.content}</p>
                     <div className="flex gap-3 mt-3">
                       {!notif.read && (
-                        <button onClick={() => markRead(notif.id)} className="text-sm text-[#a88a5c] font-medium hover:underline">
+                        <button onClick={() => markRead(notif.id)} className="text-sm text-[var(--foreground)] font-medium hover:underline">
                           标为已读
                         </button>
                       )}
@@ -220,7 +220,7 @@ export default function NotificationsPage() {
                           查看订单
                         </Link>
                       )}
-                      <button onClick={() => deleteNotif(notif.id)} className="text-sm text-[#6b6b68] hover:text-[var(--rose)] ml-auto transition">
+                      <button onClick={() => deleteNotif(notif.id)} className="text-sm text-[var(--foreground-muted)] hover:text-[var(--rose)] ml-auto transition">
                         删除
                       </button>
                     </div>
@@ -236,14 +236,14 @@ export default function NotificationsPage() {
       <div className="mt-8 bg-[#faf8f5] rounded-2xl p-6 border border-[#c9a87c]/20">
         <div className="flex items-center gap-2 mb-3">
           <Icons.info />
-          <h3 className="font-bold text-[#2a2a28]">通知说明</h3>
+          <h3 className="font-bold text-[var(--foreground)]">通知说明</h3>
         </div>
-        <ul className="space-y-2 text-[#2a2a28] text-sm">
+        <ul className="space-y-2 text-[var(--foreground)] text-sm">
           <li>• <b>促销通知</b>：新品上市、活动优惠等营销信息</li>
           <li>• <b>预约提醒</b>：预约确认、时间变更、到店提醒</li>
           <li>• <b>订单通知</b>：支付成功、发货、物流配送</li>
           <li>• <b>系统通知</b>：账户变动、安全提醒、重要公告</li>
-          <li className="pt-2 text-[#6b6b68]">* 当前为本地演示通知，正式版将接入微信/短信推送服务</li>
+          <li className="pt-2 text-[var(--foreground-muted)]">* 当前为本地演示通知，正式版将接入微信/短信推送服务</li>
         </ul>
       </div>
     </div>

@@ -97,7 +97,7 @@ export default function AuthIndexPage() {
         <h3 className="text-xl font-semibold text-[var(--foreground)] mb-4"> 不知道如何选择？</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="text-center">
-            <div className="text-2xl mb-2 font-bold text-[#a88a5c]">免费</div>
+            <div className="text-2xl mb-2 font-bold text-[var(--foreground)]">免费</div>
             <div className="font-medium text-[var(--foreground)]">完全免费</div>
             <p className="text-sm text-[var(--foreground-muted)]">注册、使用、基础功能全部免费</p>
           </div>

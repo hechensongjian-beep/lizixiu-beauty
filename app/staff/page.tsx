@@ -270,7 +270,7 @@ export default async function StaffPage() {
                 />
                 <button
                   type="button"
-                  className="px-4 py-3 bg-[#faf8f5] text-[#a88a5c] font-medium rounded-lg hover:bg-[#e8d5b8] transition"
+                  className="px-4 py-3 bg-[#faf8f5] text-[var(--foreground)] font-medium rounded-lg hover:bg-[#e8d5b8] transition"
                   onClick={() => {
                     if (specialtyInput.trim() && !newStaff.specialties.includes(specialtyInput.trim())) {
                       setNewStaff({ ...newStaff, specialties: [...newStaff.specialties, specialtyInput.trim()] });
@@ -300,7 +300,7 @@ export default async function StaffPage() {
                 <label className="inline-flex items-center">
                   <input
                     type="radio"
-                    className="h-5 w-5 text-[#a88a5c] focus:ring-[#c9a87c]"
+                    className="h-5 w-5 text-[var(--foreground)] focus:ring-[#c9a87c]"
                     checked={newStaff.is_active}
                     onChange={() => setNewStaff({ ...newStaff, is_active: true })}
                   />
@@ -309,7 +309,7 @@ export default async function StaffPage() {
                 <label className="inline-flex items-center">
                   <input
                     type="radio"
-                    className="h-5 w-5 text-[#a88a5c] focus:ring-[#c9a87c]"
+                    className="h-5 w-5 text-[var(--foreground)] focus:ring-[#c9a87c]"
                     checked={!newStaff.is_active}
                     onChange={() => setNewStaff({ ...newStaff, is_active: false })}
                   />
@@ -430,7 +430,7 @@ export default async function StaffPage() {
                   />
                   <button
                     type="button"
-                    className="px-4 py-3 bg-[#faf8f5] text-[#a88a5c] font-medium rounded-lg hover:bg-[#e8d5b8] transition"
+                    className="px-4 py-3 bg-[#faf8f5] text-[var(--foreground)] font-medium rounded-lg hover:bg-[#e8d5b8] transition"
                     onClick={() => {
                       if (specialtyInput.trim() && !editingStaff.specialties?.includes(specialtyInput.trim())) {
                         setEditingStaff({
@@ -463,7 +463,7 @@ export default async function StaffPage() {
                   <label className="inline-flex items-center">
                     <input
                       type="radio"
-                      className="h-5 w-5 text-[#a88a5c] focus:ring-[#c9a87c]"
+                      className="h-5 w-5 text-[var(--foreground)] focus:ring-[#c9a87c]"
                       checked={editingStaff.is_active ?? true}
                       onChange={() => setEditingStaff({ ...editingStaff, is_active: true })}
                     />
@@ -472,7 +472,7 @@ export default async function StaffPage() {
                   <label className="inline-flex items-center">
                     <input
                       type="radio"
-                      className="h-5 w-5 text-[#a88a5c] focus:ring-[#c9a87c]"
+                      className="h-5 w-5 text-[var(--foreground)] focus:ring-[#c9a87c]"
                       checked={!(editingStaff.is_active ?? true)}
                       onChange={() => setEditingStaff({ ...editingStaff, is_active: false })}
                     />
@@ -607,7 +607,7 @@ export default async function StaffPage() {
                 </div>
                 <div className="flex gap-2 justify-center">
                   <button
-                    className="px-4 py-2 bg-[#faf8f5] text-[#a88a5c] font-medium rounded-lg hover:bg-[#faf8f5] transition text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="px-4 py-2 bg-[#faf8f5] text-[var(--foreground)] font-medium rounded-lg hover:bg-[#faf8f5] transition text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                     onClick={() => setEditingStaff(person)}
                     disabled={submitting}
                   >
@@ -641,7 +641,7 @@ export default async function StaffPage() {
                 <div className="text-sm text-[var(--foreground-muted)]">平均经验（年）</div>
               </div>
               <div className="bg-white rounded-xl p-6 border border-[#c9a87c] shadow-sm">
-                <div className="text-2xl mb-2 font-bold text-[#a88a5c]">ok</div>
+                <div className="text-2xl mb-2 font-bold text-[var(--foreground)]">ok</div>
                 <div className="text-xl font-bold text-[var(--foreground)]">
                   {staff.filter(s => s.is_active ?? true).length}
                 </div>

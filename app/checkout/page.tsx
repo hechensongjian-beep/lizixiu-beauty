@@ -279,7 +279,7 @@ export default function CheckoutPage() {
         {paymentSubmitted ? (
           <div className="text-center py-6">
             <div className="w-12 h-12 mx-auto mb-4 rounded-full flex items-center justify-center" style={{"background":'linear-gradient(135deg,#c9a87c22 0%,#e8d5b822 100%)'}}>
-              <IconCheck className="text-[#a88a5c]" />
+              <IconCheck className="text-[var(--foreground)]" />
             </div>
             <h2 className="text-2xl font-bold mb-3" style={{color:'#2d4a3e'}}>支付已提交</h2>
             <p className="text-[var(--foreground-muted)] mb-4">商家将在 24 小时内核实到账信息并确认订单</p>

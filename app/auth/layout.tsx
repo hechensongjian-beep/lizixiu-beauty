@@ -20,7 +20,7 @@ export default function AuthLayout({
           </div>
           <div className="text-sm text-[var(--foreground-muted)]">
             需要帮助？{' '}
-            <a href="mailto:support@example.com" className="text-[#a88a5c] hover:underline">
+            <a href="mailto:support@example.com" className="text-[var(--foreground)] hover:underline">
               联系客服
             </a>
           </div>

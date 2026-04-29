@@ -190,7 +190,7 @@ const { role } = useAuth();
             onClick={() => setFilter(f.key as typeof filter)}
             className={`flex-1 px-3 py-2 rounded-lg text-sm font-medium transition ${
               filter === f.key
-                ? 'bg-white shadow text-[#a88a5c]'
+                ? 'bg-white shadow text-[var(--foreground)]'
                 : 'var(--foreground-muted) hover:text-[var(--foreground)]'
             }`}
           >

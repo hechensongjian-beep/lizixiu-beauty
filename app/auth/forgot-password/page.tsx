@@ -124,7 +124,7 @@ export default function ForgotPasswordPage() {
       </form>
 
       <div className="mt-8 text-center text-[var(--foreground-muted)]">
-        <Link href="/auth/login" className="text-[#a88a5c] font-semibold hover:underline">
+        <Link href="/auth/login" className="text-[var(--foreground)] font-semibold hover:underline">
           ← 返回登录
         </Link>
       </div>

@@ -106,7 +106,7 @@ const { role } = useAuth();
   return (
     <div className="max-w-4xl mx-auto px-4">
       <div className="flex items-center gap-3 mb-8">
-        <Link href="/admin/dashboard" className="flex items-center gap-1 text-[var(--foreground-muted)] hover:text-[#a88a5c] transition text-sm">
+        <Link href="/admin/dashboard" className="flex items-center gap-1 text-[var(--foreground-muted)] hover:text-[var(--foreground)] transition text-sm">
           <IconBack /> 后台
         </Link>
         <div className="w-px h-4 text-[var(--background-secondary)]"></div>

@@ -176,7 +176,7 @@ const router = useRouter();
       )}
 
       <div className="mt-8 text-center">
-        <Link href="/admin/dashboard" className="text-sm text-[var(--foreground-muted)] hover:text-[#a88a5c]">← 返回仪表板</Link>
+        <Link href="/admin/dashboard" className="text-sm text-[var(--foreground-muted)] hover:text-[var(--foreground)]">← 返回仪表板</Link>
       </div>
     </div>
   );

@@ -263,7 +263,7 @@ const openEdit = async (p: Product) => {
                           </div>
                         </td>
                         <td className="py-4 px-6"><span className="px-3 py-1 text-[var(--background-secondary)] text-[var(--foreground)] rounded-full text-sm">{p.category}</span></td>
-                        <td className="py-4 px-6 font-bold text-[#a88a5c]">{fmt(p.price)}</td>
+                        <td className="py-4 px-6 font-bold text-[var(--foreground)]">{fmt(p.price)}</td>
                         <td className="py-4 px-6">
                           <span className={`font-bold ${p.stock===0?'var(--rose)':p.stock<=10?'text-yellow-600':'var(--sage)'}`}>{p.stock} 件</span>
                           {p.stock===0 && <span className="ml-2 text-sm px-2 py-0.5 rounded-full" style={{background:'rgba(177,93,94,0.12)',color:'var(--rose)'}}>缺货</span>}

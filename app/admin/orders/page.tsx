@@ -237,7 +237,7 @@ const { role } = useAuth();
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'pending': return 'rgba(168,138,92,0.15) var(--primary-dark)';
-      case 'paid': return 'bg-[#c9a87c]/20 text-[#8b7355]';
+      case 'paid': return 'bg-[#c9a87c]/20 text-[var(--foreground)]';
       case 'shipped': return 'bg-[#c9a87c] text-white';
       case 'delivered': return 'rgba(74,117,86,0.15) var(--sage)';
       case 'cancelled': return 'rgba(177,93,94,0.15) var(--rose)';

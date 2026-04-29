@@ -384,7 +384,7 @@ export default function StaffWorkbenchPage() {
               {[
                 { label: '本周总预约', value: dashboard?.week.total },
                 { label: '已完成', value: dashboard?.week.completed, color: 'var(--sage)' },
-                { label: '已确认', value: dashboard?.week.confirmed, color: 'text-[#a88a5c]' },
+                { label: '已确认', value: dashboard?.week.confirmed, color: 'text-[var(--foreground)]' },
                 { label: '待确认', value: dashboard?.week.pending, color: 'var(--primary-dark)' },
                 { label: '本周收入', value: `¥${(dashboard?.week.earnings || 0).toLocaleString('zh-CN')}`, color: 'var(--sage)' },
               ].map(item => (
