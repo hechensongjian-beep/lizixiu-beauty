@@ -28,14 +28,39 @@ export default function RegisterPage() {
     if (!/^[0-9]{11}$/.test(phone)) { setError('手机号必须是11位数字'); setLoading(false); return; }
     if (!agreed) { setError('请先阅读并同意服务条款'); setLoading(false); return; }
     try {
-      const { error: authError } = await supabase.auth.signUp({
+      const { error: authError, data } = await supabase.auth.signUp({
         email, password,
-        options: { data: { phone, role: 'customer' } },
+        options: {
+          data: { phone, role: 'customer' },
+          emailRedirectTo: `${window.location.origin}/auth/callback`,
+        },
       });
-      if (authError) throw authError;
-      setSuccess(true);
+      if (authError) {
+        // 友好错误提示
+        if (authError.message.includes('already registered')) {
+          setError('该邮箱已被注册，请直接登录');
+        } else if (authError.message.includes('Password')) {
+          setError('密码强度不够，请使用更复杂的密码');
+        } else if (authError.message.includes('email')) {
+          setError('邮箱格式不正确或无效');
+        } else {
+          setError(authError.message || '注册失败，请重试');
+        }
+        setLoading(false);
+        return;
+      }
+      
+      // 检查是否需要邮箱验证
+      if (data.user && !data.session) {
+        setSuccess(true);
+      } else if (data.session) {
+        // 直接登录成功（如果Supabase关闭了邮箱验证）
+        router.push('/');
+      } else {
+        setSuccess(true);
+      }
     } catch (err: any) {
-      setError(err.message || '注册失败，请重试');
+      setError('网络连接失败，请检查网络后重试');
     } finally { setLoading(false); }
   };
 
