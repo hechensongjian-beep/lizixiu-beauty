@@ -165,7 +165,7 @@ const openEdit = async (c: Customer) => {
           添加客户
         </button>
         {tab === 'edit' && (
-          <span className="px-5 py-2 rgba(201,168,124,0.15) text-[var(--primary)] rounded-full font-medium">编辑客户</span>
+          <span className="px-5 py-2 rgba(201,168,124,0.15) text-[var(--primary-dark)] rounded-full font-medium">编辑客户</span>
         )}
       </div>
 
@@ -292,7 +292,7 @@ const openEdit = async (c: Customer) => {
                         <td className="py-4 px-6">
                           <div className="flex gap-2">
                             <button onClick={() => openEdit(c)}
-                              className="px-3 py-1.5 rgba(201,168,124,0.1) text-[var(--primary)] rounded-lg text-sm font-medium hover:rgba(201,168,124,0.18)">编辑</button>
+                              className="px-3 py-1.5 rgba(201,168,124,0.1) text-[var(--primary-dark)] rounded-lg text-sm font-medium hover:rgba(201,168,124,0.18)">编辑</button>
                             <button onClick={() => handleDelete(c)}
                               className="px-3 py-1.5 rgba(177,93,94,0.08) text-[var(--rose)] rounded-lg text-sm font-medium hover:rgba(177,93,94,0.15)">删除</button>
                           </div>

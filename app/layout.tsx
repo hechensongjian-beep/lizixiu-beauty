@@ -112,7 +112,7 @@ function Dropdown({ label, items, isOpen, onToggle, onClose }: {
     <div className="relative" ref={ref}>
       <button
         onClick={onToggle}
-        className="flex items-center gap-1 text-[var(--foreground)] hover:text-[var(--primary)] px-4 py-2 font-medium transition-colors"
+        className="flex items-center gap-1 text-[var(--foreground)] hover:text-[var(--primary-dark)] px-4 py-2 font-medium transition-colors"
         style={{ fontSize: '0.875rem', letterSpacing: '0.03em' }}
       >
         {label}
@@ -127,7 +127,7 @@ function Dropdown({ label, items, isOpen, onToggle, onClose }: {
               key={item.href}
               href={item.href}
               onClick={onClose}
-              className="block px-4 py-2.5 text-[var(--foreground)] hover:bg-[var(--background-secondary)] hover:text-[var(--primary)] transition-colors"
+              className="block px-4 py-2.5 text-[var(--foreground)] hover:bg-[var(--background-secondary)] hover:text-[var(--primary-dark)] transition-colors"
               style={{ fontSize: '0.8125rem' }}
             >
               {item.label}
@@ -206,7 +206,7 @@ function NavContent() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="relative text-[var(--foreground)] hover:text-[var(--primary)] px-4 py-2 font-medium transition-colors"
+                  className="relative text-[var(--foreground)] hover:text-[var(--primary-dark)] px-4 py-2 font-medium transition-colors"
                   style={{ fontSize: '0.875rem', letterSpacing: '0.03em' }}
                 >
                   {item.label}
@@ -300,7 +300,7 @@ function NavContent() {
 
               {/* 移动端菜单按钮 */}
               <button
-                className="lg:hidden p-1.5 text-[var(--foreground)] hover:text-[var(--primary)] transition-colors"
+                className="lg:hidden p-1.5 text-[var(--foreground)] hover:text-[var(--primary-dark)] transition-colors"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -345,7 +345,7 @@ function NavContent() {
 
               {!loading && !showUserMenu && (
                 <Link href="/auth/login" onClick={closeAll}
-                  className="block py-2.5 px-4 text-[var(--primary)] font-medium" style={{ fontSize: '0.875rem' }}>
+                  className="block py-2.5 px-4 text-[var(--primary-dark)] font-medium" style={{ fontSize: '0.875rem' }}>
                   登录 / 注册
                 </Link>
               )}

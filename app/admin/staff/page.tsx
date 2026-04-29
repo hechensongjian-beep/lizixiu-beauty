@@ -165,7 +165,7 @@ const { role } = useAuth();
       {/* 头部 */}
       <div className="flex items-center justify-between">
         <div>
-          <Link href="/admin/dashboard" className="text-sm text-[var(--foreground-muted)] hover:text-[var(--primary)] mb-1 inline-block">← 返回后台</Link>
+          <Link href="/admin/dashboard" className="text-sm text-[var(--foreground-muted)] hover:text-[var(--primary-dark)] mb-1 inline-block">← 返回后台</Link>
           <h1 className="text-xl text-[var(--foreground)]" style={{ fontFamily: 'var(--font-serif)' }}>员工管理</h1>
           <p className="text-sm text-[var(--foreground-muted)] mt-1">添加员工账号，设置登录密码（Supabase Auth）</p>
         </div>
@@ -218,7 +218,7 @@ const { role } = useAuth();
                     {staff.is_active ? '已激活' : '已停用'}
                   </span>
                   {staff.user_id && (
-                    <span className="text-sm px-2 py-0.5 rounded-full rgba(201,168,124,0.1) text-[var(--primary)]">已绑定账号</span>
+                    <span className="text-sm px-2 py-0.5 rounded-full rgba(201,168,124,0.1) text-[var(--primary-dark)]">已绑定账号</span>
                   )}
                 </div>
                 <div className="text-sm text-[var(--foreground-muted)] mt-0.5">
@@ -229,7 +229,7 @@ const { role } = useAuth();
                 {staff.user_id && (
                   <button
                     onClick={() => setResetPwd({ id: staff.id, email: staff.email || '', pwd: '' })}
-                    className="px-3 py-1.5 rounded-lg border border-[var(--primary-light)] text-sm text-[var(--primary)] hover:bg-[var(--primary-light)] transition-all"
+                    className="px-3 py-1.5 rounded-lg border border-[var(--primary-light)] text-sm text-[var(--primary-dark)] hover:bg-[var(--primary-light)] transition-all"
                   >
                     重置密码
                   </button>

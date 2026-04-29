@@ -59,7 +59,7 @@ export default function Footer() {
                   <div key={item.href}>
                     <Link href={item.href}
                       style={{ color: 'var(--foreground-muted)', fontSize: '0.8125rem', transition: 'color 0.2s' }}
-                      className="hover:text-[var(--primary)]">
+                      className="hover:text-[var(--primary-dark)]">
                       {item.label}
                     </Link>
                   </div>

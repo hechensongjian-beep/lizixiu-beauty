@@ -271,7 +271,7 @@ const openEdit = async (p: Product) => {
                         </td>
                         <td className="py-4 px-6">
                           <div className="flex gap-2">
-                            <button onClick={() => openEdit(p)} className="px-3 py-1.5 rgba(201,168,124,0.1) text-[var(--primary)] rounded-lg text-sm font-medium hover:rgba(201,168,124,0.2)">编辑</button>
+                            <button onClick={() => openEdit(p)} className="px-3 py-1.5 rgba(201,168,124,0.1) text-[var(--primary-dark)] rounded-lg text-sm font-medium hover:rgba(201,168,124,0.2)">编辑</button>
                             <button onClick={() => handleDelete(p.id)} className="px-3 py-1.5 rgba(177,93,94,0.08) text-[var(--rose)] rounded-lg text-sm font-medium hover:rgba(177,93,94,0.15)">删除</button>
                           </div>
                         </td>

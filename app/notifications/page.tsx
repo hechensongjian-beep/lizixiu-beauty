@@ -133,7 +133,7 @@ export default function NotificationsPage() {
           <div>
             <h1 className="text-xl font-serif font-bold text-[#2a2a28]">消息通知</h1>
             <p className="text-[#6b6b68] mt-1">
-              {unreadCount > 0 ? <span className="text-[#c9a87c] font-bold">{unreadCount} 条未读</span> : '暂无未读消息'}
+              {unreadCount > 0 ? <span className="text-[#a88a5c] font-bold">{unreadCount} 条未读</span> : '暂无未读消息'}
             </p>
           </div>
         </div>
@@ -201,7 +201,7 @@ export default function NotificationsPage() {
                     <p className="text-[#6b6b68] text-sm mt-2 leading-relaxed">{notif.content}</p>
                     <div className="flex gap-3 mt-3">
                       {!notif.read && (
-                        <button onClick={() => markRead(notif.id)} className="text-sm text-[#c9a87c] font-medium hover:underline">
+                        <button onClick={() => markRead(notif.id)} className="text-sm text-[#a88a5c] font-medium hover:underline">
                           标为已读
                         </button>
                       )}

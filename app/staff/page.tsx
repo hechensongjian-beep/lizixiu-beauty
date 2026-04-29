@@ -641,7 +641,7 @@ export default async function StaffPage() {
                 <div className="text-sm text-[var(--foreground-muted)]">平均经验（年）</div>
               </div>
               <div className="bg-white rounded-xl p-6 border border-[#c9a87c] shadow-sm">
-                <div className="text-2xl mb-2 font-bold text-[#c9a87c]">ok</div>
+                <div className="text-2xl mb-2 font-bold text-[#a88a5c]">ok</div>
                 <div className="text-xl font-bold text-[var(--foreground)]">
                   {staff.filter(s => s.is_active ?? true).length}
                 </div>

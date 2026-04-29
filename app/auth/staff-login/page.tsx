@@ -94,7 +94,7 @@ export default function StaffLoginPage() {
         </form>
 
         <div className="mt-6 text-center space-y-2">
-          <Link href="/auth/login" className="block text-sm text-[var(--primary)] hover:underline">客户登录入口</Link>
+          <Link href="/auth/login" className="block text-sm text-[var(--primary-dark)] hover:underline">客户登录入口</Link>
           <Link href="/" className="block text-sm text-[var(--foreground-muted)] hover:text-[var(--foreground)]">← 返回首页</Link>
         </div>
 

@@ -360,7 +360,7 @@ const { role } = useAuth();
               <label className="block font-medium mb-2" style={{ fontSize: '1rem' }}>搜索订单</label>
               <input
                 type="text"
-                className="w-full px-4 py-3 border rounded-lg outline-none transition focus:ring-2 focus:text-[var(--primary)]-200"
+                className="w-full px-4 py-3 border rounded-lg outline-none transition focus:ring-2 focus:text-[var(--primary-dark)]-200"
                 style={{ borderColor: 'var(--primary-light)', fontSize: '1rem' }}
                 placeholder="客户姓名、电话、订单ID..."
                 value={searchTerm}

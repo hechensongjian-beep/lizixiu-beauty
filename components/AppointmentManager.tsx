@@ -253,7 +253,7 @@ export default function AppointmentManager() {
           <div className="bg-white rounded-xl p-6 border border-red-300 mb-8 text-left">
             <h3 className="font-semibold text-red-800 mb-3">请按以下步骤恢复：</h3>
             <ol className="list-decimal pl-5 space-y-2 text-[var(--foreground)]">
-              <li>访问 <a href="https://supabase.com/dashboard" target="_blank" className="text-[var(--primary)] hover:underline font-medium">Supabase 控制台</a></li>
+              <li>访问 <a href="https://supabase.com/dashboard" target="_blank" className="text-[var(--primary-dark)] hover:underline font-medium">Supabase 控制台</a></li>
               <li>选择项目 <code className="text-[var(--background-secondary)] px-2 py-1 rounded text-sm">jrdzmohjsteykvxszwve</code></li>
               <li>在左侧菜单点击 <strong>Database</strong> → <strong>Overview</strong></li>
               <li>如果看到暂停提示，点击 <strong>"Resume project"</strong>（恢复项目）</li>
@@ -277,7 +277,7 @@ export default function AppointmentManager() {
             </a>
           </div>
           <p className="mt-6 text-[var(--foreground-muted)] text-sm">
-            如果您需要帮助，请参考 <a href="https://supabase.com/docs/guides/platform/pause" target="_blank" className="text-[var(--primary)] hover:underline">Supabase 暂停与恢复文档</a>。
+            如果您需要帮助，请参考 <a href="https://supabase.com/docs/guides/platform/pause" target="_blank" className="text-[var(--primary-dark)] hover:underline">Supabase 暂停与恢复文档</a>。
           </p>
         </div>
       </div>
@@ -510,7 +510,7 @@ export default function AppointmentManager() {
                     >
                       删除
                     </button>
-                    <button className="text-[var(--primary)] hover:text-blue-800 font-medium text-sm">编辑</button>
+                    <button className="text-[var(--primary-dark)] hover:text-blue-800 font-medium text-sm">编辑</button>
                   </td>
                 </tr>
               );

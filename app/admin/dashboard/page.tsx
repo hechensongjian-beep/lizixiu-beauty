@@ -273,7 +273,7 @@ const { role } = useAuth();
             <h2 className="text-lg font-bold text-[var(--foreground)] mb-4">运营提醒</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="bg-white rounded-xl p-4 border border-amber-200">
-                <div className="text-[#c9a87c] font-bold text-xl mb-1">{stats.lowStockProducts}</div>
+                <div className="text-[#a88a5c] font-bold text-xl mb-1">{stats.lowStockProducts}</div>
                 <div className="text-[var(--foreground)] font-medium">库存紧张商品</div>
                 <div className="text-[var(--foreground-muted)] text-sm mt-1">库存 ≤ 10 件</div>
               </div>
@@ -283,7 +283,7 @@ const { role } = useAuth();
                 <div className="text-[var(--foreground-muted)] text-sm mt-1">等待客户付款</div>
               </div>
               <div className="bg-white rounded-xl p-4 border border-amber-200">
-                <div className="text-[var(--primary)] font-bold text-xl mb-1">{stats.totalProducts}</div>
+                <div className="text-[var(--primary-dark)] font-bold text-xl mb-1">{stats.totalProducts}</div>
                 <div className="text-[var(--foreground)] font-medium">在售商品</div>
                 <div className="text-[var(--foreground-muted)] text-sm mt-1">建议定期更新库存</div>
               </div>

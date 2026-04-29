@@ -242,7 +242,7 @@ export default function StaffWorkbenchPage() {
         </div>
         <div className="bg-white rounded-2xl border border-[var(--primary-light)] p-5">
           <p className="text-sm text-[var(--foreground-muted)] mb-1">本周完成</p>
-          <div className="text-xl font-bold text-[var(--primary)]">{dashboard?.week.completed}</div>
+          <div className="text-xl font-bold text-[var(--primary-dark)]">{dashboard?.week.completed}</div>
         </div>
         <div className="bg-white rounded-2xl border border-[var(--primary-light)] p-5">
           <p className="text-sm text-[var(--foreground-muted)] mb-1">本周收入</p>
@@ -374,8 +374,8 @@ export default function StaffWorkbenchPage() {
                     <div className="w-full flex items-end justify-center" style={{ height: `${h}%`, minHeight: d.count > 0 ? '4px' : '0' }}>
                       <div className="w-full rounded-t-md" style={{ height: '100%', background: isToday ? 'var(--primary)' : 'var(--primary-light)' }}></div>
                     </div>
-                    <span className={`text-sm font-medium ${isToday ? 'text-[var(--primary)]' : 'text-[var(--foreground-muted)]'}`}>{d.dayName}</span>
-                    <span className={`text-sm font-bold ${isToday ? 'text-[var(--primary)]' : 'text-[var(--foreground-muted)]'}`}>{d.count}</span>
+                    <span className={`text-sm font-medium ${isToday ? 'text-[var(--primary-dark)]' : 'text-[var(--foreground-muted)]'}`}>{d.dayName}</span>
+                    <span className={`text-sm font-bold ${isToday ? 'text-[var(--primary-dark)]' : 'text-[var(--foreground-muted)]'}`}>{d.count}</span>
                   </div>
                 );
               })}
@@ -384,7 +384,7 @@ export default function StaffWorkbenchPage() {
               {[
                 { label: '本周总预约', value: dashboard?.week.total },
                 { label: '已完成', value: dashboard?.week.completed, color: 'var(--sage)' },
-                { label: '已确认', value: dashboard?.week.confirmed, color: 'text-[#c9a87c]' },
+                { label: '已确认', value: dashboard?.week.confirmed, color: 'text-[#a88a5c]' },
                 { label: '待确认', value: dashboard?.week.pending, color: 'var(--primary-dark)' },
                 { label: '本周收入', value: `¥${(dashboard?.week.earnings || 0).toLocaleString('zh-CN')}`, color: 'var(--sage)' },
               ].map(item => (
@@ -400,7 +400,7 @@ export default function StaffWorkbenchPage() {
       </div>
 
       <div className="mt-8 text-center">
-        <Link href="/" className="text-sm text-[var(--foreground-muted)] hover:text-[var(--primary)]">返回首页</Link>
+        <Link href="/" className="text-sm text-[var(--foreground-muted)] hover:text-[var(--primary-dark)]">返回首页</Link>
       </div>
     </div>
   );

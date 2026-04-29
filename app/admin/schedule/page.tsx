@@ -125,7 +125,7 @@ function ReassignModal({
                   <div className="text-sm text-[var(--foreground-muted)]">{s.role}</div>
                 </div>
                 {targetId === s.id && (
-                  <svg className="ml-auto text-[#c9a87c]" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                  <svg className="ml-auto text-[#a88a5c]" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                 )}
               </button>
             ))}
@@ -403,7 +403,7 @@ const { role } = useAuth();
               : `第${Math.ceil((new Date(currentDate + 'T00:00:00').getDate()) / 7)}周 · ${new Date(currentDate + 'T00:00:00').toLocaleDateString('zh-CN', { month: 'long', year: 'numeric' })}`
             }
           </div>
-          {isToday && <div className="text-sm text-[#c9a87c] font-medium">今天</div>}
+          {isToday && <div className="text-sm text-[#a88a5c] font-medium">今天</div>}
         </div>
         <button
           onClick={() => view === 'day' ? navigateDay(1) : navigateWeek(1)}
@@ -575,7 +575,7 @@ const { role } = useAuth();
                     <div className={`p-3 flex flex-col justify-center ${isCurrentDay ? 'text-[#a88a5c]' : 'var(--foreground)'}`}>
                       <div className="font-bold text-sm">{dateObj.getDate()}日</div>
                       <div className="text-sm text-[var(--foreground-muted)]">周{dayNames[idx]}</div>
-                      {isCurrentDay && <div className="text-sm text-[#c9a87c] font-medium">今天</div>}
+                      {isCurrentDay && <div className="text-sm text-[#a88a5c] font-medium">今天</div>}
                     </div>
                     {data.staff.map(s => {
                       const count = (data.appointments || []).filter(
