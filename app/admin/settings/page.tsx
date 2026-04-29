@@ -294,9 +294,13 @@ export default function AdminSettingsPage() {
                 <span className="font-medium text-foreground">¥{previewResult.total_amount.toFixed(2)}</span>
               </div>
             </div>
-            <div className="p-4 bg-yellow-50 rounded-lg mb-4">
-              <p className="text-sm text-yellow-800">
-                ⚠️ 请仔细检查以上订单，确认无误后再执行清理。清理后数据无法恢复！
+            <div className="p-4 rounded-lg mb-4" style={{background:'rgba(251,191,36,0.1)'}}>
+              <p className="text-sm flex items-center gap-2">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ca8a04" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{flexShrink:'0',marginTop:'1px'}}>
+                  <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                  <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+                </svg>
+                <span style={{color:'#854d0e'}}>请仔细检查以上订单，确认无误后再执行清理。清理后数据无法恢复！</span>
               </p>
             </div>
             <button
