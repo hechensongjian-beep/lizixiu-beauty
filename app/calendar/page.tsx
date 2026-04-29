@@ -10,7 +10,18 @@ interface Appointment {
 }
 
 const TIMES = ['09:00','09:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30'];
-const STATUS_COLORS: Record<string, string> = { pending: 'rgba(201,168,124,0.2) var(--primary-light) var(--foreground)', confirmed: 'bg-[#c9a87c] border-[#c9a87c] text-white', completed: 'rgba(74,117,86,0.15) border-green-400 var(--sage)', cancelled: 'var(--background-secondary) rgba(201,168,124,0.3) var(--foreground-muted)' };
+const STATUS_STYLES: Record<string, React.CSSProperties> = {
+  pending:   { backgroundColor: 'rgba(201,168,124,0.2)',  color: 'var(--primary)',       borderLeftColor: 'var(--primary)'       },
+  confirmed: { backgroundColor: 'var(--accent)',         color: '#fff',                borderLeftColor: 'var(--accent)'         },
+  completed: { backgroundColor: 'rgba(74,117,86,0.15)',  color: 'var(--sage)',          borderLeftColor: 'var(--sage)'           },
+  cancelled: { backgroundColor: 'var(--background-secondary)', color: 'var(--foreground-muted)', borderLeftColor: 'var(--foreground-muted)' },
+};
+const STATUS_CLASS: Record<string, string> = {
+  pending:   'px-3 py-2 rounded-lg border-l-4 text-sm',
+  confirmed: 'px-3 py-2 rounded-lg border-l-4 text-sm',
+  completed: 'px-3 py-2 rounded-lg border-l-4 text-sm',
+  cancelled: 'px-3 py-2 rounded-lg border-l-4 text-sm',
+};
 const STATUS_LABEL: Record<string, string> = { pending: '待确认', confirmed: '已确认', completed: '已完成', cancelled: '已取消' };
 
 function IconWarning() { return <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>; }
@@ -35,7 +46,7 @@ function CalendarGrid({ date, appointments, onPrev, onNext, today }: { date: Dat
               <div className="w-20 py-3 px-3 text-sm text-[var(--foreground-muted)] font-medium border-r border-[var(--background-secondary)] flex-shrink-0">{time}</div>
               <div className="flex-1 py-2 px-3">
                 {appt ? (
-                  <div className={`px-3 py-2 rounded-lg border-l-4 text-sm ${STATUS_COLORS[appt.status] || STATUS_COLORS.pending}`}>
+                  <div className={`${STATUS_CLASS[appt.status] || STATUS_CLASS.pending}`} style={STATUS_STYLES[appt.status] || STATUS_STYLES.pending}>
                     <div className="font-bold">{appt.service_name || appt.service_type || '服务'}</div>
                     <div className="opacity-75">{appt.customer_name || '客户'} · {appt.staff_name || '美容师'}</div>
                     <div className="opacity-60">{appt.start_time?.substring(11,16)} – {appt.end_time?.substring(11,16)}</div>
@@ -167,8 +178,8 @@ export default function CalendarPage() {
       <div className="mt-6 bg-white rounded-2xl shadow p-5">
         <h3 className="font-bold text-[var(--foreground)] mb-3">状态说明</h3>
         <div className="flex flex-wrap gap-4">
-          {Object.entries(STATUS_COLORS).map(([status, cls]) => (
-            <div key={status} className={`px-3 py-1.5 rounded-full text-sm font-medium ${cls}`}>{STATUS_LABEL[status] || status}</div>
+          {Object.entries(STATUS_STYLES).map(([status, style]) => (
+            <div key={status} className={`${STATUS_CLASS[status]} font-medium`} style={style}>{STATUS_LABEL[status] || status}</div>
           ))}
         </div>
       </div>

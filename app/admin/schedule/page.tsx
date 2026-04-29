@@ -116,7 +116,7 @@ function ReassignModal({
                 }`}
               >
                 <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm ${
-                  targetId === s.id ? 'bg-[#faf8f5]0 text-white' : 'var(--background-secondary) var(--foreground-muted)'
+                  targetId === s.id ? 'bg-[var(--primary)] text-white' : 'bg-[var(--background-secondary)] text-[var(--foreground-muted)]'
                 }`}>
                   {s.name.slice(0, 2)}
                 </div>
