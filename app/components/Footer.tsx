@@ -88,7 +88,7 @@ export default function Footer() {
           {/* 微信 */}
           <button className="group flex items-center justify-center w-8 h-8 transition-all duration-200 hover:scale-110"
             style={{ border: '1px solid rgba(201,168,124,0.2)', borderRadius: '50%' }}
-            title="微信">
+            title="微信" aria-label="微信">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--foreground-muted)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M8.691 11.587c-.944 0-1.766.808-1.766 2.11 0 1.304.822 2.11 1.766 2.11 1.47 0 2.485-1.273 2.485-3.046 0-.97-.396-1.81-1.064-2.302-.447-.329-.896-.56-1.421-.714" />
               <path d="M12.063 12.45c-.37.174-.87.296-1.372.296-1.51 0-2.485-1.273-2.485-3.046 0-.97.396-1.81 1.064-2.302.447-.329.896-.56 1.421-.714" />
@@ -99,7 +99,7 @@ export default function Footer() {
           {/* 小红书 */}
           <button className="group flex items-center justify-center w-8 h-8 transition-all duration-200 hover:scale-110"
             style={{ border: '1px solid rgba(201,168,124,0.2)', borderRadius: '50%' }}
-            title="小红书">
+            title="小红书" aria-label="小红书">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--foreground-muted)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M4.5 2h15C19.5 2 20 2.5 20 3v15c0 .5-.5 1-1.5 1h-15c-.5 0-1-.5-1-1V3c0-.5.5-1 1-1z"/>
               <path d="M9 8c0 1 .5 2 2 2s2-1 2-2-.5-2-2-2-2 1-2 2zm5 0c0 1 .5 2 2 2s2-1 2-2-.5-2-2-2-2 1-2 2z"/>
@@ -109,7 +109,7 @@ export default function Footer() {
           {/* 电话 */}
           <button className="group flex items-center justify-center w-8 h-8 transition-all duration-200 hover:scale-110"
             style={{ border: '1px solid rgba(201,168,124,0.2)', borderRadius: '50%' }}
-            title="电话">
+            title="电话" aria-label="拨打电话">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--foreground-muted)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.09a16 16 0 006 6l.62-.62a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
             </svg>
