@@ -157,11 +157,11 @@ const openEdit = async (c: Customer) => {
       {/* 标签切换 */}
       <div className="flex gap-3 mb-8">
         <button onClick={() => setTab('list')}
-          className={`px-5 py-2 rounded-full font-medium transition ${tab==='list'?'bg-[#c9a87c] text-white shadow':'bg-white border var(--foreground) hover:bg-[var(--background-card)]'}`}>
+          className={`px-5 py-2 rounded-full font-medium transition ${tab==='list'?'bg-[var(--primary)] text-white shadow':'bg-white border-[var(--foreground)] hover:bg-[var(--background-secondary)]'}`}>
           客户列表
         </button>
         <button onClick={() => { openAdd(); setTab('add'); }}
-          className={`px-5 py-2 rounded-full font-medium transition ${tab==='add'?'bg-[#c9a87c] text-white shadow':'bg-white border var(--foreground) hover:bg-[var(--background-card)]'}`}>
+          className={`px-5 py-2 rounded-full font-medium transition ${tab==='add'?'bg-[var(--primary)] text-white shadow':'bg-white border-[var(--foreground)] hover:bg-[var(--background-secondary)]'}`}>
           添加客户
         </button>
         {tab === 'edit' && (

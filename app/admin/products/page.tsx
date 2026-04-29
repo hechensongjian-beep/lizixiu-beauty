@@ -131,8 +131,8 @@ const openEdit = async (p: Product) => {
 
       {/* 标签切换 */}
       <div className="flex gap-3 mb-8">
-        <button onClick={() => setTab('list')} className={`px-5 py-2 rounded-full font-medium transition ${tab==='list'?'bg-[#c9a87c] text-white shadow':'bg-white border var(--foreground) hover:bg-[var(--background-card)]'}`}>商品列表</button>
-        <button onClick={() => { openAdd(); setTab('add'); }} className={`px-5 py-2 rounded-full font-medium transition ${tab==='add'?'bg-[#c9a87c] text-white shadow':'bg-white border var(--foreground) hover:bg-[var(--background-card)]'}`}>添加/编辑</button>
+        <button onClick={() => setTab('list')} className={`px-5 py-2 rounded-full font-medium transition ${tab==='list'?'bg-[var(--primary)] text-white shadow':'bg-white border-[var(--foreground)] hover:bg-[var(--background-secondary)]'}`}>商品列表</button>
+        <button onClick={() => { openAdd(); setTab('add'); }} className={`px-5 py-2 rounded-full font-medium transition ${tab==='add'?'bg-[var(--primary)] text-white shadow':'bg-white border-[var(--foreground)] hover:bg-[var(--background-secondary)]'}`}>添加/编辑</button>
       </div>
 
       {/* 添加/编辑表单 */}
@@ -187,7 +187,7 @@ const openEdit = async (p: Product) => {
                         className="ml-3 px-3 py-2 rounded-lg text-sm" style={{background:'rgba(177,93,94,0.08)',color:'var(--rose)'}}>移除</button>
                     )}
                     <p className="text-sm text-[var(--foreground-muted)] mt-2">支持 JPG、PNG、WebP，自动上传到云存储</p>
-                    {uploading && <div className="mt-3 w-full text-[var(--background-secondary)] rounded-full h-2"><div className="bg-[#c9a87c] h-2 rounded-full animate-pulse" style={{width:'60%'}}></div></div>}
+                    {uploading && <div className="mt-3 w-full text-[var(--foreground-muted)] rounded-full h-2"><div className="bg-[var(--primary)] h-2 rounded-full animate-pulse" style={{width:'60%'}}></div></div>}
                   </div>
                 </div>
                 {/* 颜色选择（无图片时作为占位背景） */}
