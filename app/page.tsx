@@ -154,6 +154,7 @@ function GoldDotCluster({ count = 5 }: { count?: number }) {
 }
 
 export default function HomePage() {
+  useEffect(() => { document.title = '丽姿秀·专业美容服务'; }, []);
   const { role } = useAuth();
   const [products, setProducts] = useState<Product[]>([]);
   const [services, setServices] = useState<Service[]>([]);

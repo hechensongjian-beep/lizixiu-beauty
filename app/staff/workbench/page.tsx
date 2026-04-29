@@ -48,12 +48,13 @@ interface DashboardData {
 
 const STATUS_COLORS: Record<string, { bg: string; text: string; label: string }> = {
   pending: { bg: 'rgba(168,138,92,0.15)', text: 'var(--primary-dark)', label: '待确认' },
-  confirmed: { bg: 'bg-[#c9a87c]', text: 'text-white', label: '已确认' },
+  confirmed: { bg: 'rgba(201,168,124,0.2)', text: 'var(--primary-dark)', label: '已确认' },
   completed: { bg: 'rgba(156,175,136,0.15)', text: 'var(--sage)', label: '已完成' },
   cancelled: { bg: 'var(--background-secondary)', text: 'var(--foreground-muted)', label: '已取消' },
 };
 
 export default function StaffWorkbenchPage() {
+  useEffect(() => { document.title = '员工工作台 - 丽姿秀'; }, []);
   const { toast } = useToast();
   const router = useRouter();
   const { role, loading } = useAuth();

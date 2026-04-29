@@ -7,6 +7,7 @@ import { useAuth } from '@/components/AuthProvider';
 import { supabase } from '@/lib/supabase';
 
 export default function StaffLoginPage() {
+  useEffect(() => { document.title = '员工登录 - 丽姿秀'; }, []);
   const router = useRouter();
   const { role, loading: authLoading, user } = useAuth();
   const [email, setEmail] = useState('');
@@ -35,7 +36,7 @@ export default function StaffLoginPage() {
       const userRole = authData.user.user_metadata?.role;
       if (userRole !== 'staff') {
         await supabase.auth.signOut();
-        setError('This account is not a staff account');
+        setError('此账号不是员工账号');
         setLoading(false);
         return;
       }

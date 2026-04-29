@@ -129,10 +129,10 @@ export default function CalendarPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2">
           <div className="bg-white rounded-2xl shadow overflow-hidden">
-            <div className="flex items-center justify-between bg-gradient-to-r from-[#2d4a3e] to-[#c9a87c] text-white px-6 py-4">
-              <button onClick={() => navigateMonth(-1)} className="w-9 h-9 rounded-lg bg-white/20 hover:bg-white/30 flex items-center justify-center text-lg">‹</button>
+            <div className="flex items-center justify-between px-6 py-4" style={{background:'linear-gradient(to right, var(--accent), var(--primary))'}}>
+              <button onClick={() => navigateMonth(-1)} className="w-9 h-9 rounded-lg flex items-center justify-center text-lg transition-colors" style={{background:'rgba(250,248,243,0.2)'}} onMouseEnter={e => (e.currentTarget.style.background='rgba(250,248,243,0.35)')} onMouseLeave={e => (e.currentTarget.style.background='rgba(250,248,243,0.2)')}>‹</button>
               <h2 className="text-xl font-bold">{monthName}</h2>
-              <button onClick={() => navigateMonth(1)} className="w-9 h-9 rounded-lg bg-white/20 hover:bg-white/30 flex items-center justify-center text-lg">›</button>
+              <button onClick={() => navigateMonth(1)} className="w-9 h-9 rounded-lg flex items-center justify-center text-lg transition-colors" style={{background:'rgba(250,248,243,0.2)'}} onMouseLeave={e => (e.currentTarget.style.background='rgba(250,248,243,0.2)')} onMouseEnter={e => (e.currentTarget.style.background='rgba(250,248,243,0.35)')}>›</button>
             </div>
             <div className="grid grid-cols-7 text-[var(--background-card)] border-b">
               {['日','一','二','三','四','五','六'].map(d => (
