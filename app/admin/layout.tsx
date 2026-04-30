@@ -45,7 +45,7 @@ export default function AdminLayout({
   return (
     <div className="min-h-screen bg-[var(--background)]">
       {/* 商家后台导航栏 */}
-      <nav className="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b rgba(201,168,124,0.2)">
+      <nav className="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-[var(--primary)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
@@ -127,7 +127,7 @@ export default function AdminLayout({
       </main>
 
       {/* 页脚 */}
-      <footer className="bg-white/80 border-t rgba(201,168,124,0.2) mt-12">
+      <footer className="bg-white/80 border-t border-[var(--primary)] mt-12">
         <div className="max-w-7xl mx-auto px-4 py-6 text-center text-[var(--foreground-muted)] text-sm">
           © {new Date().getFullYear()} 丽姿秀美容工作室 · 商家后台管理系统 v1.0
         </div>

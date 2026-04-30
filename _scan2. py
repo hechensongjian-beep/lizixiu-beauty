@@ -1,0 +1,21 @@
+﻿import os, re
+src = r"C:\Users\cdl83\.qclaw\workspace\lizixiu-beauty\app"
+kws = ["location", "window.", "document.", "navigator.", "localStorage", "sessionStorage"]
+print("Scan 2: location refs") 
+for root, dirs, files in os.walk(src):
+    dirs[:] = [d for d in dirs if d not in ("node_modules",".next",".git")]
+    for fn in files:
+        if not fn.endswith((".tsx",".ts",".jsx",".js")): continue
+        fp = os.path.join(root, fn)
+        try:
+            with open(fp, "r", encoding="utf-8") as f: c = f.read()
+        except: continue
+        rel = os.path.relpath(fp, src)
+        hc = "'use client'" in c or '"use client"' in c
+        hd = bool(re.search(r"export\s+const\s+dynamic\s*=", c))
+        if hc or hd: continue
+        for i, ln in enumerate(c.split("\n")):
+            if ln.strip().startswith("//"): continue
+            for kw in kws:
+                if kw in ln:
+                    print("  ", rel, "L"+str(i+1), ln.strip()[:100])
