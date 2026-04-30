@@ -201,7 +201,7 @@ export default function ChatPage() {
               ) : filtered.map(conv => (
                 <div key={conv.id}
                   onClick={() => openConversation(conv)}
-                  className="flex items-center gap-4 px-6 py-4 border-b border-[#e8d5b8]/20 hover:bg-[#faf8f5] cursor-pointer transition">
+                  className="flex items-center gap-4 px-6 py-4 border-b border-[#e8d5b8]/20 hover:bg-[var(--background-secondary)] cursor-pointer transition">
                   <div className="relative flex-shrink-0">
                     <div className={`w-12 h-12 rounded-full ${conv.avatarColor} flex items-center justify-center text-white text-lg font-bold`}>
                       {getInitials(conv.customerName)}

@@ -112,7 +112,7 @@ function ReassignModal({
                 className={`w-full flex items-center gap-3 p-3 rounded-xl border-2 transition text-left ${
                   targetId === s.id
                     ? 'border-[#c9a87c] bg-[#faf8f5]'
-                    : 'rgba(201,168,124,0.2) hover:border-[#e8d5b8] hover:bg-[#faf8f5]/50'
+                    : 'rgba(201,168,124,0.2) hover:border-[#e8d5b8] hover:bg-[var(--background-secondary)]/50'
                 }`}
               >
                 <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm ${
@@ -178,7 +178,7 @@ function WeekCell({
   return (
     <div
       onClick={() => onStaffClick(staffId, date)}
-      className="min-h-[48px] p-1 border-r border-[var(--background-secondary)] cursor-pointer hover:bg-[#faf8f5] transition"
+      className="min-h-[48px] p-1 border-r border-[var(--background-secondary)] cursor-pointer hover:bg-[var(--background-secondary)] transition"
     >
       {staffApts.slice(0, 2).map(apt => (
         <div
@@ -392,7 +392,7 @@ const { role } = useAuth();
       <div className="flex items-center justify-between mb-6">
         <button
           onClick={() => view === 'day' ? navigateDay(-1) : navigateWeek(-1)}
-          className="w-10 h-10 rounded-xl bg-white border rgba(201,168,124,0.2) flex items-center justify-center hover:bg-[#faf8f5] hover:border-[#c9a87c] transition"
+          className="w-10 h-10 rounded-xl bg-white border rgba(201,168,124,0.2) flex items-center justify-center hover:bg-[var(--background-secondary)] hover:border-[#c9a87c] transition"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
         </button>
@@ -407,7 +407,7 @@ const { role } = useAuth();
         </div>
         <button
           onClick={() => view === 'day' ? navigateDay(1) : navigateWeek(1)}
-          className="w-10 h-10 rounded-xl bg-white border rgba(201,168,124,0.2) flex items-center justify-center hover:bg-[#faf8f5] hover:border-[#c9a87c] transition"
+          className="w-10 h-10 rounded-xl bg-white border rgba(201,168,124,0.2) flex items-center justify-center hover:bg-[var(--background-secondary)] hover:border-[#c9a87c] transition"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
         </button>
@@ -591,7 +591,7 @@ const { role } = useAuth();
                             setCurrentDate(d);
                             setView('day');
                           }}
-                          className="p-3 border-l border-[var(--background-secondary)] cursor-pointer hover:bg-[#faf8f5] transition min-h-[64px] flex flex-col justify-center"
+                          className="p-3 border-l border-[var(--background-secondary)] cursor-pointer hover:bg-[var(--background-secondary)] transition min-h-[64px] flex flex-col justify-center"
                         >
                           {count === 0 ? (
                             <div className="text-sm text-[var(--foreground-light)] text-center">—</div>
