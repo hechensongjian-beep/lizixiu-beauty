@@ -13,6 +13,8 @@ import { getOrders, getProducts, getCustomers } from '@/lib/api';
 
 const COLORS = ['#c9a87c', '#2d4a3e', '#8b7355', '#d4a574', '#5a8c7f', '#a88a5c'];
 
+export const dynamic = 'force-dynamic';
+
 export default function AdminDashboardPage() {
     useEffect(() => { document.title = '管理后台 - 丽姿秀'; }, []);
 
