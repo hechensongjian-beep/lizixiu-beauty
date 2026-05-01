@@ -68,8 +68,8 @@ export default function OrdersPage() {
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'pending': return 'rgba(168,138,92,0.15) var(--foreground)';
-      case 'paid': return 'bg-[#c9a87c]/20 text-[var(--foreground)]';
-      case 'shipped': return 'bg-[#c9a87c] text-white';
+      case 'paid': return 'rgba(201,168,124,0.2) text-[var(--foreground)]';
+      case 'shipped': return 'bg-[var(--primary)] text-white';
       case 'delivered': return 'rgba(156,175,136,0.15) var(--sage)';
       case 'cancelled': return 'rgba(220,38,38,0.08) var(--rose)';
       default: return 'var(--background-secondary) var(--foreground)';
@@ -105,8 +105,8 @@ const translateStatus = async (status: string) => {
   return (
     <div className="max-w-7xl mx-auto px-4 py-12">
       <div className="text-center mb-12">
-        <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-r from-[#c9a87c]/10 to-[#e8d5b8]/10 rounded-2xl mb-6">
-          <div className="text-xl"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#a88a5c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
+        <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-r from-[var(--primary)]/10 to-[var(--primary-light)]/10 rounded-2xl mb-6">
+          <div className="text-xl"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary-dark)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
         </div>
         <h1 className="text-xl font-medium text-[var(--foreground)] mb-4">我的订单</h1>
         <p className="text-[var(--foreground-muted)] max-w-2xl mx-auto">
@@ -143,14 +143,14 @@ const translateStatus = async (status: string) => {
           </div>
         </div>
       ) : orders.length === 0 && role === 'guest' ? (
-        <div className="bg-[#faf8f5] border rgba(201,168,124,0.2) rounded-2xl p-16 text-center">
-          <div className="mb-6 flex justify-center"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#c9a87c" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
-          <h3 className="text-xl font-bold mb-4" style={{color:'#2a2a28'}}>查看我的订单</h3>
+        <div className="bg-[var(--background)] border rgba(201,168,124,0.2) rounded-2xl p-16 text-center">
+          <div className="mb-6 flex justify-center"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
+          <h3 className="text-xl font-bold mb-4" style={{color:'var(--foreground)'}}>查看我的订单</h3>
           <p className="text-[var(--foreground-muted)] max-w-md mx-auto mb-8">
             登录后即可查看您的所有订单记录
           </p>
           <div className="flex items-center justify-center gap-3 flex-wrap">
-            <Link href="/auth/login" className="px-8 py-3 rounded-full text-white font-bold text-sm" style={{background:'#2d4a3e',boxShadow:'0 4px 16px rgba(45,74,62,0.35)'}}>
+            <Link href="/auth/login" className="px-8 py-3 rounded-full text-white font-bold text-sm" style={{background:'var(--accent)',boxShadow:'0 4px 16px rgba(45,74,62,0.35)'}}>
               登录 / 注册
             </Link>
             <Link href="/products" className="px-8 py-3 rounded-full font-bold text-sm" style={{border:'1px solid rgba(201,168,124,0.5)',color:'var(--accent)'}}>
@@ -159,15 +159,15 @@ const translateStatus = async (status: string) => {
           </div>
         </div>
       ) : orders.length === 0 ? (
-        <div className="bg-[#faf8f5] border rgba(201,168,124,0.2) rounded-2xl p-16 text-center">
-          <div className="mb-6 flex justify-center"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#c0bdb8" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+        <div className="bg-[var(--background)] border rgba(201,168,124,0.2) rounded-2xl p-16 text-center">
+          <div className="mb-6 flex justify-center"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="var(--foreground-muted)" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
           <h3 className="text-xl font-medium text-[var(--foreground)] mb-4">暂无订单</h3>
           <p className="text-[var(--foreground-muted)] max-w-md mx-auto mb-8">
             您还没有创建任何订单。快去产品商店逛逛吧！
           </p>
           <Link
             href="/products"
-            className="inline-flex items-center px-8 py-4 bg-[#2d4a3e] text-white font-bold text-lg rounded-lg hover:opacity-90 transition"
+            className="inline-flex items-center px-8 py-4 bg-[var(--accent)] text-white font-bold text-lg rounded-lg hover:opacity-90 transition"
           >
              去产品商店
           </Link>
@@ -278,7 +278,7 @@ const translateStatus = async (status: string) => {
                     </button>
                     <button
                       onClick={() => cancelOrder(order.id)}
-                      className="px-6 py-3 font-bold rounded-lg transition" style={{background:'rgba(220,38,38,0.06)',color:'var(--rose)'}}
+                      className="px-6 py-3 font-bold rounded-lg transition" style={{background:'rgba(239,68,68,0.1)',color:'var(--rose)'}}
                     >
                       取消订单
                     </button>
@@ -300,7 +300,7 @@ const translateStatus = async (status: string) => {
       <div className="text-center mt-12">
         <Link
           href="/"
-          className="inline-flex items-center px-6 py-3 bg-[#2d4a3e] text-white font-semibold rounded-lg hover:opacity-90 transition"
+          className="inline-flex items-center px-6 py-3 bg-[var(--accent)] text-white font-semibold rounded-lg hover:opacity-90 transition"
         >
           ← 返回主页
         </Link>

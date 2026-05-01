@@ -46,7 +46,7 @@ const { role } = useAuth();
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center">
-          <div className="w-8 h-8 border-2 border-[#c9a87c] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="w-8 h-8 border-2 border-[var(--primary)] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-sm text-[var(--foreground-muted)]">正在检查权限...</p>
         </div>
       </div>
@@ -163,10 +163,10 @@ const { role } = useAuth();
       {!loading && (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
           {[
-            { label: '待核验', value: summary.pending, bg: '#1a3a2a', icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> },
-            { label: '已通过', value: summary.approved, bg: '#14532d', icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="20 6 9 17 4 12"/></svg> },
-            { label: '已拒绝', value: summary.rejected, bg: '#7f1d1d', icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> },
-            { label: '已确认金额', value: fmt(summary.totalAmount), bg: '#1a3a2a', icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg> },
+            { label: '待核验', value: summary.pending, bg: 'var(--accent)', icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> },
+            { label: '已通过', value: summary.approved, bg: 'var(--accent)', icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="20 6 9 17 4 12"/></svg> },
+            { label: '已拒绝', value: summary.rejected, bg: 'var(--rose)', icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> },
+            { label: '已确认金额', value: fmt(summary.totalAmount), bg: 'var(--accent)', icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg> },
           ].map(item => (
             <div key={item.label} className="text-white rounded-xl p-4 shadow-sm" style={{ backgroundColor: item.bg }}>
               <div className="text-xl mb-1 flex">{item.icon}</div>
@@ -201,7 +201,7 @@ const { role } = useAuth();
 
       {/* 错误 */}
       {error && (
-        <div className="rgba(177,93,94,0.06) border border-red-200 rounded-xl p-4 mb-6">
+        <div className="bg-[var(--rose)]/6 border border-red-200 rounded-xl p-4 mb-6">
           <p className="text-[var(--rose)] font-medium">{error}</p>
           <p className="text-sm text-[var(--rose)] mt-1">
             请确认已在 Supabase 执行初始化 SQL：
@@ -214,7 +214,7 @@ const { role } = useAuth();
       {/* 加载 */}
       {loading && (
         <div className="flex items-center justify-center py-16">
-          <div className="w-10 h-10 border-4 rgba(201,168,124,0.2) border-t-[#c9a87c] rounded-full animate-spin mx-auto"></div>
+          <div className="w-10 h-10 border-4 rgba(201,168,124,0.2) border-t-[var(--primary)] rounded-full animate-spin mx-auto"></div>
         </div>
       )}
 
@@ -222,7 +222,7 @@ const { role } = useAuth();
       {!loading && filtered.length === 0 && (
         <div className="bg-white border rgba(201,168,124,0.2) rounded-2xl p-16 text-center">
           <div className="w-12 h-12 text-[var(--background-secondary)] rounded-2xl flex items-center justify-center mx-auto mb-4">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#d1d5db" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--foreground-muted)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                         </svg>
                       </div>
@@ -315,9 +315,9 @@ const { role } = useAuth();
 
       {/* 备注弹窗 */}
       {noteModal && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 px-4">
+        <div className="fixed inset-0 rgba(0,0,0,0.04)0 flex items-center justify-center z-50 px-4">
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md">
-            <div className={`px-6 py-4 border-b border-[var(--background-secondary)] ${noteModal.action === 'approve' ? 'rgba(74,117,86,0.06)' : 'rgba(177,93,94,0.06)'} rounded-t-2xl`}>
+            <div className={`px-6 py-4 border-b border-[var(--background-secondary)] ${noteModal.action === 'approve' ? 'bg-[var(--accent)]/6' : 'bg-[var(--rose)]/6'} rounded-t-2xl`}>
               <h3 className="font-bold text-lg">
                 {noteModal.action === 'approve' ? '确认收款' : '拒绝该支付记录'}
               </h3>
@@ -331,7 +331,7 @@ const { role } = useAuth();
                 onChange={e => setNote(e.target.value)}
                 placeholder={noteModal.action === 'approve' ? '如：已到账确认' : '如：金额不符/未到账'}
                 rows={3}
-                className="w-full border rgba(201,168,124,0.2) rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#c9a87c] resize-none"
+                className="w-full border rgba(201,168,124,0.2) rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--primary)] resize-none"
               />
             </div>
             <div className="px-6 pb-6 flex gap-3">

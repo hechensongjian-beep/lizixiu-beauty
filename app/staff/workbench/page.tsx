@@ -308,7 +308,7 @@ export default function StaffWorkbenchPage() {
                               </button>
                               <button onClick={() => handleStatusChange(apt.id, 'cancelled')}
                                 disabled={updatingId === apt.id}
-                                className="px-2 py-1 text-sm font-medium rounded-lg disabled:opacity-50 transition" style={{background:'rgba(220,38,38,0.06)',color:'var(--rose)'}}>
+                                className="px-2 py-1 text-sm font-medium rounded-lg disabled:opacity-50 transition" style={{background:'rgba(239,68,68,0.1)',color:'var(--rose)'}}>
                                 取消
                               </button>
                             </>

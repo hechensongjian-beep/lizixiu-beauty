@@ -8,7 +8,7 @@ export default function AuthIndexPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-16">
       <div className="text-center mb-12">
-        <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-r from-[#e8d5b8] to-[#c9a87c] rounded-xl mb-8">
+        <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-r from-[var(--primary-light)] to-[var(--primary)] rounded-xl mb-8">
           <div className="text-xl"></div>
         </div>
         <h1 className="text-2xl font-bold text-[var(--foreground)] mb-4">欢迎来到丽姿秀</h1>
@@ -26,23 +26,23 @@ export default function AuthIndexPage() {
           </p>
           <ul className="space-y-3 mb-8">
             <li className="flex items-center">
-              <div className="w-2 h-2 bg-[#c9a87c] rounded-full mr-3"></div>
+              <div className="w-2 h-2 bg-[var(--primary)] rounded-full mr-3"></div>
               <span>浏览服务项目与价格</span>
             </li>
             <li className="flex items-center">
-              <div className="w-2 h-2 bg-[#c9a87c] rounded-full mr-3"></div>
+              <div className="w-2 h-2 bg-[var(--primary)] rounded-full mr-3"></div>
               <span>在线预约，灵活选择时间</span>
             </li>
             <li className="flex items-center">
-              <div className="w-2 h-2 bg-[#c9a87c] rounded-full mr-3"></div>
+              <div className="w-2 h-2 bg-[var(--primary)] rounded-full mr-3"></div>
               <span>查看历史预约与消费记录</span>
             </li>
           </ul>
           <div className="space-y-4">
             <Link
               href="/auth/login"
-              className="block w-full px-6 py-3 text-white font-bold rounded-lg hover:bg-[#3a6050] transition text-center shadow-md"
-              style={{background:'#2d4a3e'}}
+              className="block w-full px-6 py-3 text-white font-bold rounded-lg hover:bg-[var(--accent)] transition text-center shadow-md"
+              style={{background:'var(--accent)'}}
             >
               客户登录
             </Link>
@@ -63,23 +63,23 @@ export default function AuthIndexPage() {
           </p>
           <ul className="space-y-3 mb-8">
             <li className="flex items-center">
-              <div className="w-2 h-2 bg-[#c9a87c] rounded-full mr-3"></div>
+              <div className="w-2 h-2 bg-[var(--primary)] rounded-full mr-3"></div>
               <span>可视化预约日历，拖拽调整</span>
             </li>
             <li className="flex items-center">
-              <div className="w-2 h-2 bg-[#c9a87c] rounded-full mr-3"></div>
+              <div className="w-2 h-2 bg-[var(--primary)] rounded-full mr-3"></div>
               <span>员工排班与绩效统计</span>
             </li>
             <li className="flex items-center">
-              <div className="w-2 h-2 bg-[#c9a87c] rounded-full mr-3"></div>
+              <div className="w-2 h-2 bg-[var(--primary)] rounded-full mr-3"></div>
               <span>客户关系管理与营销工具</span>
             </li>
           </ul>
           <div className="space-y-4">
             <Link
               href="/auth/staff-login"
-              className="block w-full px-6 py-3 text-white font-bold rounded-lg hover:bg-[#3a6050] transition text-center shadow-md"
-              style={{background:'#2d4a3e'}}
+              className="block w-full px-6 py-3 text-white font-bold rounded-lg hover:bg-[var(--accent)] transition text-center shadow-md"
+              style={{background:'var(--accent)'}}
             >
               商家登录
             </Link>

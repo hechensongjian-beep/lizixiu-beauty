@@ -16,9 +16,9 @@ interface Product {
 }
 
 const IMAGE_COLORS = [
-  'from-[#e8d5b8] to-[#c9a87c]','from-[#c9a87c] to-[#a88a5c]',
-  'from-[#d4c4a8] to-[#b8956a]','from-[#2d4a3e] to-[#4a7c6f]',
-  'from-[#f5f0e8] to-[#e8d5b8]','from-[#8b7355] to-[#c9a87c]',
+  'from-[var(--primary-light)] to-[var(--primary)]','from-[var(--primary)] to-[var(--primary-dark)]',
+  'from-[var(--primary-light)] to-[var(--primary-dark)]','from-[var(--accent)] to-[var(--accent)]',
+  'from-[var(--background)] to-[var(--primary-light)]','from-[var(--accent)] to-[var(--primary)]',
 ];
 
 export default function AdminProductsPage() {
@@ -32,7 +32,7 @@ const { role } = useAuth();
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center">
-          <div className="w-8 h-8 border-2 border-[#c9a87c] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="w-8 h-8 border-2 border-[var(--primary)] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-sm text-[var(--foreground-muted)]">正在检查权限...</p>
         </div>
       </div>
@@ -144,28 +144,28 @@ const openEdit = async (p: Product) => {
               <div>
                 <label className="block font-medium text-[var(--foreground)] mb-2" style={{fontSize:'1rem'}}>商品名称 *</label>
                 <input type="text" value={form.name} onChange={e=>setForm(f=>({...f,name:e.target.value}))}
-                  placeholder="如：玫瑰精油焕肤套装" className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#c9a87c]" required />
+                  placeholder="如：玫瑰精油焕肤套装" className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[var(--primary)]" required />
               </div>
               <div>
                 <label className="block font-medium text-[var(--foreground)] mb-2" style={{fontSize:'1rem'}}>分类 *</label>
                 <input type="text" value={form.category} onChange={e=>setForm(f=>({...f,category:e.target.value}))}
-                  placeholder="如：面部护理" list="categories" className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#c9a87c]" required />
+                  placeholder="如：面部护理" list="categories" className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[var(--primary)]" required />
                 <datalist id="categories">{categories.map(c=><option key={c} value={c}/>)}</datalist>
               </div>
               <div>
                 <label className="block font-medium text-[var(--foreground)] mb-2" style={{fontSize:'1rem'}}>价格（元） *</label>
                 <input type="number" step="0.01" min="0" value={form.price||''} onChange={e=>setForm(f=>({...f,price:parseFloat(e.target.value)||0}))}
-                  className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#c9a87c]" required />
+                  className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[var(--primary)]" required />
               </div>
               <div>
                 <label className="block font-medium text-[var(--foreground)] mb-2" style={{fontSize:'1rem'}}>库存数量 *</label>
                 <input type="number" min="0" value={form.stock||''} onChange={e=>setForm(f=>({...f,stock:parseInt(e.target.value)||0}))}
-                  className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#c9a87c]" required />
+                  className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[var(--primary)]" required />
               </div>
               <div className="md:col-span-2">
                 <label className="block font-medium text-[var(--foreground)] mb-2" style={{fontSize:'1rem'}}>商品描述</label>
                 <textarea rows={3} value={form.description} onChange={e=>setForm(f=>({...f,description:e.target.value}))}
-                  placeholder="详细描述商品特点..." className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#c9a87c]" />
+                  placeholder="详细描述商品特点..." className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[var(--primary)]" />
               </div>
               {/* 图片上传 */}
               <div className="md:col-span-2">
@@ -196,7 +196,7 @@ const openEdit = async (p: Product) => {
                   <div className="flex gap-2 flex-wrap">
                     {IMAGE_COLORS.map((c, i) => (
                       <button key={i} type="button" onClick={() => setForm(f=>({...f,imageColor:c}))}
-                        className={`w-8 h-8 rounded-lg bg-gradient-to-br ${c} border-2 ${form.imageColor===c?'border-[#c9a87c]':'border-transparent'}`}></button>
+                        className={`w-8 h-8 rounded-lg bg-gradient-to-br ${c} border-2 ${form.imageColor===c?'border-[var(--primary)]':'border-transparent'}`}></button>
                     ))}
                   </div>
                 </div>
@@ -217,9 +217,9 @@ const openEdit = async (p: Product) => {
         <>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
             {[
-              { label: '商品总数', value: products.length, color: 'from-[#c9a87c] to-[#e8d5b8]', svg: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg> },
-              { label: '总库存', value: products.reduce((s,p)=>s+p.stock,0), color: 'from-[#c9a87c] to-[#e8d5b8]', svg: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg> },
-              { label: '分类数', value: categories.length, color: 'from-[#c9a87c] to-[#e8d5b8]', svg: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg> },
+              { label: '商品总数', value: products.length, color: 'from-[var(--primary)] to-[var(--primary-light)]', svg: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg> },
+              { label: '总库存', value: products.reduce((s,p)=>s+p.stock,0), color: 'from-[var(--primary)] to-[var(--primary-light)]', svg: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg> },
+              { label: '分类数', value: categories.length, color: 'from-[var(--primary)] to-[var(--primary-light)]', svg: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg> },
               { label: '缺货商品', value: products.filter(p=>p.stock===0).length, color: 'from-red-400 to-red-500', svg: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> },
             ].map(s => (
               <div key={s.label} className={`bg-gradient-to-br ${s.color} text-white rounded-2xl p-5 shadow`}>
@@ -233,7 +233,7 @@ const openEdit = async (p: Product) => {
           {/* 商品表格 */}
           <div className="bg-white rounded-2xl shadow overflow-hidden">
             {loading ? (
-              <div className="p-20 text-center"><div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[#c9a87c] mx-auto"></div></div>
+              <div className="p-20 text-center"><div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[var(--primary)] mx-auto"></div></div>
             ) : products.length === 0 ? (
               <div className="p-20 text-center text-[var(--foreground-muted)]"><div className="text-xl mb-4"></div><p className="text-xl">暂无商品，点击右上角添加</p></div>
             ) : (

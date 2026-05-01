@@ -55,7 +55,7 @@ const TIMES = [
 
 const STATUS_COLORS: Record<string, string> = {
   pending: 'rgba(168,138,92,0.15) var(--primary)',
-  confirmed: 'bg-[#c9a87c] border-[#c9a87c] text-white',
+  confirmed: 'bg-[var(--primary)] border-[var(--primary)] text-white',
   completed: 'rgba(74,117,86,0.15) border-green-400 var(--sage)',
   cancelled: 'var(--background-secondary) rgba(201,168,124,0.3) var(--foreground-muted) line-through',
 };
@@ -90,10 +90,10 @@ function ReassignModal({
     <div
       ref={overlayRef}
       onClick={handleOverlayClick}
-      className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 px-4"
+      className="fixed inset-0 rgba(0,0,0,0.04)0 flex items-center justify-center z-50 px-4"
     >
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden">
-        <div className="bg-gradient-to-r from-[#2d4a3e] to-[#c9a87c] text-white px-6 py-4">
+        <div className="bg-gradient-to-r from-[var(--accent)] to-[var(--primary)] text-white px-6 py-4">
           <h3 className="font-bold text-lg">调换负责员工</h3>
           <p className="text-white/80 text-sm mt-0.5">
             {appointment.services?.name} · {appointment.start_time?.substring(11, 16)}
@@ -111,8 +111,8 @@ function ReassignModal({
                 onClick={() => setTargetId(s.id)}
                 className={`w-full flex items-center gap-3 p-3 rounded-xl border-2 transition text-left ${
                   targetId === s.id
-                    ? 'border-[#c9a87c] bg-[#faf8f5]'
-                    : 'rgba(201,168,124,0.2) hover:border-[#e8d5b8] hover:bg-[var(--background-secondary)]/50'
+                    ? 'border-[var(--primary)] bg-[var(--background)]'
+                    : 'rgba(201,168,124,0.2) hover:border-[var(--primary-light)] hover:bg-[var(--background-secondary)]/50'
                 }`}
               >
                 <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm ${
@@ -150,7 +150,7 @@ function ReassignModal({
           <button
             onClick={() => onConfirm(targetId)}
             disabled={targetId === appointment.staff_id}
-            className="flex-1 py-2.5 bg-[#a88a5c] text-white rounded-xl font-medium hover:bg-[#2d4a3e] disabled:opacity-40 disabled:cursor-not-allowed transition"
+            className="flex-1 py-2.5 bg-[var(--primary-dark)] text-white rounded-xl font-medium hover:bg-[var(--accent)] disabled:opacity-40 disabled:cursor-not-allowed transition"
           >
             确认调换
           </button>
@@ -208,7 +208,7 @@ const { role } = useAuth();
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center">
-          <div className="w-8 h-8 border-2 border-[#c9a87c] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="w-8 h-8 border-2 border-[var(--primary)] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-sm text-[var(--foreground-muted)]">正在检查权限...</p>
         </div>
       </div>
@@ -377,7 +377,7 @@ const { role } = useAuth();
           <select
             value={filterStatus}
             onChange={e => setFilterStatus(e.target.value)}
-            className="text-sm border rgba(201,168,124,0.2) rounded-lg px-3 py-1.5 text-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[#c9a87c]"
+            className="text-sm border rgba(201,168,124,0.2) rounded-lg px-3 py-1.5 text-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
           >
             <option value="all">全部状态</option>
             <option value="pending">待确认</option>
@@ -392,9 +392,9 @@ const { role } = useAuth();
       <div className="flex items-center justify-between mb-6">
         <button
           onClick={() => view === 'day' ? navigateDay(-1) : navigateWeek(-1)}
-          className="w-10 h-10 rounded-xl bg-white border rgba(201,168,124,0.2) flex items-center justify-center hover:bg-[var(--background-secondary)] hover:border-[#c9a87c] transition"
+          className="w-10 h-10 rounded-xl bg-white border rgba(201,168,124,0.2) flex items-center justify-center hover:bg-[var(--background-secondary)] hover:border-[var(--primary)] transition"
         >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--foreground-muted)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
         </button>
         <div className="text-center">
           <div className="text-xl font-bold text-[var(--foreground)]">
@@ -407,9 +407,9 @@ const { role } = useAuth();
         </div>
         <button
           onClick={() => view === 'day' ? navigateDay(1) : navigateWeek(1)}
-          className="w-10 h-10 rounded-xl bg-white border rgba(201,168,124,0.2) flex items-center justify-center hover:bg-[var(--background-secondary)] hover:border-[#c9a87c] transition"
+          className="w-10 h-10 rounded-xl bg-white border rgba(201,168,124,0.2) flex items-center justify-center hover:bg-[var(--background-secondary)] hover:border-[var(--primary)] transition"
         >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--foreground-muted)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
         </button>
       </div>
 
@@ -417,11 +417,11 @@ const { role } = useAuth();
       {data && (
         <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6">
           {[
-            { label: '员工数', value: data.summary.totalStaff, color: 'from-[#c9a87c] to-[#e8d5b8]', svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> },
-            { label: '总预约', value: data.summary.totalAppointments, color: 'from-[#8b7355] to-[#c9a87c]', svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> },
-            { label: '待确认', value: data.summary.pending, color: 'from-[#8b7355] to-[#c9a87c]', svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> },
-            { label: '已确认', value: data.summary.confirmed, color: 'from-[#2d4a3e] to-[#4a7c6f]', svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><polyline points="20 6 9 17 4 12"/></svg> },
-            { label: '已完成', value: data.summary.completed, color: 'from-[#2d4a3e] to-[#5a8c7f]', svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> },
+            { label: '员工数', value: data.summary.totalStaff, color: 'from-[var(--primary)] to-[var(--primary-light)]', svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> },
+            { label: '总预约', value: data.summary.totalAppointments, color: 'from-[var(--accent)] to-[var(--primary)]', svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> },
+            { label: '待确认', value: data.summary.pending, color: 'from-[var(--accent)] to-[var(--primary)]', svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> },
+            { label: '已确认', value: data.summary.confirmed, color: 'from-[var(--accent)] to-[var(--accent)]', svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><polyline points="20 6 9 17 4 12"/></svg> },
+            { label: '已完成', value: data.summary.completed, color: 'from-[var(--accent)] to-[var(--accent)]', svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> },
           ].map(item => (
             <div key={item.label} className={`bg-gradient-to-br ${item.color} text-white rounded-xl p-4 shadow-sm`}>
               <div className="mb-2 opacity-80">{item.svg}</div>
@@ -434,7 +434,7 @@ const { role } = useAuth();
 
       {/* 错误 */}
       {error && (
-        <div className="rgba(177,93,94,0.06) border border-red-200 rounded-xl p-4 mb-6">
+        <div className="bg-[var(--rose)]/6 border border-red-200 rounded-xl p-4 mb-6">
           <p className="text-[var(--rose)]">{error}</p>
           <p className="text-sm text-[var(--rose)] mt-1">请检查 Supabase 数据库是否已创建必要的数据表</p>
         </div>
@@ -444,7 +444,7 @@ const { role } = useAuth();
       {loading && (
         <div className="flex items-center justify-center py-20">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[#c9a87c] mx-auto mb-4"></div>
+            <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[var(--primary)] mx-auto mb-4"></div>
             <p className="text-[var(--foreground-muted)]">加载排班数据中...</p>
           </div>
         </div>
@@ -459,7 +459,7 @@ const { role } = useAuth();
               <div></div>
               {data.staff.map(s => (
                 <div key={s.id} className="bg-white border rgba(201,168,124,0.2) rounded-xl p-3 text-center shadow-sm">
-                  <div className="w-10 h-10 bg-gradient-to-br from-[#2d4a3e] to-[#e8d5b8] rounded-full flex items-center justify-center text-white font-bold text-sm mx-auto mb-1">
+                  <div className="w-10 h-10 bg-gradient-to-br from-[var(--accent)] to-[var(--primary-light)] rounded-full flex items-center justify-center text-white font-bold text-sm mx-auto mb-1">
                     {s.name.slice(0, 2)}
                   </div>
                   <div className="font-bold text-[var(--foreground)] text-sm">{s.name}</div>
@@ -467,7 +467,7 @@ const { role } = useAuth();
                   {s.specialties && s.specialties.length > 0 && (
                     <div className="flex flex-wrap gap-1 justify-center mt-1">
                       {s.specialties.slice(0, 2).map((spec, i) => (
-                        <span key={i} className="text-sm bg-[#faf8f5] text-[var(--foreground)] px-1.5 py-0.5 rounded-full">
+                        <span key={i} className="text-sm bg-[var(--background)] text-[var(--foreground)] px-1.5 py-0.5 rounded-full">
                           {spec}
                         </span>
                       ))}
@@ -565,7 +565,7 @@ const { role } = useAuth();
                 const dateObj = new Date(d + 'T00:00:00');
                 const isCurrentDay = d === currentDate;
                 const isWeekend = idx >= 5;
-                const bgClass = isCurrentDay ? 'bg-[#c9a87c]/10' : isWeekend ? 'var(--background-card)/50' : '';
+                const bgClass = isCurrentDay ? 'rgba(201,168,124,0.1)' : isWeekend ? 'var(--background-card)/50' : '';
                 return (
                   <div
                     key={d}

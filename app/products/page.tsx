@@ -91,10 +91,10 @@ export default function ProductsPage() {
   if (error) {
     return (
       <div className="max-w-7xl mx-auto px-4 py-16 text-center">
-        <div className="w-14 h-14 mx-auto mb-4 rounded-full flex items-center justify-center" style={{ background: '#fef2f2' }}>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <div className="w-14 h-14 mx-auto mb-4 rounded-full flex items-center justify-center" style={{ background: 'rgba(239,68,68,0.1)' }}>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--rose)" strokeWidth="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
         </div>
-        <p className="mb-3" style={{ color: '#ef4444', fontSize: '0.9375rem' }}>{error}</p>
+        <p className="mb-3" style={{ color: 'var(--rose)', fontSize: '0.9375rem' }}>{error}</p>
         <button onClick={() => window.location.reload()} className="px-5 py-2 rounded-md text-white transition" style={{ background: 'var(--primary)', fontSize: '0.8125rem' }}>刷新页面</button>
       </div>
     );
@@ -181,7 +181,7 @@ export default function ProductsPage() {
                     </div>
                   )}
                   {product.stock === 0 && (
-                    <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                    <div className="absolute inset-0 rgba(0,0,0,0.04)0 flex items-center justify-center">
                       <span className="text-white font-medium" style={{ fontSize: '0.875rem' }}>已售罄</span>
                     </div>
                   )}
@@ -207,7 +207,7 @@ export default function ProductsPage() {
                         <span className="line-through ml-1.5" style={{ color: 'var(--foreground-light)', fontSize: '0.6875rem' }}>{fmt(product.originalPrice)}</span>
                       )}
                     </div>
-                    <span style={{ color: product.stock > 0 ? 'var(--sage)' : '#e05c5c', fontSize: '0.6875rem' }}>
+                    <span style={{ color: product.stock > 0 ? 'var(--sage)' : 'var(--rose)', fontSize: '0.6875rem' }}>
                       {product.stock > 0 ? `库存 ${product.stock}` : '售罄'}
                     </span>
                   </div>

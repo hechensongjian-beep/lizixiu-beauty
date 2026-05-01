@@ -130,7 +130,7 @@ export default function LoginPage() {
           </div>
         </div>
         {error && (
-          <div className="p-4 rounded-lg" style={{background:"#fef2f2",border:"1px solid #fecaca",color:"#991b1b"}}>
+          <div className="p-4 rounded-lg" style={{background:"rgba(239,68,68,0.1)",border:"1px solid rgba(239,68,68,0.2)",color:"var(--rose)"}}>
             <p style={{fontWeight:600,fontSize:"0.875rem"}}>登录失败</p>
             <p style={{fontSize:"0.8125rem",marginTop:"0.25rem"}}>{error}</p>
           </div>

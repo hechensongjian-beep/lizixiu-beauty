@@ -117,12 +117,12 @@ function ProductDetailInner() {
                 </div>
               )}
               {product.stock === 0 && (
-                <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                  <span className="text-white font-medium px-5 py-2 rounded-md" style={{ background: 'rgba(0,0,0,0.3)', fontSize: '0.875rem' }}>已售罄</span>
+                <div className="absolute inset-0 rgba(0,0,0,0.04)0 flex items-center justify-center">
+                  <span className="text-white font-medium px-5 py-2 rounded-md" style={{ background: 'rgba(0,0,0,0.03)0', fontSize: '0.875rem' }}>已售罄</span>
                 </div>
               )}
               {product.originalPrice && product.originalPrice > product.price && (
-                <div className="absolute top-3 left-3 px-2 py-1 rounded-md text-white font-medium" style={{ background: '#e05c5c', fontSize: '0.6875rem' }}>
+                <div className="absolute top-3 left-3 px-2 py-1 rounded-md text-white font-medium" style={{ background: 'var(--rose)', fontSize: '0.6875rem' }}>
                   -{Math.round((1 - product.price / product.originalPrice) * 100)}%
                 </div>
               )}
@@ -170,7 +170,7 @@ function ProductDetailInner() {
               <div className="flex items-center gap-3" style={{ color: 'var(--foreground-muted)', fontSize: '0.75rem' }}>
                 <span>{product.stock > 0 ? `库存 ${product.stock} 件` : '已售罄'}</span>
                 {product.stock > 0 && product.stock <= 5 && (
-                  <span style={{ color: '#e05c5c', fontWeight: 500 }}>仅剩 {product.stock} 件</span>
+                  <span style={{ color: 'var(--rose)', fontWeight: 500 }}>仅剩 {product.stock} 件</span>
                 )}
               </div>
             </div>

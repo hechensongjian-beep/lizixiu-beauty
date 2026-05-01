@@ -88,7 +88,7 @@ export default function ForgotPasswordPage() {
           <input
             type="email"
             required
-            className="w-full px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-[#c9a87c] focus:border-transparent"
+            className="w-full px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent"
             placeholder="请输入邮箱"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -100,7 +100,7 @@ export default function ForgotPasswordPage() {
         </div>
 
         {error && (
-          <div className="p-4 rgba(177,93,94,0.06) border border-red-200 text-[var(--rose)] rounded-lg">
+          <div className="p-4 bg-[var(--rose)]/6 border border-red-200 text-[var(--rose)] rounded-lg">
             <p className="font-semibold">发送失败</p>
             <p>{error}</p>
           </div>

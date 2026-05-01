@@ -60,7 +60,7 @@ function ConfirmDialog({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
-      <div className="absolute inset-0 bg-black/50" onClick={onCancel} />
+      <div className="absolute inset-0 rgba(0,0,0,0.5)" onClick={onCancel} />
       <div className="relative bg-white rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl">
         <h3 className="text-xl font-bold mb-4" style={{ color: 'var(--foreground)' }}>{title}</h3>
         <p className="text-base mb-6" style={{ color: 'var(--foreground-muted)' }}>{message}</p>
@@ -110,7 +110,7 @@ const { role } = useAuth();
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center">
-          <div className="w-8 h-8 border-2 border-[#c9a87c] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="w-8 h-8 border-2 border-[var(--primary)] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-sm text-[var(--foreground-muted)]">Loading...</p>
         </div>
       </div>
@@ -237,8 +237,8 @@ const { role } = useAuth();
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'pending': return 'rgba(168,138,92,0.15) var(--primary-dark)';
-      case 'paid': return 'bg-[#c9a87c]/20 text-[var(--foreground)]';
-      case 'shipped': return 'bg-[#c9a87c] text-white';
+      case 'paid': return 'rgba(201,168,124,0.2) text-[var(--foreground)]';
+      case 'shipped': return 'bg-[var(--primary)] text-white';
       case 'delivered': return 'rgba(74,117,86,0.15) var(--sage)';
       case 'cancelled': return 'rgba(177,93,94,0.15) var(--rose)';
       default: return 'var(--background-secondary) var(--foreground)';
@@ -289,8 +289,8 @@ const { role } = useAuth();
       {showTimeoutWarning && timeoutOrders.length > 0 && (
         <div className="mb-6 p-5 rounded-xl border-2 rgba(201,168,124,0.3) text-[var(--background-card)]">
           <div className="flex items-start gap-4">
-            <div className="w-10 h-10 rounded-full rgba(168,138,92,0.25) flex items-center justify-center flex-shrink-0">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#b45309" strokeWidth="2">
+            <div className="w-10 h-10 rounded-full bg-[var(--primary-dark)]/25 flex items-center justify-center flex-shrink-0">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary-dark)" strokeWidth="2">
                 <path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
               </svg>
             </div>
@@ -431,7 +431,7 @@ const { role } = useAuth();
                 }}
               >
                 {/* 头部 */}
-                <div className="p-5 border-b" style={{ borderColor: 'var(--primary-light)', background: isTimeout ? 'rgba(245,158,11,0.05)' : undefined }}>
+                <div className="p-5 border-b" style={{ borderColor: 'var(--primary-light)', background: isTimeout ? 'rgba(245,158,11,0.1)' : undefined }}>
                   <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
                     <div className="flex items-center gap-4">
                       <div>
@@ -520,7 +520,7 @@ const { role } = useAuth();
                         <button
                           onClick={() => openDialog(order.id, 'cancel')}
                           disabled={updating === order.id}
-                          className="rgba(177,93,94,0.1) text-[var(--rose)] text-sm font-medium px-4 py-2 rounded-lg hover:bg-red-50 transition"
+                          className="bg-[var(--rose)]/10 text-[var(--rose)] text-sm font-medium px-4 py-2 rounded-lg hover:rgba(239,68,68,0.1) transition"
                         >
                           <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 inline -mt-0.5 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>取消订单
                         </button>

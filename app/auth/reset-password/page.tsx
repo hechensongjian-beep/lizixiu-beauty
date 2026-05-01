@@ -68,7 +68,7 @@ export default function ResetPasswordPage() {
   if (!session && !error) {
     return (
       <div className="max-w-md mx-auto px-4 py-12 text-center">
-        <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#c9a87c] mb-4"></div>
+        <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[var(--primary)] mb-4"></div>
         <p className="text-[var(--foreground-muted)]">验证重置链接中...</p>
       </div>
     );
@@ -78,7 +78,7 @@ export default function ResetPasswordPage() {
     return (
       <div className="max-w-md mx-auto px-4 py-12 text-center">
         <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-r from-red-100 to-orange-100 rounded-2xl mb-6">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#d97706" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--primary-dark)" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
         </div>
         <h1 className="text-2xl font-bold text-[var(--foreground)] mb-4">链接无效</h1>
         <p className="text-[var(--foreground)] mb-6">{error}</p>
@@ -142,7 +142,7 @@ export default function ResetPasswordPage() {
           <input
             type="password"
             required
-            className="w-full px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-[#c9a87c] focus:border-transparent"
+            className="w-full px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent"
             placeholder="至少6位字符"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -157,7 +157,7 @@ export default function ResetPasswordPage() {
           <input
             type="password"
             required
-            className="w-full px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-[#c9a87c] focus:border-transparent"
+            className="w-full px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent"
             placeholder="再次输入新密码"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
@@ -166,7 +166,7 @@ export default function ResetPasswordPage() {
         </div>
 
         {error && (
-          <div className="p-4 rgba(177,93,94,0.06) border border-red-200 text-[var(--rose)] rounded-lg">
+          <div className="p-4 bg-[var(--rose)]/6 border border-red-200 text-[var(--rose)] rounded-lg">
             <p className="font-semibold">设置失败</p>
             <p>{error}</p>
           </div>

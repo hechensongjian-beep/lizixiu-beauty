@@ -56,7 +56,7 @@ export default function NotificationBadge({ userId }: NotificationBadgeProps) {
     <span 
       className="absolute -top-1 -right-1 min-w-[18px] h-[18px] rounded-full text-white text-xs font-bold flex items-center justify-center animate-pulse"
       style={{ 
-        background: 'linear-gradient(135deg, #ef4444, #f87171)',
+        background: 'linear-gradient(135deg, var(--rose), var(--rose))',
         padding: '0 5px',
         fontSize: '0.6875rem',
         boxShadow: '0 2px 8px rgba(239,68,68,0.4)'

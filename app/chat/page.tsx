@@ -23,9 +23,9 @@ interface Conversation {
 }
 
 // 头像颜色选项（替代 emoji）
-const AVATAR_COLORS = ['bg-[#c9a87c]', 'bg-[#2d4a3e]', 'bg-[#d4a5a5]', 'bg-[#9caf88]', 'bg-[#a88a5c]', 'bg-[#6b8e9f]'];
-const MERCHANT_COLOR = 'bg-[#c9a87c]';
-const SYSTEM_COLOR = 'bg-[#6b6b68]';
+const AVATAR_COLORS = ['bg-[var(--primary)]', 'bg-[var(--accent)]', 'bg-[var(--rose)]', 'bg-[var(--sage)]', 'bg-[var(--primary-dark)]', 'bg-[var(--accent)]'];
+const MERCHANT_COLOR = 'bg-[var(--primary)]';
+const SYSTEM_COLOR = 'bg-[var(--foreground-muted)]';
 
 function formatTime(iso: string) {
   if (!iso) return '';
@@ -166,33 +166,33 @@ export default function ChatPage() {
         <div className="flex items-center gap-3">
           <label className="flex items-center gap-2 text-sm text-[var(--foreground-muted)] cursor-pointer">
             <input type="checkbox" checked={autoReply} onChange={e => setAutoReply(e.target.checked)}
-              className="w-4 h-4 accent-[#c9a87c]" />
+              className="w-4 h-4 accent-[var(--primary)]" />
             自动回复（演示模式）
           </label>
           {totalUnread > 0 && (
-            <span className="px-3 py-1 bg-[#c9a87c] text-white text-sm font-bold rounded-full">
+            <span className="px-3 py-1 bg-[var(--primary)] text-white text-sm font-bold rounded-full">
               {totalUnread} 条未读
             </span>
           )}
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-[#e8d5b8]/30" style={{ height: 'calc(100vh - 220px)', minHeight: 500 }}>
+      <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-[var(--primary-light)]/30" style={{ height: 'calc(100vh - 220px)', minHeight: 500 }}>
         {view === 'list' ? (
           <div className="flex flex-col h-full">
             {/* 搜索栏 */}
-            <div className="p-4 border-b border-[#e8d5b8]/30">
+            <div className="p-4 border-b border-[var(--primary-light)]/30">
               <input type="text" value={search} onChange={e => setSearch(e.target.value)}
                 placeholder="搜索客户姓名..."
-                className="w-full px-4 py-2.5 bg-[#faf8f5] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#c9a87c]" />
+                className="w-full px-4 py-2.5 bg-[var(--background)] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--primary)]" />
             </div>
 
             {/* 对话列表 */}
             <div className="flex-1 overflow-y-auto">
               {filtered.length === 0 ? (
                 <div className="text-center py-20 text-[var(--foreground-muted)]">
-                  <div className="w-12 h-12 mx-auto mb-4 bg-[#f5f2ed] rounded-full flex items-center justify-center">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c0bdb8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <div className="w-12 h-12 mx-auto mb-4 bg-[var(--background-secondary)] rounded-full flex items-center justify-center">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--foreground-muted)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
                     </svg>
                   </div>
@@ -201,7 +201,7 @@ export default function ChatPage() {
               ) : filtered.map(conv => (
                 <div key={conv.id}
                   onClick={() => openConversation(conv)}
-                  className="flex items-center gap-4 px-6 py-4 border-b border-[#e8d5b8]/20 hover:bg-[var(--background-secondary)] cursor-pointer transition">
+                  className="flex items-center gap-4 px-6 py-4 border-b border-[var(--primary-light)]/20 hover:bg-[var(--background-secondary)] cursor-pointer transition">
                   <div className="relative flex-shrink-0">
                     <div className={`w-12 h-12 rounded-full ${conv.avatarColor} flex items-center justify-center text-white text-lg font-bold`}>
                       {getInitials(conv.customerName)}
@@ -216,7 +216,7 @@ export default function ChatPage() {
                     <p className="text-sm text-[var(--foreground-muted)] truncate mt-1">{conv.lastMessage}</p>
                   </div>
                   {conv.unread > 0 && (
-                    <div className="w-6 h-6 bg-[#c9a87c] text-white text-sm font-bold rounded-full flex items-center justify-center flex-shrink-0">
+                    <div className="w-6 h-6 bg-[var(--primary)] text-white text-sm font-bold rounded-full flex items-center justify-center flex-shrink-0">
                       {conv.unread}
                     </div>
                   )}
@@ -227,8 +227,8 @@ export default function ChatPage() {
         ) : (
           <div className="flex flex-col h-full">
             {/* 聊天头部 */}
-            <div className="flex items-center gap-4 px-6 py-4 border-b border-[#e8d5b8]/30 bg-white">
-              <button onClick={() => setView('list')} className="w-9 h-9 rounded-lg bg-[#f5f2ed] hover:bg-[#e8d5b8]/30 flex items-center justify-center text-lg transition text-[var(--foreground)]">←</button>
+            <div className="flex items-center gap-4 px-6 py-4 border-b border-[var(--primary-light)]/30 bg-white">
+              <button onClick={() => setView('list')} className="w-9 h-9 rounded-lg bg-[var(--background-secondary)] hover:bg-[var(--primary-light)]/30 flex items-center justify-center text-lg transition text-[var(--foreground)]">←</button>
               <div className="relative">
                 <div className={`w-10 h-10 rounded-full ${activeConv?.avatarColor} flex items-center justify-center text-white text-lg font-bold`}>{activeConv && getInitials(activeConv.customerName)}</div>
                 <div className={`absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full border-2 border-white ${activeConv?.status === 'online' ? 'var(--accent-light)' : 'var(--background-secondary)'}`}></div>
@@ -243,19 +243,19 @@ export default function ChatPage() {
             </div>
 
             {/* 消息列表 */}
-            <div className="flex-1 overflow-y-auto px-6 py-4 space-y-4 bg-[#faf8f5]">
+            <div className="flex-1 overflow-y-auto px-6 py-4 space-y-4 bg-[var(--background)]">
               {messages.map(msg => (
                 <div key={msg.id}>
                   {msg.sender === 'system' ? (
                     <div className="text-center">
-                      <div className="inline-block bg-[#e8d5b8]/50 text-[var(--foreground-muted)] text-sm px-4 py-1.5 rounded-full">{msg.content}</div>
+                      <div className="inline-block bg-[var(--primary-light)]/50 text-[var(--foreground-muted)] text-sm px-4 py-1.5 rounded-full">{msg.content}</div>
                       <div className="text-sm text-[var(--foreground-muted)] mt-1">{formatTime(msg.timestamp)}</div>
                     </div>
                   ) : (
                     <div className={`flex items-end gap-3 ${msg.sender === 'merchant' ? 'flex-row-reverse' : ''}`}>
                       <div className={`w-8 h-8 rounded-full ${msg.avatarColor} flex items-center justify-center text-white text-sm font-bold flex-shrink-0`}>{getInitials(msg.senderName)}</div>
                       <div className={`max-w-xs lg:max-w-md ${msg.sender === 'merchant' ? 'items-end' : 'items-start'} flex flex-col`}>
-                        <div className={`px-4 py-3 rounded-2xl text-sm ${msg.sender === 'merchant' ? 'bg-[var(--accent)] text-white rounded-br-sm' : 'bg-white border border-[#e8d5b8]/30 text-[var(--foreground)] rounded-bl-sm'}`}>
+                        <div className={`px-4 py-3 rounded-2xl text-sm ${msg.sender === 'merchant' ? 'bg-[var(--accent)] text-white rounded-br-sm' : 'bg-white border border-[var(--primary-light)]/30 text-[var(--foreground)] rounded-bl-sm'}`}>
                           {msg.content}
                         </div>
                         <div className="text-sm text-[var(--foreground-muted)] mt-1 px-1">{msg.senderName} · {formatTime(msg.timestamp)}</div>
@@ -268,7 +268,7 @@ export default function ChatPage() {
             </div>
 
             {/* 输入框 */}
-            <div className="p-4 border-t border-[#e8d5b8]/30 bg-white">
+            <div className="p-4 border-t border-[var(--primary-light)]/30 bg-white">
               <div className="flex gap-3">
                 <textarea
                   ref={inputRef}
@@ -277,7 +277,7 @@ export default function ChatPage() {
                   onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } }}
                   placeholder="输入消息... (Enter 发送，Shift+Enter 换行)"
                   rows={2}
-                  className="flex-1 px-4 py-3 bg-[#faf8f5] rounded-xl text-sm resize-none focus:outline-none focus:ring-2 focus:ring-[#c9a87c]"
+                  className="flex-1 px-4 py-3 bg-[var(--background)] rounded-xl text-sm resize-none focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
                 />
                 <div className="flex flex-col gap-2">
                   <button onClick={sendMessage} disabled={!input.trim()}

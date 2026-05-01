@@ -33,7 +33,7 @@ function CalendarGrid({ date, appointments, onPrev, onNext, today }: { date: Dat
   const isToday = date.toDateString() === today.toDateString();
   return (
     <div className="bg-white rounded-2xl shadow overflow-hidden">
-      <div className="flex items-center justify-between bg-[#2d4a3e] text-white px-6 py-4">
+      <div className="flex items-center justify-between bg-[var(--accent)] text-white px-6 py-4">
         <button onClick={onPrev} className="w-9 h-9 rounded-lg bg-white/20 hover:bg-white/30 flex items-center justify-center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
         <h2 className="text-lg font-bold">{date.getFullYear()}年{date.getMonth()+1}月{date.getDate()}日 {['日','一','二','三','四','五','六'][date.getDay()]}{isToday ? ' · 今天' : ''}</h2>
         <button onClick={onNext} className="w-9 h-9 rounded-lg bg-white/20 hover:bg-white/30 flex items-center justify-center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
@@ -114,23 +114,23 @@ export default function CalendarPage() {
           <p className="text-[var(--foreground-muted)] mt-1">查看和管理所有预约</p>
         </div>
         <div className="flex gap-3">
-          <Link href="/appointments" className="px-4 py-2 bg-[#c9a87c] text-white rounded-lg font-medium text-sm">＋ 新建预约</Link>
+          <Link href="/appointments" className="px-4 py-2 bg-[var(--primary)] text-white rounded-lg font-medium text-sm">＋ 新建预约</Link>
           <button onClick={fetchAppointments} disabled={loading} className="px-4 py-2 text-[var(--background-secondary)] text-[var(--foreground)] rounded-lg text-sm">{loading ? '刷新中...' : '刷新'}</button>
         </div>
       </div>
 
       <div className="grid grid-cols-3 gap-4 mb-8">
-        <div className="bg-gradient-to-br from-[#b8945f] to-[#8b6914] text-white rounded-2xl p-5 shadow">
+        <div className="bg-gradient-to-br from-[var(--primary-dark)] to-[var(--primary-dark)] text-white rounded-2xl p-5 shadow">
           <IconWarning />
           <div className="text-xl font-bold">{stats.pending}</div>
           <div className="text-sm opacity-80">待确认</div>
         </div>
-        <div className="bg-gradient-to-br from-[#2d4a3e] to-[#4a7c6f] text-white rounded-2xl p-5 shadow">
+        <div className="bg-gradient-to-br from-[var(--accent)] to-[var(--accent)] text-white rounded-2xl p-5 shadow">
           <IconCheck />
           <div className="text-xl font-bold">{stats.confirmed}</div>
           <div className="text-sm opacity-80">已确认</div>
         </div>
-        <div className="bg-gradient-to-br from-[#1e3a2f] to-[#2d5a47] text-white rounded-2xl p-5 shadow">
+        <div className="bg-gradient-to-br from-[var(--accent)] to-[var(--accent)] text-white rounded-2xl p-5 shadow">
           <IconDone />
           <div className="text-xl font-bold">{stats.completed}</div>
           <div className="text-sm opacity-80">已完成</div>
@@ -159,9 +159,9 @@ export default function CalendarPage() {
                 return (
                   <div key={day}
                     onClick={() => setCurrentDate(new Date(year, month, day))}
-                    className={`min-h-[70px] border-r border-b border-[var(--background-secondary)] p-1.5 cursor-pointer ${isToday ? 'bg-[#c9a87c]/10' : ''} hover:bg-[var(--background-card)]`}>
-                    <div className={`w-7 h-7 flex items-center justify-center rounded-full text-sm font-medium mb-1 ${isToday ? 'bg-[#c9a87c] text-white' : 'var(--foreground)'}`}>{day}</div>
-                    {count > 0 && <div className="flex flex-wrap gap-1">{[...Array(Math.min(count,3))].map((_,i) => <div key={i} className="w-2 h-2 bg-[#c9a87c] rounded-full"></div>)}</div>}
+                    className={`min-h-[70px] border-r border-b border-[var(--background-secondary)] p-1.5 cursor-pointer ${isToday ? 'rgba(201,168,124,0.1)' : ''} hover:bg-[var(--background-card)]`}>
+                    <div className={`w-7 h-7 flex items-center justify-center rounded-full text-sm font-medium mb-1 ${isToday ? 'bg-[var(--primary)] text-white' : 'var(--foreground)'}`}>{day}</div>
+                    {count > 0 && <div className="flex flex-wrap gap-1">{[...Array(Math.min(count,3))].map((_,i) => <div key={i} className="w-2 h-2 bg-[var(--primary)] rounded-full"></div>)}</div>}
                     {count > 3 && <div className="text-sm text-[var(--foreground-muted)] mt-0.5">+{count-3}</div>}
                   </div>
                 );

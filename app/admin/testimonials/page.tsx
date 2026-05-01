@@ -31,7 +31,7 @@ const router = useRouter();
     router.replace('/auth/login');
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
-        <div className="animate-spin rounded-full h-8 w-8 border-2 border-[#c9a87c] border-t-transparent"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-2 border-[var(--primary)] border-t-transparent"></div>
       </div>
     );
   }
@@ -86,7 +86,7 @@ const router = useRouter();
         </div>
         <div className="flex gap-3">
           <button onClick={fetchData} className="px-4 py-2 text-[var(--background-secondary)] text-[var(--foreground)] rounded-lg hover:bg-[var(--background-secondary)]">刷新</button>
-          <button onClick={() => setShowAdd(true)} className="px-6 py-3 bg-[#2d4a3e] text-white font-semibold rounded-lg">+ 添加评价</button>
+          <button onClick={() => setShowAdd(true)} className="px-6 py-3 bg-[var(--accent)] text-white font-semibold rounded-lg">+ 添加评价</button>
         </div>
       </div>
 
@@ -105,14 +105,14 @@ const router = useRouter();
           </div>
           <div className="flex justify-end gap-3 mt-6">
             <button onClick={() => setShowAdd(false)} className="px-6 py-2 text-[var(--background-secondary)] rounded-lg">取消</button>
-            <button onClick={handleAdd} disabled={submitting} className="px-6 py-2 bg-[#2d4a3e] text-white rounded-lg disabled:opacity-50">{submitting ? '提交中...' : '确认添加'}</button>
+            <button onClick={handleAdd} disabled={submitting} className="px-6 py-2 bg-[var(--accent)] text-white rounded-lg disabled:opacity-50">{submitting ? '提交中...' : '确认添加'}</button>
           </div>
         </div>
       )}
 
       {/* 编辑弹窗 */}
       {editing && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 rgba(0,0,0,0.5) flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl p-6 w-full max-w-lg">
             <h2 className="text-xl font-bold mb-4">编辑评价</h2>
             <div className="space-y-4">
@@ -130,7 +130,7 @@ const router = useRouter();
             </div>
             <div className="flex justify-end gap-3 mt-6">
               <button onClick={() => setEditing(null)} className="px-6 py-2 text-[var(--background-secondary)] rounded-lg">取消</button>
-              <button onClick={handleUpdate} disabled={submitting} className="px-6 py-2 bg-[#2d4a3e] text-white rounded-lg disabled:opacity-50">{submitting ? '更新中...' : '保存'}</button>
+              <button onClick={handleUpdate} disabled={submitting} className="px-6 py-2 bg-[var(--accent)] text-white rounded-lg disabled:opacity-50">{submitting ? '更新中...' : '保存'}</button>
             </div>
           </div>
         </div>

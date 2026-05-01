@@ -146,10 +146,10 @@ export default async function StaffPage() {
   const getAvatarColor = (index: number) => {
     const colors = [
       'from-cyan-100 to-blue-100',
-      'from-[#e8d5b8] to-[#c9a87c]',
+      'from-[var(--primary-light)] to-[var(--primary)]',
       'from-green-100 to-emerald-100',
       'from-amber-100 to-orange-100',
-      'from-[#e8d5b8] to-[#f5ede0]',
+      'from-[var(--primary-light)] to-[var(--background-secondary)]',
       'from-red-100 to-orange-100',
     ];
     return colors[index % colors.length];
@@ -159,7 +159,7 @@ export default async function StaffPage() {
     <div className="max-w-6xl mx-auto px-4 py-12">
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8">
         <div className="mb-6 md:mb-0">
-          <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-r from-[#e8d5b8] to-[#f5ede0] rounded-2xl mb-4">
+          <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-r from-[var(--primary-light)] to-[var(--background-secondary)] rounded-2xl mb-4">
             <div className="text-xl">‍</div>
           </div>
           <h1 className="text-xl font-bold text-[var(--foreground)] mb-2">员工管理</h1>
@@ -175,7 +175,7 @@ export default async function StaffPage() {
             刷新
           </button>
           <button
-            className="px-6 py-3 bg-[#2d4a3e] text-white font-semibold rounded-lg hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-6 py-3 bg-[var(--accent)] text-white font-semibold rounded-lg hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
             onClick={() => setShowAddForm(true)}
             disabled={submitting}
           >
@@ -193,7 +193,7 @@ export default async function StaffPage() {
               <label className="block font-medium text-[var(--foreground)] mb-2">姓名 *</label>
               <input
                 type="text"
-                className="w-full px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-[#c9a87c] focus:border-[#c9a87c] outline-none transition"
+                className="w-full px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-[var(--primary)] focus:border-[var(--primary)] outline-none transition"
                 placeholder="例如：张晓美"
                 value={newStaff.name}
                 onChange={(e) => setNewStaff({ ...newStaff, name: e.target.value })}
@@ -202,7 +202,7 @@ export default async function StaffPage() {
             <div>
               <label className="block font-medium text-[var(--foreground)] mb-2">角色 *</label>
               <select
-                className="w-full px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-[#c9a87c] focus:border-[#c9a87c] outline-none transition"
+                className="w-full px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-[var(--primary)] focus:border-[var(--primary)] outline-none transition"
                 value={newStaff.role}
                 onChange={(e) => setNewStaff({ ...newStaff, role: e.target.value })}
               >
@@ -219,7 +219,7 @@ export default async function StaffPage() {
               <label className="block font-medium text-[var(--foreground)] mb-2">手机号</label>
               <input
                 type="tel"
-                className="w-full px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-[#c9a87c] focus:border-[#c9a87c] outline-none transition"
+                className="w-full px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-[var(--primary)] focus:border-[var(--primary)] outline-none transition"
                 placeholder="13800138000"
                 value={newStaff.phone}
                 onChange={(e) => setNewStaff({ ...newStaff, phone: e.target.value })}
@@ -229,7 +229,7 @@ export default async function StaffPage() {
               <label className="block font-medium text-[var(--foreground)] mb-2">邮箱</label>
               <input
                 type="email"
-                className="w-full px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-[#c9a87c] focus:border-[#c9a87c] outline-none transition"
+                className="w-full px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-[var(--primary)] focus:border-[var(--primary)] outline-none transition"
                 placeholder="example@example.com"
                 value={newStaff.email}
                 onChange={(e) => setNewStaff({ ...newStaff, email: e.target.value })}
@@ -239,11 +239,11 @@ export default async function StaffPage() {
               <label className="block font-medium text-[var(--foreground)] mb-2">专长领域</label>
               <div className="flex flex-wrap gap-2 mb-2">
                 {newStaff.specialties.map((spec, idx) => (
-                  <span key={idx} className="px-3 py-1 bg-[#faf8f5] text-[#2d4a3e] text-sm font-medium rounded-full flex items-center gap-1">
+                  <span key={idx} className="px-3 py-1 bg-[var(--background)] text-[var(--accent)] text-sm font-medium rounded-full flex items-center gap-1">
                     {spec}
                     <button
                       type="button"
-                      className="text-[#2d4a3e] hover:text-[#1a332a]"
+                      className="text-[var(--accent)] hover:text-[var(--accent)]"
                       onClick={() => setNewStaff({ ...newStaff, specialties: newStaff.specialties.filter((_, i) => i !== idx) })}
                     >
                       ×
@@ -254,7 +254,7 @@ export default async function StaffPage() {
               <div className="flex gap-2">
                 <input
                   type="text"
-                  className="flex-1 px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-[#c9a87c] focus:border-[#c9a87c] outline-none transition"
+                  className="flex-1 px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-[var(--primary)] focus:border-[var(--primary)] outline-none transition"
                   placeholder="输入专长后按回车添加"
                   value={specialtyInput}
                   onChange={(e) => setSpecialtyInput(e.target.value)}
@@ -270,7 +270,7 @@ export default async function StaffPage() {
                 />
                 <button
                   type="button"
-                  className="px-4 py-3 bg-[#faf8f5] text-[var(--foreground)] font-medium rounded-lg hover:bg-[#e8d5b8] transition"
+                  className="px-4 py-3 bg-[var(--background)] text-[var(--foreground)] font-medium rounded-lg hover:bg-[var(--primary-light)] transition"
                   onClick={() => {
                     if (specialtyInput.trim() && !newStaff.specialties.includes(specialtyInput.trim())) {
                       setNewStaff({ ...newStaff, specialties: [...newStaff.specialties, specialtyInput.trim()] });
@@ -289,7 +289,7 @@ export default async function StaffPage() {
                 min="0"
                 max="50"
                 step="1"
-                className="w-full px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-[#c9a87c] focus:border-[#c9a87c] outline-none transition"
+                className="w-full px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-[var(--primary)] focus:border-[var(--primary)] outline-none transition"
                 value={newStaff.experience_years}
                 onChange={(e) => setNewStaff({ ...newStaff, experience_years: parseInt(e.target.value) || 0 })}
               />
@@ -300,7 +300,7 @@ export default async function StaffPage() {
                 <label className="inline-flex items-center">
                   <input
                     type="radio"
-                    className="h-5 w-5 text-[var(--foreground)] focus:ring-[#c9a87c]"
+                    className="h-5 w-5 text-[var(--foreground)] focus:ring-[var(--primary)]"
                     checked={newStaff.is_active}
                     onChange={() => setNewStaff({ ...newStaff, is_active: true })}
                   />
@@ -309,7 +309,7 @@ export default async function StaffPage() {
                 <label className="inline-flex items-center">
                   <input
                     type="radio"
-                    className="h-5 w-5 text-[var(--foreground)] focus:ring-[#c9a87c]"
+                    className="h-5 w-5 text-[var(--foreground)] focus:ring-[var(--primary)]"
                     checked={!newStaff.is_active}
                     onChange={() => setNewStaff({ ...newStaff, is_active: false })}
                   />
@@ -327,7 +327,7 @@ export default async function StaffPage() {
               取消
             </button>
             <button
-              className="px-8 py-3 bg-[#2d4a3e] text-white font-semibold rounded-lg hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-8 py-3 bg-[var(--accent)] text-white font-semibold rounded-lg hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
               onClick={handleAddStaff}
               disabled={submitting}
             >
@@ -339,7 +339,7 @@ export default async function StaffPage() {
 
       {/* 编辑员工表单 */}
       {editingStaff && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 rgba(0,0,0,0.5) flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl p-8 w-full max-w-4xl max-h-[90vh] overflow-y-auto">
             <h2 className="text-xl font-bold text-[var(--foreground)] mb-6">编辑员工</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -347,7 +347,7 @@ export default async function StaffPage() {
                 <label className="block font-medium text-[var(--foreground)] mb-2">姓名 *</label>
                 <input
                   type="text"
-                  className="w-full px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-[#c9a87c] focus:border-[#c9a87c] outline-none transition"
+                  className="w-full px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-[var(--primary)] focus:border-[var(--primary)] outline-none transition"
                   placeholder="例如：张晓美"
                   value={editingStaff.name}
                   onChange={(e) => setEditingStaff({ ...editingStaff, name: e.target.value })}
@@ -356,7 +356,7 @@ export default async function StaffPage() {
               <div>
                 <label className="block font-medium text-[var(--foreground)] mb-2">角色 *</label>
                 <select
-                  className="w-full px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-[#c9a87c] focus:border-[#c9a87c] outline-none transition"
+                  className="w-full px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-[var(--primary)] focus:border-[var(--primary)] outline-none transition"
                   value={editingStaff.role}
                   onChange={(e) => setEditingStaff({ ...editingStaff, role: e.target.value })}
                 >
@@ -373,7 +373,7 @@ export default async function StaffPage() {
                 <label className="block font-medium text-[var(--foreground)] mb-2">手机号</label>
                 <input
                   type="tel"
-                  className="w-full px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-[#c9a87c] focus:border-[#c9a87c] outline-none transition"
+                  className="w-full px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-[var(--primary)] focus:border-[var(--primary)] outline-none transition"
                   placeholder="13800138000"
                   value={editingStaff.phone || ''}
                   onChange={(e) => setEditingStaff({ ...editingStaff, phone: e.target.value })}
@@ -383,7 +383,7 @@ export default async function StaffPage() {
                 <label className="block font-medium text-[var(--foreground)] mb-2">邮箱</label>
                 <input
                   type="email"
-                  className="w-full px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-[#c9a87c] focus:border-[#c9a87c] outline-none transition"
+                  className="w-full px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-[var(--primary)] focus:border-[var(--primary)] outline-none transition"
                   placeholder="example@example.com"
                   value={editingStaff.email || ''}
                   onChange={(e) => setEditingStaff({ ...editingStaff, email: e.target.value })}
@@ -393,11 +393,11 @@ export default async function StaffPage() {
                 <label className="block font-medium text-[var(--foreground)] mb-2">专长领域</label>
                 <div className="flex flex-wrap gap-2 mb-2">
                   {(editingStaff.specialties || []).map((spec, idx) => (
-                    <span key={idx} className="px-3 py-1 bg-[#faf8f5] text-[#2d4a3e] text-sm font-medium rounded-full flex items-center gap-1">
+                    <span key={idx} className="px-3 py-1 bg-[var(--background)] text-[var(--accent)] text-sm font-medium rounded-full flex items-center gap-1">
                       {spec}
                       <button
                         type="button"
-                        className="text-[#2d4a3e] hover:text-[#1a332a]"
+                        className="text-[var(--accent)] hover:text-[var(--accent)]"
                         onClick={() => setEditingStaff({
                           ...editingStaff,
                           specialties: (editingStaff.specialties || []).filter((_, i) => i !== idx)
@@ -411,7 +411,7 @@ export default async function StaffPage() {
                 <div className="flex gap-2">
                   <input
                     type="text"
-                    className="flex-1 px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-[#c9a87c] focus:border-[#c9a87c] outline-none transition"
+                    className="flex-1 px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-[var(--primary)] focus:border-[var(--primary)] outline-none transition"
                     placeholder="输入专长后按回车添加"
                     value={specialtyInput}
                     onChange={(e) => setSpecialtyInput(e.target.value)}
@@ -430,7 +430,7 @@ export default async function StaffPage() {
                   />
                   <button
                     type="button"
-                    className="px-4 py-3 bg-[#faf8f5] text-[var(--foreground)] font-medium rounded-lg hover:bg-[#e8d5b8] transition"
+                    className="px-4 py-3 bg-[var(--background)] text-[var(--foreground)] font-medium rounded-lg hover:bg-[var(--primary-light)] transition"
                     onClick={() => {
                       if (specialtyInput.trim() && !editingStaff.specialties?.includes(specialtyInput.trim())) {
                         setEditingStaff({
@@ -452,7 +452,7 @@ export default async function StaffPage() {
                   min="0"
                   max="50"
                   step="1"
-                  className="w-full px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-[#c9a87c] focus:border-[#c9a87c] outline-none transition"
+                  className="w-full px-4 py-3 border rgba(201,168,124,0.3) rounded-lg focus:ring-2 focus:ring-[var(--primary)] focus:border-[var(--primary)] outline-none transition"
                   value={editingStaff.experience_years || 0}
                   onChange={(e) => setEditingStaff({ ...editingStaff, experience_years: parseInt(e.target.value) || 0 })}
                 />
@@ -463,7 +463,7 @@ export default async function StaffPage() {
                   <label className="inline-flex items-center">
                     <input
                       type="radio"
-                      className="h-5 w-5 text-[var(--foreground)] focus:ring-[#c9a87c]"
+                      className="h-5 w-5 text-[var(--foreground)] focus:ring-[var(--primary)]"
                       checked={editingStaff.is_active ?? true}
                       onChange={() => setEditingStaff({ ...editingStaff, is_active: true })}
                     />
@@ -472,7 +472,7 @@ export default async function StaffPage() {
                   <label className="inline-flex items-center">
                     <input
                       type="radio"
-                      className="h-5 w-5 text-[var(--foreground)] focus:ring-[#c9a87c]"
+                      className="h-5 w-5 text-[var(--foreground)] focus:ring-[var(--primary)]"
                       checked={!(editingStaff.is_active ?? true)}
                       onChange={() => setEditingStaff({ ...editingStaff, is_active: false })}
                     />
@@ -490,7 +490,7 @@ export default async function StaffPage() {
                 取消
               </button>
               <button
-                className="px-8 py-3 bg-[#2d4a3e] text-white font-semibold rounded-lg hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-8 py-3 bg-[var(--accent)] text-white font-semibold rounded-lg hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
                 onClick={handleEditStaff}
                 disabled={submitting}
               >
@@ -526,7 +526,7 @@ export default async function StaffPage() {
           {/* 统计卡片骨架 */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="bg-white rounded-xl p-6 border border-[#c9a87c] shadow-sm">
+              <div key={i} className="bg-white rounded-xl p-6 border border-[var(--primary)] shadow-sm">
                 <div className="h-8 w-8 text-[var(--background-secondary)] rounded mb-4"></div>
                 <div className="h-6 w-16 text-[var(--background-secondary)] rounded"></div>
                 <div className="h-4 w-24 text-[var(--background-secondary)] rounded mt-2"></div>
@@ -535,7 +535,7 @@ export default async function StaffPage() {
           </div>
         </div>
       ) : error ? (
-        <div className="rgba(177,93,94,0.06) border border-red-200 rounded-xl p-6 mb-8">
+        <div className="bg-[var(--rose)]/6 border border-red-200 rounded-xl p-6 mb-8">
           <div className="flex items-center">
             <div className="text-[var(--rose)] text-xl mr-3 font-bold">!</div>
             <div>
@@ -551,14 +551,14 @@ export default async function StaffPage() {
           </button>
         </div>
       ) : staff.length === 0 ? (
-        <div className="bg-gradient-to-r from-[#faf8f5] to-[#f5f0e8] border border-[#e8d5b8] rounded-2xl p-12 text-center">
+        <div className="bg-gradient-to-r from-[var(--background)] to-[var(--background)] border border-[var(--primary-light)] rounded-2xl p-12 text-center">
           <div className="text-xl mb-6"></div>
           <h3 className="text-xl font-semibold text-[var(--foreground)] mb-3">暂无员工数据</h3>
           <p className="text-[var(--foreground)] max-w-md mx-auto mb-6">
             您尚未添加任何员工。点击“添加员工”按钮开始建立您的团队。
           </p>
           <button
-            className="px-8 py-3 bg-[#2d4a3e] text-white font-semibold rounded-lg hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-8 py-3 bg-[var(--accent)] text-white font-semibold rounded-lg hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
             onClick={() => setShowAddForm(true)}
             disabled={submitting}
           >
@@ -607,7 +607,7 @@ export default async function StaffPage() {
                 </div>
                 <div className="flex gap-2 justify-center">
                   <button
-                    className="px-4 py-2 bg-[#faf8f5] text-[var(--foreground)] font-medium rounded-lg hover:bg-[var(--background-secondary)] transition text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="px-4 py-2 bg-[var(--background)] text-[var(--foreground)] font-medium rounded-lg hover:bg-[var(--background-secondary)] transition text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                     onClick={() => setEditingStaff(person)}
                     disabled={submitting}
                   >
@@ -625,29 +625,29 @@ export default async function StaffPage() {
             ))}
           </div>
 
-          <div className="bg-gradient-to-r from-[#faf8f5] to-[#f5f0e8] border border-[#e8d5b8] rounded-2xl p-8 mb-12">
+          <div className="bg-gradient-to-r from-[var(--background)] to-[var(--background)] border border-[var(--primary-light)] rounded-2xl p-8 mb-12">
             <h2 className="text-xl font-semibold text-[var(--foreground)] mb-4">团队总览</h2>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              <div className="bg-white rounded-xl p-6 border border-[#c9a87c] shadow-sm">
+              <div className="bg-white rounded-xl p-6 border border-[var(--primary)] shadow-sm">
                 <div className="text-2xl mb-2"></div>
                 <div className="text-xl font-bold text-[var(--foreground)]">{staff.length}</div>
                 <div className="text-sm text-[var(--foreground-muted)]">员工总数</div>
               </div>
-              <div className="bg-white rounded-xl p-6 border border-[#c9a87c] shadow-sm">
+              <div className="bg-white rounded-xl p-6 border border-[var(--primary)] shadow-sm">
                 <div className="text-2xl mb-2"></div>
                 <div className="text-xl font-bold text-[var(--foreground)]">
                   {(staff.reduce((sum, s) => sum + (s.experience_years || 0), 0) / staff.length).toFixed(1)}
                 </div>
                 <div className="text-sm text-[var(--foreground-muted)]">平均经验（年）</div>
               </div>
-              <div className="bg-white rounded-xl p-6 border border-[#c9a87c] shadow-sm">
+              <div className="bg-white rounded-xl p-6 border border-[var(--primary)] shadow-sm">
                 <div className="text-2xl mb-2 font-bold text-[var(--foreground)]">ok</div>
                 <div className="text-xl font-bold text-[var(--foreground)]">
                   {staff.filter(s => s.is_active ?? true).length}
                 </div>
                 <div className="text-sm text-[var(--foreground-muted)]">在职员工</div>
               </div>
-              <div className="bg-white rounded-xl p-6 border border-[#c9a87c] shadow-sm">
+              <div className="bg-white rounded-xl p-6 border border-[var(--primary)] shadow-sm">
                 <div className="text-2xl mb-2"></div>
                 <div className="text-xl font-bold text-[var(--foreground)]">
                   {Array.from(new Set(staff.flatMap(s => s.specialties))).length}
@@ -662,7 +662,7 @@ export default async function StaffPage() {
       <div className="text-center">
         <Link
           href="/"
-          className="inline-flex items-center px-6 py-3 bg-[#2d4a3e] text-white font-semibold rounded-lg hover:opacity-90 transition"
+          className="inline-flex items-center px-6 py-3 bg-[var(--accent)] text-white font-semibold rounded-lg hover:opacity-90 transition"
         >
           ← 返回仪表板
         </Link>

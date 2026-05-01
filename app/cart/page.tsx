@@ -119,8 +119,8 @@ export default async function CartPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 py-12">
       <div className="text-center mb-12">
-        <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-6" style={{"background":'linear-gradient(135deg,#c9a87c22 0%,#e8d5b822 100%)'}}>
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#a88a5c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-6" style={{"background":'linear-gradient(135deg,var(--primary)22 0%,var(--primary-light)22 100%)'}}>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary-dark)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
             <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
             <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
           </svg>
@@ -130,15 +130,15 @@ export default async function CartPage() {
       </div>
 
       {loading ? (
-        <div className="flex justify-center py-20"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#c9a87c]"></div></div>
+        <div className="flex justify-center py-20"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[var(--primary)]"></div></div>
       ) : error ? (
         <div className="text-center py-20">
           <p className="text-red-500 text-lg mb-4">{error}</p>
           <button onClick={() => window.location.reload()} className="px-6 py-3 text-white rounded-xl transition hover:opacity-85" style={{background:'var(--primary)'}}>刷新页面</button>
         </div>
       ) : cartItems.length === 0 ? (
-        <div className="bg-gradient-to-r from-[#faf8f5] to-[#f5f2ed] border rgba(201,168,124,0.2) rounded-xl p-10 text-center">
-          <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#c0bdb8" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="mx-auto mb-6">
+        <div className="bg-gradient-to-r from-[var(--background)] to-[var(--background-secondary)] border rgba(201,168,124,0.2) rounded-xl p-10 text-center">
+          <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="var(--foreground-muted)" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="mx-auto mb-6">
             <circle cx="12" cy="12" r="10"/>
             <path d="M16 16s-1.5-2-4-2-4 2-4 2"/>
             <line x1="9" y1="9" x2="9.01" y2="9"/>
@@ -191,7 +191,7 @@ export default async function CartPage() {
                           <button onClick={() => updateQuantity(product.id, -1)} className="w-8 h-8 bg-[var(--background-secondary)] text-[var(--foreground)] font-medium rounded-md hover:bg-[var(--background-secondary)] transition">-</button>
                           <div className="mx-4 font-bold">{qty} 件</div>
                           <button onClick={() => updateQuantity(product.id, 1)} className="w-8 h-8 font-medium rounded-md text-white transition hover:opacity-85" style={{background:'var(--primary)'}}>+</button>
-                          <button onClick={() => removeItem(product.id)} className="ml-6 px-4 py-2 font-medium rounded-lg transition" style={{background:"rgba(220,38,38,0.06)",color:"var(--rose)"}}>删除</button>
+                          <button onClick={() => removeItem(product.id)} className="ml-6 px-4 py-2 font-medium rounded-lg transition" style={{background:"rgba(239,68,68,0.1)",color:"var(--rose)"}}>删除</button>
                         </div>
                         <div className="font-bold">{fmt(product.price * qty)}</div>
                       </div>
@@ -222,7 +222,7 @@ export default async function CartPage() {
                     { key: 'delivery', label: '送货上门', desc: '镇内免费' },
                   ].map(opt => (
                     <button key={opt.key} onClick={() => setDeliveryMethod(opt.key as any)}
-                      className={`p-3 rounded-xl text-center transition border-2 ${deliveryMethod === opt.key ? 'border-[#c9a87c] bg-[#faf8f5]' : 'rgba(201,168,124,0.2)'}`}>
+                      className={`p-3 rounded-xl text-center transition border-2 ${deliveryMethod === opt.key ? 'border-[var(--primary)] bg-[var(--background)]' : 'rgba(201,168,124,0.2)'}`}>
                       <div className="font-bold text-sm text-[var(--foreground)]">{opt.label}</div>
                       <div className="text-xs text-[var(--foreground-muted)] mt-1">{opt.desc}</div>
                     </button>

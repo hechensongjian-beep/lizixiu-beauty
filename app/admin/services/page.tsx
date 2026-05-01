@@ -52,7 +52,7 @@ const { role } = useAuth();
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center">
-          <div className="w-8 h-8 border-2 border-[#c9a87c] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="w-8 h-8 border-2 border-[var(--primary)] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-sm text-[var(--foreground-muted)]">正在检查权限...</p>
         </div>
       </div>
@@ -230,7 +230,7 @@ const { role } = useAuth();
 
   return (
 
-    <div className="min-h-screen" style={{background:'#faf8f5'}}>
+    <div className="min-h-screen" style={{background:'var(--background)'}}>
 
       {/* Header */}
 
@@ -242,7 +242,7 @@ const { role } = useAuth();
 
             <Link href="/admin/dashboard" className="p-2 rounded-lg transition hover:bg-[var(--background-secondary)]">
 
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6b6b68" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--foreground-muted)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
 
                 <path d="M19 12H5M12 19l-7-7 7-7"/>
 
@@ -250,7 +250,7 @@ const { role } = useAuth();
 
             </Link>
 
-            <h1 className="text-xl font-bold" style={{fontFamily:"'Noto Serif SC',serif",color:'#2a2a28'}}>服务项目管理</h1>
+            <h1 className="text-xl font-bold" style={{fontFamily:"'Noto Serif SC',serif",color:'var(--foreground)'}}>服务项目管理</h1>
 
           </div>
 
@@ -294,7 +294,7 @@ const { role } = useAuth();
 
               <div className="flex justify-center py-20">
 
-                <div className="animate-spin rounded-full h-10 w-10" style={{borderBottom:'2px solid #c9a87c'}}></div>
+                <div className="animate-spin rounded-full h-10 w-10" style={{borderBottom:'2px solid var(--primary)'}}></div>
 
               </div>
 
@@ -310,7 +310,7 @@ const { role } = useAuth();
 
                     {svc.pinned && (
 
-                      <div className="px-4 py-2 text-sm font-bold text-white flex items-center gap-1" style={{background:'#a88a5c'}}>
+                      <div className="px-4 py-2 text-sm font-bold text-white flex items-center gap-1" style={{background:'var(--primary-dark)'}}>
 
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
 
@@ -330,17 +330,17 @@ const { role } = useAuth();
 
                             {svc.featured && (
 
-                              <span className="px-2 py-0.5 rounded-full text-sm font-bold text-[var(--sage)]" style={{background:'#ecfdf5',border:'1px solid #a7f3d0'}}>人气王</span>
+                              <span className="px-2 py-0.5 rounded-full text-sm font-bold text-[var(--sage)]" style={{background:'rgba(156,175,136,0.1)',border:'1px solid rgba(156,175,136,0.2)'}}>人气王</span>
 
                             )}
 
-                            <span className="text-sm px-2 py-0.5 rounded-full" style={{background:'#f5f2ed',color:'#6b6b68'}}>{svc.category || '其他'}</span>
+                            <span className="text-sm px-2 py-0.5 rounded-full" style={{background:'var(--background-secondary)',color:'var(--foreground-muted)'}}>{svc.category || '其他'}</span>
 
                           </div>
 
-                          <h3 className="text-lg font-bold" style={{color:'#2a2a28'}}>{svc.name}</h3>
+                          <h3 className="text-lg font-bold" style={{color:'var(--foreground)'}}>{svc.name}</h3>
 
-                          <p className="text-sm mt-1" style={{color:'#6b6b68'}}>{svc.description || '暂无描述'}</p>
+                          <p className="text-sm mt-1" style={{color:'var(--foreground-muted)'}}>{svc.description || '暂无描述'}</p>
 
                         </div>
 
@@ -350,9 +350,9 @@ const { role } = useAuth();
 
                         <div>
 
-                          <span className="text-xl font-semibold" style={{color:'#a88a5c'}}>{fmt(svc.price)}</span>
+                          <span className="text-xl font-semibold" style={{color:'var(--primary-dark)'}}>{fmt(svc.price)}</span>
 
-                          <span className="text-sm ml-1" style={{color:'#9b9b98'}}>/ {svc.duration || 60}分钟</span>
+                          <span className="text-sm ml-1" style={{color:'var(--foreground-muted)'}}>/ {svc.duration || 60}分钟</span>
 
                         </div>
 
@@ -364,7 +364,7 @@ const { role } = useAuth();
 
                           className={`flex-1 py-2 rounded-lg text-sm font-bold transition border ${svc.pinned ? 'text-white' : ''}`}
 
-                          style={svc.pinned ? {background:'#2d4a3e',border:'none'} : {border:'1.5px solid #e8e4df',color:'#6b6b68'}}>
+                          style={svc.pinned ? {background:'var(--accent)',border:'none'} : {border:'1.5px solid var(--background-secondary)',color:'var(--foreground-muted)'}}>
 
                           {svc.pinned ? '取消置顶' : '置顶'}
 
@@ -374,7 +374,7 @@ const { role } = useAuth();
 
                           className={`flex-1 py-2 rounded-lg text-sm font-bold transition border ${svc.featured ? 'text-white' : ''}`}
 
-                          style={svc.featured ? {background:'#dc2626',border:'none'} : {border:'1.5px solid #e8e4df',color:'#6b6b68'}}>
+                          style={svc.featured ? {background:'var(--rose)',border:'none'} : {border:'1.5px solid var(--background-secondary)',color:'var(--foreground-muted)'}}>
 
                           {svc.featured ? '人气王' : '标人气'}
 
@@ -382,7 +382,7 @@ const { role } = useAuth();
 
                         <button onClick={() => startEdit(svc)}
 
-                          className="flex-1 py-2 rounded-lg text-sm font-bold border transition hover:bg-[var(--background-card)]" style={{border:'1.5px solid #e8e4df',color:'#6b6b68'}}>
+                          className="flex-1 py-2 rounded-lg text-sm font-bold border transition hover:bg-[var(--background-card)]" style={{border:'1.5px solid var(--background-secondary)',color:'var(--foreground-muted)'}}>
 
                           编辑
 
@@ -420,7 +420,7 @@ const { role } = useAuth();
 
             <div className="bg-white rounded-2xl p-8" style={{boxShadow:'0 4px 20px rgba(0,0,0,0.04)',border:'1px solid rgba(201,168,124,0.12)'}}>
 
-              <h2 className="text-xl font-semibold mb-6" style={{fontFamily:"'Noto Serif SC',serif",color:'#2a2a28'}}>
+              <h2 className="text-xl font-semibold mb-6" style={{fontFamily:"'Noto Serif SC',serif",color:'var(--foreground)'}}>
 
                 {tab === 'edit' ? '编辑服务项目' : '添加新服务项目'}
 
@@ -432,57 +432,57 @@ const { role } = useAuth();
 
                   <div className="md:col-span-2">
 
-                    <label className="block font-medium mb-2" style={{color:'#2a2a28'}}>项目名称 *</label>
+                    <label className="block font-medium mb-2" style={{color:'var(--foreground)'}}>项目名称 *</label>
 
                     <input type="text" value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} required placeholder="例如：深层清洁护理"
 
-                      className="w-full px-4 py-3 rounded-xl outline-none transition" style={{border:'1.5px solid #e8e4df',background:'white'}}
+                      className="w-full px-4 py-3 rounded-xl outline-none transition" style={{border:'1.5px solid var(--background-secondary)',background:'white'}}
 
-                      onFocus={e => e.target.style.borderColor = '#c9a87c'}
+                      onFocus={e => e.target.style.borderColor = 'var(--primary)'}
 
-                      onBlur={e => e.target.style.borderColor = '#e8e4df'} />
+                      onBlur={e => e.target.style.borderColor = 'var(--background-secondary)'} />
 
                   </div>
 
                   <div>
 
-                    <label className="block font-medium mb-2" style={{color:'#2a2a28'}}>价格 (元) *</label>
+                    <label className="block font-medium mb-2" style={{color:'var(--foreground)'}}>价格 (元) *</label>
 
                     <input type="number" value={form.price} onChange={e => setForm(f => ({ ...f, price: e.target.value }))} required min="0" step="0.01" placeholder="199"
 
-                      className="w-full px-4 py-3 rounded-xl outline-none transition" style={{border:'1.5px solid #e8e4df',background:'white'}}
+                      className="w-full px-4 py-3 rounded-xl outline-none transition" style={{border:'1.5px solid var(--background-secondary)',background:'white'}}
 
-                      onFocus={e => e.target.style.borderColor = '#c9a87c'}
+                      onFocus={e => e.target.style.borderColor = 'var(--primary)'}
 
-                      onBlur={e => e.target.style.borderColor = '#e8e4df'} />
+                      onBlur={e => e.target.style.borderColor = 'var(--background-secondary)'} />
 
                   </div>
 
                   <div>
 
-                    <label className="block font-medium mb-2" style={{color:'#2a2a28'}}>服务时长 (分钟) *</label>
+                    <label className="block font-medium mb-2" style={{color:'var(--foreground)'}}>服务时长 (分钟) *</label>
 
                     <input type="number" value={form.duration} onChange={e => setForm(f => ({ ...f, duration: e.target.value }))} required min="1" placeholder="60"
 
-                      className="w-full px-4 py-3 rounded-xl outline-none transition" style={{border:'1.5px solid #e8e4df',background:'white'}}
+                      className="w-full px-4 py-3 rounded-xl outline-none transition" style={{border:'1.5px solid var(--background-secondary)',background:'white'}}
 
-                      onFocus={e => e.target.style.borderColor = '#c9a87c'}
+                      onFocus={e => e.target.style.borderColor = 'var(--primary)'}
 
-                      onBlur={e => e.target.style.borderColor = '#e8e4df'} />
+                      onBlur={e => e.target.style.borderColor = 'var(--background-secondary)'} />
 
                   </div>
 
                   <div className="md:col-span-2">
 
-                    <label className="block font-medium mb-2" style={{color:'#2a2a28'}}>项目分类</label>
+                    <label className="block font-medium mb-2" style={{color:'var(--foreground)'}}>项目分类</label>
 
                     <select value={form.category} onChange={e => setForm(f => ({ ...f, category: e.target.value }))}
 
-                      className="w-full px-4 py-3 rounded-xl outline-none transition" style={{border:'1.5px solid #e8e4df',background:'white',color:'#2a2a28'}}
+                      className="w-full px-4 py-3 rounded-xl outline-none transition" style={{border:'1.5px solid var(--background-secondary)',background:'white',color:'var(--foreground)'}}
 
-                      onFocus={e => e.target.style.borderColor = '#c9a87c'}
+                      onFocus={e => e.target.style.borderColor = 'var(--primary)'}
 
-                      onBlur={e => e.target.style.borderColor = '#e8e4df'}>
+                      onBlur={e => e.target.style.borderColor = 'var(--background-secondary)'}>
 
                       {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
 
@@ -492,21 +492,21 @@ const { role } = useAuth();
 
                   <div className="md:col-span-2">
 
-                    <label className="block font-medium mb-2" style={{color:'#2a2a28'}}>项目介绍</label>
+                    <label className="block font-medium mb-2" style={{color:'var(--foreground)'}}>项目介绍</label>
 
                     <textarea value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))} rows={3} placeholder="详细介绍..."
 
-                      className="w-full px-4 py-3 rounded-xl outline-none transition resize-none" style={{border:'1.5px solid #e8e4df',background:'white'}}
+                      className="w-full px-4 py-3 rounded-xl outline-none transition resize-none" style={{border:'1.5px solid var(--background-secondary)',background:'white'}}
 
-                      onFocus={e => e.target.style.borderColor = '#c9a87c'}
+                      onFocus={e => e.target.style.borderColor = 'var(--primary)'}
 
-                      onBlur={e => e.target.style.borderColor = '#e8e4df'} />
+                      onBlur={e => e.target.style.borderColor = 'var(--background-secondary)'} />
 
                   </div>
 
                   <div className="md:col-span-2">
 
-                    <label className="block font-medium mb-3" style={{color:'#2a2a28'}}>特殊标记</label>
+                    <label className="block font-medium mb-3" style={{color:'var(--foreground)'}}>特殊标记</label>
 
                     <div className="flex gap-4">
 
@@ -514,13 +514,13 @@ const { role } = useAuth();
 
                         <input type="checkbox" checked={form.pinned} onChange={e => setForm(f => ({ ...f, pinned: e.target.checked }))}
 
-                          className="w-5 h-5 rounded" style={{accentColor:'#c9a87c'}} />
+                          className="w-5 h-5 rounded" style={{accentColor:'var(--primary)'}} />
 
                         <div>
 
-                          <div className="font-bold text-sm" style={{color:'#2a2a28'}}>置顶推荐</div>
+                          <div className="font-bold text-sm" style={{color:'var(--foreground)'}}>置顶推荐</div>
 
-                          <div className="text-sm" style={{color:'#9b9b98'}}>在服务列表顶部显示</div>
+                          <div className="text-sm" style={{color:'var(--foreground-muted)'}}>在服务列表顶部显示</div>
 
                         </div>
 
@@ -530,13 +530,13 @@ const { role } = useAuth();
 
                         <input type="checkbox" checked={form.featured} onChange={e => setForm(f => ({ ...f, featured: e.target.checked }))}
 
-                          className="w-5 h-5 rounded" style={{accentColor:'#dc2626'}} />
+                          className="w-5 h-5 rounded" style={{accentColor:'var(--rose)'}} />
 
                         <div>
 
-                          <div className="font-bold text-sm" style={{color:'#2a2a28'}}>人气王标签</div>
+                          <div className="font-bold text-sm" style={{color:'var(--foreground)'}}>人气王标签</div>
 
-                          <div className="text-sm" style={{color:'#9b9b98'}}>显示"人气王"徽章</div>
+                          <div className="text-sm" style={{color:'var(--foreground-muted)'}}>显示"人气王"徽章</div>
 
                         </div>
 
@@ -552,7 +552,7 @@ const { role } = useAuth();
 
                   <button type="button" onClick={() => setTab('list')}
 
-                    className="flex-1 py-3 rounded-xl font-bold border transition hover:bg-[var(--background-card)]" style={{border:'1.5px solid #e8e4df',color:'#6b6b68'}}>
+                    className="flex-1 py-3 rounded-xl font-bold border transition hover:bg-[var(--background-card)]" style={{border:'1.5px solid var(--background-secondary)',color:'var(--foreground-muted)'}}>
 
                     取消
 
@@ -562,7 +562,7 @@ const { role } = useAuth();
 
                     className="flex-1 py-3 rounded-xl font-bold text-white transition shadow-sm"
 
-                    style={{background: saving ? '#c0bdb8' : 'var(--accent)', boxShadow: saving ? 'none' : '0 4px 12px rgba(45,74,62,0.2)'}}>
+                    style={{background: saving ? 'var(--foreground-muted)' : 'var(--accent)', boxShadow: saving ? 'none' : '0 4px 12px rgba(45,74,62,0.2)'}}>
 
                     {saving ? '保存中...' : '保存'}
 

@@ -58,7 +58,7 @@ export default function ServicesPage() {
 
   if (error) return (
     <div className="max-w-4xl mx-auto px-4 py-16 text-center">
-      <p style={{ color: '#ef4444', fontSize: '0.9375rem' }}>{error}</p>
+      <p style={{ color: 'var(--rose)', fontSize: '0.9375rem' }}>{error}</p>
     </div>
   );
 
@@ -135,7 +135,7 @@ export default function ServicesPage() {
                       <span className="px-2 py-0.5 rounded-full" style={{ background: 'var(--primary-ultra-light)', color: 'var(--primary-dark)', fontSize: '0.6875rem' }}>{service.category}</span>
                     )}
                     {service.popularity && service.popularity > 80 && (
-                      <span className="px-2 py-0.5 rounded-full" style={{ background: '#fef2f2', color: '#e05c5c', fontSize: '0.6875rem' }}>热门</span>
+                      <span className="px-2 py-0.5 rounded-full" style={{ background: 'rgba(239,68,68,0.1)', color: 'var(--rose)', fontSize: '0.6875rem' }}>热门</span>
                     )}
                   </div>
                   {service.description && (
@@ -164,7 +164,7 @@ export default function ServicesPage() {
       {/* 服务详情弹窗 */}
       {selectedService && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4" onClick={() => setSelectedService(null)}>
-          <div className="absolute inset-0 bg-black/40"></div>
+          <div className="absolute inset-0 rgba(0,0,0,0.04)0"></div>
           <div className="relative bg-white rounded-xl p-6 w-full max-w-md shadow-xl"
             style={{ maxHeight: '85vh', overflowY: 'auto', border: '1px solid var(--primary-light)' }}
             onClick={e => e.stopPropagation()}>

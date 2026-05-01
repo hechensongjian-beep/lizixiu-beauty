@@ -278,7 +278,7 @@ function NavContent() {
                         个人设置
                       </Link>
                       <button onClick={() => { signOut(); closeAll(); }}
-                        className="w-full text-left px-4 py-2.5 text-[var(--rose)] rgba(177,93,94,0.1)" style={{ fontSize: '0.8125rem' }}>
+                        className="w-full text-left px-4 py-2.5 text-[var(--rose)] bg-[var(--rose)]/10" style={{ fontSize: '0.8125rem' }}>
                         退出登录
                       </button>
                     </div>
@@ -290,7 +290,7 @@ function NavContent() {
                   style={{
                     fontSize: '0.8125rem',
                     letterSpacing: '0.03em',
-                    background: 'linear-gradient(135deg,#c9a87c 0%,#b8976a 100%)',
+                    background: 'linear-gradient(135deg,var(--primary) 0%,var(--primary-dark) 100%)',
                     boxShadow: '0 2px 10px rgba(201,168,124,0.25)',
                   }}
                 >
@@ -382,7 +382,7 @@ function ScrollToTop() {
       className="fixed bottom-16 right-6 w-9 h-9 rounded-full bg-white border shadow-md flex items-center justify-center z-40 transition-all hover:-translate-y-0.5 hover:shadow-lg"
       style={{ borderColor: 'rgba(201,168,124,0.2)' }}
       aria-label="回到顶部">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#c9a87c" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
         <polyline points="18 15 12 9 6 15"/>
       </svg>
     </button>

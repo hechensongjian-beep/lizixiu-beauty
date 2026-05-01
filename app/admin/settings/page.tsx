@@ -169,7 +169,7 @@ export default function AdminSettingsPage() {
           <div className={`mb-6 p-4 rounded-lg ${
             message.type === 'success' 
               ? 'bg-green-50 text-green-800 border border-green-200' 
-              : 'bg-red-50 text-red-800 border border-red-200'
+              : 'rgba(239,68,68,0.1) text-red-800 border border-red-200'
           }`}>
             {message.text}
           </div>
@@ -296,11 +296,11 @@ export default function AdminSettingsPage() {
             </div>
             <div className="p-4 rounded-lg mb-4" style={{background:'rgba(251,191,36,0.1)'}}>
               <p className="text-sm flex items-center gap-2">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ca8a04" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{flexShrink:'0',marginTop:'1px'}}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary-dark)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{flexShrink:'0',marginTop:'1px'}}>
                   <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
                   <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
                 </svg>
-                <span style={{color:'#854d0e'}}>请仔细检查以上订单，确认无误后再执行清理。清理后数据无法恢复！</span>
+                <span style={{color:'var(--primary-dark)'}}>请仔细检查以上订单，确认无误后再执行清理。清理后数据无法恢复！</span>
               </p>
             </div>
             <button
@@ -314,7 +314,7 @@ export default function AdminSettingsPage() {
 
         {/* 清理确认弹窗 */}
         {showCleanupConfirm && (
-          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="fixed inset-0 rgba(0,0,0,0.5) flex items-center justify-center z-50">
             <div className="bg-background-card rounded-xl p-6 max-w-md w-full mx-4">
               <h3 className="text-lg font-serif text-foreground mb-4">最终确认</h3>
               <p className="text-foreground-muted mb-4">
@@ -353,7 +353,7 @@ export default function AdminSettingsPage() {
         <div className="bg-background-card rounded-xl shadow-lg p-6">
           <h2 className="text-xl font-serif text-foreground mb-4">性能优化建议</h2>
           <div className="space-y-4">
-            <div className="flex items-start gap-3 p-4 bg-blue-50 rounded-lg">
+            <div className="flex items-start gap-3 p-4 rgba(59,130,246,0.1) rounded-lg">
               <svg className="w-5 h-5 text-blue-600 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>

@@ -59,44 +59,44 @@ export default function AdminLayout({
                 <div className="flex items-baseline space-x-8">
                   <a
                     href="/admin/dashboard"
-                    className="text-[var(--foreground)] hover:text-[var(--primary-dark)] font-medium px-3 py-2 rounded-lg hover:bg-[var(--primary)]/10 transition"
+                    className="text-[var(--foreground)] hover:text-[var(--primary-dark)] font-medium px-3 py-2 rounded-lg hover:rgba(201,168,124,0.1) transition"
                   >
                      数据面板
                   </a>
                   <a
                     href="/admin/orders"
-                    className="text-[var(--foreground)] hover:text-[var(--primary-dark)] font-medium px-3 py-2 rounded-lg hover:bg-[var(--primary)]/10 transition"
+                    className="text-[var(--foreground)] hover:text-[var(--primary-dark)] font-medium px-3 py-2 rounded-lg hover:rgba(201,168,124,0.1) transition"
                   >
                      订单管理
                   </a>
                   <a
                     href="/admin/products"
-                    className="text-[var(--foreground)] hover:text-[var(--primary-dark)] font-medium px-3 py-2 rounded-lg hover:bg-[var(--primary)]/10 transition"
+                    className="text-[var(--foreground)] hover:text-[var(--primary-dark)] font-medium px-3 py-2 rounded-lg hover:rgba(201,168,124,0.1) transition"
                   >
                     产品管理
                   </a>
 
                   <a
                     href="/admin/services"
-                    className="text-[var(--foreground)] hover:text-[var(--primary-dark)] font-medium px-3 py-2 rounded-lg hover:bg-[var(--primary)]/10 transition"
+                    className="text-[var(--foreground)] hover:text-[var(--primary-dark)] font-medium px-3 py-2 rounded-lg hover:rgba(201,168,124,0.1) transition"
                   >
                     服务项目管理
                   </a>
                   <a
                     href="/admin/staff"
-                    className="text-[var(--foreground)] hover:text-[var(--primary-dark)] font-medium px-3 py-2 rounded-lg hover:bg-[var(--primary)]/10 transition"
+                    className="text-[var(--foreground)] hover:text-[var(--primary-dark)] font-medium px-3 py-2 rounded-lg hover:rgba(201,168,124,0.1) transition"
                   >
                     员工管理
                   </a>
                   <a
                     href="/admin/schedule"
-                    className="text-[var(--foreground)] hover:text-[var(--primary-dark)] font-medium px-3 py-2 rounded-lg hover:bg-[var(--primary)]/10 transition"
+                    className="text-[var(--foreground)] hover:text-[var(--primary-dark)] font-medium px-3 py-2 rounded-lg hover:rgba(201,168,124,0.1) transition"
                   >
                     排班日历
                   </a>
                   <a
                     href="/admin/payment"
-                    className="text-[var(--foreground)] hover:text-[var(--primary-dark)] font-medium px-3 py-2 rounded-lg hover:bg-[var(--primary)]/10 transition"
+                    className="text-[var(--foreground)] hover:text-[var(--primary-dark)] font-medium px-3 py-2 rounded-lg hover:rgba(201,168,124,0.1) transition"
                   >
                     收款设置
                   </a>

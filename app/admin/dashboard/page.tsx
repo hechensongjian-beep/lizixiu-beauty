@@ -11,7 +11,7 @@ import {
 } from 'recharts';
 import { getOrders, getProducts, getCustomers } from '@/lib/api';
 
-const COLORS = ['#c9a87c', '#2d4a3e', '#8b7355', '#d4a574', '#5a8c7f', '#a88a5c'];
+const COLORS = ['var(--primary)', 'var(--accent)', 'var(--accent)', 'var(--primary)', 'var(--accent)', 'var(--primary-dark)'];
 
 export const dynamic = 'force-dynamic';
 
@@ -25,7 +25,7 @@ const { role } = useAuth();
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center">
-          <div className="w-8 h-8 border-2 border-[#c9a87c] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="w-8 h-8 border-2 border-[var(--primary)] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-sm text-[var(--foreground-muted)]">正在检查权限...</p>
         </div>
       </div>
@@ -107,8 +107,8 @@ const { role } = useAuth();
   const fmt = (n: number) => new Intl.NumberFormat('zh-CN', { style: 'currency', currency: 'CNY' }).format(n);
 
   const statusColor: Record<string, string> = {
-    pending: 'rgba(201,168,124,0.2) var(--foreground)', paid: 'bg-[var(--primary)]/20 text-[var(--primary-dark)]',
-    shipped: 'bg-[#c9a87c] text-white', delivered: 'rgba(74,117,86,0.15) var(--sage)',
+    pending: 'rgba(201,168,124,0.2) var(--foreground)', paid: 'rgba(201,168,124,0.2) text-[var(--primary-dark)]',
+    shipped: 'bg-[var(--primary)] text-white', delivered: 'rgba(74,117,86,0.15) var(--sage)',
     cancelled: 'rgba(177,93,94,0.15) var(--rose)',
   };
   const statusLabel: Record<string, string> = {
@@ -117,12 +117,12 @@ const { role } = useAuth();
   };
 
   const statCards = [
-    { label: '总收入', value: fmt(stats.totalRevenue), color: 'from-[#c9a87c] to-[#e8d5b8]', sub: '历史累计', svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> },
-    { label: '本月收入', value: fmt(stats.monthRevenue), color: 'from-[#2d4a3e] to-[#4a7c6f]', sub: `本月 ${stats.monthOrders} 笔`, svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg> },
-    { label: '总订单', value: `${stats.totalOrders} 笔`, color: 'from-[#2d4a3e] to-[#5a8c7f]', sub: `待处理 ${stats.pendingOrders}`, svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> },
-    { label: '客户总数', value: `${stats.totalCustomers} 人`, color: 'from-[#c9a87c] to-[#e8d5b8]', sub: '注册用户', svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> },
-    { label: '商品总数', value: `${stats.totalProducts} 个`, color: 'from-[#c9a87c] to-[#e8d5b8]', sub: `库存紧张 ${stats.lowStockProducts}`, svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg> },
-    { label: '平均客单价', value: stats.totalOrders > 0 ? fmt(stats.totalRevenue / stats.totalOrders) : fmt(0), color: 'from-[#8b7355] to-[#c9a87c]', sub: '每笔订单', svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> },
+    { label: '总收入', value: fmt(stats.totalRevenue), color: 'from-[var(--primary)] to-[var(--primary-light)]', sub: '历史累计', svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> },
+    { label: '本月收入', value: fmt(stats.monthRevenue), color: 'from-[var(--accent)] to-[var(--accent)]', sub: `本月 ${stats.monthOrders} 笔`, svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg> },
+    { label: '总订单', value: `${stats.totalOrders} 笔`, color: 'from-[var(--accent)] to-[var(--accent)]', sub: `待处理 ${stats.pendingOrders}`, svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> },
+    { label: '客户总数', value: `${stats.totalCustomers} 人`, color: 'from-[var(--primary)] to-[var(--primary-light)]', sub: '注册用户', svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> },
+    { label: '商品总数', value: `${stats.totalProducts} 个`, color: 'from-[var(--primary)] to-[var(--primary-light)]', sub: `库存紧张 ${stats.lowStockProducts}`, svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg> },
+    { label: '平均客单价', value: stats.totalOrders > 0 ? fmt(stats.totalRevenue / stats.totalOrders) : fmt(0), color: 'from-[var(--accent)] to-[var(--primary)]', sub: '每笔订单', svg: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> },
   ];
 
   return (
@@ -164,11 +164,11 @@ const { role } = useAuth();
               {revenueData.length > 0 && revenueData.some(d => d.amount > 0) ? (
                 <ResponsiveContainer width="100%" height={220}>
                   <BarChart data={revenueData}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                    <CartesianGrid strokeDasharray="3 3" stroke="var(--background-secondary)" />
                     <XAxis dataKey="date" tick={{ fontSize: 12 }} />
                     <YAxis tick={{ fontSize: 12 }} tickFormatter={v => `¥${v >= 1000 ? (v/1000).toFixed(0)+'k' : v}`} />
                     <Tooltip formatter={(v: any) => [`¥${v.toFixed(2)}`, '收入']} />
-                    <Bar dataKey="amount" fill="#c9a87c" radius={[4,4,0,0]} />
+                    <Bar dataKey="amount" fill="var(--primary)" radius={[4,4,0,0]} />
                   </BarChart>
                 </ResponsiveContainer>
               ) : (
@@ -196,7 +196,7 @@ const { role } = useAuth();
                 <div className="space-y-3">
                   {[
                     { label: '待付款', value: stats.pendingOrders, color: 'var(--primary-light)' },
-                    { label: '已处理', value: stats.totalOrders - stats.pendingOrders, color: 'bg-[#c9a87c]' },
+                    { label: '已处理', value: stats.totalOrders - stats.pendingOrders, color: 'bg-[var(--primary)]' },
                   ].map(item => (
                     <div key={item.label} className="flex items-center gap-2">
                       <div className={`w-3 h-3 rounded-full ${item.color}`}></div>
@@ -219,7 +219,7 @@ const { role } = useAuth();
                   <XAxis type="number" />
                   <YAxis dataKey="name" type="category" width={80} tick={{ fontSize: 12 }} />
                   <Tooltip />
-                  <Bar dataKey="value" fill="#c9a87c" radius={[0, 4, 4, 0]} />
+                  <Bar dataKey="value" fill="var(--primary)" radius={[0, 4, 4, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>

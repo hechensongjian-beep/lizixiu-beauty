@@ -6,32 +6,32 @@ import Link from 'next/link';
 // 图标组件
 const Icons = {
   promotion: () => (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c9a87c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
       <path d="M20 12L12 20l-8-8 8-8 8 8z"/><circle cx="12" cy="12" r="3"/>
     </svg>
   ),
   appointment: () => (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c9a87c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
       <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
     </svg>
   ),
   order: () => (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#a88a5c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary-dark)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
       <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/>
     </svg>
   ),
   system: () => (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c9a87c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
       <path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2v1"/><path d="M12 7a5 5 0 0 1 5 5c0 2.5-2 4-3 5.5V18H10v-1.5C9 16 7 14.5 7 12a5 5 0 0 1 5-5z"/>
     </svg>
   ),
   bell: () => (
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c9a87c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
       <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/>
     </svg>
   ),
   info: () => (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c9a87c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
       <circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>
     </svg>
   ),
@@ -76,9 +76,9 @@ function formatRelativeTime(iso: string) {
 }
 
 const TYPE_CONFIG: Record<string, { bg: string; text: string; label: string }> = {
-  promotion: { bg: 'bg-[#c9a87c]/10', text: 'text-[var(--foreground)]', label: '促销' },
-  appointment: { bg: 'bg-[#2d4a3e]/10', text: 'text-[#2d4a3e]', label: '预约' },
-  order: { bg: 'bg-[#c9a87c]/10', text: 'text-[var(--foreground)]', label: '订单' },
+  promotion: { bg: 'rgba(201,168,124,0.1)', text: 'text-[var(--foreground)]', label: '促销' },
+  appointment: { bg: 'bg-[var(--accent)]/10', text: 'text-[var(--accent)]', label: '预约' },
+  order: { bg: 'rgba(201,168,124,0.1)', text: 'text-[var(--foreground)]', label: '订单' },
   system: { bg: 'var(--background-secondary)', text: 'var(--foreground-muted)', label: '系统' },
 };
 
@@ -127,7 +127,7 @@ export default function NotificationsPage() {
       {/* 头部 */}
       <div className="flex justify-between items-center mb-8">
         <div className="flex items-center gap-3">
-          <div className="w-14 h-14 bg-gradient-to-r from-[#c9a87c]/10 to-[#e8d5b8]/10 rounded-2xl flex items-center justify-center">
+          <div className="w-14 h-14 bg-gradient-to-r from-[var(--primary)]/10 to-[var(--primary-light)]/10 rounded-2xl flex items-center justify-center">
             <Icons.bell />
           </div>
           <div>
@@ -139,7 +139,7 @@ export default function NotificationsPage() {
         </div>
         <div className="flex gap-2">
           {unreadCount > 0 && (
-            <button onClick={markAllRead} className="px-4 py-2 bg-[#f5f2ed] text-[var(--foreground)] rounded-lg text-sm font-medium hover:bg-[#e8d5b8]/30 transition">
+            <button onClick={markAllRead} className="px-4 py-2 bg-[var(--background-secondary)] text-[var(--foreground)] rounded-lg text-sm font-medium hover:bg-[var(--primary-light)]/30 transition">
               全部已读
             </button>
           )}
@@ -155,7 +155,7 @@ export default function NotificationsPage() {
       <div className="flex gap-2 mb-8 flex-wrap">
         {[{ key: 'all', label: '全部' }, ...Object.entries(TYPE_CONFIG).map(([k, v]) => ({ key: k, label: v.label }))].map(f => (
           <button key={f.key} onClick={() => setFilter(f.key)}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition ${filter === f.key ? 'bg-[#2d4a3e] text-white shadow' : 'bg-white border border-[#e8d5b8]/50 text-[var(--foreground)] hover:bg-[#f5f2ed]'}`}>
+            className={`px-4 py-2 rounded-full text-sm font-medium transition ${filter === f.key ? 'bg-[var(--accent)] text-white shadow' : 'bg-white border border-[var(--primary-light)]/50 text-[var(--foreground)] hover:bg-[var(--background-secondary)]'}`}>
             {f.label}
           </button>
         ))}
@@ -163,13 +163,13 @@ export default function NotificationsPage() {
 
       {/* 通知列表 */}
       {filtered.length === 0 ? (
-        <div className="text-center py-20 bg-white rounded-2xl shadow border border-[#e8d5b8]/30">
-          <div className="w-14 h-14 mx-auto mb-4 bg-[#f5f2ed] rounded-full flex items-center justify-center">
+        <div className="text-center py-20 bg-white rounded-2xl shadow border border-[var(--primary-light)]/30">
+          <div className="w-14 h-14 mx-auto mb-4 bg-[var(--background-secondary)] rounded-full flex items-center justify-center">
             <Icons.bell />
           </div>
           <h3 className="text-xl font-serif font-medium text-[var(--foreground)] mb-3">{filter === 'all' ? '暂无通知' : `暂无${TYPE_CONFIG[filter]?.label || ''}通知`}</h3>
           <p className="text-[var(--foreground-muted)]">有新消息时会在这里显示</p>
-          <Link href="/products" className="inline-block mt-6 px-6 py-3 bg-[#2d4a3e] text-white rounded-xl font-bold hover:opacity-90 transition">
+          <Link href="/products" className="inline-block mt-6 px-6 py-3 bg-[var(--accent)] text-white rounded-xl font-bold hover:opacity-90 transition">
             去逛逛产品商城
           </Link>
         </div>
@@ -177,8 +177,8 @@ export default function NotificationsPage() {
         <div className="space-y-4">
           {filtered.map(notif => (
             <div key={notif.id}
-              className={`bg-white rounded-2xl border ${notif.read ? 'border-[#e8d5b8]/30 shadow-sm' : 'border-[#c9a87c]/40 shadow-md'} transition hover:shadow-lg`}>
-              {!notif.read && <div className="h-1 rounded-t-2xl bg-[#c9a87c]"></div>}
+              className={`bg-white rounded-2xl border ${notif.read ? 'border-[var(--primary-light)]/30 shadow-sm' : 'border-[var(--primary)]/40 shadow-md'} transition hover:shadow-lg`}>
+              {!notif.read && <div className="h-1 rounded-t-2xl bg-[var(--primary)]"></div>}
               <div className="p-5">
                 <div className="flex items-start gap-4">
                   {/* 图标 */}
@@ -194,7 +194,7 @@ export default function NotificationsPage() {
                         </span>
                       </div>
                       <div className="flex items-center gap-2 flex-shrink-0 ml-2">
-                        {!notif.read && <div className="w-2.5 h-2.5 bg-[#c9a87c] rounded-full"></div>}
+                        {!notif.read && <div className="w-2.5 h-2.5 bg-[var(--primary)] rounded-full"></div>}
                         <span className="text-sm text-[var(--foreground-muted)] whitespace-nowrap">{formatRelativeTime(notif.time)}</span>
                       </div>
                     </div>
@@ -206,17 +206,17 @@ export default function NotificationsPage() {
                         </button>
                       )}
                       {notif.type === 'promotion' && !notif.read && (
-                        <Link href="/products" onClick={() => markRead(notif.id)} className="text-sm text-[#2d4a3e] font-medium hover:underline">
+                        <Link href="/products" onClick={() => markRead(notif.id)} className="text-sm text-[var(--accent)] font-medium hover:underline">
                           查看商品
                         </Link>
                       )}
                       {notif.type === 'appointment' && (
-                        <Link href="/appointments" onClick={() => markRead(notif.id)} className="text-sm text-[#2d4a3e] font-medium hover:underline">
+                        <Link href="/appointments" onClick={() => markRead(notif.id)} className="text-sm text-[var(--accent)] font-medium hover:underline">
                           查看预约
                         </Link>
                       )}
                       {notif.type === 'order' && (
-                        <Link href="/orders" onClick={() => markRead(notif.id)} className="text-sm text-[#2d4a3e] font-medium hover:underline">
+                        <Link href="/orders" onClick={() => markRead(notif.id)} className="text-sm text-[var(--accent)] font-medium hover:underline">
                           查看订单
                         </Link>
                       )}
@@ -233,7 +233,7 @@ export default function NotificationsPage() {
       )}
 
       {/* 说明 */}
-      <div className="mt-8 bg-[#faf8f5] rounded-2xl p-6 border border-[#c9a87c]/20">
+      <div className="mt-8 bg-[var(--background)] rounded-2xl p-6 border rgba(201,168,124,0.2)">
         <div className="flex items-center gap-2 mb-3">
           <Icons.info />
           <h3 className="font-bold text-[var(--foreground)]">通知说明</h3>

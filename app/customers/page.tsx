@@ -21,7 +21,7 @@ interface Customer {
 const MEMBERSHIP_OPTIONS = ['普通客户', '银卡会员', '金卡会员', '钻石会员'];
 
 const MEMBERSHIP_STYLE: Record<string, string> = {
-  '钻石会员': 'bg-[#2d4a3e] text-white',
+  '钻石会员': 'bg-[var(--accent)] text-white',
   '金卡会员': 'rgba(201,168,124,0.2) var(--foreground)',
   '银卡会员': 'var(--background-secondary) var(--foreground)',
   '普通客户': 'var(--background-secondary) var(--foreground-muted)',
@@ -38,7 +38,7 @@ export default function CustomersPage() {
     router.replace('/auth/login');
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
-        <div className="animate-spin rounded-full h-8 w-8 border-2 border-[#c9a87c] border-t-transparent"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-2 border-[var(--primary)] border-t-transparent"></div>
       </div>
     );
   }
@@ -149,7 +149,7 @@ const openEdit = async (c: Customer) => {
           <p className="text-[var(--foreground-muted)] mt-1">客户档案 · 会员等级 · 消费记录</p>
         </div>
         <button onClick={openAdd}
-          className="px-6 py-3 bg-[#2d4a3e] text-white font-bold rounded-xl hover:opacity-90 transition shadow-lg">
+          className="px-6 py-3 bg-[var(--accent)] text-white font-bold rounded-xl hover:opacity-90 transition shadow-lg">
           + 添加客户
         </button>
       </div>
@@ -178,22 +178,22 @@ const openEdit = async (c: Customer) => {
               <div>
                 <label className="block font-medium text-[var(--foreground)] mb-2">姓名 *</label>
                 <input type="text" value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
-                  placeholder="客户姓名" className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#c9a87c]" required />
+                  placeholder="客户姓名" className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[var(--primary)]" required />
               </div>
               <div>
                 <label className="block font-medium text-[var(--foreground)] mb-2">电话</label>
                 <input type="tel" value={form.phone} onChange={e => setForm(f => ({ ...f, phone: e.target.value }))}
-                  placeholder="手机号码" className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#c9a87c]" />
+                  placeholder="手机号码" className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[var(--primary)]" />
               </div>
               <div>
                 <label className="block font-medium text-[var(--foreground)] mb-2">邮箱</label>
                 <input type="email" value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
-                  placeholder="电子邮箱" className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#c9a87c]" />
+                  placeholder="电子邮箱" className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[var(--primary)]" />
               </div>
               <div>
                 <label className="block font-medium text-[var(--foreground)] mb-2">会员等级</label>
                 <select value={form.membership_level} onChange={e => setForm(f => ({ ...f, membership_level: e.target.value }))}
-                  className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#c9a87c]">
+                  className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[var(--primary)]">
                   {MEMBERSHIP_OPTIONS.map(m => <option key={m} value={m}>{m}</option>)}
                 </select>
               </div>
@@ -201,14 +201,14 @@ const openEdit = async (c: Customer) => {
                 <label className="block font-medium text-[var(--foreground)] mb-2">备注</label>
                 <textarea rows={2} value={form.notes} onChange={e => setForm(f => ({ ...f, notes: e.target.value }))}
                   placeholder="客户偏好、过敏史、特殊需求等..."
-                  className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#c9a87c]" />
+                  className="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[var(--primary)]" />
               </div>
             </div>
             <div className="flex gap-4 pt-4 border-t">
               <button type="button" onClick={() => setTab('list')}
                 className="px-6 py-3 border rounded-xl font-bold text-[var(--foreground)] hover:bg-[var(--background-card)]">取消</button>
               <button type="submit" disabled={saving}
-                className="px-8 py-3 bg-[#2d4a3e] text-white rounded-xl font-bold hover:opacity-90 shadow disabled:opacity-50">
+                className="px-8 py-3 bg-[var(--accent)] text-white rounded-xl font-bold hover:opacity-90 shadow disabled:opacity-50">
                 {saving ? '保存中...' : (editing ? '保存更改' : '确认添加')}
               </button>
             </div>
@@ -222,9 +222,9 @@ const openEdit = async (c: Customer) => {
           {/* 统计卡片 */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
             {[
-              { label: '客户总数', value: customers.length, color: 'from-[#c9a87c] to-[#e8d5b8]' },
-              { label: '累计消费', value: fmt(totalSpent), color: 'from-[#c9a87c] to-[#e8d5b8]', small: true },
-              { label: '钻石会员', value: customers.filter(c => c.membership_level === '钻石会员').length, color: 'from-[#2d4a3e] to-[#4a7c6f]' },
+              { label: '客户总数', value: customers.length, color: 'from-[var(--primary)] to-[var(--primary-light)]' },
+              { label: '累计消费', value: fmt(totalSpent), color: 'from-[var(--primary)] to-[var(--primary-light)]', small: true },
+              { label: '钻石会员', value: customers.filter(c => c.membership_level === '钻石会员').length, color: 'from-[var(--accent)] to-[var(--accent)]' },
               { label: '30天活跃', value: active30, color: 'from-green-400 to-green-600' },
             ].map(s => (
               <div key={s.label} className={`bg-gradient-to-br ${s.color} text-white rounded-2xl p-5 shadow`}>
@@ -238,13 +238,13 @@ const openEdit = async (c: Customer) => {
           <div className="mb-4">
             <input type="text" value={search} onChange={e => setSearch(e.target.value)}
               placeholder="搜索客户姓名、电话、邮箱..."
-              className="w-full max-w-md px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#c9a87c]" />
+              className="w-full max-w-md px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[var(--primary)]" />
           </div>
 
           {/* 表格 */}
           <div className="bg-white rounded-2xl shadow overflow-hidden">
             {loading ? (
-              <div className="p-20 text-center"><div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[#c9a87c] mx-auto"></div></div>
+              <div className="p-20 text-center"><div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[var(--primary)] mx-auto"></div></div>
             ) : error ? (
               <div className="p-12 text-center">
                 <div className="text-[var(--rose)] mb-4 font-bold text-xl">!</div>
@@ -256,7 +256,7 @@ const openEdit = async (c: Customer) => {
                 <div className="text-xl mb-4 font-bold text-[var(--foreground-light)]">-</div>
                 <p className="text-xl">{search ? '未找到匹配的客户' : '暂无客户数据'}</p>
                 {!search && (
-                  <button onClick={openAdd} className="mt-6 px-8 py-3 bg-[#c9a87c] text-white rounded-xl font-bold hover:opacity-90">
+                  <button onClick={openAdd} className="mt-6 px-8 py-3 bg-[var(--primary)] text-white rounded-xl font-bold hover:opacity-90">
                     + 添加第一个客户
                   </button>
                 )}

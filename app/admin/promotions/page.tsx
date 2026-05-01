@@ -156,14 +156,14 @@ export default async function PromotionsPage() {
 
       {/* 数据库初始化提示 */}
       {dbSetupNeeded && (
-        <div className="p-6 rounded-xl mb-6" style={{ background: 'rgba(245,158,11,0.08)', border: '1px solid rgba(245,158,11,0.3)' }}>
-          <h3 className="mb-2" style={{ fontSize: '1rem', fontWeight: 500, color: '#92400e' }}>需要初始化数据库</h3>
-          <p style={{ fontSize: '0.9375rem', color: '#92400e', marginBottom: '0.75rem' }}>
+        <div className="p-6 rounded-xl mb-6" style={{ background: 'rgba(245,158,11,0.1)', border: '1px solid border-amber-200' }}>
+          <h3 className="mb-2" style={{ fontSize: '1rem', fontWeight: 500, color: 'var(--primary-dark)' }}>需要初始化数据库</h3>
+          <p style={{ fontSize: '0.9375rem', color: 'var(--primary-dark)', marginBottom: '0.75rem' }}>
             促销活动表尚未创建。请复制以下SQL，到 Supabase 控制台 → SQL Editor 中执行：
           </p>
           <div className="relative">
             <pre className="p-4 rounded-lg overflow-auto text-xs" style={{
-              background: '#1a1a1a', color: '#e5e5e5',
+              background: 'var(--foreground)', color: 'var(--foreground-muted)',
               maxHeight: '200px', whiteSpace: 'pre-wrap', wordBreak: 'break-all',
             }}>
               {setupSql}
@@ -171,7 +171,7 @@ export default async function PromotionsPage() {
             <button
               onClick={() => { navigator.clipboard.writeText(setupSql); toast.success('SQL已复制'); }}
               className="absolute top-2 right-2 px-3 py-1 rounded text-xs"
-              style={{ background: 'rgba(255,255,255,0.15)', color: '#e5e5e5' }}
+              style={{ background: 'rgba(255,255,255,0.15)', color: 'var(--foreground-muted)' }}
             >
               复制SQL
             </button>
@@ -179,7 +179,7 @@ export default async function PromotionsPage() {
           <button
             onClick={checkDb}
             className="mt-3 px-4 py-1.5 rounded-md text-sm"
-            style={{ background: '#d97706', color: 'white' }}
+            style={{ background: 'var(--primary-dark)', color: 'white' }}
           >
             执行完毕，重新检查
           </button>
@@ -268,7 +268,7 @@ export default async function PromotionsPage() {
                   <button
                     onClick={() => handleDelete(promo.id)}
                     className="px-3 py-1.5 transition-colors"
-                    style={{ border: '1px solid #fecaca', borderRadius: '0.375rem', fontSize: '0.8125rem', color: '#dc2626' }}
+                    style={{ border: '1px solid rgba(239,68,68,0.2)', borderRadius: '0.375rem', fontSize: '0.8125rem', color: 'var(--rose)' }}
                   >
                     删除
                   </button>
@@ -288,7 +288,7 @@ export default async function PromotionsPage() {
             </h2>
 
             {error && (
-              <div className="mb-4 p-3 rounded-md" style={{ background: 'rgba(239,68,68,0.1)', color: '#dc2626', fontSize: '0.875rem' }}>
+              <div className="mb-4 p-3 rounded-md" style={{ background: 'rgba(239,68,68,0.1)', color: 'var(--rose)', fontSize: '0.875rem' }}>
                 {error}
               </div>
             )}

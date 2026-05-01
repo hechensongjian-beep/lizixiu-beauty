@@ -37,7 +37,7 @@ const { role } = useAuth();
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center">
-          <div className="w-8 h-8 border-2 border-[#c9a87c] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="w-8 h-8 border-2 border-[var(--primary)] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-sm text-[var(--foreground-muted)]">Loading...</p>
         </div>
       </div>
@@ -259,7 +259,7 @@ const { role } = useAuth();
 
       {/* 添加员工弹窗 */}
       {showAdd && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 px-4" onClick={e => { if (e.target === e.currentTarget) setShowAdd(false); }}>
+        <div className="fixed inset-0 rgba(0,0,0,0.04)0 flex items-center justify-center z-50 px-4" onClick={e => { if (e.target === e.currentTarget) setShowAdd(false); }}>
           <div className="bg-white rounded-2xl p-6 w-full max-w-md">
             <h2 className="text-xl text-[var(--foreground)] mb-5" style={{ fontFamily: 'var(--font-serif)' }}>添加员工</h2>
             <form onSubmit={handleAdd} className="space-y-4">
@@ -296,7 +296,7 @@ const { role } = useAuth();
 
       {/* 重置密码弹窗 */}
       {resetPwd && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 px-4" onClick={e => { if (e.target === e.currentTarget) setResetPwd(null); }}>
+        <div className="fixed inset-0 rgba(0,0,0,0.04)0 flex items-center justify-center z-50 px-4" onClick={e => { if (e.target === e.currentTarget) setResetPwd(null); }}>
           <div className="bg-white rounded-2xl p-6 w-full max-w-sm">
             <h2 className="text-xl text-[var(--foreground)] mb-2" style={{ fontFamily: 'var(--font-serif)' }}>重置密码</h2>
             <p className="text-sm text-[var(--foreground-muted)] mb-5">账号：{resetPwd.email}</p>

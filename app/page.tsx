@@ -221,7 +221,7 @@ export default function HomePage() {
             left: 0,
             width: '50%',
             height: '40%',
-            background: 'radial-gradient(ellipse at 0% 100%, rgba(201,168,124,0.05) 0%, transparent 60%)',
+            background: 'radial-gradient(ellipse at 0% 100%, bg-[var(--primary)]/5 0%, transparent 60%)',
             pointerEvents: 'none',
             zIndex: 0,
           }}

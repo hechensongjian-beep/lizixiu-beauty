@@ -34,8 +34,8 @@ export default function Footer() {
           <div className="flex-1">
             <div className="flex items-center gap-3 mb-3">
               <svg width="28" height="28" viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="46" fill="none" stroke="#c9a87c" strokeWidth="1.5" />
-                <text x="50" y="58" textAnchor="middle" fontSize="32" fill="#c9a87c" fontFamily="serif">丽</text>
+                <circle cx="50" cy="50" r="46" fill="none" stroke="var(--primary)" strokeWidth="1.5" />
+                <text x="50" y="58" textAnchor="middle" fontSize="32" fill="var(--primary)" fontFamily="serif">丽</text>
               </svg>
               <span style={{ fontFamily: "'Noto Serif SC', serif", fontSize: '1.25rem', fontWeight: 400, color: 'var(--foreground)' }}>
                 {merchantName}

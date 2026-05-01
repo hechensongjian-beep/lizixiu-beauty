@@ -187,15 +187,15 @@ export default function CheckoutPage() {
 
   if (loading) return (
     <div className="flex justify-center items-center py-32">
-      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#c9a87c]"></div>
+      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[var(--primary)]"></div>
     </div>
   );
 
   if (cart.length === 0 && !orderCreated) {
     return (
       <div className="max-w-4xl mx-auto px-4 py-16 text-center">
-        <div className="w-14 h-14 mx-auto mb-6 rounded-2xl flex items-center justify-center" style={{"background":'linear-gradient(135deg,#c9a87c22 0%,#e8d5b822 100%)'}}>
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a87c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        <div className="w-14 h-14 mx-auto mb-6 rounded-2xl flex items-center justify-center" style={{"background":'linear-gradient(135deg,var(--primary)22 0%,var(--primary-light)22 100%)'}}>
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
         </div>
         <h1 className="font-bold mb-4">购物车是空的</h1>
         <p className="text-[var(--foreground-muted)] mb-8">您还没有添加任何商品，无法结算。</p>
@@ -215,8 +215,8 @@ export default function CheckoutPage() {
     return (
       <div className="max-w-2xl mx-auto px-4 py-12">
         <div className="text-center mb-10">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-6" style={{"background":'linear-gradient(135deg,#c9a87c22 0%,#e8d5b822 100%)'}}>
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#a88a5c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-6" style={{"background":'linear-gradient(135deg,var(--primary)22 0%,var(--primary-light)22 100%)'}}>
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--primary-dark)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
           </div>
           <h1 className="font-bold mb-4">订单已创建</h1>
           <p className="text-[var(--foreground-muted)]">订单号：<span className="font-mono font-bold text-[var(--foreground)]">{currentOrder.id}</span></p>
@@ -252,7 +252,7 @@ export default function CheckoutPage() {
             </div>
           ) : (
             <div className="text-center py-8 text-[var(--background-card)] rounded-xl mb-6">
-              <div className="w-12 h-12 mx-auto mb-4 rounded-full flex items-center justify-center" style={{"background":'#faf8f5'}}>
+              <div className="w-12 h-12 mx-auto mb-4 rounded-full flex items-center justify-center" style={{"background":'var(--background)'}}>
                 <IconClock className="text-[var(--foreground-muted)]" />
               </div>
               <p className="text-[var(--foreground-muted)]">商家暂未设置收款码</p>
@@ -272,18 +272,18 @@ export default function CheckoutPage() {
             <p><strong>收货人：</strong>{form.customerName}，{form.customerPhone}</p>
             {deliveryMethod !== 'pickup' && <p><strong>收货地址：</strong>{form.shippingAddress}</p>}
             <p><strong>配送方式：</strong>{deliveryMethod === 'express' ? '快递配送' : deliveryMethod === 'pickup' ? '到店自取' : '送货上门'}</p>
-            <p><strong>支付金额：</strong><span className="font-bold" style={{color:'#a88a5c'}}>{fmt(total)}</span></p>
+            <p><strong>支付金额：</strong><span className="font-bold" style={{color:'var(--primary-dark)'}}>{fmt(total)}</span></p>
           </div>
         </div>
 
         {paymentSubmitted ? (
           <div className="text-center py-6">
-            <div className="w-12 h-12 mx-auto mb-4 rounded-full flex items-center justify-center" style={{"background":'linear-gradient(135deg,#c9a87c22 0%,#e8d5b822 100%)'}}>
+            <div className="w-12 h-12 mx-auto mb-4 rounded-full flex items-center justify-center" style={{"background":'linear-gradient(135deg,var(--primary)22 0%,var(--primary-light)22 100%)'}}>
               <IconCheck className="text-[var(--foreground)]" />
             </div>
-            <h2 className="text-2xl font-bold mb-3" style={{color:'#2d4a3e'}}>支付已提交</h2>
+            <h2 className="text-2xl font-bold mb-3" style={{color:'var(--accent)'}}>支付已提交</h2>
             <p className="text-[var(--foreground-muted)] mb-4">商家将在 24 小时内核实到账信息并确认订单</p>
-            <Link href="/orders" className="inline-block px-5 py-2 font-medium rounded-md text-white transition" style={{"background":'#2d4a3e'}}>
+            <Link href="/orders" className="inline-block px-5 py-2 font-medium rounded-md text-white transition" style={{"background":'var(--accent)'}}>
               查看我的订单
             </Link>
           </div>
@@ -341,7 +341,7 @@ export default function CheckoutPage() {
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
       {role === 'guest' && (
-        <div className="mb-8 rounded-2xl p-6 text-center" style={{"background":'linear-gradient(135deg,#c9a87c22 0%,#e8d5b822 100%)',"border":'1px solid rgba(201,168,124,0.3)'}}>
+        <div className="mb-8 rounded-2xl p-6 text-center" style={{"background":'linear-gradient(135deg,var(--primary)22 0%,var(--primary-light)22 100%)',"border":'1px solid rgba(201,168,124,0.3)'}}>
           <p className="text-[var(--foreground)] font-medium mb-3">您当前以访客身份操作，填写下方信息可直接下单</p>
           <div className="flex items-center justify-center gap-3 flex-wrap">
             <Link href="/auth/login" className="px-4 py-1.5 text-white font-medium rounded-md transition hover:opacity-85" style={{background:'var(--primary)'}}>登录/注册</Link>
@@ -350,8 +350,8 @@ export default function CheckoutPage() {
         </div>
       )}
       <div className="text-center mb-12">
-        <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-6" style={{"background":'linear-gradient(135deg,#c9a87c22 0%,#e8d5b822 100%)'}}>
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#a88a5c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-6" style={{"background":'linear-gradient(135deg,var(--primary)22 0%,var(--primary-light)22 100%)'}}>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary-dark)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
             <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
             <line x1="1" y1="10" x2="23" y2="10"/>
           </svg>
@@ -375,7 +375,7 @@ export default function CheckoutPage() {
                   { key: 'delivery' as const, label: '送货上门', desc: '镇内免费' },
                 ].map(opt => (
                   <button key={opt.key} onClick={() => setDeliveryMethod(opt.key)}
-                    className={`p-4 rounded-xl text-center transition border-2 ${deliveryMethod === opt.key ? 'border-[#c9a87c] bg-[#faf8f5]' : 'rgba(201,168,124,0.2) hover:border-[rgba(201,168,124,0.5)]'}`}>
+                    className={`p-4 rounded-xl text-center transition border-2 ${deliveryMethod === opt.key ? 'border-[var(--primary)] bg-[var(--background)]' : 'rgba(201,168,124,0.2) hover:border-[rgba(201,168,124,0.5)]'}`}>
                     <div className="font-bold text-[var(--foreground)]">{opt.label}</div>
                     <div className="text-sm text-[var(--foreground-muted)] mt-1">{opt.desc}</div>
                   </button>
@@ -389,17 +389,17 @@ export default function CheckoutPage() {
               <div>
                 <label className="block text-[var(--foreground)] font-medium mb-2">姓名 *</label>
                 <input type="text" name="customerName" value={form.customerName} onChange={handleChange} required placeholder="收货人姓名"
-                  className="w-full px-3 py-2.5 border rgba(201,168,124,0.3) rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c9a87c]" />
+                  className="w-full px-3 py-2.5 border rgba(201,168,124,0.3) rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary)]" />
               </div>
               <div>
                 <label className="block text-[var(--foreground)] font-medium mb-2">手机号 *</label>
                 <input type="tel" name="customerPhone" value={form.customerPhone} onChange={handleChange} required placeholder="手机号码"
-                  className="w-full px-3 py-2.5 border rgba(201,168,124,0.3) rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c9a87c]" />
+                  className="w-full px-3 py-2.5 border rgba(201,168,124,0.3) rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary)]" />
               </div>
               <div className="md:col-span-2">
                 <label className="block text-[var(--foreground)] font-medium mb-2">电子邮箱</label>
                 <input type="email" name="customerEmail" value={form.customerEmail} onChange={handleChange} placeholder="选填"
-                  className="w-full px-3 py-2.5 border rgba(201,168,124,0.3) rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c9a87c]" />
+                  className="w-full px-3 py-2.5 border rgba(201,168,124,0.3) rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary)]" />
               </div>
               {deliveryMethod !== 'pickup' && (
                 <div className="md:col-span-2 relative">
@@ -407,7 +407,7 @@ export default function CheckoutPage() {
                   <input type="text" name="shippingAddress" value={form.shippingAddress} onChange={handleChange} required
                     placeholder="详细收货地址" onFocus={() => savedAddresses.length > 0 && setShowSavedAddresses(true)}
                     onBlur={() => setTimeout(() => setShowSavedAddresses(false), 200)}
-                    className="w-full px-3 py-2.5 border rgba(201,168,124,0.3) rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c9a87c]" />
+                    className="w-full px-3 py-2.5 border rgba(201,168,124,0.3) rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary)]" />
                   {showSavedAddresses && savedAddresses.length > 0 && (
                     <div className="absolute z-10 w-full mt-1 bg-white border rgba(201,168,124,0.2) rounded-lg shadow-lg max-h-40 overflow-auto">
                       {savedAddresses.map((addr, i) => (
@@ -422,16 +422,16 @@ export default function CheckoutPage() {
               )}
             </div>
             {deliveryMethod === 'pickup' && (
-              <div className="mt-4 p-3 rounded-lg text-sm" style={{"background":'#faf8f5',"border":'1px solid rgba(201,168,124,0.2)'}}>
+              <div className="mt-4 p-3 rounded-lg text-sm" style={{"background":'var(--background)',"border":'1px solid rgba(201,168,124,0.2)'}}>
                 <span className="text-[var(--foreground)]">到店自取：请到门店出示订单号取货，门店地址由商家确认后通知。</span>
               </div>
             )}
             {deliveryMethod === 'delivery' && (
-              <div className="mt-4 p-3 rounded-lg text-sm" style={{"background":'#faf8f5',"border":'1px solid rgba(201,168,124,0.2)'}}>
+              <div className="mt-4 p-3 rounded-lg text-sm" style={{"background":'var(--background)',"border":'1px solid rgba(201,168,124,0.2)'}}>
                 <span className="text-[var(--foreground)]">送货上门：三乡镇范围内免费配送，超出范围请联系商家确认运费。</span>
               </div>
             )}
-            {error && <div className="mt-6 p-4 rgba(177,93,94,0.08) border border-[rgba(177,93,94,0.25)] text-[var(--rose)] rounded-lg">{error}</div>}
+            {error && <div className="mt-6 p-4 rgba(177,93,94,0.08) border border-[bg-[var(--rose)]/25] text-[var(--rose)] rounded-lg">{error}</div>}
             <div className="mt-8 flex justify-between items-center">
               <Link href="/cart" className="flex items-center px-6 py-3 border-2 rgba(201,168,124,0.3) text-[var(--foreground)] font-medium rounded-md hover:bg-[var(--background-card)] transition">
                 <IconArrowLeft className="mr-1" /> 返回购物车

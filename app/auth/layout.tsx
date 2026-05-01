@@ -12,7 +12,7 @@ export default function AuthLayout({
         <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <Link href="/" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-r from-[#c9a87c] to-[#e8d5b8] rounded-lg"></div>
+              <div className="w-8 h-8 bg-gradient-to-r from-[var(--primary)] to-[var(--primary-light)] rounded-lg"></div>
               <span className="text-xl font-bold text-[var(--foreground)]">丽姿秀</span>
             </Link>
             <span className="text-[var(--foreground-muted)]">|</span>
