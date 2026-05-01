@@ -1,73 +1,60 @@
-# HEARTBEAT.md - 2026-04-25 12:25 更新
+# HEARTBEAT.md - 2026-05-01 18:30 持续优化推进
 
 ## 当前版本
-- **https://lizixiu-beauty.pages.dev**（Cloudflare Pages 自动部署）
-- GitHub: latest commit ✅
+- **https://lizixiu-beauty.pages.dev**（Cloudflare Pages 自动部署 ✅）
+- GitHub: latest commit **b627812** (refactor: comprehensive CSS color system cleanup ~950 fixes) ✅
+- 本地工作区：干净 ✅（与 origin/main 完全同步）
 
-## 本轮重大改造（2026-04-25）
+## 近期提交记录（2026-04-28 ~ 05-01）
 
-### 首页高奢暗色风格重写
-- Hero区：纯暗色背景（#1a1a1a渐变），去掉外链图片，消除白绿突兀
-- "立即预约"按钮：暗底+香槟金边框+香槟金文字（高对比度，清晰可见）
-- 衬线标题+Noto Serif SC + 400字重（精致不粗犷）
-- 大量留白 + 微装饰线条 + 金色点缀
-- 服务项目改为简约列表风格（非堆卡片）
-- 产品展示改为3:4竖版卡片（杂志感）
-- 评价区改为简约引用风格
-- CTA区保持暗色一致性
+| Commit | 描述 |
+|--------|------|
+| b627812 | refactor: CSS颜色系统大清理 - 435硬编码hex→CSS vars, 252 rgba修复, 261 style对象修复, ~950处/42文件 |
+| a0bdb0d | fix: dashboard force-dynamic 避免recharts SSR错误 |
+| 0efe5f6 | fix: admin/layout rgba() in className + border color |
+| 90ad633 | fix: admin layout CSS variable cleanup - hover backgrounds and border colors |
+| e54b5cc | fix: 全站文字对比度 - 18个文件65处替换低对比度颜色为CSS变量 |
+| 1da5180 | fix: 字体大小增大 + 我的页面完善 + 注册错误提示优化 |
+| 824ed6a | fix(Footer): add aria-label to social icon buttons for a11y |
+| d5250b3 | fix: admin settings warning box emoji replaced with SVG |
 
-### 促销活动管理功能（新功能！）
-- 数据库：promotions表（需在Supabase SQL Editor执行初始化SQL）
-- 管理页面：/admin/promotions（创建/编辑/删除/启停活动）
-- 首页展示：Hero区下方自动显示进行中的促销活动（暗色卡片）
-- 结算集成：购物车结算时自动应用折扣（折扣金额显示）
-- 导航菜单：管理下拉中新增"促销活动"入口
-- API：/api/db（数据库初始化检测）
-- **⚠️ 需要老板手动操作：登录Supabase SQL Editor执行初始化SQL**
-
-### 全局样式调整
-- body基准从15px恢复到16px
-- h1从40px减到36px，字重从700改为400（精致感）
-- h2从28px减到24px，字重从600改为400
-- 导航栏Logo改为400字重，整体更纤细
-
-## 🔴 老板醒来后需要手动处理
-
-### 1. 初始化促销活动表
-- 访问 https://supabase.com → SQL Editor
-- 复制 `/admin/promotions` 页面显示的SQL
-- 执行即可（包含示例数据）
-
-### 2. 上传收款码（如未完成）
-- 登录商家后台 `/admin/payment`
-- 上传支付宝收款码（微信已上传）
-
-### 3. 上传产品图片
-- `/admin/products` - 为产品添加真实图片
-
-### 4. 检查网站效果
-- 测试首页高奢暗色风格
-- 测试促销活动创建和展示
-- 测试结算时折扣应用
-- 测试完整购物流程
-
-## 商家登录
-- 账号：`merchant@lizixiu.com` / `780607`
-
-## 已完成的功能
+## 已完成功能（全部 ✅）
 - [x] 预约管理系统
-- [x] 电商商城（产品展示、购物车、结算）
-- [x] 商家后台（订单、产品、服务、员工、排班、口碑、收款码）
-- [x] 员工端（工作台）
+- [x] 电商商城
+- [x] 商家后台全功能
 - [x] 收款码支付
-- [x] 首页动态内容（site_settings）
-- [x] 促销活动管理（新建/编辑/删除/启停）
-- [x] 促销首页展示 + 结算自动折扣
-- [x] 订单超时提醒
-- [x] 全站SVG图标化
+- [x] CSS变量颜色系统统一
+- [x] Toast通知系统
+- [x] 按钮对比度规范
+- [x] 全站文字对比度（深金色替代金色）
+- [x] 全站亮色Tailwind背景清除
+- [x] 订单分页功能（API已完成）
+- [x] 中文报错提示
+- [x] STRICT_RULES.md铁律文件
+- [x] 全站页面标题补全
+- [x] SEO meta标签完善
+- [x] iOS PWA支持
+- [x] PWA manifest.json
+- [x] 图片懒加载策略优化
+- [x] Footer无障碍支持（aria-label）
+- [x] admin导航hover背景统一CSS变量化
+- [x] CSS颜色系统大清理（~950处硬编码颜色→CSS变量/有效Tailwind）
+- [x] dashboard recharts SSR修复
+- [x] rgba() className语法修复
 
-## P2 待完善
-- [ ] 部分页面字体样式仍为旧版（orders、staff、auth页面已恢复到旧版本）
-- [ ] 购物车页面风格统一
-- [ ] SEO metadata
-- [ ] 图片懒加载优化
+## 待老板手动处理
+1. ✅ 初始化 promotions 表 — 已完成
+2. 上传支付宝收款码 → `/admin/payment`
+3. 上传产品真实图片 → `/admin/products`
+4. 测试完整流程 — 注册→验证→登录→预约→购物→结算
+5. 测试订单分页 — 创建超过20个订单后验证
+
+## 技术债务（低优先级）
+- 首页内联样式过多（~117处）— 保留（高度定制设计）
+- 产品详情页内联样式（~49处）
+- 硬编码颜色已大幅清理（剩余少量gray系）
+
+## 下一步
+- 继续主动发现可优化项
+- 跟进老板反馈
+- 首页内联样式重构（技术债务，低优先级）
